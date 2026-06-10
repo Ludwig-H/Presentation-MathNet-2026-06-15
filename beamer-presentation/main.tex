@@ -611,7 +611,7 @@
   \end{table}
 \end{frame}
 
-\begin{frame}{General Swendsen--Wang Cluster Dynamics}
+\begin{frame}{General \textsc{Swendsen}--\textsc{Wang} Cluster Dynamics}
   \begin{block}{General Framework \textcolor{inria-2024-rouge!80!black}{\cite{BibiInformationInference}}}
     Suppose the Hamiltonian decomposes as: $U(\sigma) = U_0(\sigma) + \sum_{b \in \mathcal{B}} U_b(\sigma)$, where each $b \in \mathcal{B}$ is a \textbf{bond} (e.g. edge, triangle, clique).
     \begin{enumerate}
@@ -658,7 +658,7 @@
   \end{center}
 \end{frame}
 
-\begin{frame}{General Swendsen--Wang Cluster Dynamics}
+\begin{frame}{General \textsc{Swendsen}--\textsc{Wang} Cluster Dynamics}
   \begin{definition}[Local Reversibility]
     For two configurations $\sigma, \sigma'$ and a bond $b$, we define the compatibility probability:
     \begin{equation*}
@@ -675,7 +675,7 @@
     \end{equation*}
   \end{definition}
 
-  \begin{theorem}[Gibbs Invariance \textcolor{inria-2024-rouge!80!black}{\cite{BibiInformationInference}}]
+  \begin{theorem}[\textsc{Gibbs} Invariance \textcolor{inria-2024-rouge!80!black}{\cite{BibiInformationInference}}]
     If freezing choices are independent, locally reversible, and $P_b^\sigma(\varnothing) > 0$ for all $b, \sigma$:
     \begin{enumerate}
       \item The global cluster dynamics is reversible with respect to $\mu(\sigma) \propto e^{-U(\sigma)}$.
@@ -704,7 +704,7 @@
 \end{frame}
 
 \begin{frame}{Coupling \& the \textsc{Sankararaman}--\textsc{Baccelli} Bound}
-  \begin{block}{One Step of Classical Edge-by-Edge Swendsen--Wang}
+  \begin{block}{One Step of Classical Edge-by-Edge \textsc{Swendsen}--\textsc{Wang}}
     \setlength{\abovedisplayskip}{2pt}
     \setlength{\belowdisplayskip}{2pt}
     Let's run one step of standard \textsc{Swendsen}--\textsc{Wang} (edges) initialized at the hidden truth $\Sigma$.
@@ -773,9 +773,9 @@
 \end{frame}
 
 \begin{frame}{Towards a Practical Community Detection Algorithm}
-  \begin{block}{Limits of Direct Gibbs Sampling}
+  \begin{block}{Limits of Direct \textsc{Gibbs} Sampling}
     \begin{itemize}
-      \item Empirically, recovering communities by sampling directly from the Gibbs distribution does not perform well.
+      \item Empirically, recovering communities by sampling directly from the \textsc{Gibbs} distribution does not perform well.
       \item This is likely because the \textbf{mixing time} of the Markov chain is too large.
     \end{itemize}
   \end{block}
