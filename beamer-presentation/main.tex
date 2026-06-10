@@ -433,7 +433,7 @@
     \end{equation*}
   \end{theorem}
   \begin{corollary}[Overlap Identity]
-    For any algorithm $\tau_n$ and threshold $s \in [0,1]$:
+    For any algorithm $\tau_n$ and threshold $s \in [0, 1]$:
     \begin{equation*}
         \mathbb{P}\left[\ov_n(\Sigma_n, \tau_n) \ge s\right]
         =
@@ -729,22 +729,22 @@
   \end{corollary}
 \end{frame}
 
-\begin{frame}{Strict Improvement on the Triangular Grid}
+\begin{frame}{Strict Improvement of the S\&B bound (on the triangular grid)}
   \begin{block}{Homogeneous Model ($f_{\mathrm{in}} = p$, $f_{\mathrm{out}} = 1-p$)}
     On the triangular grid, we select a family of independent white triangles (like a chessboard).
     \begin{itemize}
       \item \textbf{Edge Dynamics (Standard SW)}:
         Gelled graph is independent edge percolation with parameter $p_{\mathrm{edge}} = 2p-1$.
-        Critical threshold: $p_c^{\mathrm{edge}} = \frac{1}{2} + \sin(\frac{\pi}{18}) \approx 0.673$.
+        Critical threshold: $p_c^{\mathrm{edge}} = \frac{1}{2} + \sin(\frac{\pi}{18}) \approx 0.673\ldots$.
       \item \textbf{Triangular Dynamics}:
         Gelled graph yields correlated triangle percolation.
-        Critical threshold: $p_c^{\triangle} = \frac{7}{4} - \frac{\sqrt{17}}{4} \approx 0.7192$.
+        Critical threshold: $p_c^{\triangle} = \frac{7}{4} - \frac{\sqrt{17}}{4} \approx 0.7192\ldots$.
     \end{itemize}
   \end{block}
   \begin{corollary}[Strictly Better Impossibility Bound \textcolor{inria-2024-rouge!80!black}{\cite{BibiMonterey}}]
     Since $p_c^{\mathrm{edge}} < p_c^{\triangle}$, for any
     \begin{equation*}
-        p \in \left[ 0.673\,;\, 0.7192 \right[,
+        p \in [0.673\ldots, 0.7192\ldots),
     \end{equation*}
     standard edge dynamics percole (no conclusion), whereas triangular dynamics do not. Hence, we prove that weak recovery is impossible in this wider range of parameters!
   \end{corollary}
