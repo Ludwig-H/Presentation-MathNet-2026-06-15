@@ -638,7 +638,7 @@
         \node[spin] (a) at (0,0) {$+$};
         \node[spin] (b) at (1.2,0) {$+$};
         \node[spin] (c) at (0.6,1.04) {$+$};
-        \draw[posedge, line width=2pt, draw=inria-2024-rouge!80!black] (a)--(b);
+        \draw[freeze] (a)--(b);
         \draw[posedge] (b)--(c);
         \draw[posedge] (c)--(a);
         \node[align=center, below=3pt] at (0.6,0) {$\omega_b = \{ab\}$};
@@ -649,9 +649,9 @@
         \node[spin] (a) at (0,0) {$+$};
         \node[spin] (b) at (1.2,0) {$+$};
         \node[spin] (c) at (0.6,1.04) {$+$};
-        \draw[posedge, line width=2pt, draw=inria-2024-rouge!80!black] (a)--(b);
-        \draw[posedge, line width=2pt, draw=inria-2024-rouge!80!black] (b)--(c);
-        \draw[posedge, line width=2pt, draw=inria-2024-rouge!80!black] (c)--(a);
+        \draw[freeze] (a)--(b);
+        \draw[freeze] (b)--(c);
+        \draw[freeze] (c)--(a);
         \node[align=center, below=3pt] at (0.6,0) {$\omega_b = \{ab, ac, bc\}$};
       \end{scope}
     \end{tikzpicture}
