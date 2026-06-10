@@ -474,7 +474,7 @@
     \begin{column}{0.5\textwidth}
       \begin{block}{Single-Spin Update Limitations}
         \begin{itemize}
-          \item \textbf{Geometry makes updates slow}: Single-spin dynamics (\textsc{Glauber} / \textsc{Metropolis}--\textsc{Hastings}) update one node at a time.
+          \item \textbf{Geometry makes updates slow}: Single-spin dynamics (\textsc{Glauber} / \textsc{Metropolis}--\textsc{Hastings} \cite{GlauberMetropolisDiaconis2009}) update one node at a time.
           \item \textbf{Contradictory Clusters}: Two internally valid (highly satisfied) but mutually contradictory clusters are locked.
           \item \textbf{High Energy Barrier}: Flipping a single boundary node violates internal edges, creating a local energy barrier.
           \item \textbf{Conclusion}: Need for geometry $\implies$ \textbf{Cluster Dynamics} (updating whole regions).

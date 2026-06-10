@@ -163,6 +163,30 @@
     \field{year}{1980}
   \endentry
 
+  \entry{GlauberMetropolisDiaconis2009}{article}{}
+    \name{author}{1}{}{%
+      {{hash=DP}{%
+         family={Diaconis},
+         familyi={D\bibinitperiod},
+         given={Persi},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{DP1}
+    \strng{fullhash}{DP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1090/S0273-0979-08-01238-X
+    \endverb
+    \field{number}{2}
+    \field{pages}{179\bibrangedash 205}
+    \field{title}{{The Markov chain Monte Carlo revolution}}
+    \field{volume}{46}
+    \field{journaltitle}{Bulletin of the American Mathematical Society}
+    \field{year}{2009}
+  \endentry
+
   \entry{SwendsenWang}{article}{}
     \name{author}{2}{}{%
       {{hash=SRH}{%
