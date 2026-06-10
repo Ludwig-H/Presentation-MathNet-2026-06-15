@@ -802,7 +802,8 @@
     \begin{itemize}
       \item We should consider a distance that better reflects the transitions of the \textsc{Markov} cluster dynamics.
       \item For classical \textsc{Swendsen}--\textsc{Wang} (edges), this corresponds to the \textbf{symmetric difference} (the sum of edge weights satisfied by exactly one of the configurations):
-        $$d_{\mathrm{sym}}(\sigma, \sigma') = \sum_{e=\{i,j\}} |W_e| \left| \ind{\sigma \text{ satisfies } e} - \ind{\sigma' \text{ satisfies } e} \right|$$
+        $d_{\mathrm{sym}}(\sigma, \sigma') = \sum_{e=\{i,j\}} |W_e| \left| \ind{\sigma \text{ satisfies } e} - \ind{\sigma' \text{ satisfies } e} \right|$.
+      \item This would also establish a link to the \textbf{spectral analysis of the graph} (e.g. via Laplacian eigenvalues or mixing rates).
     \end{itemize}
   \end{block}
 \end{frame}
