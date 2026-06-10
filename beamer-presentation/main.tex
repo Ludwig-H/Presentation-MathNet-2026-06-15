@@ -620,6 +620,45 @@
     \end{enumerate}
   \end{block}
 
+  \begin{center}
+    \begin{tikzpicture}[scale=1.2, x=1cm, y=1cm]
+      % Triangle 1: omega_b = empty
+      \begin{scope}[shift={(0,0)}]
+        \node[spin] (a) at (0,0) {$+$};
+        \node[spin] (b) at (1.2,0) {$+$};
+        \node[spin] (c) at (0.6,1.04) {$+$};
+        \draw[posedge] (a)--(b);
+        \draw[posedge] (b)--(c);
+        \draw[posedge] (c)--(a);
+        \node[align=center, below=3pt] at (0.6,0) {$\omega_b = \varnothing$};
+      \end{scope}
+
+      % Triangle 2: omega_b = one edge
+      \begin{scope}[shift={(3.2,0)}]
+        \node[spin] (a) at (0,0) {$+$};
+        \node[spin] (b) at (1.2,0) {$+$};
+        \node[spin] (c) at (0.6,1.04) {$+$};
+        \draw[posedge, line width=2pt, draw=inria-2024-rouge!80!black] (a)--(b);
+        \draw[posedge] (b)--(c);
+        \draw[posedge] (c)--(a);
+        \node[align=center, below=3pt] at (0.6,0) {$\omega_b = \{ab\}$};
+      \end{scope}
+
+      % Triangle 3: omega_b = all three edges
+      \begin{scope}[shift={(6.4,0)}]
+        \node[spin] (a) at (0,0) {$+$};
+        \node[spin] (b) at (1.2,0) {$+$};
+        \node[spin] (c) at (0.6,1.04) {$+$};
+        \draw[posedge, line width=2pt, draw=inria-2024-rouge!80!black] (a)--(b);
+        \draw[posedge, line width=2pt, draw=inria-2024-rouge!80!black] (b)--(c);
+        \draw[posedge, line width=2pt, draw=inria-2024-rouge!80!black] (c)--(a);
+        \node[align=center, below=3pt] at (0.6,0) {$\omega_b = \{ab, ac, bc\}$};
+      \end{scope}
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{General Swendsen--Wang Cluster Dynamics}
   \begin{definition}[Local Reversibility]
     Let $P_b^{\sigma \to \sigma'}(\omega_b) = P_b^\sigma(\omega_b)$ if $P_b^{\sigma'}(\omega_b) > 0$, and $0$ otherwise.
     The freezing rule is \textbf{locally reversible} if for all $b$, $\omega_b$, $\sigma$, $\sigma'$:
