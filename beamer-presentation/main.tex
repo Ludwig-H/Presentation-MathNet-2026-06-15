@@ -316,7 +316,35 @@
       \item With fixed spatial positions $X$, all pairwise distances $r_e = \|X_i - X_j\|$ are known.
       \item Under a uniform prior on $\Sigma$, the \textbf{posterior} distribution given the observed graph $H$ is:
         \begin{equation*}
-            \alt<1>{\mathbb{P}(\Sigma = \sigma \mid H, X)}{\textcolor{red}{\boldsymbol{\mathbb{P}(\Sigma = \sigma \mid H, X) = \mu(\sigma)}}} \mathrel{\propto} \mathbb{P}(H \mid X, \sigma)
+            \mathbb{P}(\Sigma = \sigma \mid H, X) \propto \mathbb{P}(H \mid X, \sigma)
+        \end{equation*}
+    \end{itemize}
+  \end{block}
+  \begin{block}{Log-Likelihood as Signed \textsc{Gibbs} Energy}
+    \begin{itemize}
+      \item Choosing weights $W_e(H)$ as below:
+        \begin{equation*}
+            W_e(H)=
+            \begin{cases}
+                \displaystyle \log\left(\frac{f_{\mathrm{in}}(r_e)}{f_{\mathrm{out}}(r_e)}\right) > 0 & \text{if } e\in H \text{ (attractive } \in F\text{),}\\[2ex]
+                \displaystyle -\log\left(\frac{1-f_{\mathrm{out}}(r_e)}{1-f_{\mathrm{in}}(r_e)}\right) < 0 & \text{if } e\notin H \text{ (repulsive } \in \tilde{F}\text{).}
+            \end{cases}
+        \end{equation*}
+      \item ... yields the exact correspondence:
+        \begin{equation*}
+            \mathbb{P}(H \mid X, \sigma) \propto e^{-U(\sigma)}
+        \end{equation*}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{From GSBM to the \textsc{Gibbs} Posterior}
+  \begin{block}{Conditioning on the Point Cloud}
+    \begin{itemize}
+      \item With fixed spatial positions $X$, all pairwise distances $r_e = \|X_i - X_j\|$ are known.
+      \item Under a uniform prior on $\Sigma$, the \textbf{posterior} distribution given the observed graph $H$ is:
+        \begin{equation*}
+            \textcolor{red}{\boldsymbol{\mathbb{P}(\Sigma = \sigma \mid H, X) = \mu(\sigma)}} \mathrel{\propto} \mathbb{P}(H \mid X, \sigma)
         \end{equation*}
     \end{itemize}
   \end{block}
