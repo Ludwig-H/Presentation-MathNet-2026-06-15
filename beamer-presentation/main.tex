@@ -69,7 +69,7 @@
 }
 
 % General macros
-\newcommand{\SB}{Sankararaman--Baccelli}
+\newcommand{\SB}{\textsc{Sankararaman}--\textsc{Baccelli}}
 \newcommand{\ov}{\operatorname{ov}}
 \newcommand{\Conf}{\mathcal{C}}
 \newcommand{\Lab}{\mathcal{L}}
@@ -102,7 +102,7 @@ and Nahuel \textsc{Soprano-Loto} (Inria Paris)}}
 \frame{\tocpage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Motivation \& The Sankararaman--Baccelli Model}
+\section{Motivation \& the \textsc{Sankararaman}--\textsc{Baccelli} Model}
 \frame{\sectionpage}
 
 \begin{frame}{Motivation: Haplotype Assembly}
@@ -252,15 +252,15 @@ and Nahuel \textsc{Soprano-Loto} (Inria Paris)}}
                 \displaystyle -\log\left(\frac{1-f_{\mathrm{out}}(r_e)}{1-f_{\mathrm{in}}(r_e)}\right) < 0 & \text{if } e\notin H \text{ (absent overlap).}
             \end{cases}
         \end{equation*}
-      \item The posterior distribution is exactly a \textbf{Signed Gibbs measure}.
+      \item The posterior distribution is exactly a \textbf{Signed \textsc{Gibbs} measure}.
     \end{itemize}
   \end{block}
 \end{frame}
 
 \begin{frame}{The Geometric Stochastic Block Model (GSBM)}
-  \begin{block}{Sankararaman \& Baccelli (SODA 2018) \cite{SankararamanBaccelli2018}}
+  \begin{block}{\textsc{Sankararaman} \& \textsc{Baccelli} (SODA 2018) \cite{SankararamanBaccelli2018}}
     \begin{itemize}
-      \item Nodes $V_n$ have spatial positions in $\mathbb{R}^d$ (e.g. Poisson Process).
+      \item Nodes $V_n$ have spatial positions in $\mathbb{R}^d$ (e.g., \textsc{Poisson} process).
       \item Latent community assignments $\Sigma \in \{+1, -1\}^{V_n}$ chosen uniformly at random.
       \item Connecting functions $f_{\mathrm{in}}, f_{\mathrm{out}}: \mathbb{R}_+ \to [0,1]$ with $f_{\mathrm{in}}(r) \ge f_{\mathrm{out}}(r)$.
       \item An edge $e=\{i,j\}$ with distance $r_e = \|x_i - x_j\|$ is present in $H$ with probability:
@@ -289,7 +289,7 @@ and Nahuel \textsc{Soprano-Loto} (Inria Paris)}}
       \item Information can only flow globally if the graph \textbf{percolates} (possesses a giant/infinite component).
     \end{itemize}
   \end{block}
-  \begin{theorem}[Sankararaman \& Baccelli \cite{SankararamanBaccelli2018}]
+  \begin{theorem}[\textsc{Sankararaman} \& \textsc{Baccelli} \cite{SankararamanBaccelli2018}]
     Percolation of the graph with edge probability
     \begin{equation*}
         p_e = f_{\mathrm{in}}(r_e) - f_{\mathrm{out}}(r_e)
@@ -332,14 +332,14 @@ and Nahuel \textsc{Soprano-Loto} (Inria Paris)}}
   \end{figure}
 \end{frame}
 
-\begin{frame}{Posterior Resampling (Nishimori Identity)}
+\begin{frame}{Posterior Resampling (\textsc{Nishimori} Identity)}
   \begin{block}{Replacing Truth by a Replica}
     \begin{itemize}
       \item Since $\Sigma_n$ is hidden, we cannot compute the overlap $\ov_n(\Sigma_n, \tau_n)$ directly in an algorithm.
       \item However, under the true model, the hidden truth and a sample from the posterior are exchangeable.
     \end{itemize}
   \end{block}
-  \begin{theorem}[Posterior Resampling / Nishimori Identity \cite{Nishimori1980}]
+  \begin{theorem}[Posterior Resampling / \textsc{Nishimori} Identity \cite{Nishimori1980}]
     Let $\tau_n$ be any community detection algorithm. Let $\Sigma_n^{(1)} \sim \mu_{n, X_n, W_n}$ be a replica drawn independently from the posterior. For any bounded test function $\Psi_n$:
     \begin{equation*}
         \mathbb{E}\left[\Psi_n(X_n, W_n, \Sigma_n, \tau_n)\right]
@@ -358,10 +358,10 @@ and Nahuel \textsc{Soprano-Loto} (Inria Paris)}}
 \end{frame}
 
 \begin{frame}{Invariant Coupling}
-  \begin{block}{Markov Chain Dynamics as a Source of Coupling}
+  \begin{block}{\textsc{Markov} Chain Dynamics as a Source of Coupling}
     \begin{itemize}
       \item To study the overlap, we need a way to construct the posterior replica $\Sigma^{(1)}$ starting from the ground truth $\Sigma$.
-      \item Let $M_{n, x, w}$ be a Markov transition kernel that leaves the posterior $\mu_{n, x, w}$ invariant.
+      \item Let $M_{n, x, w}$ be a \textsc{Markov} transition kernel that leaves the posterior $\mu_{n, x, w}$ invariant.
       \item If we initialize the chain at the hidden truth $\Sigma$, and perform \textbf{exactly one step} of the dynamics to obtain $\Sigma^{(1)} \sim M_{n, X, W}(\Sigma, \cdot)$, then $\Sigma^{(1)}$ is still distributed according to the posterior!
     \end{itemize}
   \end{block}
@@ -385,14 +385,14 @@ and Nahuel \textsc{Soprano-Loto} (Inria Paris)}}
 \section{MCMC Dynamics \& Performance Bounds}
 \frame{\sectionpage}
 
-\begin{frame}{MCMC Dynamics for Signed Gibbs Measures}
-  \begin{block}{1. Single-Spin Dynamics (Glauber / Metropolis-Hastings)}
+\begin{frame}{MCMC Dynamics for Signed \textsc{Gibbs} Measures}
+  \begin{block}{1. Single-Spin Dynamics (\textsc{Glauber} / \textsc{Metropolis}--\textsc{Hastings})}
     \begin{itemize}
       \item Select a node at random and update its label according to its local neighbors.
       \item Extremely slow in the presence of frustration: local updates cannot cross energy barriers.
     \end{itemize}
   \end{block}
-  \begin{block}{2. Swendsen--Wang (SW) Signed Cluster Dynamics \cite{SwendsenWang, EdwardsSokal}}
+  \begin{block}{2. \textsc{Swendsen}--\textsc{Wang} (SW) Signed Cluster Dynamics \cite{SwendsenWang, EdwardsSokal}}
     \begin{itemize}
       \item Update whole clusters of vertices simultaneously to speed up mixing.
       \item \textbf{Freezing Step}: For each edge $e=\{i,j\}$:
@@ -408,7 +408,7 @@ and Nahuel \textsc{Soprano-Loto} (Inria Paris)}}
   \end{block}
 \end{frame}
 
-\begin{frame}{One Step of Signed Swendsen--Wang}
+\begin{frame}{One Step of Signed \textsc{Swendsen}--\textsc{Wang}}
   \begin{figure}[H]
     \centering
     \begin{tikzpicture}[x=1cm,y=1cm, scale=0.85, every node/.style={scale=0.85}]
@@ -443,7 +443,7 @@ and Nahuel \textsc{Soprano-Loto} (Inria Paris)}}
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Coupling \& The Sankararaman--Baccelli Bound}
+\begin{frame}{Coupling \& the \textsc{Sankararaman}--\textsc{Baccelli} Bound}
   \begin{block}{Gel Probability under the Generative Model}
     Let's run one step of SW starting from the hidden truth $\Sigma$. What is the probability that an edge $e$ is frozen?
     \begin{itemize}
@@ -590,7 +590,7 @@ and Nahuel \textsc{Soprano-Loto} (Inria Paris)}}
   \begin{block}{2. Multi-Community case ($K > 2$)}
     \begin{itemize}
       \item How does the cluster dynamics extend when the spins take $K$ values?
-      \item What is the role of Potts-like percolation in the coupling?
+      \item What is the role of \textsc{Potts}-like percolation in the coupling?
     \end{itemize}
   \end{block}
   \begin{block}{3. Sufficiency of the Percolation Condition}
