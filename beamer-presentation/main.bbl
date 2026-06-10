@@ -1,0 +1,185 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{none/global//global/global}
+  \entry{SankararamanBaccelli2018}{article}{}
+    \name{author}{2}{}{%
+      {{hash=SA}{%
+         family={Sankararaman},
+         familyi={S\bibinitperiod},
+         given={Abishek},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=BF}{%
+         family={Baccelli},
+         familyi={B\bibinitperiod},
+         given={François},
+         giveni={F\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SABF1}
+    \strng{fullhash}{SABF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1137/1.9781611975031.142
+    \endverb
+    \field{pages}{2181\bibrangedash 2200}
+    \field{title}{Community Detection on {E}uclidean Random Graphs}
+    \field{journaltitle}{Proceedings of the Annual ACM-SIAM Symposium on
+  Discrete Algorithms (SODA)}
+    \field{year}{2018}
+  \endentry
+
+  \entry{Nishimori1980}{article}{}
+    \name{author}{1}{}{%
+      {{hash=NH}{%
+         family={Nishimori},
+         familyi={N\bibinitperiod},
+         given={Hidetoshi},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{NH1}
+    \strng{fullhash}{NH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1088/0022-3719/13/21/012
+    \endverb
+    \field{number}{21}
+    \field{pages}{4071\bibrangedash 4076}
+    \field{title}{Exact results and critical properties of the {Ising} model
+  with competing interactions}
+    \field{volume}{13}
+    \field{journaltitle}{Journal of Physics C: Solid State Physics}
+    \field{year}{1980}
+  \endentry
+
+  \entry{SwendsenWang}{article}{}
+    \name{author}{2}{}{%
+      {{hash=SRH}{%
+         family={Swendsen},
+         familyi={S\bibinitperiod},
+         given={Robert\bibnamedelima H.},
+         giveni={R\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+      {{hash=WJS}{%
+         family={Wang},
+         familyi={W\bibinitperiod},
+         given={Jian-Sheng},
+         giveni={J\bibinithyphendelim S\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {American Physical Society}%
+    }
+    \strng{namehash}{SRHWJS1}
+    \strng{fullhash}{SRHWJS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1103/PhysRevLett.58.86
+    \endverb
+    \field{issue}{2}
+    \field{pages}{86\bibrangedash 88}
+    \field{title}{Nonuniversal critical dynamics in {M}onte {C}arlo
+  simulations}
+    \field{volume}{58}
+    \field{journaltitle}{Phys. Rev. Lett.}
+    \field{month}{01}
+    \field{year}{1987}
+  \endentry
+
+  \entry{EdwardsSokal}{article}{}
+    \name{author}{2}{}{%
+      {{hash=ERG}{%
+         family={Edwards},
+         familyi={E\bibinitperiod},
+         given={Robert\bibnamedelima G.},
+         giveni={R\bibinitperiod\bibinitdelim G\bibinitperiod},
+      }}%
+      {{hash=SAD}{%
+         family={Sokal},
+         familyi={S\bibinitperiod},
+         given={Alan\bibnamedelima D.},
+         giveni={A\bibinitperiod\bibinitdelim D\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {American Physical Society}%
+    }
+    \strng{namehash}{ERGSAD1}
+    \strng{fullhash}{ERGSAD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1103/PhysRevD.38.2009
+    \endverb
+    \field{issue}{6}
+    \field{pages}{2009\bibrangedash 2012}
+    \field{title}{Generalization of the {F}ortuin-{K}asteleyn-{S}wendsen-{W}ang
+  representation and {M}onte {C}arlo algorithm}
+    \field{volume}{38}
+    \field{journaltitle}{Phys. Rev. D}
+    \field{month}{09}
+    \field{year}{1988}
+  \endentry
+
+  \entry{BibiMonterey}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=HL}{%
+         family={Hauseux},
+         familyi={H\bibinitperiod},
+         given={Louis},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=SLN}{%
+         family={Soprano-Loto},
+         familyi={S\bibinithyphendelim L\bibinitperiod},
+         given={Nahuel},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=AK}{%
+         family={Avrachenkov},
+         familyi={A\bibinitperiod},
+         given={Konstantin},
+         giveni={K\bibinitperiod},
+      }}%
+    }
+    \keyw{Swendsen-Wang dynamics ; Monte Carlo Markov Chain ; Gibbs energy ;
+  spin configuration ; percolation ; high-order interaction}
+    \strng{namehash}{HLSLNAK1}
+    \strng{fullhash}{HLSLNAK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{{Asilomar Conference on Signals, Systems, and Computers
+  2025}}
+    \field{title}{{Higher-order Monte Carlo cluster dynamics for community
+  detection in Euclidean graphs}}
+    \verb{url}
+    \verb https://inria.hal.science/hal-05267074
+    \endverb
+    \list{location}{1}{%
+      {Pacific Grove (CA), United States}%
+    }
+    \field{month}{10}
+    \field{year}{2025}
+  \endentry
+\enddatalist
+\endinput
