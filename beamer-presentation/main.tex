@@ -322,17 +322,17 @@
   \end{block}
   \begin{block}{Log-Likelihood as Signed Gibbs Energy}
     \begin{itemize}
-      \item Factorizing the likelihood over all potential edges $e=\{i,j\} \in E$:
-        \begin{equation*}
-            \mathbb{P}(H \mid X, \sigma) \propto e^{-U(\sigma)}
-        \end{equation*}
-      \item Choosing weights $W_e(H)$ as below yields the exact correspondence:
+      \item Choosing weights $W_e(H)$ as below:
         \begin{equation*}
             W_e(H)=
             \begin{cases}
                 \displaystyle \log\left(\frac{f_{\mathrm{in}}(r_e)}{f_{\mathrm{out}}(r_e)}\right) > 0 & \text{if } e\in H \text{ (observed overlap } \in F\text{),}\\[2ex]
                 \displaystyle -\log\left(\frac{1-f_{\mathrm{out}}(r_e)}{1-f_{\mathrm{in}}(r_e)}\right) < 0 & \text{if } e\notin H \text{ (absent overlap } \in \tilde{F}\text{).}
             \end{cases}
+        \end{equation*}
+      \item ... yields the exact correspondence:
+        \begin{equation*}
+            \mathbb{P}(H \mid X, \sigma) \propto e^{-U(\sigma)}
         \end{equation*}
     \end{itemize}
   \end{block}
@@ -350,17 +350,17 @@
   \end{block}
   \begin{block}{Log-Likelihood as Signed Gibbs Energy}
     \begin{itemize}
-      \item Factorizing the likelihood over all potential edges $e=\{i,j\} \in E$:
-        \begin{equation*}
-            \mathbb{P}(H \mid X, \sigma) \propto e^{-U(\sigma)}
-        \end{equation*}
-      \item Choosing weights $W_e(H)$ as below yields the exact correspondence:
+      \item Choosing weights $W_e(H)$ as below:
         \begin{equation*}
             W_e(H)=
             \begin{cases}
                 \displaystyle \log\left(\frac{f_{\mathrm{in}}(r_e)}{f_{\mathrm{out}}(r_e)}\right) > 0 & \text{if } e\in H \text{ (observed overlap } \in F\text{),}\\[2ex]
                 \displaystyle -\log\left(\frac{1-f_{\mathrm{out}}(r_e)}{1-f_{\mathrm{in}}(r_e)}\right) < 0 & \text{if } e\notin H \text{ (absent overlap } \in \tilde{F}\text{).}
             \end{cases}
+        \end{equation*}
+      \item ... yields the exact correspondence:
+        \begin{equation*}
+            \mathbb{P}(H \mid X, \sigma) \propto e^{-U(\sigma)}
         \end{equation*}
     \end{itemize}
   \end{block}
