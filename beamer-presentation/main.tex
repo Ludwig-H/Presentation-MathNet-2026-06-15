@@ -205,9 +205,9 @@
 \subtitle{Seminar of the MathNet team (Inria Paris)}
 \institute{Inria Paris, Room Paul \textsc{Erdös} (A115) -- 2 p.m.}
 \date[15 June 2026]{Monday 15 June 2026}
-\author[L. Hauseux]{\href{https://team.inria.fr/neo/author/louis-hauseux/}{Louis \textsc{Hauseux}} {\small(Inria Sophia Antipolis, superv. by \href{https://www-sop.inria.fr/members/Konstantin.Avratchenkov/}{K. \textsc{Avrachenkov}} \& \href{https://www-sop.inria.fr/members/Josiane.Zerubia/index-eng.html}{J. \textsc{Zerubia}})}\\[3pt]
-{\small Joint work with \href{https://nahuelsopranoloto.github.io/}{Nahuel \textsc{Soprano-Loto}} (Inria Paris)}\\
-{\small and \href{https://www-sop.inria.fr/members/Konstantin.Avratchenkov/}{Konstantin \textsc{Avrachenkov}} (Inria Sophia Antipolis)}}
+\author[L. Hauseux]{Louis \textsc{Hauseux} {\small(Inria Sophia Antipolis, superv. by \href{https://www-sop.inria.fr/members/Konstantin.Avrachenkov/}{K. \textsc{Avrachenkov}} \& \href{https://www-sop.inria.fr/members/Josiane.Zerubia/index-eng.html}{J. \textsc{Zerubia}})}\\[3pt]
+{\small Joint work with \href{https://scholar.google.com/citations?user=xN9l5pQAAAAJ}{Nahuel \textsc{Soprano-Loto}} (Inria Paris)}\\
+{\small and \href{https://www-sop.inria.fr/members/Konstantin.Avrachenkov/}{Konstantin \textsc{Avrachenkov}} (Inria Sophia Antipolis)}}
 
 \usetheme{inria}
 
@@ -391,12 +391,12 @@
 \frame{\sectionpage}
 
 \begin{frame}{The General Bayesian Model}
-  \begin{definition}{General Bayesian Community Detection Model}
-    Let $V_n = \{1, \dots, n\}$, $\Lab_K = \{0, \dots, K-1\}$, and $\Conf_n = (\Lab_K)^{V_n}$.
+  \begin{definition}
     \begin{enumerate}
-      \item \textbf{Features}: $X_n \in \mathcal{X}_n$ with distribution $\nu_n$.
-      \item \textbf{Prior}: $\mu_{0,n}(\mathrm{d}\sigma \mid x)$ over $\Conf_n$.
-      \item \textbf{Channel}: $Q_n(\mathrm{d}w \mid x, \sigma) = \prod_{e \in E_n} Q_{e,n}(\mathrm{d}w_e \mid x_i, x_j, \sigma_i, \sigma_j)$.
+      \item \textbf{Nodes, Edges, Communities}: Nodes $V_n = \{1, \dots, n\}$, edges $E_n$, communities $\Lab_K = \{0, \dots, K-1\}$, and set of configurations $\sigma \in \Conf_n = (\Lab_K)^{V_n}$.
+      \item \textbf{Features}: $X_n \in \mathcal{X}_n$ according to distribution $\nu_n$.
+      \item \textbf{Prior on configurations}: $\mu_{0,n}(\mathrm{d}\sigma \mid x)$ over $\Conf_n$.
+      \item \textbf{(Noisy) channel}: $Q_n(\mathrm{d}w \mid x, \sigma) = \prod_{e \in E_n} Q_{e,n}(\mathrm{d}w_e \mid x_i, x_j, \sigma_i, \sigma_j)$.
     \end{enumerate}
     The joint law is $\mathbb{P}_n(\mathrm{d}x, \mathrm{d}\sigma, \mathrm{d}w) = \nu_n(\mathrm{d}x)\mu_{0,n}(\mathrm{d}\sigma \mid x)Q_n(\mathrm{d}w \mid x, \sigma)$.
   \end{definition}
@@ -529,7 +529,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Coupling \& the \textsc{Sankararaman}--\textsc{Baccelli} Bound}
+\begin{frame}[shrink]{Coupling \& the \textsc{Sankararaman}--\textsc{Baccelli} Bound}
   \begin{block}{Gel Probability under the Generative Model}
     Let's run one step of SW starting from the hidden truth $\Sigma$. What is the probability that an edge $e$ is frozen?
     \begin{itemize}
