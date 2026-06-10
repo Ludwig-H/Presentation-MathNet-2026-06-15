@@ -571,18 +571,13 @@
     \begin{itemize}
       \item \textbf{Frustration}: $\nexists \sigma$ satisfying all edges (conflicting constraints).
       \item \textbf{Excessive Freezing}: In frustrated configurations, standard SW satisfies and freezes too many edges independently, blocking/freezing the MCMC dynamics.
-      \item \textbf{Higher-Order Correlation}: Introduce correlations on the freezing mechanism to \textbf{freeze as little as possible}.
+      \item \textbf{Higher-Order Correlation}: Group interactions into \textbf{triangles} to correlate freezing and \textbf{freeze as little as possible}.
     \end{itemize}
   \end{block}
   \begin{block}{Triangular Cluster Dynamics \textcolor{inria-2024-rouge!80!black}{\cite{BibiMonterey}}}
     \begin{itemize}
-      \item \textbf{Energy Decomposition}: Distribute edge energy $U$ over triangles so that $U(\sigma) = \sum_{t \in \mathcal{T}} U_t(\sigma)$.
-      \item \textbf{Freezing Mechanism}: Apply a freezing mechanism on the triangles.
-      \item \textbf{Case $K=2$}: Triangles reduce to two types:
-        \begin{itemize}
-          \item \textbf{All-Attractive} (all edges satisfied, freezing all 3 edges or none).
-          \item \textbf{All-Repulsive} (containing unsatisfied edges, freezing exactly one edge).
-        \end{itemize}
+      \item \textbf{Energy Decomposition}: Distribute edge energy $U$ over triangles: $U(\sigma) = \sum_{t \in \mathcal{T}} U_t(\sigma)$.
+      \item \textbf{Freezing Mechanism}: Apply a joint freezing mechanism on the triangles (rather than independent edges) to keep cluster sizes active.
     \end{itemize}
   \end{block}
 \end{frame}
