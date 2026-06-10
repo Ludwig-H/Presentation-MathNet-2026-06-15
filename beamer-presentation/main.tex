@@ -660,12 +660,22 @@
 
 \begin{frame}{General Swendsen--Wang Cluster Dynamics}
   \begin{definition}[Local Reversibility]
-    Let $P_b^{\sigma \to \sigma'}(\omega_b) = P_b^\sigma(\omega_b)$ if $P_b^{\sigma'}(\omega_b) > 0$, and $0$ otherwise.
+    For two configurations $\sigma, \sigma'$ and a bond $b$, we define the compatibility probability:
+    \begin{equation*}
+        P_b^{\sigma\to\sigma'}(\omega_b)
+        =
+        \begin{cases}
+            P_b^\sigma(\omega_b), & \text{if } P_b^{\sigma'}(\omega_b) > 0, \\
+            0, & \text{otherwise.}
+        \end{cases}
+    \end{equation*}
     The freezing rule is \textbf{locally reversible} if for all $b$, $\omega_b$, $\sigma$, $\sigma'$:
-    $P_b^{\sigma \to \sigma'}(\omega_b) = e^{-\left(U_b(\sigma') - U_b(\sigma)\right)} P_b^{\sigma' \to \sigma}(\omega_b)$.
+    \begin{equation*}
+        P_b^{\sigma \to \sigma'}(\omega_b) = e^{-\left(U_b(\sigma') - U_b(\sigma)\right)} P_b^{\sigma' \to \sigma}(\omega_b)
+    \end{equation*}
   \end{definition}
 
-  \begin{theorem}[Gibbs Invariance]
+  \begin{theorem}[Gibbs Invariance \textcolor{inria-2024-rouge!80!black}{\cite{BibiInformationInference}}]
     If freezing choices are independent, locally reversible, and $P_b^\sigma(\varnothing) > 0$ for all $b, \sigma$:
     \begin{enumerate}
       \item The global cluster dynamics is reversible with respect to $\mu(\sigma) \propto e^{-U(\sigma)}$.
