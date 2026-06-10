@@ -46,39 +46,6 @@
     \field{year}{2018}
   \endentry
 
-  \entry{BB}{book}{}
-    \name{author}{2}{}{%
-      {{hash=BF}{%
-         family={Baccelli},
-         familyi={B\bibinitperiod},
-         given={François},
-         giveni={F\bibinitperiod},
-      }}%
-      {{hash=BB}{%
-         family={Błaszczyszyn},
-         familyi={B\bibinitperiod},
-         given={Bartłomiej},
-         giveni={B\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {{NoW Publishers}}%
-    }
-    \strng{namehash}{BFBB1}
-    \strng{fullhash}{BFBB1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \verb{doi}
-    \verb 10.1561/1300000006
-    \endverb
-    \field{pages}{150}
-    \field{series}{Foundations and Trends in Networking}
-    \field{title}{{Stochastic Geometry and Wireless Networks, Volume I -
-  Theory}}
-    \field{volume}{1}
-    \field{year}{2009}
-  \endentry
-
   \entry{Reichardt2006}{article}{}
     \name{author}{2}{}{%
       {{hash=RJ}{%

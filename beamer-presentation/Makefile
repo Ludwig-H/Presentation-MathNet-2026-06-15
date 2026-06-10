@@ -1,10 +1,9 @@
 all: main.pdf
 
-LATEXCMD=lualatex
-
-%.pdf: %.tex
-	TEXINPUTS=.:theme//:latex-inria-fonts//: \
-	${LATEXCMD} -file-line-error -halt-on-error $<
+main.pdf: main.tex
+	latexmk main.tex
 
 clean:
-	@rm -f main.aux main.log main.nav main.out main.snm main.toc main.pdf main.fls main.fdb_latexmk
+	latexmk -C
+	@rm -f main.nav main.snm
+
