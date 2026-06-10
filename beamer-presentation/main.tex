@@ -459,7 +459,7 @@
       \draw[chaparr] (true) -- (obs);
       \draw[chaparr] (obs) -- (algo);
       \draw[chaparr] (obs) -- (rep);
-      \draw[{Latex[length=2.4mm]}-{Latex[length=2.4mm]},very thick,dashed] (true) .. controls +(0,-1.4) and +(-1.4,0) .. node[left]{same score} (rep);
+      \draw[chapdash] (true) .. controls +(0,-1.8) and +(-1.8,0) .. node[left]{same score} (rep);
       \draw[chapdash] (rep) -- node[right]{\ possible comparison} (algo);
     \end{tikzpicture}
   \end{figure}
