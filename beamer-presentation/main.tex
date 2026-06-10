@@ -703,26 +703,22 @@
   \end{block}
 \end{frame}
 
-\begin{frame}[shrink]{Coupling \& the \textsc{Sankararaman}--\textsc{Baccelli} Bound}
-  \begin{block}{Gel Probability under the Generative Model}
-    Let's run one step of SW starting from the hidden truth $\Sigma$. What is the probability that an edge $e$ is frozen?
+\begin{frame}{Coupling \& the \textsc{Sankararaman}--\textsc{Baccelli} Bound}
+  \begin{block}{One Step of Classical Edge-by-Edge Swendsen--Wang}
+    Let's run one step of standard \textsc{Swendsen}--\textsc{Wang} (edges) initialized at the hidden truth $\Sigma$.
+    For any edge $e$, the probability that it is frozen is:
     \begin{itemize}
-      \item \textbf{Case 1: $\Sigma_i = \Sigma_j$}. Edge is present with probability $f_{\mathrm{in}}(r_e)$, and has weight $W_e = \log(f_{\mathrm{in}}/f_{\mathrm{out}}) > 0$.
-        \begin{equation*}
-            \mathbb{P}(\text{frozen}) = f_{\mathrm{in}}(r_e) \left(1 - e^{-|W_e|}\right) = f_{\mathrm{in}}(r_e) \left(1 - \frac{f_{\mathrm{out}}(r_e)}{f_{\mathrm{in}}(r_e)}\right) = f_{\mathrm{in}}(r_e) - f_{\mathrm{out}}(r_e).
-        \end{equation*}
-      \item \textbf{Case 2: $\Sigma_i \neq \Sigma_j$}. Edge is absent with probability $1 - f_{\mathrm{out}}(r_e)$, and has weight $W_e = -\log((1-f_{\mathrm{out}})/(1-f_{\mathrm{in}})) < 0$.
-        \begin{equation*}
-            \mathbb{P}(\text{frozen}) = (1 - f_{\mathrm{out}}(r_e)) \left(1 - \frac{1 - f_{\mathrm{in}}(r_e)}{1 - f_{\mathrm{out}}(r_e)}\right) = f_{\mathrm{in}}(r_e) - f_{\mathrm{out}}(r_e).
-        \end{equation*}
+      \item \textbf{Case 1 ($\Sigma_i = \Sigma_j$)}: $\mathbb{P}(\text{frozen}) = f_{\mathrm{in}}(r_e) \left(1 - e^{-|W_e|}\right) = f_{\mathrm{in}}(r_e) - f_{\mathrm{out}}(r_e)$
+      \item \textbf{Case 2 ($\Sigma_i \neq \Sigma_j$)}: $\mathbb{P}(\text{frozen}) = (1 - f_{\mathrm{out}}(r_e)) \left(1 - e^{-|W_e|}\right) = f_{\mathrm{in}}(r_e) - f_{\mathrm{out}}(r_e)$
     \end{itemize}
   \end{block}
-  \begin{corollary}[Independent Bond Percolation]
-    Under the true generative model, the graph of frozen edges is \textbf{exactly} an independent bond percolation with edge probability:
+
+  \begin{corollary}[Retrieving the S\&B Bound \cite{SankararamanBaccelli2018}]
+    Under the classical edge SW dynamics, the frozen graph is \textbf{exactly} an independent bond percolation with edge probability:
     \begin{equation*}
         p_e = f_{\mathrm{in}}(r_e) - f_{\mathrm{out}}(r_e).
     \end{equation*}
-    This coupling directly retrieves the necessary percolation condition of SODA 2018!
+    Applying the percolation bound recovers the necessary condition of \SB{} (SODA 2018): weak recovery is impossible below the percolation threshold.
   \end{corollary}
 \end{frame}
 
