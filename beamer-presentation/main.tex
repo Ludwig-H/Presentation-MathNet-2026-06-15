@@ -269,7 +269,7 @@
 \begin{frame}{The \textsc{Sankararaman}--\textsc{Baccelli} Model (GSBM)}
   \begin{block}{Model Definition \cite{SankararamanBaccelli2018}}
     \begin{itemize}
-      \item \textbf{Spatial Nodes}: $n$ nodes $V_n$ placed in space (e.g., \textsc{Poisson} point process on $\mathbb{R}^d$ or $\mathbb{Z}$). Let $X_i$ be the position of node $i$.
+      \item \textbf{Spatial Nodes}: Let $\mathcal{X}$ be a homogeneous \textsc{Poisson} point process in $\mathbb{R}^d$ \cite{BB}. We restrict $\mathcal{X}$ to a window of volume $n$, and $V_n$ is the set of points in this window. Let $X_i$ be the position of node $i \in V_n$.
       \item \textbf{Latent Communities}: True assignments $\Sigma \in \{+1, -1\}^{V_n}$ chosen uniformly at random ($K=2$).
       \item \textbf{Geometry-Dependent Overlaps}: For each potential edge $e=\{i,j\}$ at distance $r_e = \|X_i - X_j\|$, the connection is present in the observed graph $H$ with probability:
         \begin{itemize}
