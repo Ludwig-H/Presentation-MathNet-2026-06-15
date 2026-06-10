@@ -269,24 +269,26 @@
 \begin{frame}{The \textsc{Sankararaman}--\textsc{Baccelli} Model (GSBM)}
   \begin{block}{Model Definition \cite{SankararamanBaccelli2018}}
     \begin{itemize}
-      \item \textbf{Spatial Nodes}: Let $\mathcal{X}$ be a homogeneous \textsc{Poisson} point process in $\mathbb{R}^d$ \cite{BB}. We restrict $\mathcal{X}$ to a window of volume $n$, and $V_n$ is the set of points in this window. Let $X_i$ be the position of node $i \in V_n$.
-      \item \textbf{Latent Communities}: True assignments $\Sigma \in \{+1, -1\}^{V_n}$ chosen uniformly at random ($K=2$).
-      \item \textbf{Geometry-Dependent Overlaps}: For each potential edge $e=\{i,j\}$ at distance $r_e = \|X_i - X_j\|$, the connection is present in the observed graph $H$ with probability:
-        \begin{itemize}
-          \item $f_{\mathrm{in}}(r_e)$ if $\Sigma_i = \Sigma_j$ (same community / attraction)
-          \item $f_{\mathrm{out}}(r_e)$ if $\Sigma_i \neq \Sigma_j$ (different communities / repulsion)
-        \end{itemize}
-        where $f_{\mathrm{in}}(r) \ge f_{\mathrm{out}}(r)$ are known connecting functions.
+      \item \textbf{Spatial Nodes $V_n$}: Homogeneous \textsc{Poisson} point process $\mathcal{X}$ in $\mathbb{R}^d$ \cite{BB} restricted to a window of volume $n$. Let $X_i$ be the position of node $i \in V_n$.
+      \item \textbf{Latent Communities}: Uniform assignments $\Sigma_i \in \{+1, -1\}$ ($K=2$).
+      \item \textbf{Geometric Overlaps}: Observed connection $e=\{i,j\} \in H$ with probability:
+        \begin{equation*}
+            \mathbb{P}(e \in H \mid X, \Sigma) =
+            \begin{cases}
+                f_{\mathrm{in}}(r_e) & \text{if } \Sigma_i = \Sigma_j \text{ (attraction),} \\
+                f_{\mathrm{out}}(r_e) & \text{if } \Sigma_i \neq \Sigma_j \text{ (repulsion),}
+            \end{cases}
+        \end{equation*}
+        with distance $r_e = \|X_i - X_j\|$ and connecting functions $f_{\mathrm{in}}(r) \ge f_{\mathrm{out}}(r)$.
     \end{itemize}
   \end{block}
   \begin{block}{Goal: Weak Recovery}
     \begin{itemize}
-      \item Recover the true assignments $\Sigma$ up to label permutation strictly better than random guessing.
-      \item Formulated via the \textbf{Community Overlap}:
+      \item Reconstruct assignments $\Sigma$ (up to label swap) strictly better than random guessing:
         \begin{equation*}
-            \ov_n(\Sigma, \tau) = \max_{\pi \in \mathfrak{S}_2} \frac{1}{n} \sum_{i=1}^n \ind{\tau_i = \pi(\Sigma_i)}
+            \lim_{n\to\infty} \mathbb{E}[\ov_n(\Sigma, \tau)] \ge \frac{1}{2} + \eta \quad \text{for some } \eta > 0,
         \end{equation*}
-      \item We want an algorithm $\tau$ achieving $\mathbb{E}[\ov_n(\Sigma, \tau)] \ge \frac{1}{2} + \eta$ for some $\eta > 0$ as $n \to \infty$.
+        using the \textbf{Community Overlap}: $\ov_n(\Sigma, \tau) = \max_{\pi \in \mathfrak{S}_2} \frac{1}{n} \sum_{i=1}^n \ind{\tau_i = \pi(\Sigma_i)}$.
     \end{itemize}
   \end{block}
 \end{frame}
