@@ -244,25 +244,23 @@
   }%
 \end{frame}
 
-\begin{frame}{Motivation: Haplotype Assembly}
-  \begin{block}{Reconstructing Chromosomes from DNA Reads}
+\begin{frame}{Motivation: Signed Community Detection}
+  \begin{block}{Community Detection on Signed Graphs ($K=2$)}
     \begin{itemize}
-      \item Humans are diploid: they have two copies of each chromosome (homologous chromosomes).
-      \item \textbf{Haplotype assembly}: Reconstructing the sequence of nucleotides for each of the two chromosomes.
-      \item High-Throughput Sequencing generates short, overlapping fragments called \textbf{reads}.
-      \item \textbf{Goal:} Reconstruct the true chromosome assignments {\Large $\boldsymbol{\Sigma}$} (Haplotype 1 vs 2) for all reads.
+      \item We aim to partition nodes into $K=2$ communities: {\Large $\boldsymbol{\Sigma}_i$} $\in \{+1, -1\}$.
+      \item Observed links are signed, representing \textbf{attractions} ($+$) and \textbf{repulsions} ($-$).
+      \item Under the hood, this is a \textbf{Stochastic Block Model} (SBM) setup.
     \end{itemize}
   \end{block}
-  \begin{block}{Mapping to Signed Community Detection}
+  \begin{block}{The Geometric Challenge}
     \begin{itemize}
-      \item \textbf{Nodes}: DNA reads, naturally mapped to genomic positions on $\mathbb{Z}$ (spatial structure).
-      \item \textbf{Edges}: Overlap between reads (only overlapping reads share an edge).
-      \item \textbf{Signs}:
-        \begin{itemize}
-          \item \textbf{Positive edge ($+$)}: Reads match at overlapping polymorphic sites (same chromosome).
-          \item \textbf{Negative edge ($-$)}: Reads mismatch at polymorphic sites (different chromosomes).
-        \end{itemize}
-      \item \textbf{Hidden Communities}: $K=2$ partitions (Chromosome 1 vs Chromosome 2).
+      \item Nodes are embedded in space (e.g., genomic positions on $\mathbb{Z}$ or $\mathbb{R}^d$).
+      \item Edge probabilities depend directly on the distance $r = \|x_i - x_j\|$:
+        \begin{align*}
+            \mathbb{P}(\text{attractive edge} \mid \text{same community}) &= f_{\mathrm{in}}(r) \\
+            \mathbb{P}(\text{repulsive edge} \mid \text{different communities}) &= f_{\mathrm{out}}(r)
+        \end{align*}
+      \item \textbf{All the difficulty (and the interest!) comes from this geometric dependency.}
     \end{itemize}
   \end{block}
 \end{frame}
