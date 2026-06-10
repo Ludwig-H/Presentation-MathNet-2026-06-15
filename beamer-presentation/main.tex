@@ -876,12 +876,12 @@
             \draw[negedge] (Xi2) -- (Xj2);
 
             % Nodes
-            \node[spin, fill=inria-2024-rouge!15!white, draw=inria-2024-rouge!80!black] at (T) {$\mathbf{T}$};
+            \node[spin, fill=inria-2024-rouge!15!white, draw=inria-2024-rouge!80!black] (Tnode) at (T) {$\mathbf{T}$};
             \node[spin, fill=gray!10] at (Xi2) {$x_i$};
             \node[spin, fill=gray!10] at (Xj2) {$\neg x_j$};
             \node[spin, fill=gray!10] at (Xk2) {$x_k$};
 
-            \node[above=3pt, text=inria-2024-rouge!80!black, scale=0.9] at (T) {\textbf{\textsf{True}}};
+            \node[above=2pt, text=inria-2024-rouge!80!black, scale=0.9] at (Tnode) {\textbf{\textsf{True}}};
             \node[below=6pt, align=center, scale=0.8] at (0.9,0) {Tetrahedral Bond\\(with $\mathbf{T}$)};
           \end{scope}
         \end{tikzpicture}
