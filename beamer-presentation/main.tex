@@ -794,7 +794,7 @@
   \begin{block}{\textsc{Hamming} Similarity on the Quotient Space}
     \begin{itemize}
       \item The standard overlap is essentially a \textsc{Hamming} similarity on the configuration space quotiented by label permutations:
-        $$\ov_n(\sigma, \sigma') = \max_{\pi \in \mathfrak{S}_K} \frac{1}{n} \sum_{i=1}^n \ind{\sigma'_i = \pi(\sigma_i)}$$
+        $\ov_n(\sigma, \sigma') = \max_{\pi \in \mathfrak{S}_K} \frac{1}{n} \sum_{i=1}^n \ind{\sigma'_i = \pi(\sigma_i)}$.
     \end{itemize}
   \end{block}
 
@@ -802,8 +802,8 @@
     \begin{itemize}
       \item We should consider a distance that better reflects the transitions of the \textsc{Markov} cluster dynamics.
       \item For classical \textsc{Swendsen}--\textsc{Wang} (edges), this corresponds to the \textbf{symmetric difference} (the sum of edge weights satisfied by exactly one of the configurations):
-        $d_{\mathrm{sym}}(\sigma, \sigma') = \sum_{e=\{i,j\}} |W_e| \left| \ind{\sigma \text{ satisfies } e} - \ind{\sigma' \text{ satisfies } e} \right|$.
-      \item This would also establish a link to the \textbf{spectral analysis of the graph} (e.g. via Laplacian eigenvalues or mixing rates).
+        $$d_{\mathrm{sym}}(\sigma, \sigma') = \frac{1}{2} \sum_{e=\{i,j\}} |W_e| \left| \ind{\sigma \text{ satisfies } e} - \ind{\sigma' \text{ satisfies } e} \right|$$
+      \item This would also establish a link to the \textbf{spectral analysis of the graph} (e.g. via Laplacian eigenvalues).
     \end{itemize}
   \end{block}
 \end{frame}
