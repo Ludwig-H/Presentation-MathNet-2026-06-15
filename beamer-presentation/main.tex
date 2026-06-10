@@ -334,7 +334,34 @@
                 \displaystyle -\log\left(\frac{1-f_{\mathrm{out}}(r_e)}{1-f_{\mathrm{in}}(r_e)}\right) < 0 & \text{if } e\notin H \text{ (absent overlap } \in \tilde{F}\text{).}
             \end{cases}
         \end{equation*}
-      \item The \textbf{posterior} $\mathbb{P}(\Sigma \mid H, X)$ is then exactly the signed \textsc{Gibbs} measure $\mu(\sigma)$.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{From GSBM to the Gibbs Posterior}
+  \begin{block}{Conditioning on the Point Cloud}
+    \begin{itemize}
+      \item With fixed spatial positions $X$, all pairwise distances $r_e = \|X_i - X_j\|$ are known.
+      \item Under a uniform prior on $\Sigma$, the \textbf{posterior} distribution given the observed graph $H$ is:
+        \begin{equation*}
+            \mathbb{P}(\Sigma = \sigma \mid H, X) \textcolor{red}{= \mu(\sigma)} \propto \mathbb{P}(H \mid X, \sigma)
+        \end{equation*}
+    \end{itemize}
+  \end{block}
+  \begin{block}{Log-Likelihood as Signed Gibbs Energy}
+    \begin{itemize}
+      \item Factorizing the likelihood over all potential edges $e=\{i,j\} \in E$:
+        \begin{equation*}
+            \mathbb{P}(H \mid X, \sigma) \propto e^{-U(\sigma)}
+        \end{equation*}
+      \item Choosing weights $W_e(H)$ as below yields the exact correspondence:
+        \begin{equation*}
+            W_e(H)=
+            \begin{cases}
+                \displaystyle \log\left(\frac{f_{\mathrm{in}}(r_e)}{f_{\mathrm{out}}(r_e)}\right) > 0 & \text{if } e\in H \text{ (observed overlap } \in F\text{),}\\[2ex]
+                \displaystyle -\log\left(\frac{1-f_{\mathrm{out}}(r_e)}{1-f_{\mathrm{in}}(r_e)}\right) < 0 & \text{if } e\notin H \text{ (absent overlap } \in \tilde{F}\text{).}
+            \end{cases}
+        \end{equation*}
     \end{itemize}
   \end{block}
 \end{frame}
