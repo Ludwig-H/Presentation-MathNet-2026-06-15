@@ -686,7 +686,7 @@
 
 \begin{frame}{Percolation as a Necessary Condition for Recovery}
   \begin{theorem}[Percolation Bound on Overlap \textcolor{inria-2024-rouge!80!black}{\cite{BibiInformationInference}}]
-    Under the uniform community prior $\mu_0$ (baseline overlap $1/K$), if the frozen clusters are recolored independently and uniformly, then for any algorithm $\tau_n$ and any $\eta > 0$:
+    Under the uniform prior $\mu_0$, if frozen clusters are recolored independently and uniformly, then for any algorithm $\tau_n$ and any $\eta > 0$:
     \begin{equation*}
         \lim_{n\to\infty} \mathbb{P}\left[ \ov_n(\Sigma_n, \tau_n) \ge \frac{1}{K} + \frac{K-1}{K}(\theta^{\max} + \eta) \right] = 0
     \end{equation*}
@@ -694,13 +694,12 @@
   \end{theorem}
   
   \begin{corollary}{Percolation is Necessary}
-    In the absence of percolation ($\theta^{\max} = 0$), the maximum possible overlap is bounded by $1/K$ (random guess):
-    $\theta^{\max} = 0 \implies \text{Weak (partial) recovery is impossible}$.
-    Hence, \textbf{percolation of the cluster dynamics is a necessary condition for weak recovery}.
+    If there is no percolation ($\theta^{\max} = 0$), the maximum overlap is bounded by $1/K$ (random guess): weak recovery is impossible.
+    Hence, \textbf{percolation is a necessary condition for weak recovery}.
   \end{corollary}
 
   \begin{block}{Key Intuition}
-    Small (finite) clusters are recolored independently, washing out their contribution to the global alignment. Only giant (macroscopic) components can carry global community information.
+    Small clusters are recolored independently, washing out their contribution. Only giant (macroscopic) components can carry global community information.
   \end{block}
 \end{frame}
 
