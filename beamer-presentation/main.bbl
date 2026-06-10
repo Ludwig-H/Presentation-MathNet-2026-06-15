@@ -79,6 +79,40 @@
     \field{year}{2009}
   \endentry
 
+  \entry{Reichardt2006}{article}{}
+    \name{author}{2}{}{%
+      {{hash=RJ}{%
+         family={Reichardt},
+         familyi={R\bibinitperiod},
+         given={J\"org},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=BS}{%
+         family={Bornholdt},
+         familyi={B\bibinitperiod},
+         given={Stefan},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {American Physical Society}%
+    }
+    \strng{namehash}{RJBS1}
+    \strng{fullhash}{RJBS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1103/PhysRevE.74.016110
+    \endverb
+    \field{issue}{1}
+    \field{pages}{016110}
+    \field{title}{Statistical mechanics of community detection}
+    \field{volume}{74}
+    \field{journaltitle}{Phys. Rev. E}
+    \field{month}{07}
+    \field{year}{2006}
+  \endentry
+
   \entry{Nishimori1980}{article}{}
     \name{author}{1}{}{%
       {{hash=NH}{%

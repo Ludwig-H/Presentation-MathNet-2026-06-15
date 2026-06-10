@@ -301,7 +301,7 @@
       \item $\tilde{F}$: \textbf{Repulsive} (antiferromagnetic) edges, with weight $W_e < 0$
     \end{itemize}
   \end{block}
-  \begin{block}{Signed Gibbs Measure}
+  \begin{block}{Signed \textsc{Gibbs} Measure \cite{Reichardt2006}}
     The probability of a label configuration $\sigma \in \{+1, -1\}^{V_n}$ is $\mu(\sigma) = \frac{1}{Z} e^{-U(\sigma)}$, where the energy $U(\sigma)$ penalizes unsatisfied edges:
     \begin{equation*}
         U(\sigma) = \sum_{e=\{i,j\} \in F} W_e \ind{\sigma_i \neq \sigma_j} + \sum_{e=\{i,j\} \in \tilde{F}} |W_e| \ind{\sigma_i = \sigma_j}
