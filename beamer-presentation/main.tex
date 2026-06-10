@@ -627,9 +627,9 @@
         \node[spin] (a) at (0,0) {$+$};
         \node[spin] (b) at (1.2,0) {$+$};
         \node[spin] (c) at (0.6,1.04) {$+$};
-        \draw[posedge] (a)--(b);
-        \draw[posedge] (b)--(c);
-        \draw[posedge] (c)--(a);
+        \draw[faint] (a)--(b);
+        \draw[faint] (b)--(c);
+        \draw[faint] (c)--(a);
         \node[align=center, below=3pt] at (0.6,0) {$\omega_b = \varnothing$};
       \end{scope}
 
@@ -638,9 +638,9 @@
         \node[spin] (a) at (0,0) {$+$};
         \node[spin] (b) at (1.2,0) {$+$};
         \node[spin] (c) at (0.6,1.04) {$+$};
-        \draw[freeze] (a)--(b);
-        \draw[posedge] (b)--(c);
-        \draw[posedge] (c)--(a);
+        \draw[line width=2.5pt] (a)--(b);
+        \draw[faint] (b)--(c);
+        \draw[faint] (c)--(a);
         \node[align=center, below=3pt] at (0.6,0) {$\omega_b = \{ab\}$};
       \end{scope}
 
@@ -649,9 +649,9 @@
         \node[spin] (a) at (0,0) {$+$};
         \node[spin] (b) at (1.2,0) {$+$};
         \node[spin] (c) at (0.6,1.04) {$+$};
-        \draw[freeze] (a)--(b);
-        \draw[freeze] (b)--(c);
-        \draw[freeze] (c)--(a);
+        \draw[line width=2.5pt] (a)--(b);
+        \draw[line width=2.5pt] (b)--(c);
+        \draw[line width=2.5pt] (c)--(a);
         \node[align=center, below=3pt] at (0.6,0) {$\omega_b = \{ab, ac, bc\}$};
       \end{scope}
     \end{tikzpicture}
