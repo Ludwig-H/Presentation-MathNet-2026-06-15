@@ -772,6 +772,24 @@
   \end{block}
 \end{frame}
 
+\begin{frame}{Towards a Practical Community Detection Algorithm}
+  \begin{block}{Limits of Direct Gibbs Sampling}
+    \begin{itemize}
+      \item Empirically, recovering communities by sampling directly from the Gibbs distribution does not perform well.
+      \item This is likely because the \textbf{mixing time} of the Markov chain is too large.
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Estimating the Correlation Matrix}
+    \begin{itemize}
+      \item Constructing an estimator of the correlation matrix:
+        $$\mathbb{P}[\ind{\sigma_i = \sigma_j}]$$
+        gives significantly better results.
+      \item \textbf{Future work}: It would be highly relevant to theoretically study why this approach is much more robust.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
 \begin{frame}[allowframebreaks]{Bibliography}
   \printbibliography
 \end{frame}
