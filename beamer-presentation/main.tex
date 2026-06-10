@@ -557,9 +557,9 @@
         \begin{itemize}
           \item If $e$ is satisfied ($W_e > 0$ and $\sigma_i = \sigma_j$, or $W_e < 0$ and $\sigma_i \neq \sigma_j$), freeze it with probability:
             \begin{equation*}
-                p_e^{\mathrm{gel}} = 1 - e^{-|W_e|}.
+                p_e^{\mathrm{frozen}} = 1 - e^{-|W_e|}.
             \end{equation*}
-          \item If $e$ is unsatisfied, do not freeze it ($p_e^{\mathrm{gel}} = 0$).
+          \item If $e$ is unsatisfied, do not freeze it ($p_e^{\mathrm{frozen}} = 0$).
         \end{itemize}
       \item \textbf{Recoloring Step}: Flip each frozen cluster independently with probability $1/2$.
     \end{itemize}
@@ -734,10 +734,10 @@
     On the triangular grid, we select a family of independent white triangles (like a chessboard).
     \begin{itemize}
       \item \textbf{Edge Dynamics (Standard SW)}:
-        Gelled graph is independent edge percolation with parameter $p_{\mathrm{edge}} = 2p-1$.
+        Frozen graph is independent edge percolation with parameter $p_{\mathrm{edge}} = 2p-1$.
         Critical threshold: $p_c^{\mathrm{edge}} = \frac{1}{2} + \sin(\frac{\pi}{18}) \approx 0.673\ldots$.
       \item \textbf{Triangular Dynamics}:
-        Gelled graph yields correlated triangle percolation.
+        Frozen graph yields correlated triangle percolation.
         Critical threshold: $p_c^{\triangle} = \frac{7}{4} - \frac{\sqrt{17}}{4} \approx 0.7192\ldots$.
     \end{itemize}
   \end{block}
