@@ -316,35 +316,7 @@
       \item With fixed spatial positions $X$, all pairwise distances $r_e = \|X_i - X_j\|$ are known.
       \item Under a uniform prior on $\Sigma$, the \textbf{posterior} distribution given the observed graph $H$ is:
         \begin{equation*}
-            \mathbb{P}(\Sigma = \sigma \mid H, X) \propto \mathbb{P}(H \mid X, \sigma)
-        \end{equation*}
-    \end{itemize}
-  \end{block}
-  \begin{block}{Log-Likelihood as Signed \textsc{Gibbs} Energy}
-    \begin{itemize}
-      \item Choosing weights $W_e(H)$ as below:
-        \begin{equation*}
-            W_e(H)=
-            \begin{cases}
-                \displaystyle \log\left(\frac{f_{\mathrm{in}}(r_e)}{f_{\mathrm{out}}(r_e)}\right) > 0 & \text{if } e\in H \text{ (attractive } \in F\text{),}\\[2ex]
-                \displaystyle -\log\left(\frac{1-f_{\mathrm{out}}(r_e)}{1-f_{\mathrm{in}}(r_e)}\right) < 0 & \text{if } e\notin H \text{ (repulsive } \in \tilde{F}\text{).}
-            \end{cases}
-        \end{equation*}
-      \item ... yields the exact correspondence:
-        \begin{equation*}
-            \mathbb{P}(H \mid X, \sigma) \propto e^{-U(\sigma)}
-        \end{equation*}
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\begin{frame}{From GSBM to the \textsc{Gibbs} Posterior}
-  \begin{block}{Conditioning on the Point Cloud}
-    \begin{itemize}
-      \item With fixed spatial positions $X$, all pairwise distances $r_e = \|X_i - X_j\|$ are known.
-      \item Under a uniform prior on $\Sigma$, the \textbf{posterior} distribution given the observed graph $H$ is:
-        \begin{equation*}
-            \textcolor{red}{\boldsymbol{\mathbb{P}(\Sigma = \sigma \mid H, X) = \mu(\sigma)}} \mathrel{\propto} \mathbb{P}(H \mid X, \sigma)
+            \alt<1>{\mathbb{P}(\Sigma = \sigma \mid H, X)}{\textcolor{red}{\boldsymbol{\mathbb{P}(\Sigma = \sigma \mid H, X) = \mu(\sigma)}}} \mathrel{\propto} \mathbb{P}(H \mid X, \sigma)
         \end{equation*}
     \end{itemize}
   \end{block}
@@ -611,7 +583,7 @@
   \end{table}
 \end{frame}
 
-\begin{frame}{General \textsc{Swendsen}--\textsc{Wang} Cluster Dynamics}
+\begin{frame}{General \textsc{Swendsen}--\textsc{Wang} Cluster Dynamics: Framework}
   \begin{block}{General Framework \textcolor{inria-2024-rouge!80!black}{\cite{BibiInformationInference}}}
     Suppose the Hamiltonian decomposes as: $U(\sigma) = U_0(\sigma) + \sum_{b \in \mathcal{B}} U_b(\sigma)$, where each $b \in \mathcal{B}$ is a \textbf{bond} (\emph{e.g.}, edge, triangle, clique).
     \begin{enumerate}
@@ -658,7 +630,7 @@
   \end{center}
 \end{frame}
 
-\begin{frame}{General \textsc{Swendsen}--\textsc{Wang} Cluster Dynamics}
+\begin{frame}{General \textsc{Swendsen}--\textsc{Wang} Cluster Dynamics: Invariance}
   \begin{definition}[Local Reversibility]
     For two configurations $\sigma, \sigma'$ and a bond $b$, we define the compatibility probability:
     \begin{equation*}
@@ -746,10 +718,6 @@
   \begin{corollary}[Strictly Better Impossibility Bound \textcolor{inria-2024-rouge!80!black}{\cite{BibiInformationInference}}]
     Since $p_c^{\mathrm{edge}} < p_c^{\triangle}$, for any $p \in [0.673\ldots, 0.7192\ldots)$, the standard \textsc{S}\&\textsc{B} bound cannot conclude (edge dynamics percolate), whereas triangular dynamics do not, proving that weak recovery is impossible.
   \end{corollary}
-\end{frame}
-
-\begin{frame}{Empirical Results}
-
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
