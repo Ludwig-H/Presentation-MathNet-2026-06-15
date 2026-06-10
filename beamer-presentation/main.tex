@@ -183,8 +183,8 @@
       \node[scale=0.65,chapbox, align=left, fill=white] at (0,1.75){
         \begin{tabular}{ll}
           \tikz[baseline=-0.5ex]{\draw[line width=5pt, gray!45, line cap=round] (0,0) -- (0.6,0);} & DNA Read (Node) \\
-          \tikz[baseline=-0.5ex]{\draw[posedge] (0,0) -- (0.6,0);} & Positive Edge $W_e > 0$  \\
-          \tikz[baseline=-0.5ex]{\draw[negedge] (0,0) -- (0.6,0);} & Negative Edge $W_e < 0$ \\
+          \tikz[baseline=-0.5ex]{\draw[posedge] (0,0) -- (0.6,0);} & Attraction ($W_e > 0$)  \\
+          \tikz[baseline=-0.5ex]{\draw[negedge] (0,0) -- (0.6,0);} & Repulsion ($W_e < 0$) \\
           \textcolor{red!80!black}{\textbf{FP}} & False Positive (noise)  \\
           \textcolor{red!80!black}{\textbf{FN}} & False Negative (noise)
         \end{tabular}
@@ -250,7 +250,7 @@ and \href{https://nahuelsopranoloto.github.io/}{Nahuel \textsc{Soprano-Loto}} (I
   \begin{block}{Community Detection on Signed Graphs ($K=2$)}
     \begin{itemize}
       \item We aim to partition nodes into $K=2$ communities: {\Large $\boldsymbol{\Sigma}_i$} $\in \{+1, -1\}$.
-      \item Observed links are signed, representing \textbf{attractions} ($+$) and \textbf{repulsions} ($-$).
+      \item Observed links represent \textbf{attractions} (solid lines) and \textbf{repulsions} (dashed lines).
       \item Under the hood, this is a \textbf{Stochastic Block Model} (SBM) setup.
     \end{itemize}
   \end{block}
