@@ -566,6 +566,28 @@
   \end{block}
 \end{frame}
 
+\begin{frame}{Percolation as a Necessary Condition for Recovery}
+  \begin{theorem}[Percolation Bound on Overlap \textcolor{inria-2024-rouge!80!black}{\cite{BibiInformationInference}}]
+    Under the uniform community prior $\mu_0$ (baseline overlap $1/K$), if the frozen clusters are recolored independently and uniformly, then for any algorithm $\tau_n$ and any $\eta > 0$:
+    \begin{equation*}
+        \lim_{n\to\infty} \mathbb{P}\left[ \ov_n(\Sigma_n, \tau_n) \ge \frac{1}{K} + \frac{K-1}{K}(\theta^{\max} + \eta) \right] = 0
+    \end{equation*}
+    where $\theta^{\max}$ is the asymptotic fraction of nodes in giant frozen components.
+  \end{theorem}
+  
+  \begin{corollary}{Percolation is Necessary}
+    In the absence of percolation ($\theta^{\max} = 0$), the maximum possible overlap is bounded by $1/K$ (random guess):
+    \begin{equation*}
+        \theta^{\max} = 0 \implies \text{Weak (partial) recovery is impossible}.
+    \end{equation*}
+    Hence, \textbf{percolation of the cluster dynamics is a necessary condition for weak recovery}.
+  \end{corollary}
+
+  \begin{block}{Key Intuition}
+    Small (finite) clusters are recolored independently, washing out their contribution to the global alignment. Only giant (macroscopic) components can carry global community information.
+  \end{block}
+\end{frame}
+
 \begin{frame}[shrink]{Coupling \& the \textsc{Sankararaman}--\textsc{Baccelli} Bound}
   \begin{block}{Gel Probability under the Generative Model}
     Let's run one step of SW starting from the hidden truth $\Sigma$. What is the probability that an edge $e$ is frozen?
@@ -645,7 +667,7 @@
         Critical threshold: $p_c^{\triangle} = \frac{7}{4} - \frac{\sqrt{17}}{4} \approx 0.7192$.
     \end{itemize}
   \end{block}
-  \begin{corollary}{Strictly Better Impossibility Bound \cite{BibiMonterey}}
+  \begin{corollary}{Strictly Better Impossibility Bound \textcolor{inria-2024-rouge!80!black}{\cite{BibiMonterey}}}
     Since $p_c^{\mathrm{edge}} < p_c^{\triangle}$, for any
     \begin{equation*}
         p \in \left[ 0.673\,;\, 0.7192 \right[,
