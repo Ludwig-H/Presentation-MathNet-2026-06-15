@@ -602,9 +602,11 @@
       \midrule
       $(+,+,+)$ & $1$ & $0$ & $0$ & $0$ & $0$\\
       $(+,+,-)$ & $b_u$ & $0$ & $a_u/2$ & $a_u/2$ & $0$\\
+      $(+,-,+)$ & $b_u$ & $a_u/2$ & $0$ & $a_u/2$ & $0$\\
+      $(+,-,-)$ & $b_u$ & $a_u/2$ & $a_u/2$ & $0$ & $0$\\
       \bottomrule
     \end{tabular}
-    \caption{Freezing rules for triangular dynamics ($a_u = 1 - e^{-2u}$, $b_u = e^{-2u}$). By construction, these rules satisfy local reversibility and leave the posterior distribution invariant.}
+    \caption{Freezing rules for triangular dynamics ($a_u = 1 - e^{-2u}$, $b_u = e^{-2u}$), where $u$ is the energy transferred by each edge.}
     \label{tab:triangle_rules}
   \end{table}
 \end{frame}
