@@ -392,9 +392,10 @@
 
 \begin{frame}{The General Bayesian Model}
   \begin{definition}{General Bayesian Community Detection Model}
+    Let $V_n = \{1, \dots, n\}$, $\Lab_K = \{0, \dots, K-1\}$, and $\Conf_n = (\Lab_K)^{V_n}$.
     \begin{enumerate}
       \item \textbf{Features}: $X_n \in \mathcal{X}_n$ with distribution $\nu_n$.
-      \item \textbf{Prior}: $\mu_{0,n}(\mathrm{d}\sigma \mid x)$ over $\Conf_n = \Lab_K^{V_n}$.
+      \item \textbf{Prior}: $\mu_{0,n}(\mathrm{d}\sigma \mid x)$ over $\Conf_n$.
       \item \textbf{Channel}: $Q_n(\mathrm{d}w \mid x, \sigma) = \prod_{e \in E_n} Q_{e,n}(\mathrm{d}w_e \mid x_i, x_j, \sigma_i, \sigma_j)$.
     \end{enumerate}
     The joint law is $\mathbb{P}_n(\mathrm{d}x, \mathrm{d}\sigma, \mathrm{d}w) = \nu_n(\mathrm{d}x)\mu_{0,n}(\mathrm{d}\sigma \mid x)Q_n(\mathrm{d}w \mid x, \sigma)$.
