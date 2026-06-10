@@ -469,27 +469,49 @@
 \section{MCMC Dynamics \& Performance Bounds}
 \frame{\sectionpage}
 
-\begin{frame}{MCMC Dynamics for Signed \textsc{Gibbs} Measures}
-  \begin{block}{1. Single-Spin Dynamics (\textsc{Glauber} / \textsc{Metropolis}--\textsc{Hastings})}
-    \begin{itemize}
-      \item Select a node at random and update its label according to its local neighbors.
-      \item Extremely slow in the presence of frustration: local updates cannot cross energy barriers.
-    \end{itemize}
-  \end{block}
-  \begin{block}{2. \textsc{Swendsen}--\textsc{Wang} (SW) Signed Cluster Dynamics \cite{SwendsenWang, EdwardsSokal}}
-    \begin{itemize}
-      \item Update whole clusters of vertices simultaneously to speed up mixing.
-      \item \textbf{Freezing Step}: For each edge $e=\{i,j\}$:
+\begin{frame}{Single-Spin Dynamics \& Geometric Bottleneck}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Single-Spin Update Limitations}
         \begin{itemize}
-          \item If $e$ is satisfied ($W_e > 0$ and $\sigma_i = \sigma_j$, or $W_e < 0$ and $\sigma_i \neq \sigma_j$), freeze it with probability:
-            \begin{equation*}
-                p_e^{\mathrm{gel}} = 1 - e^{-|W_e|}.
-            \end{equation*}
-          \item If $e$ is unsatisfied, do not freeze it ($p_e^{\mathrm{gel}} = 0$).
+          \item \textbf{Geometry makes updates slow}: Single-spin dynamics (\textsc{Glauber} / \textsc{Metropolis}--\textsc{Hastings}) update one node at a time.
+          \item \textbf{Contradictory Clusters}: Two internally valid (highly satisfied) but mutually contradictory clusters are locked.
+          \item \textbf{High Energy Barrier}: Flipping a single boundary node violates internal edges, creating a local energy barrier.
+          \item \textbf{Conclusion}: Need for geometry $\implies$ \textbf{Cluster Dynamics} (updating whole regions).
         \end{itemize}
-      \item \textbf{Recoloring Step}: Flip each frozen cluster independently with probability $1/2$.
-    \end{itemize}
-  \end{block}
+      \end{block}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=1.1, every node/.style={scale=0.9}]
+        \node[spin, fill=inria-2024-bleu-canard!15] (a) at (0, 1.2) {$+$};
+        \node[spin, fill=inria-2024-bleu-canard!15] (b) at (0.8, 0.4) {$+$};
+        \node[spin, fill=inria-2024-bleu-canard!15] (c) at (0, -0.4) {$+$};
+        
+        \node[spin, fill=inria-2024-rouge!15] (d) at (3.0, 1.2) {$-$};
+        \node[spin, fill=inria-2024-rouge!15] (e) at (2.2, 0.4) {$-$};
+        \node[spin, fill=inria-2024-rouge!15] (f) at (3.0, -0.4) {$-$};
+        
+        \draw[posedge] (a) -- (b);
+        \draw[posedge] (b) -- (c);
+        \draw[posedge] (a) -- (c);
+        
+        \draw[posedge] (d) -- (e);
+        \draw[posedge] (e) -- (f);
+        \draw[posedge] (d) -- (f);
+        
+        % Frustrated boundary edges
+        \draw[posedge, draw=inria-2024-rouge, thick] (b) -- node[above, scale=0.7, text=inria-2024-rouge] {unsat.} (e);
+        \draw[posedge, draw=inria-2024-rouge, thick] (a) -- (d);
+        \draw[posedge, draw=inria-2024-rouge, thick] (c) -- (f);
+        
+        \draw[dashed, inria-2024-gris-bleu, thick] (1.5, -0.6) -- (1.5, 1.7) node[above, scale=0.8, text=inria-2024-gris-bleu] {Boundary};
+        
+        \node[scale=0.8, align=center, text=inria-2024-bleu-canard] at (0.4, -1.25) {Cluster $C_1$ ($+$)\\All edges satisfied};
+        \node[scale=0.8, align=center, text=inria-2024-rouge] at (2.6, -1.25) {Cluster $C_2$ ($-$)\\All edges satisfied};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}{One Step of Signed \textsc{Swendsen}--\textsc{Wang}}
@@ -525,6 +547,23 @@
     \item Edges in bold represent satisfied interactions that are randomly frozen.
     \item Clusters are then flipped independently.
   \end{itemize}
+\end{frame}
+
+\begin{frame}{\textsc{Swendsen}--\textsc{Wang} Signed Cluster Dynamics}
+  \begin{block}{\textsc{Swendsen}--\textsc{Wang} (SW) Signed Cluster Dynamics \cite{SwendsenWang, EdwardsSokal}}
+    \begin{itemize}
+      \item Update whole clusters of vertices simultaneously to speed up mixing.
+      \item \textbf{Freezing Step}: For each edge $e=\{i,j\}$:
+        \begin{itemize}
+          \item If $e$ is satisfied ($W_e > 0$ and $\sigma_i = \sigma_j$, or $W_e < 0$ and $\sigma_i \neq \sigma_j$), freeze it with probability:
+            \begin{equation*}
+                p_e^{\mathrm{gel}} = 1 - e^{-|W_e|}.
+            \end{equation*}
+          \item If $e$ is unsatisfied, do not freeze it ($p_e^{\mathrm{gel}} = 0$).
+        \end{itemize}
+      \item \textbf{Recoloring Step}: Flip each frozen cluster independently with probability $1/2$.
+    \end{itemize}
+  \end{block}
 \end{frame}
 
 \begin{frame}[shrink]{Coupling \& the \textsc{Sankararaman}--\textsc{Baccelli} Bound}
