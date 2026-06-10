@@ -566,6 +566,50 @@
   \end{block}
 \end{frame}
 
+\begin{frame}{High-Order Triangular Dynamics}
+  \begin{block}{The Frustration Obstruction}
+    \begin{itemize}
+      \item Standard edge-by-edge SW freezes satisfied edges independently.
+      \item In frustrated systems, this leads to conflicts and blocks dynamics due to excessive freezing.
+      \item \textbf{Idea}: Introduce correlations on the freezing mechanism using higher-order cliques (\textbf{triangles}) to freeze as little as possible.
+    \end{itemize}
+  \end{block}
+  \begin{block}{3. Triangular Cluster Dynamics}
+    \begin{itemize}
+      \item Transfer edge energy to triangles: $U(\sigma) = \sum_{t \in \mathcal{T}} U_t(\sigma)$.
+      \item \textbf{Attractive Triangle} ($+++$ or $---$): Freeze all 3 edges (prob $a_u = 1 - e^{-2u}$) or none (prob $b_u = e^{-2u}$).
+      \item \textbf{Repulsive Triangle} (2 satisfied edges, 1 unsatisfied): Freeze exactly one of the two satisfied edges with probability $a_u/2$. This keeps the system in a low energy state with minimal freezing.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Triangular Dynamics Freezing Rules}
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{c|ccccc}
+      \toprule
+      \multicolumn{6}{c}{\TriangleAttractif{} \ \ \textbf{Attractive Triangle} (Isotropic)}\\
+      Configuration & $\varnothing$ & $\{ab\}$ & $\{ac\}$ & $\{bc\}$ & $\{ab,ac,bc\}$\\
+      \midrule
+      $(+,+,+)$ & $b_u$ & $0$ & $0$ & $0$ & $a_u$\\
+      Other & $1$ & $0$ & $0$ & $0$ & $0$\\
+      \bottomrule
+    \end{tabular}
+    \qquad
+    \begin{tabular}{c|ccccc}
+      \toprule
+      \multicolumn{6}{c}{\TriangleRepulsif{} \ \ \textbf{Repulsive Triangle} (Isotropic)}\\
+      Configuration & $\varnothing$ & $\{ab\}$ & $\{ac\}$ & $\{bc\}$ & $\{ab,ac,bc\}$\\
+      \midrule
+      $(+,+,+)$ & $1$ & $0$ & $0$ & $0$ & $0$\\
+      $(+,+,-)$ & $b_u$ & $0$ & $a_u/2$ & $a_u/2$ & $0$\\
+      \bottomrule
+    \end{tabular}
+    \caption{Freezing rules for triangular dynamics ($a_u = 1 - e^{-2u}$, $b_u = e^{-2u}$). By construction, these rules satisfy local reversibility and leave the posterior distribution invariant.}
+    \label{tab:triangle_rules}
+  \end{table}
+\end{frame}
+
 \begin{frame}{Percolation as a Necessary Condition for Recovery}
   \begin{theorem}[Percolation Bound on Overlap \textcolor{inria-2024-rouge!80!black}{\cite{BibiInformationInference}}]
     Under the uniform community prior $\mu_0$ (baseline overlap $1/K$), if the frozen clusters are recolored independently and uniformly, then for any algorithm $\tau_n$ and any $\eta > 0$:
@@ -609,50 +653,6 @@
     \end{equation*}
     This coupling directly retrieves the necessary percolation condition of SODA 2018!
   \end{corollary}
-\end{frame}
-
-\begin{frame}{High-Order Triangular Dynamics}
-  \begin{block}{The Frustration Obstruction}
-    \begin{itemize}
-      \item Standard edge-by-edge SW freezes satisfied edges independently.
-      \item In frustrated systems, this leads to conflicts and blocks dynamics due to excessive freezing.
-      \item \textbf{Idea}: Introduce correlations on the freezing mechanism using higher-order cliques (\textbf{triangles}) to freeze as little as possible.
-    \end{itemize}
-  \end{block}
-  \begin{block}{3. Triangular Cluster Dynamics}
-    \begin{itemize}
-      \item Transfer edge energy to triangles: $U(\sigma) = \sum_{t \in \mathcal{T}} U_t(\sigma)$.
-      \item \textbf{Attractive Triangle} ($+++$ or $---$): Freeze all 3 edges (prob $a_u = 1 - e^{-2u}$) or none (prob $b_u = e^{-2u}$).
-      \item \textbf{Repulsive Triangle} (2 satisfied edges, 1 unsatisfied): Freeze exactly one of the two satisfied edges with probability $a_u/2$. This keeps the system in a low energy state with minimal freezing.
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\begin{frame}{Triangular Dynamics Freezing Rules}
-  \begin{table}[H]
-    \centering
-    \begin{tabular}{c|ccccc}
-      \toprule
-      \multicolumn{6}{c}{\TriangleAttractif{} \ \ \textbf{Attractive Triangle} (Isotropic)}\\
-      Configuration & $\varnothing$ & $\{ab\}$ & $\{ac\}$ & $\{bc\}$ & $\{ab,ac,bc\}$\\
-      \midrule
-      $(+,+,+)$ & $b_u$ & $0$ & $0$ & $0$ & $a_u$\\
-      Other & $1$ & $0$ & $0$ & $0$ & $0$\\
-      \bottomrule
-    \end{tabular}
-    \qquad
-    \begin{tabular}{c|ccccc}
-      \toprule
-      \multicolumn{6}{c}{\TriangleRepulsif{} \ \ \textbf{Repulsive Triangle} (Isotropic)}\\
-      Configuration & $\varnothing$ & $\{ab\}$ & $\{ac\}$ & $\{bc\}$ & $\{ab,ac,bc\}$\\
-      \midrule
-      $(+,+,+)$ & $1$ & $0$ & $0$ & $0$ & $0$\\
-      $(+,+,-)$ & $b_u$ & $0$ & $a_u/2$ & $a_u/2$ & $0$\\
-      \bottomrule
-    \end{tabular}
-    \caption{Freezing rules for triangular dynamics ($a_u = 1 - e^{-2u}$, $b_u = e^{-2u}$). By construction, these rules satisfy local reversibility and leave the posterior distribution invariant.}
-    \label{tab:triangle_rules}
-  \end{table}
 \end{frame}
 
 \begin{frame}{Strict Improvement on the Triangular Grid}
