@@ -257,39 +257,6 @@
     \field{year}{1988}
   \endentry
 
-  \entry{BibiInformationInference}{misc}{}
-    \name{author}{3}{}{%
-      {{hash=HL}{%
-         family={Hauseux},
-         familyi={H\bibinitperiod},
-         given={Louis},
-         giveni={L\bibinitperiod},
-      }}%
-      {{hash=SLN}{%
-         family={Soprano-Loto},
-         familyi={S\bibinithyphendelim L\bibinitperiod},
-         given={Nahuel},
-         giveni={N\bibinitperiod},
-      }}%
-      {{hash=AK}{%
-         family={Avrachenkov},
-         familyi={A\bibinitperiod},
-         given={Konstantin},
-         giveni={K\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{HLSLNAK1}
-    \strng{fullhash}{HLSLNAK1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{note}{Article en cours de rédaction}
-    \field{title}{{A Bayesian Framework for Community Detection on Signed
-  Graphs. \\ Tighter Bounds with Higher-Order Interaction Markov Chain Monte
-  Carlo Cluster Dynamics}}
-    \field{journaltitle}{{Information and Inference}}
-    \field{year}{2026+}
-  \endentry
-
   \entry{BibiMonterey}{inproceedings}{}
     \name{author}{3}{}{%
       {{hash=HL}{%
@@ -329,6 +296,39 @@
     }
     \field{month}{10}
     \field{year}{2025}
+  \endentry
+
+  \entry{BibiInformationInference}{misc}{}
+    \name{author}{3}{}{%
+      {{hash=HL}{%
+         family={Hauseux},
+         familyi={H\bibinitperiod},
+         given={Louis},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=SLN}{%
+         family={Soprano-Loto},
+         familyi={S\bibinithyphendelim L\bibinitperiod},
+         given={Nahuel},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=AK}{%
+         family={Avrachenkov},
+         familyi={A\bibinitperiod},
+         given={Konstantin},
+         giveni={K\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HLSLNAK1}
+    \strng{fullhash}{HLSLNAK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{note}{Article en cours de rédaction}
+    \field{title}{{A Bayesian Framework for Community Detection on Signed
+  Graphs. \\ Tighter Bounds with Higher-Order Interaction Markov Chain Monte
+  Carlo Cluster Dynamics}}
+    \field{journaltitle}{{Information and Inference}}
+    \field{year}{2026+}
   \endentry
 \enddatalist
 \endinput

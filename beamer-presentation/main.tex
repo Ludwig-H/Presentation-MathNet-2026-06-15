@@ -569,13 +569,14 @@
 \begin{frame}{High-Order Triangular Dynamics}
   \begin{block}{The Frustration Obstruction}
     \begin{itemize}
-      \item \textbf{Frustration}: Cycles with an odd number of negative interactions (conflicting constraints).
-      \item \textbf{Excessive Freezing}: In frustrated graphs, standard SW satisfies and freezes too many edges independently, blocking/freezing the MCMC dynamics.
-      \item \textbf{Higher-Order Idea}: Group interactions into \textbf{triangles} to correlate the freezing mechanism and \textbf{freeze as little as possible}.
+      \item \textbf{Frustration}: $\nexists \sigma$ satisfying all edges (conflicting constraints).
+      \item \textbf{Excessive Freezing}: In frustrated configurations, standard SW satisfies and freezes too many edges independently, blocking/freezing the MCMC dynamics.
+      \item \textbf{Higher-Order Correlation}: Introduce correlations on the freezing mechanism to \textbf{freeze as little as possible}.
     \end{itemize}
   \end{block}
   \begin{block}{Triangular Cluster Dynamics \textcolor{inria-2024-rouge!80!black}{\cite{BibiMonterey}}}
     \begin{itemize}
+      \item \textbf{Energy Decomposition}: Distribute edge energy $U$ over triangles so that $U(\sigma) = \sum_{t \in \mathcal{T}} U_t(\sigma)$.
       \item \textbf{Attractive Triangle} ($+++$ or $---$): Freeze all 3 edges (prob $a_u = 1 - e^{-2u}$) or none (prob $b_u = e^{-2u}$).
       \item \textbf{Repulsive Triangle} (2 satisfied, 1 unsatisfied): Freeze \textbf{exactly one} of the two satisfied edges (prob $a_u/2$). Minimal freezing keeps the dynamics active.
     \end{itemize}
