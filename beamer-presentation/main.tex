@@ -266,54 +266,83 @@
   \end{block}
 \end{frame}
 
-\begin{frame}{The Noisy Channel \& Bayesian Formulation}
-  \begin{block}{From Sequencing Errors to Graph Weights}
+\begin{frame}{The \textsc{Sankararaman}--\textsc{Baccelli} Model (GSBM)}
+  \begin{block}{Model Definition \cite{SankararamanBaccelli2018}}
     \begin{itemize}
-      \item Sequencing errors induce \textbf{frustration}: contradictions in pairwise labels.
-      \item A sequencer has a known error rate $\varepsilon$.
-      \item If two reads overlap at distance $r_e$, let:
+      \item \textbf{Spatial Nodes}: $n$ nodes $V_n$ placed in space (e.g., \textsc{Poisson} point process on $\mathbb{R}^d$ or $\mathbb{Z}$). Let $X_i$ be the position of node $i$.
+      \item \textbf{Latent Communities}: True assignments $\Sigma \in \{+1, -1\}^{V_n}$ chosen uniformly at random ($K=2$).
+      \item \textbf{Geometry-Dependent Overlaps}: For each potential edge $e=\{i,j\}$ at distance $r_e = \|X_i - X_j\|$, the connection is present in the observed graph $H$ with probability:
         \begin{itemize}
-          \item $f_{\mathrm{in}}(r_e) = \mathbb{P}(\text{overlap observed} \mid \text{same chromosome}) = 1 - \varepsilon$
-          \item $f_{\mathrm{out}}(r_e) = \mathbb{P}(\text{overlap observed} \mid \text{different chromosomes}) = \varepsilon$
+          \item $f_{\mathrm{in}}(r_e)$ if $\Sigma_i = \Sigma_j$ (same community / attraction)
+          \item $f_{\mathrm{out}}(r_e)$ if $\Sigma_i \neq \Sigma_j$ (different communities / repulsion)
         \end{itemize}
-    \end{itemize}
-  \end{block}
-  \begin{block}{Natural Mapping to Signed Weights}
-    \begin{itemize}
-      \item The log-likelihood of observation $H$ under labels $\sigma$ translates into signed weights:
-        \begin{equation*}
-            W_e(H)=
-            \begin{cases}
-                \displaystyle \log\left(\frac{f_{\mathrm{in}}(r_e)}{f_{\mathrm{out}}(r_e)}\right) > 0 & \text{if } e\in H \text{ (observed overlap),}\\[2ex]
-                \displaystyle -\log\left(\frac{1-f_{\mathrm{out}}(r_e)}{1-f_{\mathrm{in}}(r_e)}\right) < 0 & \text{if } e\notin H \text{ (absent overlap).}
-            \end{cases}
-        \end{equation*}
-      \item The posterior distribution is exactly a \textbf{Signed \textsc{Gibbs} measure}.
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\begin{frame}{The Geometric Stochastic Block Model (GSBM)}
-  \begin{block}{\textsc{Sankararaman} \& \textsc{Baccelli} (SODA 2018) \cite{SankararamanBaccelli2018}}
-    \begin{itemize}
-      \item Nodes $V_n$ have spatial positions in $\mathbb{R}^d$ (e.g., \textsc{Poisson} process).
-      \item Latent community assignments $\Sigma \in \{+1, -1\}^{V_n}$ chosen uniformly at random.
-      \item Connecting functions $f_{\mathrm{in}}, f_{\mathrm{out}}: \mathbb{R}_+ \to [0,1]$ with $f_{\mathrm{in}}(r) \ge f_{\mathrm{out}}(r)$.
-      \item An edge $e=\{i,j\}$ with distance $r_e = \|x_i - x_j\|$ is present in $H$ with probability:
-        \begin{itemize}
-          \item $f_{\mathrm{in}}(r_e)$ if $\Sigma_i = \Sigma_j$ (intra-community)
-          \item $f_{\mathrm{out}}(r_e)$ if $\Sigma_i \neq \Sigma_j$ (inter-community)
-        \end{itemize}
+        where $f_{\mathrm{in}}(r) \ge f_{\mathrm{out}}(r)$ are known connecting functions.
     \end{itemize}
   \end{block}
   \begin{block}{Goal: Weak Recovery}
     \begin{itemize}
-      \item Recover $\Sigma$ up to label permutation strictly better than random guessing.
+      \item Recover the true assignments $\Sigma$ up to label permutation strictly better than random guessing.
       \item Formulated via the \textbf{Community Overlap}:
         \begin{equation*}
             \ov_n(\Sigma, \tau) = \max_{\pi \in \mathfrak{S}_2} \frac{1}{n} \sum_{i=1}^n \ind{\tau_i = \pi(\Sigma_i)}
         \end{equation*}
-      \item Weak recovery is possible if there exists an algorithm $\tau$ achieving $\mathbb{E}[\ov_n(\Sigma, \tau)] \ge \frac{1}{2} + \eta$ for some $\eta > 0$ as $n \to \infty$.
+      \item We want an algorithm $\tau$ achieving $\mathbb{E}[\ov_n(\Sigma, \tau)] \ge \frac{1}{2} + \eta$ for some $\eta > 0$ as $n \to \infty$.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Gibbs Model on Signed Graphs}
+  \begin{block}{Signed Interaction Graph}
+    \begin{itemize}
+      \item Let $E$ be the set of potential edges. Each edge $e=\{i,j\}$ has a weight $W_e \in \mathbb{R}$.
+      \item $W_e > 0$ represents an \textbf{attraction} (tending to align community labels: $\sigma_i = \sigma_j$).
+      \item $W_e < 0$ represents a \textbf{repulsion} (tending to separate community labels: $\sigma_i \neq \sigma_j$).
+    \end{itemize}
+  \end{block}
+  \begin{block}{Signed Gibbs Measure}
+    \begin{itemize}
+      \item The probability of a label configuration $\sigma \in \{+1, -1\}^{V_n}$ is given by:
+        \begin{equation*}
+            \mu(\sigma) = \frac{1}{Z} e^{-U(\sigma)} = \frac{1}{Z} \exp\left(-\sum_{e=\{i,j\}\in E} \psi_{W_e}(\sigma_i,\sigma_j)\right)
+        \end{equation*}
+      \item The \textbf{local interaction potential} $\psi_w(a,b)$ penalizes unsatisfied edges:
+        \begin{equation*}
+            \psi_w(a,b) =
+            \begin{cases}
+                |w|\,\ind{a \neq b} & \text{if } w > 0 \quad \text{(penalizes different labels),} \\[1.5ex]
+                |w|\,\ind{a = b} & \text{if } w < 0 \quad \text{(penalizes equal labels),} \\[1.5ex]
+                0 & \text{if } w = 0.
+            \end{cases}
+        \end{equation*}
+        The magnitude $|w|$ measures the constraint's strength.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{From GSBM to the Gibbs Posterior}
+  \begin{block}{Conditioning on the Point Cloud}
+    \begin{itemize}
+      \item Once the spatial positions $X$ are observed and fixed, all pairwise distances $r_e = \|X_i - X_j\|$ are known.
+      \item Under a uniform prior on $\Sigma$, the posterior distribution given the observed graph $H$ is:
+        \begin{equation*}
+            \mathbb{P}(\Sigma = \sigma \mid H, X) \propto \mathbb{P}(H \mid X, \sigma)
+        \end{equation*}
+    \end{itemize}
+  \end{block}
+  \begin{block}{Log-Likelihood as Signed Gibbs Energy}
+    \begin{itemize}
+      \item Factorizing the likelihood over all potential edges $e=\{i,j\} \in E$:
+        \begin{equation*}
+            \mathbb{P}(H \mid X, \sigma) \propto \exp\left(-\sum_{e\in E} \psi_{W_e(H)}(\sigma_i,\sigma_j)\right)
+        \end{equation*}
+      \item The posterior $\mathbb{P}(\Sigma \mid H, X)$ is exactly a \textbf{Signed \textsc{Gibbs} measure} with weights:
+        \begin{equation*}
+            W_e(H)=
+            \begin{cases}
+                \displaystyle \log\left(\frac{f_{\mathrm{in}}(r_e)}{f_{\mathrm{out}}(r_e)}\right) > 0 & \text{if } e\in H \text{ (observed overlap / attraction),}\\[2ex]
+                \displaystyle -\log\left(\frac{1-f_{\mathrm{out}}(r_e)}{1-f_{\mathrm{in}}(r_e)}\right) < 0 & \text{if } e\notin H \text{ (absent overlap / repulsion).}
+            \end{cases}
+        \end{equation*}
     \end{itemize}
   \end{block}
 \end{frame}
