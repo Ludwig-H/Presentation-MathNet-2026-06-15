@@ -808,6 +808,57 @@
   \end{block}
 \end{frame}
 
+\begin{frame}{Application: 3-SAT Solving via Signed Graphs}
+  \begin{columns}
+    \begin{column}{0.58\textwidth}
+      \begin{block}{Brief Recall: The 3-SAT Problem}
+        Find a truth assignment satisfying a set of clauses, each with exactly 3 literals, \emph{e.g.},
+        $$\mathcal{C} = x_i \lor \neg x_j \lor x_k$$
+      \end{block}
+
+      \begin{block}{Encoding Clauses as Signed Bonds}
+        \begin{itemize}
+          \item Add a reference node $\mathbf{T}$ (\textbf{\textsf{True}}).
+          \item A clause is encoded via its \textbf{triangular bond} (base) and a \textbf{tetrahedral bond} (connected to $\mathbf{T}$).
+          \item The energy is represented using only \textbf{attractive} (solid) and \textbf{repulsive} (dashed) edges.
+          \item Satisfying the clause corresponds to minimizing the Hamiltonian on these bonds.
+        \end{itemize}
+      \end{block}
+    \end{column}
+    
+    \begin{column}{0.38\textwidth}
+      \begin{center}
+        \begin{tikzpicture}[scale=1.5, x=1cm, y=1cm]
+          % Coordinates of tetrahedron
+          \coordinate (T) at (1, 1.8);
+          \coordinate (Xi) at (0, 0);
+          \coordinate (Xj) at (2, 0);
+          \coordinate (Xk) at (1.1, 0.65);
+
+          % Draw tetrahedral edges
+          \draw[posedge] (T) -- (Xi) node[midway, left, scale=0.8] {$+$};
+          \draw[negedge] (T) -- (Xj) node[midway, right, scale=0.8] {$-$};
+          \draw[posedge] (T) -- (Xk) node[midway, above right, scale=0.8] {$+$};
+
+          % Draw clause base edges (triangle)
+          \draw[posedge] (Xi) -- (Xj) node[midway, below, scale=0.8] {$+$};
+          \draw[negedge] (Xj) -- (Xk) node[midway, right, scale=0.8] {$-$};
+          \draw[posedge] (Xk) -- (Xi) node[midway, above left, scale=0.8] {$+$};
+
+          % Draw nodes
+          \node[spin, fill=inria-2024-rouge!15!white, draw=inria-2024-rouge!80!black] at (T) {$\mathbf{T}$};
+          \node[spin, fill=gray!10] at (Xi) {$x_i$};
+          \node[spin, fill=gray!10] at (Xj) {$x_j$};
+          \node[spin, fill=gray!10] at (Xk) {$x_k$};
+
+          \node[above=3pt, text=inria-2024-rouge!80!black] at (T) {\textbf{\textsf{True}}};
+          \node[below=4pt, align=center, scale=0.8] at (1,-0.2) {Clause: $x_i \lor \neg x_j \lor x_k$};
+        \end{tikzpicture}
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
 \begin{frame}[allowframebreaks]{Bibliography}
   \printbibliography
 \end{frame}
