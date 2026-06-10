@@ -679,7 +679,7 @@
     If freezing choices are independent, locally reversible, and $P_b^\sigma(\varnothing) > 0$ for all $b, \sigma$:
     \begin{enumerate}
       \item The global cluster dynamics is reversible with respect to $\mu(\sigma) \propto e^{-U(\sigma)}$.
-      \item The condition $P_b^\sigma(\varnothing) > 0$ ensures the \textbf{irreducibility} of the Markov chain.
+      \item The condition $P_b^\sigma(\varnothing) > 0$ ensures the \textbf{irreducibility} of the \textsc{Markov} chain.
     \end{enumerate}
   \end{theorem}
 \end{frame}
@@ -721,7 +721,7 @@
     \end{itemize}
   \end{block}
 
-  \begin{corollary}[Retrieving the S\&B Bound \cite{SankararamanBaccelli2018}]
+  \begin{corollary}[Retrieving the \textsc{S}\&\textsc{B} Bound \cite{SankararamanBaccelli2018}]
     Under the classical edge SW dynamics, the frozen graph is \textbf{exactly} an independent bond percolation with edge probability:
     \begin{equation*}
         p_e = f_{\mathrm{in}}(r_e) - f_{\mathrm{out}}(r_e).
@@ -729,7 +729,7 @@
   \end{corollary}
 \end{frame}
 
-\begin{frame}{Strict Improvement of the S\&B bound (on the triangular grid)}
+\begin{frame}{Strict Improvement of the \textsc{S}\&\textsc{B} bound (on the triangular grid)}
   \begin{block}{Homogeneous Model ($f_{\mathrm{in}} = p$, $f_{\mathrm{out}} = 1-p$)}
     On the triangular grid, we select a family of independent white triangles (like a chessboard).
     \begin{itemize}
@@ -744,7 +744,7 @@
     \end{itemize}
   \end{block}
   \begin{corollary}[Strictly Better Impossibility Bound \textcolor{inria-2024-rouge!80!black}{\cite{BibiInformationInference}}]
-    Since $p_c^{\mathrm{edge}} < p_c^{\triangle}$, for any $p \in [0.673\ldots, 0.7192\ldots)$, the standard S\&B bound cannot conclude (edge dynamics percolate), whereas triangular dynamics do not, proving that weak recovery is impossible.
+    Since $p_c^{\mathrm{edge}} < p_c^{\triangle}$, for any $p \in [0.673\ldots, 0.7192\ldots)$, the standard \textsc{S}\&\textsc{B} bound cannot conclude (edge dynamics percolate), whereas triangular dynamics do not, proving that weak recovery is impossible.
   \end{corollary}
 \end{frame}
 
@@ -776,7 +776,7 @@
   \begin{block}{Limits of Direct \textsc{Gibbs} Sampling}
     \begin{itemize}
       \item Empirically, recovering communities by sampling directly from the \textsc{Gibbs} distribution does not perform well.
-      \item This is likely because the \textbf{mixing time} of the Markov chain is too large.
+      \item This is likely because the \textbf{mixing time} of the \textsc{Markov} chain is too large.
     \end{itemize}
   \end{block}
 
