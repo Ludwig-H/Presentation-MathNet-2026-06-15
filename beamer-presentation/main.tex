@@ -255,7 +255,7 @@
   \end{block}
   \begin{block}{The Geometric Challenge}
     \begin{itemize}
-      \item Nodes are embedded in space (e.g., genomic positions on $\mathbb{Z}$ or $\mathbb{R}^d$).
+      \item Nodes are embedded in space (\emph{e.g.}, genomic positions on $\mathbb{Z}$ or $\mathbb{R}^d$).
       \item Edge probabilities depend directly on the distance $r = \|x_i - x_j\|$:
         \begin{align*}
             \mathbb{P}(\text{attractive edge} \mid \text{same community}) &= f_{\mathrm{in}}(r) \\
@@ -613,7 +613,7 @@
 
 \begin{frame}{General \textsc{Swendsen}--\textsc{Wang} Cluster Dynamics}
   \begin{block}{General Framework \textcolor{inria-2024-rouge!80!black}{\cite{BibiInformationInference}}}
-    Suppose the Hamiltonian decomposes as: $U(\sigma) = U_0(\sigma) + \sum_{b \in \mathcal{B}} U_b(\sigma)$, where each $b \in \mathcal{B}$ is a \textbf{bond} (e.g. edge, triangle, clique).
+    Suppose the Hamiltonian decomposes as: $U(\sigma) = U_0(\sigma) + \sum_{b \in \mathcal{B}} U_b(\sigma)$, where each $b \in \mathcal{B}$ is a \textbf{bond} (\emph{e.g.}, edge, triangle, clique).
     \begin{enumerate}
       \item \textbf{Freezing Step}: For each bond $b \in \mathcal{B}$, freeze a sub-bond $\omega_b \subseteq b$ with probability $P_b^{\sigma}(\omega_b)$.
       \item \textbf{Recoloring Step}: Recolor each frozen cluster independently according to a distribution preserving the prior $\mu_0(\sigma) \propto e^{-U_0(\sigma)}$.
@@ -803,7 +803,7 @@
       \item We should consider a distance that better reflects the transitions of the \textsc{Markov} cluster dynamics.
       \item For classical \textsc{Swendsen}--\textsc{Wang} (edges), this corresponds to the \textbf{symmetric difference} (the sum of edge weights satisfied by exactly one of the configurations):
         $$d_{\mathrm{sym}}(\sigma, \sigma') = \frac{1}{2} \sum_{e=\{i,j\}} |W_e| \left| \ind{\sigma \text{ satisfies } e} - \ind{\sigma' \text{ satisfies } e} \right|$$
-      \item This would also establish a link to the \textbf{spectral analysis of the graph} (e.g. via Laplacian eigenvalues).
+      \item This would also establish a link to the \textbf{spectral analysis of the graph} (\emph{e.g.}, via Laplacian eigenvalues).
     \end{itemize}
   \end{block}
 \end{frame}
