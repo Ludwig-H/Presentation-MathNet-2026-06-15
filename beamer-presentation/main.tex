@@ -611,6 +611,30 @@
   \end{table}
 \end{frame}
 
+\begin{frame}{General Swendsen--Wang Cluster Dynamics}
+  \begin{block}{General Framework \textcolor{inria-2024-rouge!80!black}{\cite{BibiInformationInference}}}
+    Suppose the Hamiltonian decomposes as: $U(\sigma) = U_0(\sigma) + \sum_{b \in \mathcal{B}} U_b(\sigma)$, where each $b \in \mathcal{B}$ is a \textbf{bond} (e.g. edge, triangle, clique).
+    \begin{enumerate}
+      \item \textbf{Freezing Step}: For each bond $b \in \mathcal{B}$, freeze a sub-bond $\omega_b \subseteq b$ with probability $P_b^{\sigma}(\omega_b)$.
+      \item \textbf{Recoloring Step}: Recolor each frozen cluster independently according to a distribution preserving the prior $\mu_0(\sigma) \propto e^{-U_0(\sigma)}$.
+    \end{enumerate}
+  \end{block}
+
+  \begin{definition}[Local Reversibility]
+    Let $P_b^{\sigma \to \sigma'}(\omega_b) = P_b^\sigma(\omega_b)$ if $P_b^{\sigma'}(\omega_b) > 0$, and $0$ otherwise.
+    The freezing rule is \textbf{locally reversible} if for all $b$, $\omega_b$, $\sigma$, $\sigma'$:
+    $P_b^{\sigma \to \sigma'}(\omega_b) = e^{-\left(U_b(\sigma') - U_b(\sigma)\right)} P_b^{\sigma' \to \sigma}(\omega_b)$.
+  \end{definition}
+
+  \begin{theorem}[Gibbs Invariance]
+    If freezing choices are independent, locally reversible, and $P_b^\sigma(\varnothing) > 0$ for all $b, \sigma$:
+    \begin{enumerate}
+      \item The global cluster dynamics is reversible with respect to $\mu(\sigma) \propto e^{-U(\sigma)}$.
+      \item The condition $P_b^\sigma(\varnothing) > 0$ ensures the \textbf{irreducibility} of the Markov chain.
+    \end{enumerate}
+  \end{theorem}
+\end{frame}
+
 \begin{frame}{Percolation as a Necessary Condition for Recovery}
   \begin{theorem}[Percolation Bound on Overlap \textcolor{inria-2024-rouge!80!black}{\cite{BibiInformationInference}}]
     Under the uniform community prior $\mu_0$ (baseline overlap $1/K$), if the frozen clusters are recolored independently and uniformly, then for any algorithm $\tau_n$ and any $\eta > 0$:
@@ -622,9 +646,7 @@
   
   \begin{corollary}{Percolation is Necessary}
     In the absence of percolation ($\theta^{\max} = 0$), the maximum possible overlap is bounded by $1/K$ (random guess):
-    \begin{equation*}
-        \theta^{\max} = 0 \implies \text{Weak (partial) recovery is impossible}.
-    \end{equation*}
+    $\theta^{\max} = 0 \implies \text{Weak (partial) recovery is impossible}$.
     Hence, \textbf{percolation of the cluster dynamics is a necessary condition for weak recovery}.
   \end{corollary}
 
