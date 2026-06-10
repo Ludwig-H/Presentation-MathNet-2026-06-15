@@ -113,6 +113,31 @@
     \field{year}{2006}
   \endentry
 
+  \entry{penrose2003}{book}{}
+    \name{author}{1}{}{%
+      {{hash=PM}{%
+         family={Penrose},
+         familyi={P\bibinitperiod},
+         given={Mathew},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Oxford University Press}%
+    }
+    \strng{namehash}{PM1}
+    \strng{fullhash}{PM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1093/acprof:oso/9780198506263.001.0001
+    \endverb
+    \field{series}{Oxford Studies in Probability}
+    \field{title}{Random Geometric Graphs}
+    \field{volume}{5}
+    \field{year}{2003}
+  \endentry
+
   \entry{Nishimori1980}{article}{}
     \name{author}{1}{}{%
       {{hash=NH}{%

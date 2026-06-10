@@ -369,21 +369,22 @@
 \begin{frame}{The Percolation Obstruction}
   \begin{block}{Necessary Condition for Weak Recovery \cite{SankararamanBaccelli2018}}
     \begin{itemize}
-      \item Intuitively, if the graph is composed of many tiny, isolated components, no global community structure can be reconstructed.
-      \item Information can only flow globally if the graph \textbf{percolates} (possesses a giant/infinite component).
+      \item Fragmented graphs (small, isolated components) prevent global reconstruction.
+      \item Global information flow requires the graph to \textbf{percolate} \cite{penrose2003} (possess a giant component).
     \end{itemize}
   \end{block}
   \begin{theorem}[\textsc{Sankararaman} \& \textsc{Baccelli} \cite{SankararamanBaccelli2018}]
-    Percolation of the graph with edge probability
+    Independent bond percolation with edge probability
     \begin{equation*}
         p_e = f_{\mathrm{in}}(r_e) - f_{\mathrm{out}}(r_e)
     \end{equation*}
-    is a \textbf{necessary condition} for weak recovery. If this independent bond percolation does not yield a giant component, weak recovery is mathematically impossible.
+    yielding a giant component is a \textbf{necessary condition} for weak recovery.
   \end{theorem}
   \begin{itemize}
-    \item Our goal: Retrieve and extend this result using a unified \textbf{Bayesian MCMC coupling} framework.
+    \item \textbf{Our goal}: Retrieve and extend this result using unified \textbf{Bayesian MCMC coupling}.
   \end{itemize}
 \end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The Bayesian Framework \& Coupling}
