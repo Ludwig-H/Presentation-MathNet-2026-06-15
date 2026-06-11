@@ -284,9 +284,9 @@
   \end{block}
   \begin{block}{Goal: Weak Recovery}
     \begin{itemize}
-      \item Find an algorithm $\tau$ (independent of $\Sigma$) achieving:
+      \item Find an algorithm $\tau_n$ (independent of $\Sigma_n$) achieving:
         \begin{equation*}
-            \lim_{n\to\infty} \mathbb{E}[\ov_n(\Sigma, \tau)] \ge \frac{1}{2} + \eta \quad (\eta > 0), \quad \text{where } \ov_n(\Sigma, \tau) = \max_{\pi \in \mathfrak{S}_2} \frac{1}{n} \sum_{i=1}^n \ind{\tau_i = \pi(\Sigma_i)}.
+            \lim_{n\to\infty} \mathbb{E}[\ov_n(\Sigma_n, \tau_n)] \ge \frac{1}{2} + \eta \quad (\eta > 0), \quad \text{where } \ov_n(\Sigma_n, \tau_n) = \max_{\pi \in \mathfrak{S}_2} \frac{1}{n} \sum_{i=1}^n \ind{\tau_{n,i} = \pi(\Sigma_{n,i})}.
         \end{equation*}
     \end{itemize}
   \end{block}
