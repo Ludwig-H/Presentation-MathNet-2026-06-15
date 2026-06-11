@@ -741,11 +741,81 @@
   \end{corollary}
 \end{frame}
 
-\begin{frame}{Empirical Results}
-
+\begin{frame}{Empirical Results: Subcritical vs. Supercritical ($p = 0.70$)}
+  \centering
+  \includegraphics[width=0.68\textwidth]{imgs/LargestComp0.7.png}
+  
+  \vspace{0.2em}
+  \begin{columns}[onlytextwidth,T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Phase Space ($p_c^{\mathrm{edge}} \approx 0.673 < 0.70 < p_c^{\triangle} \approx 0.7192$)}
+        \begin{itemize}
+          \item \textbf{Edges (standard SW)}: supercritical ($\theta^{\max} > 0$), largest component size (LCC) reaches $\approx 0.9$ (right plot).
+          \item \textbf{Triangles / Split weight}: subcritical ($\theta^{\max} = 0$), LCC remains near $0$.
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Observed Behavior}
+        \begin{itemize}
+          \item Only standard edge SW achieves giant components.
+          \item Overlap remains at the baseline noise level (around $0.002$) for triangles and split weights due to lack of percolation (left plot).
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Empirical Results: Onset of Percolation ($p = 0.72$)}
+  \centering
+  \includegraphics[width=0.68\textwidth]{imgs/LargestComp0.72.png}
+  
+  \vspace{0.2em}
+  \begin{columns}[onlytextwidth,T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Transition Regime ($p = 0.72 > p_c^{\triangle} \approx 0.7192$)}
+        \begin{itemize}
+          \item All three dynamics are now \textbf{supercritical}.
+          \item LCC grows for all: edges reach $\approx 0.9$, split weights reach $\approx 0.85$, and white triangles reach $\approx 0.55$ (right plot).
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Observed Behavior}
+        \begin{itemize}
+          \item Giant components have formed, but the overlap remains low (below $0.003$) for all dynamics (left plot).
+          \item Weak recovery is not yet fully manifest.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Empirical Results: Weak Recovery Achieved ($p = 0.80$)}
+  \centering
+  \includegraphics[width=0.68\textwidth]{imgs/LargestComp0.80.png}
+  
+  \vspace{0.2em}
+  \begin{columns}[onlytextwidth,T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Supercritical Regime ($p = 0.80 \gg p_c^{\triangle}$)}
+        \begin{itemize}
+          \item Giant components are well-established (right plot), with LCC close to $0.95$ for edges and split weights, and $0.90$ for white triangles.
+          \item Fluctuations are small and components are stable.
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Observed Behavior}
+        \begin{itemize}
+          \item Weak recovery is successfully achieved for all algorithms.
+          \item The overlap climbs significantly above the noise level (left plot), peaking at $\approx 0.010$ for white triangles and $\approx 0.006$ for split weights.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
 \section{Open Questions \& Conclusion}
 \frame{\sectionpage}
 
