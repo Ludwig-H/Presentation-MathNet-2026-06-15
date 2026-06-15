@@ -306,13 +306,13 @@
         \centering
         \begin{tikzpicture}[scale=1.0, every node/.style={scale=0.9}]
           % Nodes for F
-          \node[spin] (i) at (0, 0.4) {$i$};
-          \node[spin] (j) at (1.8, 0.4) {$j$};
+          \node[spin] (i) at (0, 0.4) {};
+          \node[spin] (j) at (1.8, 0.4) {};
           \draw[posedge] (i) -- node[above, scale=0.8] {$e \in F$} (j);
 
           % Nodes for \tilde{F}
-          \node[spin] (k) at (0, -0.6) {$k$};
-          \node[spin] (l) at (1.8, -0.6) {$l$};
+          \node[spin] (k) at (0, -0.6) {};
+          \node[spin] (l) at (1.8, -0.6) {};
           \draw[negedge] (k) -- node[below, scale=0.8] {$e \in \tilde{F}$} (l);
         \end{tikzpicture}
       \end{column}
