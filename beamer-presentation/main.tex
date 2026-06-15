@@ -294,11 +294,29 @@
 
 \begin{frame}{\textsc{Gibbs} Model on Signed Graphs}
   \begin{block}{Attractive and Repulsive Edges}
-    Partition potential edges $E = F \dot{\cup} \tilde{F}$:
-    \begin{itemize}
-      \item $F$: \textbf{Attractive} (ferromagnetic), weight $W_e > 0$
-      \item $\tilde{F}$: \textbf{Repulsive} (antiferromagnetic), weight $W_e < 0$
-    \end{itemize}
+    \begin{columns}[c]
+      \begin{column}{0.60\textwidth}
+        Partition potential edges $E = F \dot{\cup} \tilde{F}$:
+        \begin{itemize}
+          \item $F$: \textbf{Attractive} (ferromagnetic), weight $W_e > 0$
+          \item $\tilde{F}$: \textbf{Repulsive} (antiferromagnetic), weight $W_e < 0$
+        \end{itemize}
+      \end{column}
+      \begin{column}{0.40\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=1.0, every node/.style={scale=0.9}]
+          % Nodes for F
+          \node[spin] (i) at (0, 0.4) {$i$};
+          \node[spin] (j) at (1.8, 0.4) {$j$};
+          \draw[posedge] (i) -- node[above, scale=0.8] {$e \in F$} (j);
+
+          % Nodes for \tilde{F}
+          \node[spin] (k) at (0, -0.6) {$k$};
+          \node[spin] (l) at (1.8, -0.6) {$l$};
+          \draw[negedge] (k) -- node[below, scale=0.8] {$e \in \tilde{F}$} (l);
+        \end{tikzpicture}
+      \end{column}
+    \end{columns}
   \end{block}
   \begin{block}{Signed \textsc{Gibbs} Measure \cite{Reichardt2006}}
     Configuration probability $\mu(\sigma) = \frac{1}{Z} e^{-U(\sigma)}$, where energy $U(\sigma)$ penalizes unsatisfied edges:
