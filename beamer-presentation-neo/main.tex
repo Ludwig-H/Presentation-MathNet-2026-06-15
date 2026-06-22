@@ -405,22 +405,24 @@
 
 \begin{frame}{GSBM in the Bayesian Framework}
   \centering
-  \renewcommand{\arraystretch}{1.25}
+  \renewcommand{\arraystretch}{1.35}
   \setlength{\tabcolsep}{10pt}
   \begin{tabular}{p{0.45\textwidth} | p{0.45\textwidth}}
     \textbf{\textsc{Sankararaman \& Baccelli} (GSBM)} & \textbf{Bayesian Framework} \\
     \hline
-    Nodes $X$: Realization of a homogeneous \textsc{Poisson} point process & Features $X \sim \nu$ with $\nu = \text{\textsc{Poisson} process law}$ \\
-    Uniform prior $\mu_0$ on $\Sigma \in \{+1,-1\}^n$ & Prior $\mu_0$ on configurations \\
-    Complete graph edges $E$ (all pairs) & Channel edges $E$ \\
-    Observed graph $H$ (edges) & Set of active/attractive edges $F$ \\
-    Non-edges $E \setminus H$ & Set of inactive/repulsive edges $\tilde{F} = E \setminus F$ \\
-    Connection probabilities $f_{\mathrm{in}}(r_e), f_{\mathrm{out}}(r_e)$ & Noisy channel $Q(w \mid X, \sigma)$ \\
-    Posterior corresponds to \textsc{Gibbs} measure: & Posterior distribution: \\
-    \quad $\mu(\sigma) \propto e^{-U(\sigma)}$ & \quad $\mathbb{P}(\Sigma=\sigma \mid H, X) \propto \mathbb{P}(H \mid X, \sigma)$ \\
-    with weights $W_e$ on $F$ and $\tilde{F}$: & with channel weights $W_e$: \\
-    \quad $W_e = \log\frac{f_{\mathrm{in}}(r_e)}{f_{\mathrm{out}}(r_e)} \ge 0 \quad (\forall e \in F)$ & \quad $W_e = \log\frac{f_{\mathrm{in}}(r_e)}{f_{\mathrm{out}}(r_e)} \ge 0 \quad (\forall e \in F)$ \\
-    \quad $W_e = -\log\frac{1-f_{\mathrm{out}}(r_e)}{1-f_{\mathrm{in}}(r_e)} \le 0 \quad (\forall e \in \tilde{F})$ & \quad $W_e = -\log\frac{1-f_{\mathrm{out}}(r_e)}{1-f_{\mathrm{in}}(r_e)} \le 0 \quad (\forall e \in \tilde{F})$ \\
+    \textbf{Positions $X$}: Realization of a homogeneous \textsc{Poisson} point process & \textbf{Features $X \sim \nu$} with $\nu = \text{\textsc{Poisson} process law}$ \\
+    \textbf{Prior}: Uniform prior $\mu_0$ on $\Sigma \in \{+1,-1\}^n$ & \textbf{Prior $\mu_0$} on configurations \\
+    \textbf{Observables}: $(H, X)$ where $H$ is the observed graph & \textbf{Observables}: $(W, X)$ where $W$ is the channel output \\
+    \hline
+    \multicolumn{2}{p{0.9\textwidth}}{\textbf{Deterministic construction of $W$ from $H$}:} \\
+    \multicolumn{2}{c}{
+      $\displaystyle W_e = \begin{cases}
+        \displaystyle \log\left(\frac{f_{\mathrm{in}}(r_e)}{f_{\mathrm{out}}(r_e)}\right) \ge 0 & \text{if } e \in H \text{ (attractive),} \\[2ex]
+        \displaystyle -\log\left(\frac{1-f_{\mathrm{out}}(r_e)}{1-f_{\mathrm{in}}(r_e)}\right) \le 0 & \text{if } e \notin H \text{ (repulsive).}
+      \end{cases}$
+    } \\
+    \hline
+    \textbf{Posterior}: $\mathbb{P}(\Sigma = \sigma \mid H, X)$ & \textbf{Posterior $\mu_{X,W}(\sigma) \propto e^{-U(\sigma)}$} (\textsc{Gibbs} measure) \\
     \hline
   \end{tabular}
 \end{frame}
