@@ -294,6 +294,41 @@
   \end{figure}
 \end{frame}
 
+\begin{frame}{\textsc{Gibbs} Model on Signed Graphs}
+  \begin{block}{Attractive and Repulsive Edges}
+    \begin{columns}[c]
+      \begin{column}{0.60\textwidth}
+        Partition potential edges $E = F \dot{\cup} \tilde{F}$:
+        \begin{itemize}
+          \item $F$: \textbf{Attractive} (ferromagnetic), weight $W_e > 0$
+          \item $\tilde{F}$: \textbf{Repulsive} (antiferromagnetic), weight $W_e < 0$
+        \end{itemize}
+      \end{column}
+      \begin{column}{0.40\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=1.0, every node/.style={scale=0.9}]
+          % Nodes for F
+          \node[spin] (i) at (0, 0.4) {};
+          \node[spin] (j) at (1.8, 0.4) {};
+          \draw[posedge] (i) -- node[above, scale=0.8] {$e \in F$} (j);
+
+          % Nodes for \tilde{F}
+          \node[spin] (k) at (0, -0.6) {};
+          \node[spin] (l) at (1.8, -0.6) {};
+          \draw[negedge] (k) -- node[below, scale=0.8] {$e \in \tilde{F}$} (l);
+        \end{tikzpicture}
+      \end{column}
+    \end{columns}
+  \end{block}
+  \begin{block}{Signed \textsc{Gibbs} Measure \cite{Reichardt2006}}
+    Configuration probability $\mu(\sigma) = \frac{1}{Z} e^{-U(\sigma)}$, where energy $U(\sigma)$ penalizes unsatisfied edges:
+    \begin{equation*}
+        U(\sigma) = \sum_{e=\{i,j\} \in F} W_e \ind{\sigma_i \neq \sigma_j} + \sum_{e=\{i,j\} \in \tilde{F}} |W_e| \ind{\sigma_i = \sigma_j}
+    \end{equation*}
+    Weights $|W_e|$ dictate constraint strengths.
+  \end{block}
+\end{frame}
+
 \begin{frame}{Advantages of the Bayesian Framework}
   \begin{columns}[T]
     \begin{column}{0.52\textwidth}
@@ -365,41 +400,6 @@
             \lim_{n\to\infty} \mathbb{E}[\ov_n(\Sigma_n, \tau_n)] \ge \frac{1}{2} + \eta \quad (\eta > 0), \quad \text{where } \ov_n(\Sigma_n, \tau_n) = \max_{\pi \in \mathfrak{S}_2} \frac{1}{n} \sum_{i=1}^n \ind{\tau_{n,i} = \pi(\Sigma_{n,i})}.
         \end{equation*}
     \end{itemize}
-  \end{block}
-\end{frame}
-
-\begin{frame}{\textsc{Gibbs} Model on Signed Graphs}
-  \begin{block}{Attractive and Repulsive Edges}
-    \begin{columns}[c]
-      \begin{column}{0.60\textwidth}
-        Partition potential edges $E = F \dot{\cup} \tilde{F}$:
-        \begin{itemize}
-          \item $F$: \textbf{Attractive} (ferromagnetic), weight $W_e > 0$
-          \item $\tilde{F}$: \textbf{Repulsive} (antiferromagnetic), weight $W_e < 0$
-        \end{itemize}
-      \end{column}
-      \begin{column}{0.40\textwidth}
-        \centering
-        \begin{tikzpicture}[scale=1.0, every node/.style={scale=0.9}]
-          % Nodes for F
-          \node[spin] (i) at (0, 0.4) {};
-          \node[spin] (j) at (1.8, 0.4) {};
-          \draw[posedge] (i) -- node[above, scale=0.8] {$e \in F$} (j);
-
-          % Nodes for \tilde{F}
-          \node[spin] (k) at (0, -0.6) {};
-          \node[spin] (l) at (1.8, -0.6) {};
-          \draw[negedge] (k) -- node[below, scale=0.8] {$e \in \tilde{F}$} (l);
-        \end{tikzpicture}
-      \end{column}
-    \end{columns}
-  \end{block}
-  \begin{block}{Signed \textsc{Gibbs} Measure \cite{Reichardt2006}}
-    Configuration probability $\mu(\sigma) = \frac{1}{Z} e^{-U(\sigma)}$, where energy $U(\sigma)$ penalizes unsatisfied edges:
-    \begin{equation*}
-        U(\sigma) = \sum_{e=\{i,j\} \in F} W_e \ind{\sigma_i \neq \sigma_j} + \sum_{e=\{i,j\} \in \tilde{F}} |W_e| \ind{\sigma_i = \sigma_j}
-    \end{equation*}
-    Weights $|W_e|$ dictate constraint strengths.
   \end{block}
 \end{frame}
 
