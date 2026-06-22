@@ -318,29 +318,6 @@
   \end{corollary}
 \end{frame}
 
-\begin{frame}{Invariant Coupling}
-  \begin{block}{\textsc{Markov} Chain Dynamics as a Source of Coupling}
-    \begin{itemize}
-      \item We construct the posterior replica $\Sigma^{(1)}$ starting from the hidden truth $\Sigma$.
-      \item Running \textbf{exactly one step} of a posterior-invariant \textsc{Markov} kernel $M$ initialized at $\Sigma$ yields a valid replica $\Sigma^{(1)} \sim M(\Sigma, \cdot)$.
-    \end{itemize}
-  \end{block}
-  \begin{figure}[H]
-    \centering
-    \begin{tikzpicture}[node distance=0.8cm and 1.5cm, scale=0.85, every node/.style={scale=0.85}]
-      \node[chapboxdark,minimum width=2.8cm] (obs) {Observation\\$(X,W)$};
-      \node[chapbox,minimum width=2.8cm,left=of obs] (true) {Truth\\$\Sigma$};
-      \node[chapbox,minimum width=2.8cm,right=of obs] (algo) {Algorithm\\$\tau$};
-      \node[chapbox,minimum width=2.8cm,below=of obs] (rep) {Replica\\$\Sigma^{(1)}$};
-      \draw[chaparr] (true) -- (obs);
-      \draw[chaparr] (obs) -- (algo);
-      \draw[chaparr] (obs) -- (rep);
-      \draw[chapdash] (true) .. controls +(0,-1.8) and +(-1.8,0) .. node[left]{same score} (rep);
-      \draw[chapdash] (rep) -- node[right]{\ possible comparison} (algo);
-    \end{tikzpicture}
-  \end{figure}
-\end{frame}
-
 \section{The \textsc{Sankararaman \& Baccelli} model and weak recovery for community detection}
 \frame{\sectionpage}
 
@@ -475,6 +452,30 @@
 
 \section{MCMC Dynamics \& Performance Bounds}
 \frame{\sectionpage}
+
+\begin{frame}{Invariant Coupling}
+  \begin{block}{\textsc{Markov} Chain Dynamics as a Source of Coupling}
+    \begin{itemize}
+      \item We construct the posterior replica $\Sigma^{(1)}$ starting from the hidden truth $\Sigma$.
+      \item Running \textbf{exactly one step} of a posterior-invariant \textsc{Markov} kernel $M$ initialized at $\Sigma$ yields a valid replica $\Sigma^{(1)} \sim M(\Sigma, \cdot)$.
+    \end{itemize}
+  \end{block}
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=0.8cm and 1.5cm, scale=0.85, every node/.style={scale=0.85}]
+      \node[chapboxdark,minimum width=2.8cm] (obs) {Observation\\$(X,W)$};
+      \node[chapbox,minimum width=2.8cm,left=of obs] (true) {Truth\\$\Sigma$};
+      \node[chapbox,minimum width=2.8cm,right=of obs] (algo) {Algorithm\\$\tau$};
+      \node[chapbox,minimum width=2.8cm,below=of obs] (rep) {Replica\\$\Sigma^{(1)}$};
+      \draw[chaparr] (true) -- (obs);
+      \draw[chaparr] (obs) -- (algo);
+      \draw[chaparr] (obs) -- (rep);
+      \draw[chapdash] (true) .. controls +(0,-1.8) and +(-1.8,0) .. node[left]{same score} (rep);
+      \draw[chapdash] (rep) -- node[right]{\ possible comparison} (algo);
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
 
 \begin{frame}{Single-Spin Dynamics \& Geometric Bottleneck}
   \begin{columns}
