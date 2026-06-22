@@ -294,6 +294,38 @@
   \end{figure}
 \end{frame}
 
+\begin{frame}{Advantages of the Bayesian Framework}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      \begin{block}{Rigorous Definitions}
+        \begin{itemize}
+          \item \textbf{Algorithm $\tau_n$}: Markov kernel mapping observations $(X, W)$ to configurations.
+          \item \textbf{Random Guess}: An algorithm agnostic to observations (relying only on the prior $\mu_0$).
+          \item \textbf{Weak / Partial Recovery}: Beating the best random guess asymptotically.
+        \end{itemize}
+      \end{block}
+      
+      \begin{block}{Posterior Resampling}
+        The hidden truth $\Sigma$ can be replaced by a replica $\Sigma^{(1)}$ drawn from the posterior distribution $\mu_{n,X,W}$ (Nishimori identity).
+      \end{block}
+    \end{column}
+    
+    \begin{column}{0.44\textwidth}
+      \begin{block}{Measure of Performance: Overlap}
+        The overlap quotients the Hamming similarity by label permutations $\mathfrak{S}_K$:
+        \begin{equation*}
+            \ov_n(\sigma, \sigma') = \max_{\pi \in \mathfrak{S}_K} \frac{1}{n} \sum_{i=1}^n \ind{\sigma'_i = \pi(\sigma_i)}
+        \end{equation*}
+        \vspace{0.2em}
+        \begin{itemize}
+          \item Uniform prior: best random guess score is $1/K$.
+          \item Weak recovery: overlap $\ge 1/K + \eta$.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
 \begin{frame}{Posterior Resampling (\textsc{Nishimori} Identity)}
   \begin{block}{Replacing Truth by a Replica}
     \begin{itemize}
