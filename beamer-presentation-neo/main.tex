@@ -328,23 +328,14 @@
 
 \begin{frame}{Posterior Resampling (\textsc{Nishimori} Identity)}
   \begin{block}{Core Idea: Replacing Truth by a Replica}
-    Comparing $\tau_n$ with hidden truth $\Sigma_n$ $\iff$ Comparing $\tau_n$ with posterior replica $\Sigma_n^{(1)} \sim \mu_{n,X_n,W_n}$
+    Comparing $\tau$ to truth $\Sigma \iff$ Comparing $\tau$ to replica $\Sigma^{(1)} \sim \mu$
   \end{block}
   \begin{theorem}[\textsc{Nishimori} Identity \cite{Nishimori1980}]
-    For any algorithm $\tau_n$ and replica $\Sigma_n^{(1)} \sim \mu_{n, X_n, W_n}$:
-    \begin{equation*}
-        \mathbb{E}\left[\Psi_n(X_n, W_n, \Sigma_n, \tau_n)\right]
-        =
-        \mathbb{E}\left[\Psi_n(X_n, W_n, \Sigma_n^{(1)}, \tau_n)\right]
-    \end{equation*}
+    For any algorithm $\tau$ and posterior replica $\Sigma^{(1)} \sim \mu$:
+    $$\mathbb{E}\left[\Psi(X, W, \Sigma, \tau)\right] = \mathbb{E}\left[\Psi(X, W, \Sigma^{(1)}, \tau)\right]$$
   \end{theorem}
   \begin{corollary}[Overlap Identity]
-    For any threshold $s \in [0, 1]$:
-    \begin{equation*}
-        \mathbb{P}\left[\ov_n(\Sigma_n, \tau_n) \ge s\right]
-        =
-        \mathbb{P}\left[\ov_n(\Sigma_n^{(1)}, \tau_n) \ge s\right]
-    \end{equation*}
+    $$\mathbb{P}\left[\ov(\Sigma, \tau) \ge s\right] = \mathbb{P}\left[\ov(\Sigma^{(1)}, \tau) \ge s\right] \quad (\forall s \in [0, 1])$$
   \end{corollary}
 \end{frame}
 
