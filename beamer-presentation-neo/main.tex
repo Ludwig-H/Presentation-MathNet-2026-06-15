@@ -403,6 +403,33 @@
   \end{block}
 \end{frame}
 
+\begin{frame}{GSBM in the Bayesian Framework}
+  \centering
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular}{l | l}
+    \textbf{\textsc{Sankararaman \& Baccelli} (GSBM)} & \textbf{Bayesian Framework} \\
+    \hline
+    Uniform prior $\mu_0$ on $\Sigma \in \{+1,-1\}^n$ & Prior $\mu_0$ on configurations \\
+    Complete graph edges $E$ (all pairs) & Channel edges $E$ \\
+    Observed graph $H$ (edges) & Set of attractive edges $F$ \\
+    Non-edges $E \setminus H$ & Set of repulsive edges $\tilde{F} = E \setminus F$ \\
+    \hline
+  \end{tabular}
+
+  \vspace{1.0em}
+  \begin{block}{Posterior Correspondence to \textsc{Gibbs} Measure}
+    By choosing the channel weights $W_e$ for $e=\{i,j\}$ as:
+    \begin{equation*}
+        W_e = 
+        \begin{cases}
+            \displaystyle \log\left(\frac{f_{\mathrm{in}}(r_e)}{f_{\mathrm{out}}(r_e)}\right) \ge 0 & \text{if } e \in F \text{ (edges in } H\text{)} \\[2ex]
+            \displaystyle -\log\left(\frac{1-f_{\mathrm{out}}(r_e)}{1-f_{\mathrm{in}}(r_e)}\right) \le 0 & \text{if } e \in \tilde{F} \text{ (non-edges in } H\text{)}
+        \end{cases}
+    \end{equation*}
+    the posterior distribution corresponds to the signed \textsc{Gibbs} posterior: $\mu(\sigma) \propto e^{-U(\sigma)}$.
+  \end{block}
+\end{frame}
+
 \begin{frame}{From GSBM to the \textsc{Gibbs} Posterior}
   \begin{block}{Conditioning on the Point Cloud}
     \begin{itemize}
