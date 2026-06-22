@@ -299,20 +299,20 @@
     \begin{column}{0.52\textwidth}
       \begin{block}{Rigorous Definitions}
         \begin{itemize}
-          \item \textbf{Algorithm $\tau_n$}: Markov kernel mapping observations $(X, W)$ to configurations.
+          \item \textbf{Algorithm $\tau_n$}: \textsc{Markov} kernel mapping observations $(X, W)$ to configurations.
           \item \textbf{Random Guess}: An algorithm agnostic to observations (relying only on the prior $\mu_0$).
           \item \textbf{Weak / Partial Recovery}: Beating the best random guess asymptotically.
         \end{itemize}
       \end{block}
       
       \begin{block}{Posterior Resampling}
-        The hidden truth $\Sigma$ can be replaced by a replica $\Sigma^{(1)}$ drawn from the posterior distribution $\mu_{n,X,W}$ (Nishimori identity).
+        The hidden truth $\Sigma$ can be replaced by a replica $\Sigma^{(1)}$ drawn from the posterior distribution $\mu_{n,X,W}$ (\textsc{Nishimori} identity).
       \end{block}
     \end{column}
     
     \begin{column}{0.44\textwidth}
       \begin{block}{Measure of Performance: Overlap}
-        The overlap quotients the Hamming similarity by label permutations $\mathfrak{S}_K$:
+        The overlap quotients the \textsc{Hamming} similarity by label permutations $\mathfrak{S}_K$:
         \begin{equation*}
             \ov_n(\sigma, \sigma') = \max_{\pi \in \mathfrak{S}_K} \frac{1}{n} \sum_{i=1}^n \ind{\sigma'_i = \pi(\sigma_i)}
         \end{equation*}
@@ -327,25 +327,23 @@
 \end{frame}
 
 \begin{frame}{Posterior Resampling (\textsc{Nishimori} Identity)}
-  \begin{block}{Replacing Truth by a Replica}
-    \begin{itemize}
-      \item Comparing the algorithm's output with the hidden truth $\Sigma_n$ is equivalent to comparing it with a posterior replica $\Sigma_n^{(1)}$.
-    \end{itemize}
+  \begin{block}{Core Idea: Replacing Truth by a Replica}
+    Comparing $\tau_n$ with hidden truth $\Sigma_n$ $\iff$ Comparing $\tau_n$ with posterior replica $\Sigma_n^{(1)} \sim \mu_{n,X_n,W_n}$
   \end{block}
-  \begin{theorem}[Posterior Resampling / \textsc{Nishimori} Identity \cite{Nishimori1980}]
-    Let $\tau_n$ be any community detection algorithm. Let $\Sigma_n^{(1)} \sim \mu_{n, X_n, W_n}$ be a replica drawn independently from the posterior. For any bounded test function $\Psi_n$:
+  \begin{theorem}[\textsc{Nishimori} Identity \cite{Nishimori1980}]
+    For any algorithm $\tau_n$ and replica $\Sigma_n^{(1)} \sim \mu_{n, X_n, W_n}$:
     \begin{equation*}
         \mathbb{E}\left[\Psi_n(X_n, W_n, \Sigma_n, \tau_n)\right]
         =
-        \mathbb{E}\left[\Psi_n(X_n, W_n, \Sigma_n^{(1)}, \tau_n)\right].
+        \mathbb{E}\left[\Psi_n(X_n, W_n, \Sigma_n^{(1)}, \tau_n)\right]
     \end{equation*}
   \end{theorem}
   \begin{corollary}[Overlap Identity]
-    For any algorithm $\tau_n$ and threshold $s \in [0, 1]$:
+    For any threshold $s \in [0, 1]$:
     \begin{equation*}
         \mathbb{P}\left[\ov_n(\Sigma_n, \tau_n) \ge s\right]
         =
-        \mathbb{P}\left[\ov_n(\Sigma_n^{(1)}, \tau_n) \ge s\right].
+        \mathbb{P}\left[\ov_n(\Sigma_n^{(1)}, \tau_n) \ge s\right]
     \end{equation*}
   \end{corollary}
 \end{frame}
@@ -434,7 +432,7 @@
                 \displaystyle -\log\left(\frac{1-f_{\mathrm{out}}(r_e)}{1-f_{\mathrm{in}}(r_e)}\right) \le 0 & \text{if } e\notin H \text{ (repulsive).}
             \end{cases}
         \end{equation*}
-      \item ... recovers the Gibbs posterior: $\mathbb{P}(H \mid X, \sigma) \propto e^{-U(\sigma)}$.
+      \item ... recovers the \textsc{Gibbs} posterior: $\mathbb{P}(H \mid X, \sigma) \propto e^{-U(\sigma)}$.
     \end{itemize}
   \end{block}
 \end{frame}
@@ -459,7 +457,7 @@
                 \displaystyle -\log\left(\frac{1-f_{\mathrm{out}}(r_e)}{1-f_{\mathrm{in}}(r_e)}\right) \le 0 & \text{if } e\notin H \text{ (repulsive).}
             \end{cases}
         \end{equation*}
-      \item ... recovers the Gibbs posterior: $\mathbb{P}(H \mid X, \sigma) \propto e^{-U(\sigma)}$.
+      \item ... recovers the \textsc{Gibbs} posterior: $\mathbb{P}(H \mid X, \sigma) \propto e^{-U(\sigma)}$.
     \end{itemize}
   \end{block}
 \end{frame}
@@ -911,7 +909,7 @@
       \item Consider distances reflecting transitions of the cluster dynamics.
       \item For standard SW, this corresponds to the \textbf{symmetric difference} on satisfied edges:
         $$d_{\mathrm{sym}}(\sigma, \sigma') = \frac{1}{2} \sum_{e=\{i,j\}} |W_e| \left| \ind{\sigma \text{ satisfies } e} - \ind{\sigma' \text{ satisfies } e} \right|$$
-      \item Establishes links to \textbf{spectral graph analysis} (\emph{e.g.}, Laplacian eigenvalues).
+      \item Establishes links to \textbf{spectral graph analysis} (\emph{e.g.}, \textsc{Laplacian} eigenvalues).
     \end{itemize}
   \end{block}
 \end{frame}
