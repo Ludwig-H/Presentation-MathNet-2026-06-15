@@ -17,6 +17,31 @@
 \endgroup
 
 \datalist[entry]{none/global//global/global}
+  \entry{Nishimori1980}{article}{}
+    \name{author}{1}{}{%
+      {{hash=NH}{%
+         family={Nishimori},
+         familyi={N\bibinitperiod},
+         given={Hidetoshi},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{NH1}
+    \strng{fullhash}{NH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1088/0022-3719/13/21/012
+    \endverb
+    \field{number}{21}
+    \field{pages}{4071\bibrangedash 4076}
+    \field{title}{Exact results and critical properties of the {Ising} model
+  with competing interactions}
+    \field{volume}{13}
+    \field{journaltitle}{Journal of Physics C: Solid State Physics}
+    \field{year}{1980}
+  \endentry
+
   \entry{SankararamanBaccelli2018}{article}{}
     \name{author}{2}{}{%
       {{hash=SA}{%
@@ -136,31 +161,6 @@
     \field{title}{Random Geometric Graphs}
     \field{volume}{5}
     \field{year}{2003}
-  \endentry
-
-  \entry{Nishimori1980}{article}{}
-    \name{author}{1}{}{%
-      {{hash=NH}{%
-         family={Nishimori},
-         familyi={N\bibinitperiod},
-         given={Hidetoshi},
-         giveni={H\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{NH1}
-    \strng{fullhash}{NH1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \verb{doi}
-    \verb 10.1088/0022-3719/13/21/012
-    \endverb
-    \field{number}{21}
-    \field{pages}{4071\bibrangedash 4076}
-    \field{title}{Exact results and critical properties of the {Ising} model
-  with competing interactions}
-    \field{volume}{13}
-    \field{journaltitle}{Journal of Physics C: Solid State Physics}
-    \field{year}{1980}
   \endentry
 
   \entry{GlauberMetropolisDiaconis2009}{article}{}
