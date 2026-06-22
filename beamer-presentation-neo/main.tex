@@ -427,59 +427,9 @@
       \end{cases}$
     } \\
     \hline
-    \textbf{Posterior}: $\mathbb{P}(\Sigma = \sigma \mid H, X)$ & \textbf{Posterior}: \textcolor{red}{$\boldsymbol{= \mathbb{P}(\Sigma = \sigma \mid W, X) = \mu(\sigma)}$} ~(\text{\textsc{Gibbs} measure}) ~ \tikz[baseline=-0.35ex]{\draw[thick, draw=black, rounded corners=0.5pt] (0,0) rectangle (0.2,0.2); \draw[very thick, green!70!black] (0.04,0.1) -- (0.09,0.04) -- (0.17,0.15);} \\
+    \textbf{Posterior}: $\mathbb{P}(\Sigma = \sigma \mid H, X)$ & \textbf{Posterior}: \textcolor{red}{$\boldsymbol{= \mathbb{P}(\Sigma = \sigma \mid W, X) = \mu(\sigma)}$} \quad \tikz[baseline=-0.35ex]{\draw[thick, draw=black, rounded corners=0.5pt] (0,0) rectangle (0.2,0.2); \draw[very thick, green!70!black] (0.04,0.1) -- (0.09,0.04) -- (0.17,0.15);} ~ \text{\textsc{Gibbs} assumption} \\
     \hline
   \end{tabular}
-\end{frame}
-
-\begin{frame}{From GSBM to the \textsc{Gibbs} Posterior}
-  \begin{block}{Conditioning on the Point Cloud}
-    \begin{itemize}
-      \item Positions $X$ are fixed $\implies$ all distances $r_e = \|X_i - X_j\|$ are known.
-      \item Under a uniform prior, the posterior given the observed graph $H$ satisfies:
-        \begin{equation*}
-            \mathbb{P}(\Sigma = \sigma \mid H, X) \propto \mathbb{P}(H \mid X, \sigma)
-        \end{equation*}
-    \end{itemize}
-  \end{block}
-  \begin{block}{Log-Likelihood as Signed \textsc{Gibbs} Energy}
-    \begin{itemize}
-      \item Setting edge weights $W_e(H)$:
-        \begin{equation*}
-            W_e(H)=
-            \begin{cases}
-                \displaystyle \log\left(\frac{f_{\mathrm{in}}(r_e)}{f_{\mathrm{out}}(r_e)}\right) \ge 0 & \text{if } e\in H \text{ (attractive),}\\[2ex]
-                \displaystyle -\log\left(\frac{1-f_{\mathrm{out}}(r_e)}{1-f_{\mathrm{in}}(r_e)}\right) \le 0 & \text{if } e\notin H \text{ (repulsive).}
-            \end{cases}
-        \end{equation*}
-      \item ... recovers the \textsc{Gibbs} posterior: $\mathbb{P}(H \mid X, \sigma) \propto e^{-U(\sigma)}$.
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-\begin{frame}{From GSBM to the \textsc{Gibbs} Posterior}
-  \begin{block}{Conditioning on the Point Cloud}
-    \begin{itemize}
-      \item Positions $X$ are fixed $\implies$ all distances $r_e = \|X_i - X_j\|$ are known.
-      \item Under a uniform prior, the posterior given the observed graph $H$ satisfies:
-        \begin{equation*}
-            \textcolor{red}{\boldsymbol{\mathbb{P}(\Sigma = \sigma \mid H, X) = \mu(\sigma)}} \mathrel{\propto} \mathbb{P}(H \mid X, \sigma)
-        \end{equation*}
-    \end{itemize}
-  \end{block}
-  \begin{block}{Log-Likelihood as Signed \textsc{Gibbs} Energy}
-    \begin{itemize}
-      \item Setting edge weights $W_e(H)$ as below:
-        \begin{equation*}
-            W_e(H)=
-            \begin{cases}
-                \displaystyle \log\left(\frac{f_{\mathrm{in}}(r_e)}{f_{\mathrm{out}}(r_e)}\right) \ge 0 & \text{if } e\in H \text{ (attractive),}\\[2ex]
-                \displaystyle -\log\left(\frac{1-f_{\mathrm{out}}(r_e)}{1-f_{\mathrm{in}}(r_e)}\right) \le 0 & \text{if } e\notin H \text{ (repulsive).}
-            \end{cases}
-        \end{equation*}
-      \item ... recovers the \textsc{Gibbs} posterior: $\mathbb{P}(H \mid X, \sigma) \propto e^{-U(\sigma)}$.
-    \end{itemize}
-  \end{block}
 \end{frame}
 
 \begin{frame}{The Percolation Obstruction}
