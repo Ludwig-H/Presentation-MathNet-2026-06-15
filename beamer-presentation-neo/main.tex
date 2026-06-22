@@ -219,7 +219,7 @@
 \frame{\tocpage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Motivation \& the \textsc{Sankararaman}--\textsc{Baccelli} Model}
+\section{Motivation \& the Bayesian framework}
 \frame{\sectionpage}
 
 \begin{frame}{Haplotype Assembly}
@@ -265,6 +265,84 @@
     \end{itemize}
   \end{block}
 \end{frame}
+
+\begin{frame}{The General Bayesian Model}
+  \begin{definition}
+    \begin{enumerate}
+      \item \textbf{Nodes, Edges, Communities}: Nodes $V_n = \{1, \dots, n\}$, edges $E_n$, communities $\Lab_K = \{0, \dots, K-1\}$, and set of configurations $\sigma \in \Conf_n = (\Lab_K)^{V_n}$.
+      \item \textbf{Features}: $X_n \in \mathcal{X}_n$ according to distribution $\nu_n$.
+      \item \textbf{Prior on configurations}: $\mu_{0,n}(\mathrm{d}\sigma \mid x)$ over $\Conf_n$.
+      \item \textbf{(Noisy) channel}: $Q_n(\mathrm{d}w \mid x, \sigma) = \prod_{e \in E_n} Q_{e,n}(\mathrm{d}w_e \mid x_i, x_j, \sigma_i, \sigma_j)$.
+    \end{enumerate}
+    The joint law is $\mathbb{P}_n(\mathrm{d}x, \mathrm{d}\sigma, \mathrm{d}w) = \nu_n(\mathrm{d}x)\mu_{0,n}(\mathrm{d}\sigma \mid x)Q_n(\mathrm{d}w \mid x, \sigma)$.
+  \end{definition}
+
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=0.8cm and 1cm, scale=0.85, every node/.style={scale=0.85}]
+      \node[chapbox] (prior) {Prior\\$\mu_{0,n}(\cdot\mid X)$};
+      \node[chapbox,right=of prior] (truth) {Hidden Truth\\$\Sigma_n$};
+      \node[chapbox,right=of truth] (chan) {Channel\\$Q_n$};
+      \node[chapboxdark,right=of chan] (obs) {Observation\\$\Obs_n=(X,W)$};
+      \node[chapbox,below=0.7cm of obs] (post) {Posterior\\$\mu_{n,X,W}$};
+      \draw[chaparr] (prior) -- (truth);
+      \draw[chaparr] (truth) -- (chan);
+      \draw[chaparr] (chan) -- (obs);
+      \draw[chaparr] (obs) -- (post);
+      \draw[chapdash] (prior.south) .. controls +(0,-0.8) and +(-1.2,0) .. (post.west);
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Posterior Resampling (\textsc{Nishimori} Identity)}
+  \begin{block}{Replacing Truth by a Replica}
+    \begin{itemize}
+      \item Comparing the algorithm's output with the hidden truth $\Sigma_n$ is equivalent to comparing it with a posterior replica $\Sigma_n^{(1)}$.
+    \end{itemize}
+  \end{block}
+  \begin{theorem}[Posterior Resampling / \textsc{Nishimori} Identity \cite{Nishimori1980}]
+    Let $\tau_n$ be any community detection algorithm. Let $\Sigma_n^{(1)} \sim \mu_{n, X_n, W_n}$ be a replica drawn independently from the posterior. For any bounded test function $\Psi_n$:
+    \begin{equation*}
+        \mathbb{E}\left[\Psi_n(X_n, W_n, \Sigma_n, \tau_n)\right]
+        =
+        \mathbb{E}\left[\Psi_n(X_n, W_n, \Sigma_n^{(1)}, \tau_n)\right].
+    \end{equation*}
+  \end{theorem}
+  \begin{corollary}[Overlap Identity]
+    For any algorithm $\tau_n$ and threshold $s \in [0, 1]$:
+    \begin{equation*}
+        \mathbb{P}\left[\ov_n(\Sigma_n, \tau_n) \ge s\right]
+        =
+        \mathbb{P}\left[\ov_n(\Sigma_n^{(1)}, \tau_n) \ge s\right].
+    \end{equation*}
+  \end{corollary}
+\end{frame}
+
+\begin{frame}{Invariant Coupling}
+  \begin{block}{\textsc{Markov} Chain Dynamics as a Source of Coupling}
+    \begin{itemize}
+      \item We construct the posterior replica $\Sigma^{(1)}$ starting from the hidden truth $\Sigma$.
+      \item Running \textbf{exactly one step} of a posterior-invariant \textsc{Markov} kernel $M$ initialized at $\Sigma$ yields a valid replica $\Sigma^{(1)} \sim M(\Sigma, \cdot)$.
+    \end{itemize}
+  \end{block}
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=0.8cm and 1.5cm, scale=0.85, every node/.style={scale=0.85}]
+      \node[chapboxdark,minimum width=2.8cm] (obs) {Observation\\$(X,W)$};
+      \node[chapbox,minimum width=2.8cm,left=of obs] (true) {Truth\\$\Sigma$};
+      \node[chapbox,minimum width=2.8cm,right=of obs] (algo) {Algorithm\\$\tau$};
+      \node[chapbox,minimum width=2.8cm,below=of obs] (rep) {Replica\\$\Sigma^{(1)}$};
+      \draw[chaparr] (true) -- (obs);
+      \draw[chaparr] (obs) -- (algo);
+      \draw[chaparr] (obs) -- (rep);
+      \draw[chapdash] (true) .. controls +(0,-1.8) and +(-1.8,0) .. node[left]{same score} (rep);
+      \draw[chapdash] (rep) -- node[right]{\ possible comparison} (algo);
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\section{The \textsc{Sankararaman \& Baccelli} model}
+\frame{\sectionpage}
 
 \begin{frame}{The \textsc{Sankararaman}--\textsc{Baccelli} Model (GSBM)}
   \begin{block}{Model Definition \cite{SankararamanBaccelli2018}}
@@ -395,87 +473,6 @@
   \end{itemize}
 \end{frame}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{The Bayesian Framework \& Coupling}
-\frame{\sectionpage}
-
-\begin{frame}{The General Bayesian Model}
-  \begin{definition}
-    \begin{enumerate}
-      \item \textbf{Nodes, Edges, Communities}: Nodes $V_n = \{1, \dots, n\}$, edges $E_n$, communities $\Lab_K = \{0, \dots, K-1\}$, and set of configurations $\sigma \in \Conf_n = (\Lab_K)^{V_n}$.
-      \item \textbf{Features}: $X_n \in \mathcal{X}_n$ according to distribution $\nu_n$.
-      \item \textbf{Prior on configurations}: $\mu_{0,n}(\mathrm{d}\sigma \mid x)$ over $\Conf_n$.
-      \item \textbf{(Noisy) channel}: $Q_n(\mathrm{d}w \mid x, \sigma) = \prod_{e \in E_n} Q_{e,n}(\mathrm{d}w_e \mid x_i, x_j, \sigma_i, \sigma_j)$.
-    \end{enumerate}
-    The joint law is $\mathbb{P}_n(\mathrm{d}x, \mathrm{d}\sigma, \mathrm{d}w) = \nu_n(\mathrm{d}x)\mu_{0,n}(\mathrm{d}\sigma \mid x)Q_n(\mathrm{d}w \mid x, \sigma)$.
-  \end{definition}
-
-  \begin{figure}[H]
-    \centering
-    \begin{tikzpicture}[node distance=0.8cm and 1cm, scale=0.85, every node/.style={scale=0.85}]
-      \node[chapbox] (prior) {Prior\\$\mu_{0,n}(\cdot\mid X)$};
-      \node[chapbox,right=of prior] (truth) {Hidden Truth\\$\Sigma_n$};
-      \node[chapbox,right=of truth] (chan) {Channel\\$Q_n$};
-      \node[chapboxdark,right=of chan] (obs) {Observation\\$\Obs_n=(X,W)$};
-      \node[chapbox,below=0.7cm of obs] (post) {Posterior\\$\mu_{n,X,W}$};
-      \draw[chaparr] (prior) -- (truth);
-      \draw[chaparr] (truth) -- (chan);
-      \draw[chaparr] (chan) -- (obs);
-      \draw[chaparr] (obs) -- (post);
-      \draw[chapdash] (prior.south) .. controls +(0,-0.8) and +(-1.2,0) .. (post.west);
-    \end{tikzpicture}
-  \end{figure}
-\end{frame}
-
-\begin{frame}{Posterior Resampling (\textsc{Nishimori} Identity)}
-  \begin{block}{Replacing Truth by a Replica}
-    \begin{itemize}
-      \item Comparing the algorithm's output with the hidden truth $\Sigma_n$ is equivalent to comparing it with a posterior replica $\Sigma_n^{(1)}$.
-    \end{itemize}
-  \end{block}
-  \begin{theorem}[Posterior Resampling / \textsc{Nishimori} Identity \cite{Nishimori1980}]
-    Let $\tau_n$ be any community detection algorithm. Let $\Sigma_n^{(1)} \sim \mu_{n, X_n, W_n}$ be a replica drawn independently from the posterior. For any bounded test function $\Psi_n$:
-    \begin{equation*}
-        \mathbb{E}\left[\Psi_n(X_n, W_n, \Sigma_n, \tau_n)\right]
-        =
-        \mathbb{E}\left[\Psi_n(X_n, W_n, \Sigma_n^{(1)}, \tau_n)\right].
-    \end{equation*}
-  \end{theorem}
-  \begin{corollary}[Overlap Identity]
-    For any algorithm $\tau_n$ and threshold $s \in [0, 1]$:
-    \begin{equation*}
-        \mathbb{P}\left[\ov_n(\Sigma_n, \tau_n) \ge s\right]
-        =
-        \mathbb{P}\left[\ov_n(\Sigma_n^{(1)}, \tau_n) \ge s\right].
-    \end{equation*}
-  \end{corollary}
-\end{frame}
-
-\begin{frame}{Invariant Coupling}
-  \begin{block}{\textsc{Markov} Chain Dynamics as a Source of Coupling}
-    \begin{itemize}
-      \item We construct the posterior replica $\Sigma^{(1)}$ starting from the hidden truth $\Sigma$.
-      \item Running \textbf{exactly one step} of a posterior-invariant \textsc{Markov} kernel $M$ initialized at $\Sigma$ yields a valid replica $\Sigma^{(1)} \sim M(\Sigma, \cdot)$.
-    \end{itemize}
-  \end{block}
-  \begin{figure}[H]
-    \centering
-    \begin{tikzpicture}[node distance=0.8cm and 1.5cm, scale=0.85, every node/.style={scale=0.85}]
-      \node[chapboxdark,minimum width=2.8cm] (obs) {Observation\\$(X,W)$};
-      \node[chapbox,minimum width=2.8cm,left=of obs] (true) {Truth\\$\Sigma$};
-      \node[chapbox,minimum width=2.8cm,right=of obs] (algo) {Algorithm\\$\tau$};
-      \node[chapbox,minimum width=2.8cm,below=of obs] (rep) {Replica\\$\Sigma^{(1)}$};
-      \draw[chaparr] (true) -- (obs);
-      \draw[chaparr] (obs) -- (algo);
-      \draw[chaparr] (obs) -- (rep);
-      \draw[chapdash] (true) .. controls +(0,-1.8) and +(-1.8,0) .. node[left]{same score} (rep);
-      \draw[chapdash] (rep) -- node[right]{\ possible comparison} (algo);
-    \end{tikzpicture}
-  \end{figure}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{MCMC Dynamics \& Performance Bounds}
 \frame{\sectionpage}
 
