@@ -326,10 +326,10 @@
         U(\sigma) = \sum_{e=\{i,j\} \in F} W_e \ind{\sigma_i \neq \sigma_j} + \sum_{e=\{i,j\} \in \tilde{F}} |W_e| \ind{\sigma_i = \sigma_j}
     \end{equation*}
   \end{block}
-  \begin{block}{Link to the Bayesian Framework}
-    Special case: the posterior is the \textsc{Gibbs} measure:
+  \begin{block}{\textcolor{red}{\textsc{Gibbs} Assumption}}
+    Special case of the Bayesian framework where the posterior is assumed to be:
     \begin{equation*}
-        \mu_{X,W}(\sigma) = \frac{1}{Z} e^{-U(\sigma)}
+        \textcolor{red}{\mu_{X,W}(\sigma) = \frac{1}{Z} e^{-U(\sigma)}}
     \end{equation*}
   \end{block}
 \end{frame}
