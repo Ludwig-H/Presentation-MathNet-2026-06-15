@@ -1,0 +1,32 @@
+# LaTeX build artifacts and auxiliary files
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bcf
+*.run.xml
+*.bbl
+*.blg
+*-blx.bib
+
+# Python and system cache
+__pycache__/
+*.pyc
+.DS_Store
+
+# IDE and Editor settings
+.vscode/
+.idea/
+*.swp
+*~
+
+# Archives and temporary files
+*.zip
+tmp/
+temp/
