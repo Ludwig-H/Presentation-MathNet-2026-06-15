@@ -228,11 +228,11 @@ Pour $`u=C_1\mathbin{\dot\cup}C_2`$, le poids informationnel de la fusion est
 \eta_u
 =
 \tanh^2\left[
-\frac12\left{
+\frac12\left\{
 B_u
 +\log\frac{\Lambda_u}{T_u-\Lambda_u}
 +(1-\beta_u)(2\Lambda_u-T_u)
-\right}
+\right\}
 \right],
 ```
 où $`T_u=|E_u|u_p`$, $`\Lambda_u`$ est le poids total des liens satisfaits entre les deux fils et $`B_u`$ est le message exact de l'a priori et des ancêtres. La borne à calculer est
