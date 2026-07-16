@@ -283,7 +283,7 @@ Pour une coupe conditionnée de $m$ liens fusionnant à $t$, l'arête ouvrante e
 ```math
 k\stackrel d=1+\mathrm{Bin}(m-1,s_p(t)).
 ```
-Cette identité est annealed et conditionnelle à la coupe ; elle ne rend pas $`E_u`$ indépendant du passé de Kruskal. Elle constitue néanmoins la première correction exacte au remplacement naïf $k\sim\mathrm{Bin}(m,p)$.
+Cette identité est annealed. Plus précisément, elle reste exacte conditionnellement au squelette de Kruskal non marqué, au bucket $`E_u`$ et à son temps : la géométrie aléatoire de $`E_u`$ reste biaisée par le passé, mais les marques des $m-1$ arêtes non gagnantes sont alors indépendantes de paramètre $`s_p(t)`$. La version groupée simultanée sur tous les ancêtres est démontrée dans [08_ANCESTRAL_LAMBDA_CHAIN.md](08_ANCESTRAL_LAMBDA_CHAIN.md).
 
 Au temps $t=1$, dans le modèle local $`B_u=0`$,
 
@@ -291,7 +291,7 @@ Au temps $t=1$, dans le modèle local $`B_u=0`$,
 \mathbb E[\eta_u\mid m,\beta_u=1]=\frac1m.
 ```
 
-Pour $p>1/2$ et $t<1$ fixés, la même fiabilité locale tend au contraire vers $1$ lorsque $m\to\infty$. Les grandes coupes ne randomisent donc fortement la parité que dans une fenêtre proche de la coupure $1$. Comme les coalescences longue portée apparaissent autour de $`\beta_c(p)<1`$ dès que la percolation est supercritique, un seul pas LCA peut rester trop proche de la borne percolative. Il faut alors étudier les itérations avec rafraîchissement de $D$ ou propager la loi complète du message $`B_u`$.
+Pour $p>1/2$ et $t<1$ fixés, la même fiabilité locale tend au contraire vers $1$ lorsque $m\to\infty$. Les grandes coupes ne randomisent donc fortement la parité que dans une fenêtre proche de la coupure $1$. Le [calcul critique exact](09_CRITICAL_MERGER_ORACLE.md) donne désormais une borne exponentielle et identifie la fenêtre $`p-p_{\mathrm{SW}}\asymp m^{-1/2}`$. Comme les coalescences longue portée apparaissent autour de $`\beta_c(p)<1`$ dès que la percolation est supercritique, un seul pas LCA reste trop proche de la borne percolative. Il faut alors étudier la masse des paires, les itérations avec rafraîchissement de $D$ et la loi complète du message $`B_u`$.
 
 ### Flux de susceptibilité informationnel
 
@@ -372,7 +372,7 @@ Trois tests doivent rester distincts :
 
 Le premier redonne Swendsen--Wang. Le dernier est trop exigeant : il interdit d'utiliser les composantes déjà construites sous $`\beta_c`$.
 
-### Décomposition exacte du vote de bande sur une coupe fixée
+### Décomposition exacte du vote de bande conditionnellement au squelette
 
 Pour un lien encore fermé au temps $\beta$, posons
 
@@ -384,7 +384,7 @@ h_p(\beta)
 \tanh\left(\frac{u_p(1-\beta)}2\right).
 ```
 
-Sur une coupe déterministe de $m$ liens fusionnant à $\beta$, l'arête gagnante est satisfaite. Pour les $m-1$ autres liens, notons $R$ le nombre de liens satisfaits dans la bande, $S$ le nombre de liens satisfaits après la censure $1$, et $U$ le nombre de liens insatisfaits. Avant le biais adaptatif de Kruskal,
+Conditionnellement au squelette de Kruskal non marqué, à un bucket de $m$ liens fusionnant à $\beta$, une arête gagnante latente est uniforme et satisfaite. Pour les $m-1$ autres liens, notons $R$ le nombre de liens satisfaits dans la bande, $S$ le nombre de liens satisfaits après la censure $1$, et $U$ le nombre de liens insatisfaits. On a exactement
 
 ```math
 (R,S,U)
@@ -409,7 +409,7 @@ Ainsi, $R$ est exactement le signal biaisé produit par la bande, tandis que $S-
 m h_p(\beta)^2.
 ```
 
-Pour une grande coupe, la fenêtre locale non triviale est $`1-\beta\asymp m^{-1/2}`$. Ce calcul indique que le prochain objet à estimer est la loi jointe de $`(m,\beta,B_u)`$ sous une fusion pivotale de Kruskal, et non une probabilité de chemin tardif non pondérée.
+Pour une grande coupe, la fenêtre locale non triviale est $`1-\beta\asymp m^{-1/2}`$. Le biais de Kruskal porte donc sur la loi géométrique de $`(E_u,m,\beta)`$, pas sur le noyau conditionnel des marques. Le prochain objet à estimer est la loi jointe de ce squelette et du message ancestral $`B_u`$, et non une probabilité de chemin tardif non pondérée.
 
 ### Calibrations finies annealed
 

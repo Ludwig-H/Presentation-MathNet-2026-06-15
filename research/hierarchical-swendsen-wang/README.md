@@ -54,9 +54,27 @@ S_n(\beta)
 
 où $`\mathcal M_n`$ somme les fusions au-dessus de $\beta$, pondérées par $`\eta_u`$. La weak recovery exige donc une masse macroscopique de **connexions informatives** nées dans la bande. La connectivité seule n'est pas suffisante : le critère exact se factorise en connexion quotient, fiabilité locale et cohérence signée après marginalisation de $D$.
 
+Le cas favorable d'une fusion exactement critique est maintenant résolu au
+niveau local. Si $`B_u=0`$ et si le bucket critique contient $`m`$ arêtes, sa
+fiabilité $`\Gamma_m^c`$ vérifie
+
+```math
+\Gamma_m^c(p_{\mathrm{SW}})=\frac1m,
+\qquad
+\Gamma_m^c(p)\longrightarrow1
+\quad\text{pour tout }p>p_{\mathrm{SW}}.
+```
+
+Sa fenêtre exacte est $`p-p_{\mathrm{SW}}\asymp m^{-1/2}`$. Ce calcul ne
+donne toutefois pas le seuil de weak recovery : la contribution d'une fenêtre
+critique est au plus sa masse
+$`S_n(\beta_c+\delta)-S_n(\beta_c)`$ parmi les paires. Une fiabilité
+conditionnelle proche de $`1`$ sur une masse $`o(1)`$ reste invisible dans
+l'overlap global.
+
 ## Socle de départ
 
-Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. Les points 3, 4, 6 et 7 sont des résultats finis dont l'algèbre a été vérifiée et dont la preuve courte est donnée dans ce dossier ; ils restent à intégrer dans une rédaction formelle complète avec A1.
+Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. Les points 3, 4 et 6 à 9 sont des résultats finis dont l'algèbre a été vérifiée et dont la preuve courte est donnée dans ce dossier ; les résultats qui utilisent la mesure jointe restent à intégrer dans une rédaction formelle complète avec A1.
 
 1. La coupe $t=1$ des horloges redonne exactement les liens de Swendsen–Wang.
 2. Les heat baths des orientations globales des arbres redonnent la recoloration de Swendsen–Wang lorsque l'a priori est uniforme. Aux feuilles, on obtient le heat bath mono-site de Glauber ; un noyau de Metropolis–Hastings mono-site ciblant la même conditionnelle est une variante valide.
@@ -76,6 +94,17 @@ Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. L
    ce qui est plus fort que les bornes Swendsen–Wang $0.673648\ldots$ et triangulaire d'ordre supérieur $0.719224\ldots$. Toute nouvelle borne hiérarchique doit donc être comparée à $0.794659\ldots$, pas seulement à la borne du chapitre 11.
 6. Pour une paire fixée, le noyau qui rafraîchit $D$ puis met à jour son LCA est positif et réversible. Ses autocorrélations $`A_{ij}^{(m)}`$ décroissent vers $`c_{ij}(O)^2`$ sous ergodicité. Le score à un pas est ainsi le premier terme d'une suite allant vers le critère exact à deux répliques.
 7. À toute coupe $\beta$ telle que $`S_n(\beta)\to0`$, la weak recovery se réduit au score signé des paires dont le LCA naît dans $`(\beta,1]`$. Sur la grille triangulaire, l'information-percolation se réécrit $`t_\chi(p)>\beta_c(p)`$, avec $`q_p(t_\chi)=(2p-1)^2`$.
+8. Pour un nœud de fusion $u$, tous les taux $`\Lambda_v(\sigma^{ab})`$ de ses ancêtres se calculent exactement à partir de trois groupes par bucket. Dans le GSBM homogène, conditionnellement au squelette de Kruskal non marqué, les marques des buckets sont indépendantes et suivent une loi binomiale groupée explicite.
+9. Pour une fusion locale au temps critique et sans message ancestral, les paramètres se simplifient en
+```math
+   h_c(p)=\frac{2(p-p_{\mathrm{SW}})}{1-q_c},
+   \qquad
+   a_c(p)=2\,\mathrm{artanh}(h_c(p)).
+```
+   Le bord de la grande coupe informative est exactement $`p_{\mathrm{SW}}`$,
+   avec une limite gaussienne explicite dans la fenêtre $`m^{-1/2}`$. Ce bord
+   est oracle et ne remplace ni la masse des paires ni la contraction non
+   oracle.
 
 ## Carte du dossier
 
@@ -86,6 +115,8 @@ Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. L
 - [05_PROOF_ROADMAP.md](05_PROOF_ROADMAP.md) : lemmes à démontrer, dépendances, cas tests et critères de succès.
 - [06_LCA_SPIN_CORRELATION.md](06_LCA_SPIN_CORRELATION.md) : quatre événements de flip, formule exacte faisant intervenir $`\beta_u=\xi_{e_u}`$, borne LCA, chaîne pair-spécifique et programme triangulaire.
 - [07_CRITICAL_BAND_CRITERION.md](07_CRITICAL_BAND_CRITERION.md) : réduction à la bande critique, distinction bande pure/quotient, temps informationnel $`t_\chi`$, flux pivotal et capacité de blocs.
+- [08_ANCESTRAL_LAMBDA_CHAIN.md](08_ANCESTRAL_LAMBDA_CHAIN.md) : formule exacte des quatre $`\Lambda_v`$ au-dessus du LCA, réduction à $`(h_1,h_2,J)`$, loi conditionnelle de Kruskal et méthodes de calcul certifiées.
+- [09_CRITICAL_MERGER_ORACLE.md](09_CRITICAL_MERGER_ORACLE.md) : résolution exacte de la fusion critique locale, fenêtre $`m^{-1/2}`$, sandwich des taux ancestraux et contre-audit de la masse des paires.
 - [LITERATURE.md](LITERATURE.md) : état de l'art primaire, voisins conceptuels et positionnement prudent de la nouveauté.
 - [references.bib](references.bib) : bibliographie ciblée et autonome.
 - [computations/README.md](computations/README.md) : cahier des charges des calculs exacts et simulations à ajouter.
@@ -101,7 +132,7 @@ Chaque affirmation nouvelle doit porter l'un des statuts suivants :
 
 ## Premier objectif publiable
 
-Rédiger d'abord le théorème fini LCA et le théorème de réduction à la bande critique. Puis, sur cactus et bandes triangulaires, calculer la contraction non oracle des bundles du quotient, en imposant la calibration à une arête $`\gamma_1=(2p-1)^2`$. Sur la grille triangulaire homogène, l'objectif suivant est une zone rigoureuse de non-recouvrement dépassant $p=0.794659\ldots$. Atteindre le point multicritique de Nishimori conjecturé $p\simeq0.8358058$ serait beaucoup plus ambitieux.
+Rédiger d'abord le théorème fini LCA et le théorème de réduction à la bande critique. Puis, sur cactus et bandes triangulaires, calculer la contraction non oracle des bundles du quotient, en imposant la calibration à une arête $`\gamma_1=(2p-1)^2`$ et en conservant séparément la masse des fusions. L'oracle critique étant désormais fermé et trop favorable, l'objectif suivant sur la grille homogène reste une zone rigoureuse de non-recouvrement dépassant $p=0.794659\ldots$. Atteindre le point multicritique de Nishimori conjecturé $p\simeq0.8358058$ serait beaucoup plus ambitieux.
 
 ## Sources internes
 

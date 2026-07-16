@@ -198,7 +198,7 @@ B_u
 +(1-\beta_u)(2\Lambda_u-T_u).
 }
 ```
-Ainsi $`\beta_u=\xi_{e_u}`$, où $`e_u`$ est l'arête qui réalise la fusion de Kruskal, intervient bien dans la règle de flip ; $`\Lambda_u`$ et $`T_u`$ utilisent en revanche **tous** les liens entre $`C_1`$ et $`C_2`$. Le terme $`B_u`$ n'est nul que lorsque l'a priori et les ancêtres se compensent dans le rapport des deux parités.
+Ainsi $`\beta_u=\xi_{e_u}`$, où $`e_u`$ est une arête gagnante latente dont l'identité est marginalisée dans le dendrogramme de partitions, intervient bien dans la règle de flip ; $`\Lambda_u`$ et $`T_u`$ utilisent en revanche **tous** les liens entre $`C_1`$ et $`C_2`$. Le terme $`B_u`$ n'est nul que lorsque l'a priori et les ancêtres se compensent dans le rapport des deux parités. Le calcul exact de tous les taux ancestraux est donné dans [08_ANCESTRAL_LAMBDA_CHAIN.md](08_ANCESTRAL_LAMBDA_CHAIN.md).
 
 ## 4. Le heat bath comme projection conditionnelle
 
@@ -818,7 +818,7 @@ Conventions :
 - $k=m$ : $L=+\infty$, donc $\eta=1$ ;
 - $2k=m$ : le terme énergétique s'annule, et la fiabilité dépend seulement du préfacteur.
 
-Cette formule est exacte pour une coupe déterministe sous les hypothèses locales. Elle n'est pas la loi d'un LCA sélectionné par Kruskal : le choix du nœud biaise conjointement $m,k,\beta$, et les facteurs ancêtres doivent être réintroduits.
+Cette formule est exacte pour une coupe déterministe sous les hypothèses locales. Pour un LCA sélectionné par Kruskal, la loi de $`k`$ conditionnellement au squelette et à $`(m,\beta)`$ est donnée ci-dessous ; le choix du nœud biaise la géométrie $`(E_u,m,\beta)`$, et les facteurs ancêtres doivent être réintroduits.
 
 ### Première correction exacte du biais au temps de fusion
 
@@ -855,7 +855,7 @@ k
 1+\mathrm{Bin}(m-1,s_p(t)).
 }
 ```
-Cette loi remplace $\mathrm{Bin}(m,p)$ au moment de l'ouverture. Elle est exacte dans ce cadre annealed et pour la coupe conditionnée ; elle ne supprime ni le biais dû au caractère aléatoire de la coupe $`E_u`$, ni le message $`B_u`$ des ancêtres.
+Cette loi remplace $\mathrm{Bin}(m,p)$ au moment de l'ouverture. Elle est exacte dans ce cadre annealed conditionnellement au squelette non marqué, même lorsque la coupe $`E_u`$ est choisie par Kruskal. La géométrie aléatoire de la coupe reste biaisée et le message $`B_u`$ des ancêtres reste à intégrer ; leur désintégration exacte est donnée dans [08_ANCESTRAL_LAMBDA_CHAIN.md](08_ANCESTRAL_LAMBDA_CHAIN.md).
 
 Elle donne le diagnostic suivant pour la contribution locale $`B_u=0`$ :
 

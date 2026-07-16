@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from math import log, pi, sin, sqrt
+from math import isclose, log, log1p, pi, sin, sqrt
 
 
 Q_CRITICAL = 2.0 * sin(pi / 18.0)
@@ -19,9 +19,11 @@ def open_probability(p: float, t: float) -> float:
 
 
 def inverse_time(p: float, q: float) -> float:
-    if not 0.0 <= q <= 2.0 * p - 1.0:
+    maximum = 2.0 * p - 1.0
+    if q < 0.0 or (q > maximum and not isclose(q, maximum, abs_tol=1e-15)):
         raise ValueError("q must belong to the range of q_p on [0, 1]")
-    return -log(1.0 - q / p) / coupling(p)
+    q = min(q, maximum)
+    return -log1p(-q / p) / coupling(p)
 
 
 def beta_critical(p: float) -> float:

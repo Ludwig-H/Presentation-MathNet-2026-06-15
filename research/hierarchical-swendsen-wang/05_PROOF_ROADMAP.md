@@ -129,6 +129,31 @@ Le résultat doit inclure :
 3. la factorisation connexion $\times$ fiabilité $\times$ cohérence ;
 4. les bons quantificateurs pour une paire macroscopique.
 
+### B5 bis. Oracle de fusion critique — calcul local fermé
+
+Le [fichier 09](09_CRITICAL_MERGER_ORACLE.md) établit, pour un bucket critique
+homogène et $`B_u=0`$,
+
+```math
+\Gamma_m^c(p_{\mathrm{SW}})=\frac1m,
+\qquad
+\Gamma_m^c(p)\longrightarrow1
+\quad(p>p_{\mathrm{SW}}),
+```
+
+avec une borne exponentielle et la limite exacte dans la fenêtre
+$`p-p_{\mathrm{SW}}\asymp m^{-1/2}`$. Il établit aussi le contre-audit
+
+```math
+\mathcal C_{n,\delta}^c
+\le
+S_n(\beta_c+\delta)-S_n(\beta_c).
+```
+
+Ce bloc local est clos. Il ne doit pas être promu en seuil global : le travail
+restant consiste à contrôler simultanément la masse des fusions, le message
+ancestral, la contraction après marginalisation de $D$ et la cohérence signée.
+
 ### B6. Matrice de persistance
 
 Rédiger le théorème
@@ -193,7 +218,13 @@ B_u
 +\log\frac{\Lambda_u}{T_u-\Lambda_u}
 +(1-\beta_u)(2\Lambda_u-T_u).
 ```
-Sur cactus, $`B_u`$ doit obéir à une récursion de canal binaire symétrique ; sur bandes, à une matrice de transfert ; sur la grille, il faudra contrôler ou dominer sa loi.
+La décomposition en trois groupes du [fichier 08](08_ANCESTRAL_LAMBDA_CHAIN.md) donne désormais exactement les quatre $`\Lambda_v(\sigma^{ab})`$ et réduit la chaîne à quatre log-poids, ou à $`(h_1,h_2,J)`$ lorsque les taux sont positifs. Sur cactus, il faut propager leur loi exacte ; sur bandes, construire une matrice de transfert certifiée ; sur la grille, contrôler ou dominer cette loi conditionnellement au squelette proche-critique.
+
+Lorsque $`\beta_u=\beta_c`$, le fichier 09 fournit en plus le sandwich
+stochastique $`1/2\le s_p(\beta_v)<s_p(\beta_c)`$ pour tous les comptes
+ancestraux. Ce sandwich doit être transporté séparément dans chacun des quatre
+états : complémenter un groupe renverse ses bornes, et aucune monotonie de
+$`\eta_u`$ ne peut être supposée.
 
 ### C3. Cycles et multi-terminal
 
@@ -271,7 +302,7 @@ k\mid(m,\beta=t)
 \mathrm{logistic}(u_p(1-t))\right)
 ```
 
-pour une coupe annealed conditionnée, puis quantifier précisément ce qui reste biaisé par le choix aléatoire de $`E_u`$.
+conditionnellement au squelette non marqué. Le choix de Kruskal biaise encore la géométrie $`(E_u,m,\beta)`$, mais ne biaise plus les marques résiduelles une fois ce squelette fixé.
 
 ### E3. Bande critique et flux pivotal
 
@@ -285,11 +316,11 @@ t_\chi=q_p^{-1}((2p-1)^2),
 
 puis vérifier que $`t_\chi>\beta_c`$ redonne exactement $`p>0.794659\ldots`$. Désintégrer la mesure des fusions avec la formule de Russo et pondérer les pivots par la fiabilité conditionnelle.
 
-Sur une coupe fixée, vérifier la loi multinomiale des liens de bande et le crossover $`m h_p(\beta)^2`$. Sur une fusion choisie par Kruskal, cette loi reste à corriger par le biais de sélection.
+Employer la loi multinomiale exacte conditionnellement au squelette non marqué et vérifier le crossover $`m h_p(\beta)^2`$. Sur une fusion choisie par Kruskal, il reste à contrôler la loi du squelette groupé $`(m_{v,0},m_{v,1},m_{v,2},\beta_v)`$, pas à recorriger les marques conditionnelles.
 
-### E4. Biais de Kruskal
+### E4. Géométrie biaisée de Kruskal
 
-Décrire la loi d'une fusion conditionnellement à la filtration passée. Aucun remplacement de $k$ par une variable binomiale sans preuve.
+Décrire la loi du squelette d'une fusion conditionnellement à la filtration passée. Le noyau des marques est maintenant exact après conditionnement ; le verrou est la distribution des tailles de groupes et des temps le long de la chaîne ancestrale.
 
 ### E5. Cas intermédiaires
 
