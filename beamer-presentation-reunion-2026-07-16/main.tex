@@ -1,0 +1,977 @@
+\documentclass[A4,svgnames,9pt,aspectratio=169]{beamer}
+%% document options:
+%% - aspectratio = { 43, 169, 1610 }
+%% - utf8
+
+\usepackage{amsmath,amssymb,amsfonts,amsthm,mathtools}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage[backend=bibtex,style=numeric,sorting=none]{biblatex}
+
+% Add bibliography resource
+\addbibresource{referencesThesis.bib}
+
+% TikZ Libraries
+\usetikzlibrary{fit,backgrounds,shapes.geometric,patterns,decorations.pathreplacing,positioning,arrows.meta}
+
+% Custom TikZ styles from ChapII.tex
+\tikzset{
+  chapbox/.style={draw,rounded corners,very thick,align=center,fill=gray!8,inner sep=5pt,minimum height=1.05cm},
+  chapboxdark/.style={draw,rounded corners,very thick,align=center,fill=gray!18,inner sep=5pt,minimum height=1.05cm},
+  chaparr/.style={-{Latex[length=2.4mm]},very thick},
+  chapdash/.style={-{Latex[length=2.4mm]},very thick,dashed},
+  spin/.style={circle,draw,inner sep=0pt,minimum size=5mm,font=\scriptsize,fill=white},
+  tinynode/.style={circle,draw,inner sep=0pt,minimum size=3.8mm,font=\tiny,fill=white},
+  posedge/.style={line width=1pt},
+  negedge/.style={line width=1pt,dashed},
+  freeze/.style={line width=1.6pt},
+  faint/.style={line width=.45pt,gray!55},
+  triwhite/.style={draw,fill=gray!8,line width=.6pt},
+  trigray/.style={draw,fill=gray!22,line width=.6pt},
+  % Local styles for haplotype figure
+  read/.style={line width=5pt, gray!45, line cap=round, preaction={draw, white, line width=7pt, line cap=round}},
+  readlink/.style={densely dotted, thick, gray!60},
+  errlabel/.style={font=\scriptsize\bfseries, text=red!80!black, fill=white, inner sep=1.5pt, rounded corners=2pt},
+  interedge/.style={negedge, draw=gray!60}
+}
+
+% Triangular Icon macros from ChapII.tex
+\newcommand{\ChapTriangleIcon}[2][1.65ex]{%
+  \begingroup
+  \pgfmathsetlengthmacro{\TriangleH}{#1}%
+  \tikz[
+    baseline=-0.25ex,
+    x=\TriangleH,
+    y=\TriangleH,
+    line cap=round,
+    line join=round
+  ]{%
+    \path[use as bounding box]
+      (-0.08,-0.12) rectangle (1.24,1.12);
+    \draw[#2]
+      (0,0)
+      --
+      (1.1547,0)
+      --
+      (0.57735,1)
+      --
+      cycle;
+  }%
+  \endgroup
+}
+
+\DeclareRobustCommand{\TriangleAttractif}[1][2.5ex]{%
+  \ChapTriangleIcon[#1]{posedge}%
+}
+
+\DeclareRobustCommand{\TriangleRepulsif}[1][2.5ex]{%
+  \ChapTriangleIcon[#1]{negedge}%
+}
+
+% General macros
+\newcommand{\SB}{\textsc{Sankararaman}--\textsc{Baccelli}}
+\newcommand{\ov}{\operatorname{ov}}
+\newcommand{\Conf}{\mathcal{C}}
+\newcommand{\Lab}{\mathcal{L}}
+\newcommand{\Obs}{\mathcal{O}}
+\newcommand{\ind}[1]{\mathbb{I}_{\{#1\}}}
+
+\newcommand{\drawHaplotypePresentation}[1]{%
+  \begin{tikzpicture}[scale=0.74, x=1.0cm, y=1.2cm, font=\footnotesize]
+    % 1. CHROMOSOME LINES (GROUND TRUTH)
+    \draw[faint, dashed] (-1.5, 3.5) -- (13.5, 3.5) node[right, text=black, align=left] {\textbf{Haplotype 1}\\(Truth {\Large $\boldsymbol{\Sigma}$} $= +$)};
+    \draw[faint, dashed] (-1.5, 0) -- (13.5, 0) node[right, text=black, align=left] {\textbf{Haplotype 2}\\(Truth {\Large $\boldsymbol{\Sigma}$} $= -$)};
+
+    % 2. BACKGROUND: READS AND SEGMENTS (step >= 2)
+    \ifnum#1>1\relax
+      \begin{scope}[on background layer]
+        % --- Reads (Segments) ---
+        \draw[readlink] (1, 3.5) -- (1, 4.0); \draw[read] (-1.2, 4.0) -- (3.2, 4.0); 
+        \draw[readlink] (3, 3.5) -- (3, 4.4); \draw[read] (0.8, 4.4) -- (5.2, 4.4); 
+        \draw[readlink] (5, 3.5) -- (5, 4.8); \draw[read] (2.8, 4.8) -- (7.2, 4.8); 
+        \draw[readlink] (7, 3.5) -- (7, 4.0); \draw[read] (4.8, 4.0) -- (9.2, 4.0); 
+        \draw[readlink] (9, 3.5) -- (9, 4.4); \draw[read] (6.8, 4.4) -- (11.2, 4.4); 
+        \draw[readlink] (11, 3.5) -- (11, 4.8); \draw[read] (8.8, 4.8) -- (13.2, 4.8); 
+
+        % Haplotype 2
+        \draw[readlink] (2, 0) -- (2, 0.5); \draw[read] (-0.2, 0.5) -- (4.2, 0.5); 
+        \draw[readlink] (4, 0) -- (4, 0.9); \draw[read] (1.8, 0.9) -- (6.2, 0.9); 
+        \draw[readlink] (6, 0) -- (6, 1.3); \draw[read] (3.8, 1.3) -- (8.2, 1.3); 
+        \draw[readlink] (8, 0) -- (8, 0.5); \draw[read] (5.8, 0.5) -- (10.2, 0.5); 
+        \draw[readlink] (10, 0) -- (10, 0.9); \draw[read] (7.8, 0.9) -- (12.2, 0.9); 
+        \draw[readlink] (12, 0) -- (12, 1.3); \draw[read] (9.8, 1.3) -- (14.2, 1.3); 
+      \end{scope}
+
+      % NODES (SPIN CENTERS) - Now visible starting from step 2!
+      \node[spin, fill=gray!8] (t1) at (1, 3.5) {$+$};
+      \node[spin, fill=gray!8] (t2) at (3, 3.5) {$+$};
+      \node[spin, fill=gray!8] (t3) at (5, 3.5) {$+$};
+      \node[spin, fill=gray!8] (t4) at (7, 3.5) {$+$};
+      \node[spin, fill=gray!8] (t5) at (9, 3.5) {$+$};
+      \node[spin, fill=gray!8] (t6) at (11, 3.5) {$+$};
+
+      \node[spin, fill=gray!20] (b1) at (2, 0) {$-$};
+      \node[spin, fill=gray!20] (b2) at (4, 0) {$-$};
+      \node[spin, fill=gray!20] (b3) at (6, 0) {$-$};
+      \node[spin, fill=gray!20] (b4) at (8, 0) {$-$};
+      \node[spin, fill=gray!20] (b5) at (10, 0) {$-$};
+      \node[spin, fill=gray!20] (b6) at (12, 0) {$-$};
+    \fi
+
+    % 3. SIGNED GRAPH EDGES ONLY (step >= 3)
+    \ifnum#1>2\relax
+      \begin{scope}[on background layer]
+        % --- Inter-Chromosome Edges (True Negatives) ---
+        \draw[interedge] (1, 3.5) -- (2, 0); 
+        \draw[interedge] (3, 3.5) -- (4, 0); 
+        \draw[interedge] (3, 3.5) -- (6, 0); 
+        \draw[interedge] (5, 3.5) -- (2, 0); 
+        \draw[interedge] (5, 3.5) -- (4, 0); 
+        \draw[interedge] (5, 3.5) -- (6, 0); 
+        \draw[interedge] (7, 3.5) -- (4, 0); 
+        \draw[interedge] (7, 3.5) -- (6, 0); 
+        \draw[interedge] (7, 3.5) -- (8, 0); 
+        \draw[interedge] (7, 3.5) -- (10, 0); 
+        \draw[interedge] (9, 3.5) -- (8, 0); 
+        \draw[interedge] (9, 3.5) -- (10, 0); 
+        \draw[interedge] (9, 3.5) -- (12, 0); 
+        \draw[interedge] (11, 3.5) -- (8, 0); 
+        \draw[interedge] (11, 3.5) -- (12, 0); 
+
+        % False Positives (FP) => 25% noise
+        \draw[posedge, draw=red!80!black] (1, 3.5) -- node[errlabel, pos=0.2] {FP} (4, 0); 
+        \draw[posedge, draw=red!80!black] (3, 3.5) -- node[errlabel, pos=0.8] {FP} (2, 0); 
+        \draw[posedge, draw=red!80!black] (5, 3.5) -- node[errlabel, pos=0.2] {FP} (8, 0); 
+        \draw[posedge, draw=red!80!black] (9, 3.5) -- node[errlabel, pos=0.8] {FP} (6, 0); 
+        \draw[posedge, draw=red!80!black] (11, 3.5) -- node[errlabel, pos=0.2] {FP} (10, 0); 
+      \end{scope}
+
+      % INTRA-EDGES
+      \draw[posedge] (t1) to[bend right=25] (t2);
+      \draw[negedge, draw=red!80!black] (t2) to[bend right=25] node[errlabel] {FN} (t3);
+      \draw[posedge] (t3) to[bend right=25] (t4);
+      \draw[posedge] (t4) to[bend right=25] (t5);
+      \draw[posedge] (t5) to[bend right=25] (t6);
+      
+      \draw[posedge] (t1) to[bend right=35] (t3);
+      \draw[posedge] (t2) to[bend right=35] (t4);
+      \draw[negedge, draw=red!80!black] (t3) to[bend right=35] node[errlabel] {FN} (t5);
+      \draw[posedge] (t4) to[bend right=35] (t6);
+
+      \draw[posedge] (b1) to[bend right=25] (b2);
+      \draw[posedge] (b2) to[bend right=25] (b3);
+      \draw[posedge] (b3) to[bend right=25] (b4);
+      \draw[negedge, draw=red!80!black] (b4) to[bend right=25] node[errlabel] {FN} (b5);
+      \draw[posedge] (b5) to[bend right=25] (b6);
+      
+      \draw[negedge, draw=red!80!black] (b1) to[bend right=35] node[errlabel] {FN} (b3);
+      \draw[negedge, draw=red!80!black] (b2) to[bend right=35] node[errlabel] {FN} (b4);
+      \draw[posedge] (b3) to[bend right=35] (b5);
+      \draw[posedge] (b4) to[bend right=35] (b6);
+    \fi
+
+    % 5. LEGEND
+    \ifnum#1=2\relax
+      \node[scale=0.65,chapbox, align=left, fill=white] at (0,1.75){
+        \begin{tabular}{ll}
+          \tikz[baseline=-0.5ex]{\draw[line width=5pt, gray!45, line cap=round] (0,0) -- (0.6,0);} & DNA Read (Segment) \\
+          \tikz[baseline=-0.5ex]{\node[spin, scale=0.6, fill=gray!8] at (0,0) {$+$};} & Graph Node (true assignment {\Large $\boldsymbol{\Sigma}$})
+        \end{tabular}
+      };
+    \fi
+    \ifnum#1>2\relax
+      \node[scale=0.65,chapbox, align=left, fill=white] at (0,1.75){
+        \begin{tabular}{ll}
+          \tikz[baseline=-0.5ex]{\draw[line width=5pt, gray!45, line cap=round] (0,0) -- (0.6,0);} & DNA Read (Node) \\
+          \tikz[baseline=-0.5ex]{\draw[posedge] (0,0) -- (0.6,0);} & Attraction (solid line)  \\
+          \tikz[baseline=-0.5ex]{\draw[negedge] (0,0) -- (0.6,0);} & Repulsion (dashed line) \\
+          \textcolor{red!80!black}{\textbf{FP}} & False Positive (noise)  \\
+          \textcolor{red!80!black}{\textbf{FN}} & False Negative (noise)
+        \end{tabular}
+      };
+    \fi
+  \end{tikzpicture}
+}
+
+\hypersetup{
+   allcolors=rouge_inria,
+   pdfauthor   = {Louis Hauseux},
+   pdftitle    = {Réunion Louis + Nahuel + Konstantin},
+   pdfsubject  = {Seminar of the Neo team (Inria Sophia Antipolis)},
+   pdfkeywords = {community detection, signed graphs, MCMC, Swendsen-Wang, coupling}
+}
+
+\title[Réunion Louis + Nahuel + Konstantin]{Réunion Louis + Nahuel + Konstantin}
+\subtitle{Seminar of the \textsc{Neo} team (Inria Sophia Antipolis)}
+\institute{Inria Sophia Antipolis, Lagrange Gris room (L101) -- 2.30 p.m.}
+\date[16 July 2026]{Thursday 16 July 2026}
+\author[L. Hauseux]{Louis \textsc{Hauseux} {\small(Inria Sophia Antipolis, superv. by \href{https://www-sop.inria.fr/members/Konstantin.Avratchenkov/me.html}{K. \textsc{Avrachenkov}} \& \href{https://www-sop.inria.fr/members/Josiane.Zerubia/index-eng.html}{J. \textsc{Zerubia}})}\\[3pt]
+{\small Joint work with \href{https://sites.google.com/view/soprano-loto/nahuel-soprano-loto}{Nahuel \textsc{Soprano-Loto}} (Inria Paris)}\\
+{\small and \href{https://www-sop.inria.fr/members/Konstantin.Avratchenkov/me.html}{Konstantin \textsc{Avrachenkov}} (Inria Sophia Antipolis)}}
+
+\usetheme{inria}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\renewcommand{\contentsname}{Outline}
+\frame{\tocpage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Motivation \& the Bayesian framework}
+\frame{\sectionpage}
+
+\begin{frame}{Haplotype Assembly}
+  \centering
+  \only<1>{%
+    \begin{block}{1. Biological Setup: Two Homologous Chromosomes (Haplotypes)}
+      Humans are diploid: they have two copies of each chromosome (homologous chromosomes).
+    \end{block}
+    \drawHaplotypePresentation{1}
+  }%
+  \only<2>{%
+    \begin{block}{2. High-Throughput Sequencing: DNA Reads}
+      Sequencing generates short, overlapping fragments called \textbf{reads} from both chromosomes.
+    \end{block}
+    \drawHaplotypePresentation{2}
+  }%
+  \only<3>{%
+    \begin{block}{3. Modeling as a Signed Graph}
+      Nodes = reads \qquad Edges = overlaps\\
+      \textbf{Goal:} Reconstruct the true haplotype assignments {\Large $\boldsymbol{\Sigma}$} from this observed signed graph.
+    \end{block}
+    \drawHaplotypePresentation{3}
+  }%
+\end{frame}
+
+\begin{frame}{Motivation: Signed Community Detection}
+  \begin{block}{Community Detection on Signed Graphs ($K=2$)}
+    \begin{itemize}
+      \item Partition nodes into $K=2$ communities: $\Sigma_i \in \{+1, -1\}$.
+      \item Links represent \textbf{attractions} (solid) and \textbf{repulsions} (dashed).
+      \item Beyond the classical SBM: a rich framework coupling spatial geometry and community structure!
+    \end{itemize}
+  \end{block}
+  \begin{block}{The Geometric Challenge}
+    \begin{itemize}
+      \item Spatial embedding (\emph{e.g.}, positions on $\mathbb{Z}$ or $\mathbb{R}^d$).
+      \item Edge probabilities depend on distance $r = \|x_i - x_j\|$:
+        \begin{align*}
+            \mathbb{P}(\text{attractive edge} \mid \text{same community}) &= f_{\mathrm{in}}(r) \\
+            \mathbb{P}(\text{attractive edge} \mid \text{different communities}) &= f_{\mathrm{out}}(r)
+        \end{align*}
+      \item \textbf{Main interest of the model... but also core challenge}: capturing this geometry.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{The General Bayesian Model}
+  \begin{definition}
+    \begin{enumerate}
+      \item \textbf{Nodes, Edges, Communities}: Nodes $V_n = \{1, \dots, n\}$, edges $E_n$, communities $\Lab_K = \{0, \dots, K-1\}$, and set of configurations $\sigma \in \Conf_n = (\Lab_K)^{V_n}$.
+      \item \textbf{Features}: $X_n \in \mathcal{X}_n$ according to distribution $\nu_n$.
+      \item \textbf{Prior on configurations}: $\mu_{0,n}(\mathrm{d}\sigma \mid x)$ over $\Conf_n$.
+      \item \textbf{(Noisy) channel}: $Q_n(\mathrm{d}w \mid x, \sigma) = \prod_{e \in E_n} Q_{e,n}(\mathrm{d}w_e \mid x_i, x_j, \sigma_i, \sigma_j)$.
+    \end{enumerate}
+    The joint law is $\mathbb{P}_n(\mathrm{d}x, \mathrm{d}\sigma, \mathrm{d}w) = \nu_n(\mathrm{d}x)\mu_{0,n}(\mathrm{d}\sigma \mid x)Q_n(\mathrm{d}w \mid x, \sigma)$.
+  \end{definition}
+
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=0.8cm and 1cm, scale=0.85, every node/.style={scale=0.85}]
+      \node[chapbox] (prior) {Prior\\$\mu_{0,n}(\cdot\mid X)$};
+      \node[chapbox,right=of prior] (truth) {Hidden Truth\\$\Sigma_n$};
+      \node[chapbox,right=of truth] (chan) {Channel\\$Q_n$};
+      \node[chapboxdark,right=of chan] (obs) {Observation\\$\Obs_n=(X,W)$};
+      \node[chapbox,below=0.7cm of obs] (post) {Posterior\\$\mu_{n,X,W}$};
+      \draw[chaparr] (prior) -- (truth);
+      \draw[chaparr] (truth) -- (chan);
+      \draw[chaparr] (chan) -- (obs);
+      \draw[chaparr] (obs) -- (post);
+      \draw[chapdash] (prior.south) .. controls +(0,-0.8) and +(-1.2,0) .. (post.west);
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{\textsc{Gibbs} Model on Signed Graphs}
+  \begin{block}{Attractive and Repulsive Edges}
+    \begin{columns}[c]
+      \begin{column}{0.60\textwidth}
+        Partition potential edges $E = F \dot{\cup} \tilde{F}$:
+        \begin{itemize}
+          \item $F$: \textbf{Attractive} (ferromagnetic), weight $W_e > 0$
+          \item $\tilde{F}$: \textbf{Repulsive} (antiferromagnetic), weight $W_e < 0$
+        \end{itemize}
+      \end{column}
+      \begin{column}{0.40\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=1.0, every node/.style={scale=0.9}]
+          % Nodes for F
+          \node[spin] (i) at (0, 0.4) {};
+          \node[spin] (j) at (1.8, 0.4) {};
+          \draw[posedge] (i) -- node[above, scale=0.8] {$e \in F$} (j);
+
+          % Nodes for \tilde{F}
+          \node[spin] (k) at (0, -0.6) {};
+          \node[spin] (l) at (1.8, -0.6) {};
+          \draw[negedge] (k) -- node[below, scale=0.8] {$e \in \tilde{F}$} (l);
+        \end{tikzpicture}
+      \end{column}
+    \end{columns}
+  \end{block}
+  \begin{block}{Signed \textsc{Gibbs} Measure \cite{Reichardt2006}}
+    Configuration probability $\mu(\sigma) = \frac{1}{Z} e^{-U(\sigma)}$, where energy $U(\sigma)$ penalizes unsatisfied edges:
+    \begin{equation*}
+        U(\sigma) = \sum_{e=\{i,j\} \in F} W_e \ind{\sigma_i \neq \sigma_j} + \sum_{e=\{i,j\} \in \tilde{F}} |W_e| \ind{\sigma_i = \sigma_j}
+    \end{equation*}
+  \end{block}
+  \begin{block}{\textcolor{red}{\textsc{Gibbs} Assumption}}
+    Special case of the Bayesian framework where the posterior is assumed to be:
+    \begin{equation*}
+        \textcolor{red}{\mu_{X,W}(\sigma) = \frac{1}{Z} e^{-U(\sigma)}}
+    \end{equation*}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Advantages of the Bayesian Framework}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      \begin{block}{Rigorous Definitions}
+        \begin{itemize}
+          \item \textbf{Algorithm $\tau_n$}: \textsc{Markov} kernel mapping observations $(X, W)$ to configurations.
+          \item \textbf{Random Guess}: An algorithm agnostic to observations (relying only on the prior $\mu_0$).
+          \item \textbf{Weak / Partial Recovery}: Beating the best random guess asymptotically.
+        \end{itemize}
+      \end{block}
+      
+      \begin{block}{Posterior Resampling}
+        Replace hidden truth by replica: $\Sigma \iff \Sigma^{(1)} \sim \mu( \cdot \mid X, W)$
+      \end{block}
+    \end{column}
+    
+    \begin{column}{0.44\textwidth}
+      \begin{block}{Measure of Performance: Overlap}
+        The overlap quotients the \textsc{Hamming} similarity by label permutations $\mathfrak{S}_K$:
+        \begin{equation*}
+            \ov_n(\sigma, \sigma') = \max_{\pi \in \mathfrak{S}_K} \frac{1}{n} \sum_{i=1}^n \ind{\sigma'_i = \pi(\sigma_i)}
+        \end{equation*}
+        \vspace{0.2em}
+        \begin{itemize}
+          \item Uniform prior: best random guess score is $1/K$.
+          \item Weak recovery: overlap $\ge 1/K + \eta$.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Posterior Resampling (\textsc{Nishimori} Identity)}
+  \begin{block}{Core Idea: Replacing Truth by a Replica}
+    Comparing $\tau$ to truth $\Sigma \iff$ Comparing $\tau$ to replica $\Sigma^{(1)} \sim \mu$
+  \end{block}
+  \begin{theorem}[\textsc{Nishimori} Identity \cite{Nishimori1980}]
+    For any algorithm $\tau$, posterior replica $\Sigma^{(1)} \sim \mu$, and bounded test function $\Psi$:
+    $$\mathbb{E}\left[\Psi(X, W, \Sigma, \tau)\right] = \mathbb{E}\left[\Psi(X, W, \Sigma^{(1)}, \tau)\right]$$
+  \end{theorem}
+  \begin{corollary}[Overlap Identity]
+    $$\mathbb{P}\left[\ov(\Sigma, \tau) \ge s\right] = \mathbb{P}\left[\ov(\Sigma^{(1)}, \tau) \ge s\right] \quad (\forall s \in [0, 1])$$
+  \end{corollary}
+\end{frame}
+
+\section{The \textsc{Sankararaman \& Baccelli} model}
+\frame{\sectionpage}
+
+\begin{frame}{The \textsc{Sankararaman}--\textsc{Baccelli} Model (GSBM)}
+  \begin{block}{Model Definition \cite{SankararamanBaccelli2018}}
+    \begin{itemize}
+      \item \textbf{Nodes}: Realization $X$ of a homogeneous \textsc{Poisson} point process in an $n$-volume of $\mathbb{R}^d$ \cite{BB}.
+      \item \textbf{Latent Communities}: Uniform assignments $\Sigma_i \in \{+1, -1\}$ ($K=2$).
+      \item \textbf{Edges}: Connection $e=\{i,j\} \in H$ occurs with probability:
+        \begin{equation*}
+            \mathbb{P}(e \in H \mid X, \Sigma) =
+            \begin{cases}
+                f_{\mathrm{in}}(r_e) & \text{if } \Sigma_i = \Sigma_j \text{ (attraction),} \\
+                f_{\mathrm{out}}(r_e) & \text{if } \Sigma_i \neq \Sigma_j \text{ (repulsion),}
+            \end{cases}
+        \end{equation*}
+        where $r_e = \|X_i - X_j\|$ and $f_{\mathrm{in}}(r) \ge f_{\mathrm{out}}(r)$.
+    \end{itemize}
+  \end{block}
+  \begin{block}{Goal: Weak Recovery}
+    \begin{itemize}
+      \item Find an algorithm $\tau_n$ (independent of $\Sigma_n$) achieving:
+        \begin{equation*}
+            \lim_{n\to\infty} \mathbb{E}[\ov_n(\Sigma_n, \tau_n)] \ge \frac{1}{2} + \eta \quad (\eta > 0), \quad \text{where } \ov_n(\Sigma_n, \tau_n) = \max_{\pi \in \mathfrak{S}_2} \frac{1}{n} \sum_{i=1}^n \ind{\tau_{n,i} = \pi(\Sigma_{n,i})}.
+        \end{equation*}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{GSBM in the Bayesian Framework}
+  \centering
+  \renewcommand{\arraystretch}{1.4}
+  \setlength{\tabcolsep}{10pt}
+  \begin{tabular}{p{0.45\textwidth} | p{0.45\textwidth}}
+    \textbf{\textsc{Sankararaman \& Baccelli} (GSBM)} & \textbf{Bayesian Framework} \\
+    \hline
+    \textbf{Positions $X$}: Realization of a homogeneous \textsc{Poisson} point process & \textbf{Features $X \sim \nu$}: same \textsc{Poisson} law \\
+    \textbf{Prior}: Uniform prior $\mu_0$ on $\Sigma \in \{+1,-1\}^n$ & \textbf{Prior $\mu_0$}: same \\
+    \textbf{Observables}: $(H, X)$ where $H$ is the observed graph & \textbf{Observables}: $(W, X)$ where $W$ is the channel output \\
+    \hline
+    \multicolumn{2}{p{0.9\textwidth}}{\textbf{Deterministic construction of $W$ from $H$}:} \\
+    \multicolumn{2}{c}{
+      $\displaystyle W_e = \begin{cases}
+        \displaystyle \log\left(\frac{f_{\mathrm{in}}(r_e)}{f_{\mathrm{out}}(r_e)}\right) \ge 0 & \text{if } e \in H \text{ (attractive),} \\[2ex]
+        \displaystyle -\log\left(\frac{1-f_{\mathrm{out}}(r_e)}{1-f_{\mathrm{in}}(r_e)}\right) \le 0 & \text{if } e \notin H \text{ (repulsive).}
+      \end{cases}$
+    } \\
+    \hline
+    \textbf{Posterior}: $\mathbb{P}(\Sigma = \sigma \mid H, X)$ & \textbf{Posterior}: \textcolor{red}{$\boldsymbol{= \mathbb{P}(\Sigma = \sigma \mid W, X) = \mu(\sigma)}$} \quad \tikz[baseline=-0.35ex]{\draw[thick, draw=black, rounded corners=0.5pt] (0,0) rectangle (0.2,0.2); \draw[very thick, green!70!black] (0.04,0.1) -- (0.09,0.04) -- (0.17,0.15);} ~ \text{\textsc{Gibbs} assumption} \\
+    \hline
+  \end{tabular}
+\end{frame}
+
+\begin{frame}{The Percolation Obstruction}
+  \begin{block}{Necessary Condition for Weak Recovery \cite{SankararamanBaccelli2018}}
+    \begin{itemize}
+      \item Requires a global information flow graph to \textbf{percolate} \cite{penrose2003} (possess a giant component).
+    \end{itemize}
+  \end{block}
+  \begin{theorem}[\textsc{Sankararaman} \& \textsc{Baccelli} \cite{SankararamanBaccelli2018}]
+    Independent bond percolation with edge probability
+    \begin{equation*}
+        p_e = f_{\mathrm{in}}(r_e) - f_{\mathrm{out}}(r_e)
+    \end{equation*}
+    yielding a giant component is a \textbf{necessary condition} for weak recovery.
+  \end{theorem}
+  \begin{itemize}
+    \item \textbf{Our goal}: Retrieve and extend this result using unified \textbf{Bayesian MCMC coupling}.
+  \end{itemize}
+\end{frame}
+
+\section{MCMC Dynamics \& Performance Bounds}
+\frame{\sectionpage}
+
+\begin{frame}{Invariant Coupling}
+  \begin{block}{\textsc{Markov} Chain Dynamics as a Source of Coupling}
+    \begin{itemize}
+      \item We construct the posterior replica $\Sigma^{(1)}$ starting from the hidden truth $\Sigma$.
+      \item Running \textbf{exactly one step} of a posterior-invariant \textsc{Markov} kernel $M$ initialized at $\Sigma$ yields a valid replica $\Sigma^{(1)} \sim M(\Sigma, \cdot)$.
+    \end{itemize}
+  \end{block}
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=0.8cm and 1.5cm, scale=0.85, every node/.style={scale=0.85}]
+      \node[chapboxdark,minimum width=2.8cm] (obs) {Observation\\$(X,W)$};
+      \node[chapbox,minimum width=2.8cm,left=of obs] (true) {Truth\\$\Sigma$};
+      \node[chapbox,minimum width=2.8cm,right=of obs] (algo) {Algorithm\\$\tau$};
+      \node[chapbox,minimum width=2.8cm,below=of obs] (rep) {Replica\\$\Sigma^{(1)}$};
+      \draw[chaparr] (true) -- (obs);
+      \draw[chaparr] (obs) -- (algo);
+      \draw[chaparr] (obs) -- (rep);
+      \draw[chapdash] (true) .. controls +(0,-1.8) and +(-1.8,0) .. node[left]{same score} (rep);
+      \draw[chapdash] (rep) -- node[right]{\ possible comparison} (algo);
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+
+\begin{frame}{Single-Spin Dynamics \& Geometric Bottleneck}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Single-Spin Update Limitations}
+        \begin{itemize}
+          \item \textbf{Geometry makes updates slow}: Single-spin dynamics (\textsc{Glauber} / \textsc{Metropolis}--\textsc{Hastings} \cite{GlauberMetropolisDiaconis2009}) update one node at a time.
+          \item \textbf{Contradictory Clusters}: Two internally valid (highly satisfied) but mutually contradictory clusters are locked.
+          \item \textbf{High Energy Barrier}: Flipping a single boundary node violates internal edges, creating a local energy barrier.
+          \item \textbf{Conclusion}: Need for geometry $\implies$ \textbf{Cluster Dynamics} (updating whole regions).
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=1.1, every node/.style={scale=0.9}]
+        \node[spin, fill=inria-2024-bleu-canard!15] (a) at (0, 1.2) {$+$};
+        \node[spin, fill=inria-2024-bleu-canard!15] (b) at (0.8, 0.4) {$+$};
+        \node[spin, fill=inria-2024-bleu-canard!15] (c) at (0, -0.4) {$+$};
+        
+        \node[spin, fill=inria-2024-rouge!15] (d) at (3.0, 1.2) {$-$};
+        \node[spin, fill=inria-2024-rouge!15] (e) at (2.2, 0.4) {$-$};
+        \node[spin, fill=inria-2024-rouge!15] (f) at (3.0, -0.4) {$-$};
+        
+        \draw[posedge] (a) -- (b);
+        \draw[posedge] (b) -- (c);
+        \draw[posedge] (a) -- (c);
+        
+        \draw[posedge] (d) -- (e);
+        \draw[posedge] (e) -- (f);
+        \draw[posedge] (d) -- (f);
+        
+        % Frustrated boundary edges
+        \draw[posedge, draw=inria-2024-rouge, thick] (b) -- node[above, scale=0.7, text=inria-2024-rouge] {unsat.} (e);
+        \draw[posedge, draw=inria-2024-rouge, thick] (a) -- (d);
+        \draw[posedge, draw=inria-2024-rouge, thick] (c) -- (f);
+        
+        \draw[dashed, inria-2024-gris-bleu, thick] (1.5, -0.6) -- (1.5, 1.7) node[above, scale=0.8, text=inria-2024-gris-bleu] {Boundary};
+        
+        \node[scale=0.8, align=center, text=inria-2024-bleu-canard] at (0.4, -1.25) {Cluster $C_1$ ($+$)\\All edges satisfied};
+        \node[scale=0.8, align=center, text=inria-2024-rouge] at (2.6, -1.25) {Cluster $C_2$ ($-$)\\All edges satisfied};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{One Step of Signed \textsc{Swendsen}--\textsc{Wang} \cite{SwendsenWang, EdwardsSokal}}
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[x=1cm,y=1cm, scale=0.85, every node/.style={scale=0.85}]
+      \node at (1.2,2.4) {Configuration $\sigma$};
+      \foreach \n/\x/\y/\s in {a/0/1/+,b/1.2/1/+,c/2.4/1/-,d/0/0/-,e/1.2/0/-,f/2.4/0/+}
+        \node[spin] (\n) at (\x,\y) {$\s$};
+      \draw[posedge] (a)--(b);
+      \draw[negedge] (b)--(c);
+      \draw[posedge] (d)--(e);
+      \draw[negedge] (e)--(f);
+      \draw[faint] (a)--(d); \draw[faint] (b)--(e); \draw[negedge] (c)--(f);
+
+      \draw[chaparr] (3.0,.5)--(4.2,.5);
+      \node at (5.8,2.4) {Frozen Edges};
+      \foreach \n/\x/\y in {a2/4.8/1,b2/6/1,c2/7.2/1,d2/4.8/0,e2/6/0,f2/7.2/0}
+        \node[tinynode] (\n) at (\x,\y) {};
+      \draw[freeze] (a2)--(b2); \draw[freeze] (d2)--(e2); \draw[freeze] (c2)--(f2);
+      \node[draw,rounded corners,fit=(a2)(b2),inner sep=2pt] {};
+      \node[draw,rounded corners,fit=(d2)(e2),inner sep=2pt] {};
+      \node[draw,rounded corners,fit=(c2)(f2),inner sep=2pt] {};
+
+      \draw[chaparr] (7.8,.5)--(9.0,.5);
+      \node at (10.8,2.4) {Recoloring $\sigma'$};
+      \foreach \n/\x/\y/\s in {a3/9.6/1/-,b3/10.8/1/-,c3/12/1/+,d3/9.6/0/-,e3/10.8/0/-,f3/12/0/-}
+        \node[spin] (\n) at (\x,\y) {$\s$};
+      \draw[freeze] (a3)--(b3); \draw[freeze] (d3)--(e3); \draw[freeze] (c3)--(f3);
+    \end{tikzpicture}
+  \end{figure}
+  \begin{itemize}
+    \item Edges in bold represent satisfied interactions that are randomly frozen.
+    \item Clusters are then flipped independently.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\textsc{Swendsen}--\textsc{Wang} Signed Cluster Dynamics}
+  \begin{block}{\textsc{Swendsen}--\textsc{Wang} (SW) Signed Cluster Dynamics \cite{SwendsenWang, EdwardsSokal}}
+    \begin{itemize}
+      \item Update whole clusters of vertices simultaneously to speed up mixing.
+      \item \textbf{Freezing Step}: For each edge $e=\{i,j\}$:
+        \begin{itemize}
+          \item If $e$ is satisfied ($W_e > 0$ and $\sigma_i = \sigma_j$, or $W_e < 0$ and $\sigma_i \neq \sigma_j$), freeze it with probability:
+            \begin{equation*}
+                p_e^{\mathrm{frozen}} = 1 - e^{-|W_e|}.
+            \end{equation*}
+          \item If $e$ is unsatisfied, do not freeze it ($p_e^{\mathrm{frozen}} = 0$).
+        \end{itemize}
+      \item \textbf{Recoloring Step}: Flip each frozen cluster independently with probability $1/2$.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{High-Order Triangular Dynamics}
+  \begin{block}{The Frustration Obstruction}
+    \begin{itemize}
+      \item \textbf{Frustration}: $\nexists \sigma$ satisfying all edges (conflicting constraints).
+      \item \textbf{Excessive Freezing}: In frustrated configurations, standard SW satisfies and freezes too many edges independently, blocking/freezing the MCMC dynamics.
+      \item \textbf{Higher-Order Correlation}: Group interactions into \textbf{triangles} to correlate freezing and \textbf{freeze as little as possible}.
+    \end{itemize}
+  \end{block}
+  \begin{block}{Triangular Cluster Dynamics \textcolor{inria-2024-rouge!80!black}{\cite{BibiMonterey}}}
+    \begin{itemize}
+      \item \textbf{Energy Decomposition}: Distribute edge energy $U$ over triangles: $U(\sigma) = \sum_{t \in \mathcal{T}} U_t(\sigma)$.
+      \item \textbf{Freezing Mechanism}: Apply a joint freezing mechanism on the triangles (rather than independent edges) to keep cluster sizes active.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Triangular Dynamics Freezing Rules}
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{c|ccccc}
+      \toprule
+      \multicolumn{6}{c}{\TriangleAttractif{} \ \ \textbf{Attractive Triangle} (Isotropic)}\\
+      Configuration & $\varnothing$ & $\{ab\}$ & $\{ac\}$ & $\{bc\}$ & $\{ab,ac,bc\}$\\
+      \midrule
+      $(+,+,+)$ & $b_u$ & $0$ & $0$ & $0$ & $a_u$\\
+      Other & $1$ & $0$ & $0$ & $0$ & $0$\\
+      \bottomrule
+    \end{tabular}
+    \qquad
+    \begin{tabular}{c|ccccc}
+      \toprule
+      \multicolumn{6}{c}{\TriangleRepulsif{} \ \ \textbf{Repulsive Triangle} (Isotropic)}\\
+      Configuration & $\varnothing$ & $\{ab\}$ & $\{ac\}$ & $\{bc\}$ & $\{ab,ac,bc\}$\\
+      \midrule
+      $(+,+,+)$ & $1$ & $0$ & $0$ & $0$ & $0$\\
+      $(+,+,-)$ & $b_u$ & $0$ & $a_u/2$ & $a_u/2$ & $0$\\
+      $(+,-,+)$ & $b_u$ & $a_u/2$ & $0$ & $a_u/2$ & $0$\\
+      $(+,-,-)$ & $b_u$ & $a_u/2$ & $a_u/2$ & $0$ & $0$\\
+      \bottomrule
+    \end{tabular}
+    \caption{Freezing rules for triangular dynamics ($a_u = 1 - e^{-2u}$, $b_u = e^{-2u}$), where $u$ is the energy transferred by each edge.}
+    \label{tab:triangle_rules}
+  \end{table}
+\end{frame}
+
+\begin{frame}{General \textsc{Swendsen}--\textsc{Wang} Cluster Dynamics: Framework}
+  \begin{block}{General Framework \textcolor{inria-2024-rouge!80!black}{\cite{BibiInformationInference}}}
+    Suppose the Hamiltonian decomposes as: $U(\sigma) = U_0(\sigma) + \sum_{b \in \mathcal{B}} U_b(\sigma)$, where each $b \in \mathcal{B}$ is a \textbf{bond} (\emph{e.g.}, edge, triangle, clique).
+    \begin{enumerate}
+      \item \textbf{Freezing Step}: For each bond $b \in \mathcal{B}$, freeze a sub-bond $\omega_b \subseteq b$ with probability $P_b^{\sigma}(\omega_b)$.
+      \item \textbf{Recoloring Step}: Recolor each frozen cluster independently according to a distribution preserving the prior $\mu_0(\sigma) \propto e^{-U_0(\sigma)}$.
+    \end{enumerate}
+  \end{block}
+
+  \begin{center}
+    \begin{tikzpicture}[scale=1.2, x=1cm, y=1cm]
+      % Triangle 1: omega_b = empty
+      \begin{scope}[shift={(0,0)}]
+        \node[spin] (a) at (0,0) {$+$};
+        \node[spin] (b) at (1.2,0) {$+$};
+        \node[spin] (c) at (0.6,1.04) {$+$};
+        \draw[faint] (a)--(b);
+        \draw[faint] (b)--(c);
+        \draw[faint] (c)--(a);
+        \node[align=center, below=3pt] at (0.6,0) {$\omega_b = \varnothing$};
+      \end{scope}
+
+      % Triangle 2: omega_b = one edge
+      \begin{scope}[shift={(3.2,0)}]
+        \node[spin] (a) at (0,0) {$+$};
+        \node[spin] (b) at (1.2,0) {$+$};
+        \node[spin] (c) at (0.6,1.04) {$+$};
+        \draw[line width=2.5pt] (a)--(b);
+        \draw[faint] (b)--(c);
+        \draw[faint] (c)--(a);
+        \node[align=center, below=3pt] at (0.6,0) {$\omega_b = \{ab\}$};
+      \end{scope}
+
+      % Triangle 3: omega_b = all three edges
+      \begin{scope}[shift={(6.4,0)}]
+        \node[spin] (a) at (0,0) {$+$};
+        \node[spin] (b) at (1.2,0) {$+$};
+        \node[spin] (c) at (0.6,1.04) {$+$};
+        \draw[line width=2.5pt] (a)--(b);
+        \draw[line width=2.5pt] (b)--(c);
+        \draw[line width=2.5pt] (c)--(a);
+        \node[align=center, below=3pt] at (0.6,0) {$\omega_b = \{ab, ac, bc\}$};
+      \end{scope}
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{General \textsc{Swendsen}--\textsc{Wang} Cluster Dynamics: Invariance}
+  \begin{definition}[Local Reversibility]
+    For two configurations $\sigma, \sigma'$ and a bond $b$, we define the compatibility probability:
+    \begin{equation*}
+        P_b^{\sigma\to\sigma'}(\omega_b)
+        =
+        \begin{cases}
+            P_b^\sigma(\omega_b), & \text{if } P_b^{\sigma'}(\omega_b) > 0, \\
+            0, & \text{otherwise.}
+        \end{cases}
+    \end{equation*}
+    The freezing rule is \textbf{locally reversible} if for all $b$, $\omega_b$, $\sigma$, $\sigma'$:
+    \begin{equation*}
+        P_b^{\sigma \to \sigma'}(\omega_b) = e^{-\left(U_b(\sigma') - U_b(\sigma)\right)} P_b^{\sigma' \to \sigma}(\omega_b)
+    \end{equation*}
+  \end{definition}
+
+  \begin{theorem}[\textsc{Gibbs} Invariance \textcolor{inria-2024-rouge!80!black}{\cite{BibiInformationInference}}]
+    If freezing choices are independent, locally reversible, and $P_b^\sigma(\varnothing) > 0$ for all $b, \sigma$:
+    \begin{enumerate}
+      \item The global cluster dynamics is reversible with respect to $\mu(\sigma) \propto e^{-U(\sigma)}$.
+      \item The condition $P_b^\sigma(\varnothing) > 0$ ensures the \textbf{irreducibility} of the \textsc{Markov} chain.
+    \end{enumerate}
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{Percolation as a Necessary Condition for Recovery}
+  \begin{theorem}[Percolation Bound on Overlap \textcolor{inria-2024-rouge!80!black}{\cite{BibiInformationInference}}]
+    Under the uniform prior $\mu_0$, if frozen clusters are recolored independently and uniformly, then for the one-step posterior replica $\Sigma_n^{(1)}$, any algorithm $\tau_n$, and any $\eta > 0$:
+    \begin{equation*}
+        \lim_{n\to\infty} \mathbb{P}\left[ \ov_n(\Sigma_n^{(1)}, \tau_n) \ge \frac{1}{K} + \frac{K-1}{K}(\theta^{\max} + \eta) \right] = 0
+    \end{equation*}
+    where $\theta^{\max}$ is the asymptotic fraction of nodes in giant frozen components (which bounds the maximum recoverable fraction of communities).
+  \end{theorem}
+  
+  \begin{corollary}[Percolation is Necessary]
+    If there is no percolation ($\theta^{\max} = 0$), the maximum overlap is bounded by $1/K$ (random guess): weak recovery is impossible.
+    Hence, \textbf{percolation is a necessary condition for weak recovery}.
+  \end{corollary}
+
+  \begin{block}{Key Intuition}
+    Small clusters are recolored independently, washing out their contribution. Only giant (macroscopic) components can carry global community information.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Coupling \& the \textsc{Sankararaman}--\textsc{Baccelli} Bound}
+  \begin{block}{One Step of Classical Edge-by-Edge \textsc{Swendsen}--\textsc{Wang}}
+    \setlength{\abovedisplayskip}{2pt}
+    \setlength{\belowdisplayskip}{2pt}
+    Let's run one step of standard \textsc{Swendsen}--\textsc{Wang} (edges) initialized at the hidden truth $\Sigma$.
+    For any edge $e$, the probability that it is frozen is:
+    \begin{itemize}
+      \item \textbf{Case 1 ($\Sigma_i = \Sigma_j$)}:
+        \begin{equation*}
+            \mathbb{P}(\text{frozen}) = f_{\mathrm{in}}(r_e) \left(1 - e^{-|W_e|}\right) = f_{\mathrm{in}}(r_e) \left(1 - \frac{f_{\mathrm{out}}(r_e)}{f_{\mathrm{in}}(r_e)}\right) = f_{\mathrm{in}}(r_e) - f_{\mathrm{out}}(r_e)
+        \end{equation*}
+      \item \textbf{Case 2 ($\Sigma_i \neq \Sigma_j$)}:
+        \begin{equation*}
+            \mathbb{P}(\text{frozen}) = (1 - f_{\mathrm{out}}(r_e)) \left(1 - e^{-|W_e|}\right) = (1 - f_{\mathrm{out}}(r_e)) \left(1 - \frac{1-f_{\mathrm{in}}(r_e)}{1-f_{\mathrm{out}}(r_e)}\right) = f_{\mathrm{in}}(r_e) - f_{\mathrm{out}}(r_e)
+        \end{equation*}
+    \end{itemize}
+  \end{block}
+
+  \begin{corollary}[Retrieving the \textsc{S}\&\textsc{B} Bound \cite{SankararamanBaccelli2018}]
+    Under the classical edge SW dynamics, the frozen graph is \textbf{exactly} an independent bond percolation with edge probability:
+    \begin{equation*}
+        p_e = f_{\mathrm{in}}(r_e) - f_{\mathrm{out}}(r_e).
+    \end{equation*}
+  \end{corollary}
+\end{frame}
+
+\begin{frame}{Strict Improvement of the \textsc{S}\&\textsc{B} bound (on the triangular grid)}
+  \begin{block}{Homogeneous Model ($f_{\mathrm{in}} = p$, $f_{\mathrm{out}} = 1-p$)}
+    On the triangular grid, we select a family of independent white triangles (like a chessboard).
+    \begin{itemize}
+      \item \textbf{Edge Dynamics (Standard SW)}:
+        Frozen graph is independent edge percolation with parameter $p_{\mathrm{edge}} = 2p-1$.
+        Critical threshold:
+        $$p_c^{\mathrm{edge}} = \frac{1}{2} + \sin\left(\frac{\pi}{18}\right) \approx 0.673\ldots$$
+      \item \textbf{Triangular Dynamics}:
+        Frozen graph yields correlated triangle percolation.
+        Critical threshold:
+        $$p_c^{\triangle} = \frac{7}{4} - \frac{\sqrt{17}}{4} \approx 0.7192\ldots$$
+    \end{itemize}
+  \end{block}
+  \begin{corollary}[Strictly Better Impossibility Bound \textcolor{inria-2024-rouge!80!black}{\cite{BibiInformationInference}}]
+    Since $p_c^{\mathrm{edge}} < p_c^{\triangle}$, for any $p \in [0.673\ldots, 0.7192\ldots)$, the standard \textsc{S}\&\textsc{B} bound cannot conclude (edge dynamics percolate), whereas triangular dynamics do not, proving that weak recovery is impossible.
+  \end{corollary}
+\end{frame}
+
+\begin{frame}{Empirical Results: Subcritical vs. Supercritical ($p = 0.70$)}
+  \centering
+  \includegraphics[width=0.68\textwidth]{imgs/LargestComp0.7.png}
+  
+  \vspace{0.2em}
+  \begin{columns}[onlytextwidth,T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Phase Space ($p_c^{\mathrm{edge}} \approx 0.673 < 0.70 < p_c^{\triangle} \approx 0.7192$)}
+        \begin{itemize}
+          \item \textbf{Edges (standard SW)}: supercritical ($\theta^{\max} > 0$), largest component size (LCC) reaches $\approx 0.9$ (right plot).
+          \item \textbf{Triangles / Split weight}: subcritical ($\theta^{\max} = 0$), LCC remains near $0$.
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Observed Behavior}
+        \begin{itemize}
+          \item Only standard edge SW achieves giant components.
+          \item Overlap remains at the baseline noise level (around $0.002$) for triangles and split weights due to lack of percolation (left plot).
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Empirical Results: Onset of Percolation ($p = 0.72$)}
+  \centering
+  \includegraphics[width=0.68\textwidth]{imgs/LargestComp0.72.png}
+  
+  \vspace{0.2em}
+  \begin{columns}[onlytextwidth,T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Transition Regime ($p = 0.72 > p_c^{\triangle} \approx 0.7192$)}
+        \begin{itemize}
+          \item All three dynamics are now \textbf{supercritical}.
+          \item LCC grows for all: edges reach $\approx 0.9$, split weights reach $\approx 0.85$, and white triangles reach $\approx 0.55$ (right plot).
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Observed Behavior}
+        \begin{itemize}
+          \item Giant components have formed, but the overlap remains low (below $0.003$) for all dynamics (left plot).
+          \item \textbf{No weak recovery yet}: the true weak recovery threshold is likely strictly above the percolation threshold (percolation is only a necessary condition).
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Empirical Results: Weak Recovery Achieved ($p = 0.80$)}
+  \centering
+  \includegraphics[width=0.68\textwidth]{imgs/LargestComp0.80.png}
+  
+  \vspace{0.2em}
+  \begin{columns}[onlytextwidth,T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Supercritical Regime ($p = 0.80 \gg p_c^{\triangle}$)}
+        \begin{itemize}
+          \item Giant components are well-established (right plot), with LCC close to $0.95$ for edges and split weights, and $0.90$ for white triangles.
+          \item Fluctuations are small and components are stable.
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Observed Behavior}
+        \begin{itemize}
+          \item Weak recovery is successfully achieved for all algorithms.
+          \item The overlap climbs significantly above the noise level (left plot), peaking at $\approx 0.010$ for white triangles and $\approx 0.006$ for split weights.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\input{hierarchical_sw_frames.tex}
+
+\section{Open Questions \& Conclusion}
+\frame{\sectionpage}
+
+\begin{frame}{Open Questions}
+  \begin{block}{Limits of the One-Replica Coupling}
+    \begin{itemize}
+      \item Our framework constructs \textbf{one} replica $\Sigma_n^{(1)}$ using MCMC cluster dynamics.
+      \item This only yields an impossibility bound (\textbf{necessary condition} for recovery).
+    \end{itemize}
+  \end{block}
+  
+  \begin{block}{Towards a Necessary and Sufficient Condition}
+    \begin{itemize}
+      \item Achieving a \textbf{necessary and sufficient} condition requires a \textbf{two-replica} framework.
+      \item Open: How to define and analyze two-replica couplings under MCMC?
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Towards a Practical Community Detection Algorithm}
+  \begin{block}{Limits of Direct \textsc{Gibbs} Sampling}
+    \begin{itemize}
+      \item Direct posterior sampling does not perform well in practice.
+      \item Likely due to slow mixing of the underlying \textsc{Markov} chain.
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Estimating the Correlation Matrix}
+    \begin{itemize}
+      \item Estimating the correlation matrix $\mathbb{P}(\sigma_i = \sigma_j)$ yields much better results.
+      \item \textbf{Future work}: Understand why correlation estimators are more robust.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Distance Adapted to Cluster Dynamics}
+  \begin{block}{\textsc{Hamming} Similarity on the Quotient Space}
+    \begin{itemize}
+      \item Standard overlap is a \textsc{Hamming} similarity quotiented by label permutations:
+        $\ov_n(\sigma, \sigma') = \max_{\pi \in \mathfrak{S}_K} \frac{1}{n} \sum_{i=1}^n \ind{\sigma'_i = \pi(\sigma_i)}$.
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{\textsc{Markov} Transition-Adapted Distance}
+    \begin{itemize}
+      \item Consider distances reflecting transitions of the cluster dynamics.
+      \item For standard SW, this corresponds to the \textbf{symmetric difference} on satisfied edges:
+        $$d_{\mathrm{sym}}(\sigma, \sigma') = \frac{1}{2} \sum_{e=\{i,j\}} |W_e| \left| \ind{\sigma \text{ satisfies } e} - \ind{\sigma' \text{ satisfies } e} \right|$$
+      \item Establishes links to \textbf{spectral graph analysis} (\emph{e.g.}, \textsc{Laplacian} eigenvalues).
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Application: 3-SAT Solving via Signed Graphs}
+  \begin{columns}
+    \begin{column}{0.45\textwidth}
+      \begin{block}{The 3-SAT Problem}
+        Find a truth assignment satisfying a set of clauses, \emph{e.g.},
+        $$\mathcal{C} = x_i \lor \neg x_j \lor x_k$$
+      \end{block}
+
+      \begin{block}{Clause Encoding}
+        We introduce a reference node $\mathbf{T}$ (\textsf{True}):
+        \begin{itemize}
+          \item \textbf{Triangle} (literals $x_i, \neg x_j, x_k$): edge signs opposite to the literal product.
+          \item \textbf{Tetrahedron} (with $\mathbf{T}$): edge signs conforming to the literal signs.
+        \end{itemize}
+      \end{block}
+    \end{column}
+    
+    \begin{column}{0.50\textwidth}
+      \begin{center}
+        \begin{tikzpicture}[scale=1.1, x=1cm, y=1cm]
+          % === FIGURE 1: TRIANGLE ===
+          \begin{scope}[shift={(0,0.2)}]
+            % Node coordinates
+            \coordinate (Xi1) at (0, 0);
+            \coordinate (Xj1) at (1.8, 0);
+            \coordinate (Xk1) at (0.9, 1.4);
+
+            % Edges (opposite of literal product sign)
+            % x_i (+) and \neg x_j (-): product -, opposite + (solid)
+            \draw[posedge] (Xi1) -- (Xj1);
+            % \neg x_j (-) and x_k (+): product -, opposite + (solid)
+            \draw[posedge] (Xj1) -- (Xk1);
+            % x_k (+) and x_i (+): product +, opposite - (dashed)
+            \draw[negedge] (Xk1) -- (Xi1);
+
+            % Nodes
+            \node[spin, fill=gray!10] at (Xi1) {$x_i$};
+            \node[spin, fill=gray!10] at (Xj1) {$\neg x_j$};
+            \node[spin, fill=gray!10] at (Xk1) {$x_k$};
+
+            \node[below=6pt, align=center, scale=0.8] at (0.9,0) {Triangular Bond\\(Base)};
+          \end{scope}
+
+          % === FIGURE 2: TETRAHEDRON ===
+          \begin{scope}[shift={(2.8,0.2)}]
+            % Node coordinates
+            \coordinate (T) at (0.9, 1.8);
+            \coordinate (Xi2) at (0, 0);
+            \coordinate (Xj2) at (1.8, 0);
+            \coordinate (Xk2) at (0.9, 0.6);
+
+            % Tetrahedral edges (from T)
+            % T and x_i (+): attractive (solid)
+            \draw[posedge] (T) -- (Xi2);
+            % T and \neg x_j (-): repulsive (dashed)
+            \draw[negedge] (T) -- (Xj2);
+            % T and x_k (+): attractive (solid)
+            \draw[posedge] (T) -- (Xk2);
+
+            % Base edges (conforming to signs)
+            % x_i (+) and x_k (+): same sign -> attractive (solid)
+            \draw[posedge] (Xi2) -- (Xk2);
+            % x_k (+) and \neg x_j (-): diff sign -> repulsive (dashed)
+            \draw[negedge] (Xk2) -- (Xj2);
+            % x_i (+) and \neg x_j (-): diff sign -> repulsive (dashed)
+            \draw[negedge] (Xi2) -- (Xj2);
+
+            % Nodes
+            \node[spin, fill=inria-2024-rouge!15!white, draw=inria-2024-rouge!80!black] (Tnode) at (T) {$\mathbf{T}$};
+            \node[spin, fill=gray!10] at (Xi2) {$x_i$};
+            \node[spin, fill=gray!10] at (Xj2) {$\neg x_j$};
+            \node[spin, fill=gray!10] at (Xk2) {$x_k$};
+
+            \node[text=inria-2024-rouge!80!black, scale=0.9, anchor=south] at (0.9, 2.2) {\textbf{\textsf{True}}};
+            \node[below=6pt, align=center, scale=0.8] at (0.9,0) {Tetrahedral Bond\\(with $\mathbf{T}$)};
+          \end{scope}
+        \end{tikzpicture}
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Bibliography}
+  \printbibliography
+\end{frame}
+
+\frame{\merci}
+
+\end{document}

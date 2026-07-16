@@ -1,0 +1,15 @@
+latex-inria-fonts/
+tmp
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.fdb_latexmk
+*.fls
+*.run.xml
+*.bcf
+*-blx.bib
+*.synctex.gz
+*.blg

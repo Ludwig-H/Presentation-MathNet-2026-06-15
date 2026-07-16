@@ -1,0 +1,248 @@
+% Hierarchical Swendsen--Wang dynamics.
+% Inserted immediately before the Open Questions & Conclusion section.
+
+\begin{frame}{A Hierarchy as an Auxiliary Variable}
+  \begin{columns}[onlytextwidth,T]
+    \begin{column}{0.42\textwidth}
+      Start from any joint lift
+      \[
+        \nu(\sigma,dD),
+        \qquad \int \nu(\sigma,dD)=\mu(\sigma),
+      \]
+      where $D$ is a dendrogram of nested vertex sets.
+
+      One transition:
+      \begin{enumerate}
+        \item refresh $D\sim\nu(\,\cdot\mid\sigma)$;
+        \item sweep the clusters $A\in D$, from fine to coarse scales;
+        \item discard $D$.
+      \end{enumerate}
+
+      \vspace{0.2em}
+      Fresh auxiliary randomness makes $(\sigma_n)$ a Markov chain.
+    \end{column}
+    \begin{column}{0.55\textwidth}
+      \centering
+      \begin{tikzpicture}[
+        x=.82cm,y=.78cm,
+        leaf/.style={circle,draw,fill=white,minimum size=4.2mm,inner sep=0pt,font=\tiny},
+        merge/.style={circle,draw=inria-2024-rouge,fill=inria-2024-rouge!10,
+                      minimum size=4.3mm,inner sep=0pt},
+        tr/.style={line width=.8pt,draw=inria-2024-gris-bleu}
+      ]
+        \foreach \x/\s in {0/+,1/-,2/+,3/+,4/-,5/+}
+          \node[leaf] (l\x) at (\x,0) {$\s$};
+        \node[merge] (a) at (.5,1.05) {};
+        \node[merge] (b) at (2.5,1.05) {};
+        \node[merge] (c) at (4.5,1.05) {};
+        \node[merge] (d) at (1.5,2.15) {};
+        \node[merge] (r) at (3,3.30) {};
+        \foreach \u/\v in {l0/a,l1/a,l2/b,l3/b,l4/c,l5/c,a/d,b/d,d/r,c/r}
+          \draw[tr] (\u)--(\v);
+        \node[font=\scriptsize,text=inria-2024-bleu-canard] at (-.35,1.05) {fine};
+        \node[font=\scriptsize,text=inria-2024-orange] at (.35,2.35) {mesoscopic};
+        \node[font=\scriptsize,text=inria-2024-rouge] at (3,4.00) {coarse};
+        \draw[decorate,decoration={brace,amplitude=4pt},inria-2024-bleu-canard]
+          (-.2,-.45)--(1.2,-.45);
+        \draw[decorate,decoration={brace,amplitude=4pt},inria-2024-orange]
+          (-.2,-.82)--(3.2,-.82);
+        \draw[decorate,decoration={brace,amplitude=4pt},inria-2024-rouge]
+          (-.2,-1.19)--(5.2,-1.19);
+        \node[font=\scriptsize] at (2.5,-1.72) {nested clusters $A\in D$};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Heat-Bath Flips at Every Scale}
+  \begin{columns}[onlytextwidth,T]
+    \begin{column}{0.54\textwidth}
+      \centering
+      \begin{tikzpicture}[
+        x=.78cm,y=.82cm,
+        v/.style={circle,draw,fill=white,minimum size=4.2mm,inner sep=0pt,font=\tiny},
+        box/.style={rounded corners=4pt,line width=1pt,inner sep=4pt},
+        turn/.style={-{Latex[length=2mm]},thick}
+      ]
+        \foreach \x/\s in {0/+,1/-,2/+,3/+,4/-,5/+}
+          \node[v] (v\x) at (\x,0) {$\s$};
+        \begin{scope}[on background layer]
+          \node[box,draw=inria-2024-bleu-canard,fill=inria-2024-bleu-canard!8,
+                fit=(v0)(v1)] (small) {};
+          \node[box,draw=inria-2024-orange,fill=inria-2024-orange!6,
+                fit=(v0)(v3)] (medium) {};
+          \node[box,draw=inria-2024-rouge,fill=inria-2024-rouge!4,
+                fit=(v0)(v5)] (large) {};
+        \end{scope}
+        \draw[turn,inria-2024-bleu-canard]
+          (.25,.75) arc[start angle=205,end angle=510,radius=.45];
+        \draw[turn,inria-2024-orange]
+          (1.05,1.25) arc[start angle=205,end angle=510,radius=.65];
+        \draw[turn,inria-2024-rouge]
+          (2.25,1.85) arc[start angle=205,end angle=510,radius=.85];
+        \node[font=\scriptsize,text=inria-2024-bleu-canard] at (.5,1.65) {$F_{A_1}$};
+        \node[font=\scriptsize,text=inria-2024-orange] at (1.7,2.45) {$F_{A_2}$};
+        \node[font=\scriptsize,text=inria-2024-rouge] at (3,3.05) {$F_{A_3}$};
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.43\textwidth}
+      Write $\nu_D(\sigma)=\nu(\sigma\mid D)$ and let $F_A$ flip every
+      spin in $A$. At cluster $A$ use
+      \[
+        p_A^D(\sigma)
+        =\frac{\nu_D(F_A\sigma)}
+        {\nu_D(\sigma)+\nu_D(F_A\sigma)}.
+      \]
+      Hence
+      \[
+        \sigma\longmapsto
+        \begin{cases}
+          F_A\sigma,&\text{with probability }p_A^D(\sigma),\\
+          \sigma,&\text{otherwise}.
+        \end{cases}
+      \]
+      Local, mesoscopic and macroscopic clusters are all proposed;
+      the conditional Gibbs weight decides each flip.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Why the Hierarchical Dynamics Preserves Gibbs}
+  \small
+  For the one-cluster kernel $H_A^D$,
+  \[
+    \nu_D(\sigma)H_A^D(\sigma,F_A\sigma)
+    =\frac{\nu_D(\sigma)\nu_D(F_A\sigma)}
+           {\nu_D(\sigma)+\nu_D(F_A\sigma)}
+    =\nu_D(F_A\sigma)H_A^D(F_A\sigma,\sigma).
+  \]
+  Thus every $H_A^D$ is $\nu_D$-reversible. Any full sweep $Q_D$ is
+  $\nu_D$-stationary; a random scan or a palindromic sweep is also reversible.
+
+  After refreshing $D$, the spin kernel is
+  \[
+    K(\sigma,\sigma')=\int\nu(dD\mid\sigma)Q_D(\sigma,\sigma').
+  \]
+  Therefore
+  \[
+    \sum_\sigma\mu(\sigma)K(\sigma,\sigma')
+    =\int\nu(dD)\sum_\sigma\nu_D(\sigma)Q_D(\sigma,\sigma')
+    =\int\nu(dD)\nu_D(\sigma')=\mu(\sigma').
+  \]
+  \begin{block}{Conclusion}
+    The spin chain is Markov and Gibbs-stationary. If $Q_D$ is reversible,
+    the same computation with $(\sigma,\sigma')$ proves detailed balance for $K$.
+  \end{block}
+\end{frame}
+
+\begin{frame}{A Canonical Lift: Censored Edwards--Sokal Clocks}
+  \small
+  Set $J_e=|W_e|$, $\eta_e=\operatorname{sgn}(W_e)$ and
+  \[
+    U(\sigma)=\sum_{e=\{i,j\}}J_e\ind{\sigma_i\sigma_j\neq\eta_e},
+    \qquad \mu(\sigma)=Z^{-1}e^{-U(\sigma)}.
+  \]
+  For independent $X_e\sim\mathrm{Exp}(J_e)$, retain
+  $T_e=X_e$ only when $\sigma_i\sigma_j=\eta_e$ and $X_e\leq1$;
+  otherwise set $T_e=\infty$. Equivalently,
+  \[
+    \overline\mu(\sigma,dT)=\frac1Z\prod_{e\in E}\left[
+      e^{-J_e}\delta_\infty(dT_e)
+      +\ind{\sigma_i\sigma_j=\eta_e}
+       J_e e^{-J_eT_e}\ind{0\leq T_e\leq1}\,dT_e
+    \right].
+  \]
+  Each factor integrates to
+  \[
+    \begin{cases}
+      e^{-J_e}+\int_0^1J_e e^{-J_et}\,dt=1,
+        &\sigma_i\sigma_j=\eta_e,\\
+      e^{-J_e},&\sigma_i\sigma_j\neq\eta_e,
+    \end{cases}
+  \]
+  so $\overline\mu(\sigma)=\mu(\sigma)$. Moreover, with
+  $A(T)=\{e:T_e<\infty\}$,
+  \[
+    \overline\mu(\sigma\mid T)=2^{-c(A)}\ind{\sigma\in\Omega_A},
+    \qquad
+    \Omega_A=\{\tau:\tau_i\tau_j=\eta_e\ \forall e\in A\}.
+  \]
+\end{frame}
+
+\begin{frame}{The Exact MSF Specialization Collapses to SW}
+  \begin{columns}[onlytextwidth,T]
+    \begin{column}{0.53\textwidth}
+      \centering
+      \begin{tikzpicture}[
+        x=.77cm,y=.77cm,
+        v/.style={circle,draw,fill=white,minimum size=4.1mm,inner sep=0pt},
+        ae/.style={line width=1.1pt,draw=inria-2024-gris-bleu},
+        cut/.style={line width=1pt,densely dashed,draw=gray!45},
+        arr/.style={-{Latex[length=2.3mm]},thick,draw=inria-2024-rouge}
+      ]
+        \foreach \p/\x/\y in {a/0/0,b/1.5/0,c/.75/1.3,d/2.55/.65}
+          \node[v] (L\p) at (\x,\y) {};
+        \foreach \u/\w in {a/b,b/c,c/a,b/d,c/d}\draw[ae] (L\u)--(L\w);
+        \node[font=\scriptsize] at (1.3,-.65) {$A(T)$};
+        \draw[arr] (3.05,.65)--(3.85,.65)
+          node[midway,above,font=\scriptsize] {Kruskal};
+        \foreach \p/\x/\y in {a/4.4/0,b/5.9/0,c/5.15/1.3,d/6.95/.65}
+          \node[v] (R\p) at (\x,\y) {};
+        \draw[ae] (Ra)--(Rb)--(Rc); \draw[ae] (Rb)--(Rd);
+        \draw[cut] (Rc)--(Ra); \draw[cut] (Rc)--(Rd);
+        \node[font=\scriptsize] at (5.7,-.65) {$F(T)$};
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      Every active edge is satisfied by the current spin configuration;
+      active signed components are balanced. Kruskal preserves connectivity
+      and all signed parities:
+      \[
+        \mathcal C(F(T))=\mathcal C(A(T)),
+        \qquad \Omega_{F(T)}=\Omega_{A(T)}.
+      \]
+      Hence exact conditional recoloring is one fair bit per final component.
+      Proper subtree flips are forbidden or redundant.
+    \end{column}
+  \end{columns}
+
+  \vspace{0.3em}
+  \[
+    \boxed{\ K_{\mathrm{ES\text{-}MSF}}=K_{\mathrm{SW}}\ }.
+  \]
+\end{frame}
+
+\begin{frame}{Consequences for Weak Recovery}
+  \begin{columns}[onlytextwidth,T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{What is rigorous}
+        The heat-bath dendrogram sweep is Gibbs-stationary.
+        For the censored edge lift, however, its exact MSF specialization has
+        exactly the SW component law.
+        On the homogeneous triangular GSBM, in the truth coupling,
+        \[
+          \mathbb P(e\text{ active})=2p-1,
+        \]
+        \[
+          p_c^{\mathrm{ES\text{-}MSF}}
+          =p_c^{\mathrm{SW}}
+          =\frac12+\sin\!\left(\frac{\pi}{18}\right)
+          \simeq0.67365.
+        \]
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{alertblock}{What a strict improvement requires}
+        To beat the triangle certificate
+        \[
+          p_c^\triangle=\frac{7-\sqrt{17}}4\simeq0.71922,
+        \]
+        one needs a genuinely new positive macro-block lift $\nu(\sigma,D)$
+        (so proper subtree flips have non-zero conditional weight), together
+        with a new boundary-connectivity/percolation proof.
+
+        \centering\textbf{Hierarchy alone is not a new threshold.}
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+\end{frame}
