@@ -54,8 +54,8 @@ S_n(\beta)
 
 où $`\mathcal M_n`$ somme les fusions au-dessus de $\beta$, pondérées par $`\eta_u`$. La weak recovery exige donc une masse macroscopique de **connexions informatives** nées dans la bande. La connectivité seule n'est pas suffisante : le critère exact se factorise en connexion quotient, fiabilité locale et cohérence signée après marginalisation de $D$.
 
-Le cas favorable d'une fusion exactement critique est maintenant résolu au
-niveau local. Si $`B_u=0`$ et si le bucket critique contient $`m`$ arêtes, sa
+Le cas favorable d'une fusion exactement critique est résolu au seul niveau
+local. Si $`B_u=0`$ et si le bucket critique contient $`m`$ arêtes, sa
 fiabilité $`\Gamma_m^c`$ vérifie
 
 ```math
@@ -70,7 +70,10 @@ donne toutefois pas le seuil de weak recovery : la contribution d'une fenêtre
 critique est au plus sa masse
 $`S_n(\beta_c+\delta)-S_n(\beta_c)`$ parmi les paires. Une fiabilité
 conditionnelle proche de $`1`$ sur une masse $`o(1)`$ reste invisible dans
-l'overlap global.
+l'overlap global. Surtout, les slides 31--33 montrent que le vrai heat bath
+contient le produit de tous les facteurs ancestraux. La priorité est donc
+d'estimer les quatre $`\Lambda_v(\sigma^{ab})`$ pour chaque $`v\succ u`$ sous
+la loi du squelette vu depuis une paire lointaine critique.
 
 ## Socle de départ
 
@@ -94,7 +97,7 @@ Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. L
    ce qui est plus fort que les bornes Swendsen–Wang $0.673648\ldots$ et triangulaire d'ordre supérieur $0.719224\ldots$. Toute nouvelle borne hiérarchique doit donc être comparée à $0.794659\ldots$, pas seulement à la borne du chapitre 11.
 6. Pour une paire fixée, le noyau qui rafraîchit $D$ puis met à jour son LCA est positif et réversible. Ses autocorrélations $`A_{ij}^{(m)}`$ décroissent vers $`c_{ij}(O)^2`$ sous ergodicité. Le score à un pas est ainsi le premier terme d'une suite allant vers le critère exact à deux répliques.
 7. À toute coupe $\beta$ telle que $`S_n(\beta)\to0`$, la weak recovery se réduit au score signé des paires dont le LCA naît dans $`(\beta,1]`$. Sur la grille triangulaire, l'information-percolation se réécrit $`t_\chi(p)>\beta_c(p)`$, avec $`q_p(t_\chi)=(2p-1)^2`$.
-8. Pour un nœud de fusion $u$, tous les taux $`\Lambda_v(\sigma^{ab})`$ de ses ancêtres se calculent exactement à partir de trois groupes par bucket. Dans le GSBM homogène, conditionnellement au squelette de Kruskal non marqué, les marques des buckets sont indépendantes et suivent une loi binomiale groupée explicite.
+8. Pour un nœud de fusion $u$, tous les taux $`\Lambda_v(\sigma^{ab})`$ de ses ancêtres se calculent exactement à partir de trois groupes par bucket. Conditionnellement au squelette de Kruskal non marqué, leur loi pondérée, leurs moments et leur covariance sont explicites. Le verrou asymptotique restant est la loi géométrique de ces groupes le long de la chaîne ancestrale biaisée par la paire critique.
 9. Pour une fusion locale au temps critique et sans message ancestral, les paramètres se simplifient en
 ```math
    h_c(p)=\frac{2(p-p_{\mathrm{SW}})}{1-q_c},
@@ -117,6 +120,7 @@ Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. L
 - [07_CRITICAL_BAND_CRITERION.md](07_CRITICAL_BAND_CRITERION.md) : réduction à la bande critique, distinction bande pure/quotient, temps informationnel $`t_\chi`$, flux pivotal et capacité de blocs.
 - [08_ANCESTRAL_LAMBDA_CHAIN.md](08_ANCESTRAL_LAMBDA_CHAIN.md) : formule exacte des quatre $`\Lambda_v`$ au-dessus du LCA, réduction à $`(h_1,h_2,J)`$, loi conditionnelle de Kruskal et méthodes de calcul certifiées.
 - [09_CRITICAL_MERGER_ORACLE.md](09_CRITICAL_MERGER_ORACLE.md) : résolution exacte de la fusion critique locale, fenêtre $`m^{-1/2}`$, sandwich des taux ancestraux et contre-audit de la masse des paires.
+- [10_ANCESTRAL_LAMBDA_ESTIMATION.md](10_ANCESTRAL_LAMBDA_ESTIMATION.md) : problème central des slides 31--33, course pondérée exacte, moments des quatre taux, concentration, certificat de queue et formulation du verrou géométrique sous le biais d'une paire critique.
 - [LITERATURE.md](LITERATURE.md) : état de l'art primaire, voisins conceptuels et positionnement prudent de la nouveauté.
 - [references.bib](references.bib) : bibliographie ciblée et autonome.
 - [computations/README.md](computations/README.md) : cahier des charges des calculs exacts et simulations à ajouter.
@@ -132,7 +136,17 @@ Chaque affirmation nouvelle doit porter l'un des statuts suivants :
 
 ## Premier objectif publiable
 
-Rédiger d'abord le théorème fini LCA et le théorème de réduction à la bande critique. Puis, sur cactus et bandes triangulaires, calculer la contraction non oracle des bundles du quotient, en imposant la calibration à une arête $`\gamma_1=(2p-1)^2`$ et en conservant séparément la masse des fusions. L'oracle critique étant désormais fermé et trop favorable, l'objectif suivant sur la grille homogène reste une zone rigoureuse de non-recouvrement dépassant $p=0.794659\ldots$. Atteindre le point multicritique de Nishimori conjecturé $p\simeq0.8358058$ serait beaucoup plus ambitieux.
+Rédiger d'abord le théorème fini LCA et le théorème de réduction à la bande
+critique. Le premier calcul nouveau doit ensuite porter sur la loi de
+$`(m_{v,0},m_{v,1},m_{v,2},\beta_v)_{v\succ u}`$ vue depuis une paire
+lointaine dont le LCA est critique : exactement sur cactus, puis par matrices
+de transfert certifiées sur bandes triangulaires. Cette loi alimente le noyau
+conditionnel exact du fichier 10. La contraction non oracle doit toujours être
+calibrée à une arête par $`\gamma_1=(2p-1)^2`$ et la masse des fusions doit être
+conservée séparément. Sur la grille homogène, l'objectif reste une zone
+rigoureuse de non-recouvrement dépassant $p=0.794659\ldots$ ; le point
+multicritique de Nishimori conjecturé $p\simeq0.8358058$ demeure beaucoup plus
+ambitieux.
 
 ## Sources internes
 

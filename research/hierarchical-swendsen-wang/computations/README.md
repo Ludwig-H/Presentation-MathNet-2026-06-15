@@ -10,6 +10,7 @@ python3 -m unittest discover \
   -p 'test_*.py' -v
 python3 research/hierarchical-swendsen-wang/computations/critical_band_thresholds.py
 python3 research/hierarchical-swendsen-wang/computations/ancestral_lambda_chain.py
+python3 research/hierarchical-swendsen-wang/computations/ancestral_lambda_estimation.py
 python3 research/hierarchical-swendsen-wang/computations/critical_merger_oracle.py
 ```
 
@@ -18,6 +19,8 @@ python3 research/hierarchical-swendsen-wang/computations/critical_merger_oracle.
 - `critical_band_thresholds.py` : vérification sans dépendance des trois seuils triangulaires et des temps $`\beta_c,t_\chi`$ ;
 - `ancestral_lambda_chain.py` : calcul exact des quatre taux ancestraux, du message $`B_u`$ et de $`\mathbb E[\eta_u\mid\mathscr D]`$ sur un petit squelette homogène ;
 - `test_ancestral_lambda_chain.py` : tests unitaires sans dépendance de la course conditionnelle et des identités quatre états ;
+- `ancestral_lambda_estimation.py` : course pondérée exacte conditionnelle au squelette, moments des trois groupes et des quatre taux, puis certificat déterministe de queue ancestrale ;
+- `test_ancestral_lambda_estimation.py` : contre-audit indépendant par énumération complète, réduction homogène fermée et 250 tests reproductibles des bornes de contraste ;
 - `critical_merger_oracle.py` : paramètres critiques fermés, somme finie $`\Gamma_m^c`$, borne exponentielle et limite $`m^{-1/2}`$ de l'oracle local ;
 - `test_critical_merger_oracle.py` : contre-audits indépendants par LLR, expérience binaire symétrique, identité $`1/m`$ et limite gaussienne ;
 - `exact_enumeration/` : énumération de toutes les configurations et horloges discrétisées sur petits graphes ;
@@ -152,6 +155,20 @@ python3 research/hierarchical-swendsen-wang/computations/critical_merger_oracle.
     \right)
     \longrightarrow
     \mathbb E[\tanh^2(\alpha Z+\alpha^2)].
+```
+
+19. Pour chaque bucket ancestral pondéré, vérifier indépendamment :
+
+```math
+\mathbb P(G_v=e\mid\mathscr S_u)
+=\frac{w_es_{v,e}}{\sum_fw_fs_{v,f}},
+```
+
+les trois moyennes et covariances après marginalisation de $`G_v`$, leur
+transport affine vers les quatre $`\Lambda_v^{ab}`$ et la borne
+
+```math
+|B_u-B_u^{(-I)}|\le\mathcal R_u(I).
 ```
 
 ## Métadonnées minimales

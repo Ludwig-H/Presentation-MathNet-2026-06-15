@@ -7,6 +7,12 @@ dans le GSBM homogène sur la grille triangulaire.
 
 Le verdict comporte deux parties distinctes.
 
+> **Périmètre.** Ce fichier calibre le bucket $u$. Le problème principal des
+> slides 31--33 — estimer tous les $`\Lambda_v`$ pour $`v\succ u`$ — est
+> désormais formulé et poussé dans le
+> [fichier 10](10_ANCESTRAL_LAMBDA_ESTIMATION.md). Aucun résultat local de ce
+> fichier ne permet de poser $`B_u=0`$ dans le heat bath hiérarchique complet.
+
 1. **Résultat exact local.** Dans le modèle sans message ancestral
    $`B_u=0`$, le seuil de la grande coupe critique est exactement la borne
    Swendsen--Wang

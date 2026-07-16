@@ -218,9 +218,23 @@ B_u
 +\log\frac{\Lambda_u}{T_u-\Lambda_u}
 +(1-\beta_u)(2\Lambda_u-T_u).
 ```
-La décomposition en trois groupes du [fichier 08](08_ANCESTRAL_LAMBDA_CHAIN.md) donne désormais exactement les quatre $`\Lambda_v(\sigma^{ab})`$ et réduit la chaîne à quatre log-poids, ou à $`(h_1,h_2,J)`$ lorsque les taux sont positifs. Sur cactus, il faut propager leur loi exacte ; sur bandes, construire une matrice de transfert certifiée ; sur la grille, contrôler ou dominer cette loi conditionnellement au squelette proche-critique.
+La décomposition en trois groupes du
+[fichier 08](08_ANCESTRAL_LAMBDA_CHAIN.md) donne exactement les quatre
+$`\Lambda_v(\sigma^{ab})`$ pour une réalisation fixée. Le
+[fichier 10](10_ANCESTRAL_LAMBDA_ESTIMATION.md) donne en plus, conditionnellement
+au squelette non marqué, la course pondérée exacte, les moments des quatre
+taux, leur concentration et la fonctionnelle $`\mathcal R_u`$ qui contrôle la
+queue du message ancestral. Le verrou n'est donc plus le canal des marques,
+mais la loi du squelette
+$`(m_{v,0},m_{v,1},m_{v,2},\beta_v)_{v\succ u}`$ sous le biais du LCA d'une
+paire lointaine critique.
 
-Lorsque $`\beta_u=\beta_c`$, le fichier 09 fournit en plus le sandwich
+Sur cactus, il faut propager cette loi exacte ; sur bandes, construire une
+matrice de transfert certifiée ; sur la grille, établir la convergence des
+premiers ancêtres, la sommabilité de $`\mathcal R_u`$ et le contrôle des quatre
+coins proches de zéro.
+
+Lorsque $`\beta_u\simeq\beta_c`$, le fichier 09 fournit en plus le sandwich
 stochastique $`1/2\le s_p(\beta_v)<s_p(\beta_c)`$ pour tous les comptes
 ancestraux. Ce sandwich doit être transporté séparément dans chacun des quatre
 états : complémenter un groupe renverse ses bornes, et aucune monotonie de

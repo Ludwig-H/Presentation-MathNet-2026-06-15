@@ -7,10 +7,17 @@ Ce fichier ferme le problème algébrique laissé dans le message extérieur $`B
 3. la loi annealed exacte de ces taux dans le GSBM homogène, conditionnellement au squelette de Kruskal non marqué ;
 4. des estimateurs certifiés et un programme précis pour les cactus, les bandes et la grille triangulaire.
 
-Le résultat important est une désintégration finie exacte : la difficulté se sépare en une géométrie de Kruskal et un canal de marques indépendant conditionnellement à cette géométrie. Cela ne donne pas encore le seuil exact de weak recovery sur toute la grille, mais supprime le verrou « comment calculer tous les $`\Lambda_v`$ au-dessus de $u$ ? ».
+Le résultat important est une désintégration finie exacte : la difficulté se
+sépare en une géométrie de Kruskal et un canal de marques indépendant
+conditionnellement à cette géométrie. Les identités ci-dessous ferment la
+**comptabilité déterministe** des quatre taux pour une réalisation fixée ;
+elles ne ferment pas leur estimation probabiliste le long de la chaîne. Cette
+estimation, y compris la course pondérée, les moments exacts et une
+fonctionnelle de troncature, est traitée dans le
+[fichier 10](10_ANCESTRAL_LAMBDA_ESTIMATION.md).
 
 Le [cas d'une fusion au temps critique](09_CRITICAL_MERGER_ORACLE.md) donne une
-spécialisation supplémentaire : pour tout ancêtre strict,
+calibration locale supplémentaire : pour tout ancêtre strict,
 $`1/2\le s_p(\beta_v)<s_p(\beta_c)`$. Les comptes groupés admettent alors un
 couplage sandwich explicite entre des binomiales de paramètres $`1/2`$ et
 $`s_p(\beta_c)`$. Ce contrôle n'induit toutefois aucun ordre direct sur les
@@ -654,9 +661,11 @@ Pour une largeur fixée, l'état doit contenir :
 
 Une matrice de transfert avec arithmétique d'intervalles peut produire des seuils numériques rigoureux. Il faut ensuite étudier leur monotonie en fonction de la largeur.
 
-### Grille entière — deux verrous restants
+### Grille entière — verrou ancestral principal
 
-La formule ancestrale ne suffit pas seule à identifier le seuil planaire exact. Il reste :
+La formule ancestrale ne suffit pas seule à identifier le seuil planaire exact.
+Le verrou prioritaire est la loi, sous le biais du LCA d'une paire lointaine,
+du squelette groupé complet. Plus précisément, il reste :
 
 1. la loi proche-critique du squelette groupé
    $`(m_{v,0},m_{v,1},m_{v,2},\beta_v)`$ ;
@@ -679,15 +688,21 @@ Une seconde amélioration possible est un heat bath **collapsed** qui marginalis
 
 ## 10. Statut exact des conclusions
 
-- Décomposition des buckets en trois groupes et formule des quatre $`\Lambda_v^{ab}`$ : **établi, déterministe, volume fini**.
+- Décomposition des buckets en trois groupes et formule des quatre $`\Lambda_v^{ab}`$ : **établi, déterministe, volume fini ; ce n'est pas encore une estimation asymptotique**.
 - Réduction à quatre log-poids et formule en $`(h_1,h_2,J)`$ : **établi lorsque les taux requis sont positifs ; calcul quatre états exact sinon**.
 - Loi binomiale groupée conditionnelle au squelette non marqué dans le GSBM homogène : **établie annealed, volume fini**.
 - Désintégration de $`H_n^{\mathrm{LCA}}`$ par $`\Gamma_u(\mathscr D)`$ : **établie conditionnellement à la finalisation formelle de la mesure jointe A1**.
-- Concentration et certificats de troncature : **établis conditionnellement au squelette ; leur utilité asymptotique dépend de la géométrie des buckets**.
+- Course pondérée, moments conditionnels et certificat explicite de queue :
+  **établis dans le fichier 10 ; leur utilité asymptotique dépend de la loi du
+  squelette biaisé par la paire critique**.
 - Concentration de tous les LCA ponctuels dans une fenêtre proche-critique : **fausse pour la connectivité brute et non démontrée pour le poids informationnel**.
 - Sandwich critique simultané des comptes ancestraux : **établi conditionnellement au squelette et aux catégories gagnantes**.
 - Monotonie de la fiabilité hiérarchique complète lorsque $`\beta_u`$ se rapproche de $`\beta_c`$ : **non établie ; une annulation par le message ancestral est possible**.
 - Nouveau seuil strict sur la grille triangulaire : **à prouver**.
 - Seuil exact $`p\simeq0.8358058`$ : **repère conjectural, non obtenu par les identités présentes**.
 
-Le prochain calcul décisif est donc clair : évaluer $`\Gamma_u(\mathscr D)`$ exactement sur cactus, puis par intervalles sur des bandes de largeur croissante, avant toute extrapolation au plan.
+Le prochain calcul décisif est donc clair : estimer la loi de
+$`(m_{v,0},m_{v,1},m_{v,2},\beta_v)_{v\succ u}`$ sous le biais d'une paire
+lointaine critique, évaluer $`\Gamma_u(\mathscr D)`$ exactement sur cactus,
+puis par intervalles sur des bandes de largeur croissante, avant toute
+extrapolation au plan.
