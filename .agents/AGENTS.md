@@ -13,3 +13,11 @@ To ensure equations render perfectly on GitHub via MathJax:
 
 Refer to [agents.md](file:///workspaces/Presentation-MathNet-2026-06-15/agents.md) for full examples and guides.
 
+## Automatic Verification
+To verify that all math formulas in the workspace are valid, run:
+```bash
+python3 .agents/check_math.py
+```
+This script checks for balanced braces, correct delimiter escaping, and invalid LaTeX commands across all Markdown files.
+
+

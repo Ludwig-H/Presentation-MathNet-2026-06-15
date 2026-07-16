@@ -67,3 +67,14 @@ When adding mathematical equations, ensure:
 3.  Any newline in multiline equations (like inside `align` or `substack` environments) uses `\\` or double backslashes properly and the equation is wrapped in a ` ```math ` block.
 4.  No `\operatorname` is used in markdown equations.
 
+---
+
+## 4. Automatic Verification
+
+A Python script is available to automatically validate math syntax in all Markdown files within this workspace:
+*   File: [.agents/check_math.py](file:///workspaces/Presentation-MathNet-2026-06-15/.agents/check_math.py)
+*   **How to run**: `python3 .agents/check_math.py` or `./.agents/check_math.py`
+
+**Mandatory Rule for Agents:** Whenever you edit or add markdown files containing math formulas, you **must** run this verification script before finishing/pushing to ensure that no rendering errors are introduced.
+
+
