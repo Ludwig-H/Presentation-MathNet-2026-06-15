@@ -95,23 +95,60 @@ A_{ij}^{(m)}=\langle f_{ij},(K_{ij}^{\mathrm{LCA}})^m f_{ij}\rangle,
 ```math
 A_{ij}^{(m)}\downarrow c_{ij}^2.
 ```
+
 Le verrou asymptotique est un contrôle uniforme permettant de choisir $`m=m_n`$. Le verrou algorithmique distinct est que le noyau dépend de la paire.
 
-### B5. Matrice de persistance
+### B5. Réduction à la bande critique
+
+Pour une coupe déterministe $\beta$, formaliser
+
+```math
+S_n(\beta)
+=
+\frac1{n^2}\mathbb E\sum_{C\in\Pi_\beta}|C|^2,
+```
+
+```math
+\mathcal M_n((\beta,1])
+=
+\frac2{n^2}
+\mathbb E\sum_{u:\,\beta<\beta_u\le1}
+|C_{u,1}||C_{u,2}|\eta_u,
+```
+
+et démontrer comme théorème autonome
+
+```math
+Q_n\le S_n(\beta)+\mathcal M_n((\beta,1]).
+```
+
+Le résultat doit inclure :
+
+1. la distinction entre bande pure, naissance de connexion et sprinkling sur le quotient ;
+2. la réduction nécessaire et suffisante au score signé de bande lorsque $`S_n(\beta)\to0`$ ;
+3. la factorisation connexion $\times$ fiabilité $\times$ cohérence ;
+4. les bons quantificateurs pour une paire macroscopique.
+
+### B6. Matrice de persistance
 
 Rédiger le théorème
+
 ```math
 h_n(S)\to0
 \quad\Longrightarrow\quad
 \text{impossibilité}.
 ```
+
 Vérifier explicitement le cas racine
+
 ```math
 H_S(i,j)=\mathbf1_{\{i\leftrightarrow j\text{ dans }\Pi_1\}}.
 ```
-### B6. Comparaison avec $\theta^{\max}$
+
+### B7. Comparaison avec $\theta^{\max}$
 
 Déterminer une version quantitative de $`H_S`$ qui retrouve non seulement la taille de la plus grande composante, mais la borne sur la fraction récupérable. Candidats :
+
 ```math
 \frac1{n^2}\mathrm{tr}(H_S^2),
 \qquad
@@ -168,7 +205,28 @@ Construire $`K_D^{\mathrm{info}}`$ telle que
 ```math
 H_S\preceq K_D^{\mathrm{info}}.
 ```
+
 **Critère de succès minimal.** Pour une recoloration aux racines, retrouver exactement les blocs de composantes. Pour un canal arête par arête, retrouver au moins la borne d'information-percolation.
+
+### C5. Capacité du quotient critique
+
+Contracter $`\Pi_{\beta_c}`$, puis remplacer chaque bundle entre deux blocs par sa contraction **après marginalisation du dendrogramme**. Les calibrations obligatoires sont
+
+```math
+\gamma_1=(2p-1)^2
+```
+
+pour une arête et, pour $m$ observations BSC indépendantes,
+
+```math
+\gamma_m^{\mathrm{BSC}}
+=
+\sum_{k=0}^m
+\binom mk p^k(1-p)^{m-k}
+\tanh^2\left(\frac{u_p}{2}(2k-m)\right).
+```
+
+Employer directement $`\eta_u`$ conditionnellement à $D$ est interdit pour une conclusion suffisante : sur une coupe à une arête, cette quantité vaut $1$ conditionnellement à la fusion et surestime la contraction réelle.
 
 ## Bloc D — Condition suffisante
 
@@ -212,13 +270,28 @@ k\mid(m,\beta=t)
 1+\mathrm{Bin}\left(m-1,
 \mathrm{logistic}(u_p(1-t))\right)
 ```
+
 pour une coupe annealed conditionnée, puis quantifier précisément ce qui reste biaisé par le choix aléatoire de $`E_u`$.
 
-### E3. Biais de Kruskal
+### E3. Bande critique et flux pivotal
+
+Établir dans les conventions triangulaires
+
+```math
+\beta_c=q_p^{-1}(q_c),
+\qquad
+t_\chi=q_p^{-1}((2p-1)^2),
+```
+
+puis vérifier que $`t_\chi>\beta_c`$ redonne exactement $`p>0.794659\ldots`$. Désintégrer la mesure des fusions avec la formule de Russo et pondérer les pivots par la fiabilité conditionnelle.
+
+Sur une coupe fixée, vérifier la loi multinomiale des liens de bande et le crossover $`m h_p(\beta)^2`$. Sur une fusion choisie par Kruskal, cette loi reste à corriger par le biais de sélection.
+
+### E4. Biais de Kruskal
 
 Décrire la loi d'une fusion conditionnellement à la filtration passée. Aucun remplacement de $k$ par une variable binomiale sans preuve.
 
-### E4. Cas intermédiaires
+### E5. Cas intermédiaires
 
 Prouver d'abord le critère sur :
 
@@ -234,9 +307,10 @@ Calibrations obligatoires :
 - triangle : calcul exact de $`A_m`$ et de $`\eta_\triangle`$ ;
 - cactus de triangles : factorisation de la valeur exacte et convergence de la chaîne LCA.
 
-### E5. Objectif
+### E6. Objectif
 
 Obtenir une borne rigoureuse
+
 ```math
 p_\star>0.794659\ldots.
 ```
@@ -274,5 +348,7 @@ Cette partie répond à une question algorithmique distincte du seuil de weak re
 2. Vérifier A1--A3 et le théorème LCA sur tous les graphes à au plus quatre sommets.
 3. Prouver B4 et calculer $`A_m`$ sur un chemin et un triangle.
 4. Calculer C1 et le message $`B_u`$ sur un cactus de triangles.
-5. Comparer quantitativement $`H_n^{\mathrm{LCA}}`$ à l'information-percolation.
-6. Traiter les bandes triangulaires avant de viser une nouvelle constante sur la grille entière.
+5. Fermer B5 puis retrouver information-percolation par $`t_\chi>\beta_c`$.
+6. Calculer C5 sur des bundles déterministes, puis sur un cactus.
+7. Comparer quantitativement $`H_n^{\mathrm{LCA}}`$ à l'information-percolation.
+8. Traiter les bandes triangulaires avant de viser une nouvelle constante sur la grille entière.

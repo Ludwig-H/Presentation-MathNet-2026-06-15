@@ -50,9 +50,11 @@ Soit
 ```math
 q_c^{\mathrm{bond}}(\mathbb T)=2\sin(\pi/18).
 ```
+
 Le temps auquel la filtration brute atteint le seuil de percolation est
+
 ```math
-t_c(p)
+\beta_c(p):=t_c(p)
 =
 \frac{
 \log\left(1-q_c^{\mathrm{bond}}/p\right)
@@ -60,7 +62,9 @@ t_c(p)
 \log\left((1-p)/p\right)
 },
 ```
-lorsque le membre de droite est défini. On a $`t_c(p)\le1`$ si et seulement si
+
+lorsque le membre de droite est défini. On a $`\beta_c(p)\le1`$ si et seulement si
+
 ```math
 p\ge
 \frac12+\sin(\pi/18)
@@ -282,10 +286,12 @@ k\stackrel d=1+\mathrm{Bin}(m-1,s_p(t)).
 Cette identité est annealed et conditionnelle à la coupe ; elle ne rend pas $`E_u`$ indépendant du passé de Kruskal. Elle constitue néanmoins la première correction exacte au remplacement naïf $k\sim\mathrm{Bin}(m,p)$.
 
 Au temps $t=1$, dans le modèle local $`B_u=0`$,
+
 ```math
 \mathbb E[\eta_u\mid m,\beta_u=1]=\frac1m.
 ```
-Pour $p>1/2$ et $t<1$ fixés, la même fiabilité locale tend au contraire vers $1$ lorsque $m\to\infty$. Les grandes coupes ne randomisent donc fortement la parité que dans une fenêtre proche de la coupure $1$. Comme les coalescences longue portée apparaissent autour de $`t_c(p)<1`$ dès que la percolation est supercritique, un seul pas LCA peut rester trop proche de la borne percolative. Il faut alors étudier les itérations avec rafraîchissement de $D$ ou propager la loi complète du message $`B_u`$.
+
+Pour $p>1/2$ et $t<1$ fixés, la même fiabilité locale tend au contraire vers $1$ lorsque $m\to\infty$. Les grandes coupes ne randomisent donc fortement la parité que dans une fenêtre proche de la coupure $1$. Comme les coalescences longue portée apparaissent autour de $`\beta_c(p)<1`$ dès que la percolation est supercritique, un seul pas LCA peut rester trop proche de la borne percolative. Il faut alors étudier les itérations avec rafraîchissement de $D$ ou propager la loi complète du message $`B_u`$.
 
 ### Flux de susceptibilité informationnel
 
@@ -293,10 +299,117 @@ Chaque ouverture qui joint deux composantes $A$ et $B$ augmente le second moment
 ```math
 2|A||B|\,\eta_u.
 ```
+
 Le calcul recherché sur la grille est donc une mesure de fusions, indexée par $(t,m)$, multipliée par la fiabilité conditionnelle exacte. Cette décomposition sépare :
 
 1. la fréquence et la taille des fusions, problème de percolation/Kruskal ;
 2. le canal de parité à la fusion, problème de LLR et de messages d'ancêtres.
+
+### Coupe critique et temps informationnel
+
+Abrégeons
+
+```math
+q_c=2\sin(\pi/18).
+```
+
+Le temps critique géométrique est
+
+```math
+\beta_c(p)
+=
+q_p^{-1}(q_c)
+=
+-\frac1{u_p}
+\log\left(1-\frac{q_c}{p}\right).
+```
+
+La contraction $`\chi^2`$ d'une arête observée vaut $`\gamma_p=(2p-1)^2`$. Pour placer la borne d'information-percolation sur la même échelle que le dendrogramme, définissons
+
+```math
+t_\chi(p)
+=
+q_p^{-1}(\gamma_p)
+=
+-\frac1{u_p}
+\log\left(
+1-\frac{(2p-1)^2}{p}
+\right).
+```
+
+La convention est $`q_p(t_\chi)=(2p-1)^2`$, et non $`q_p(t_\chi)^2=q_c`$.
+
+Alors
+
+```math
+t_\chi(p)>\beta_c(p)
+\quad\Longleftrightarrow\quad
+(2p-1)^2>q_c.
+```
+
+On retrouve donc exactement
+
+```math
+p>p_c^{\mathrm{info}}
+=
+\frac{1+\sqrt{q_c}}2
+=0.7946592758\ldots
+```
+
+comme condition nécessaire. Au seuil, $`t_\chi=\beta_c=0.4245677743\ldots`$. Pour $`p\ge p_c^{\mathrm{info}}`$, après contraction des composantes critiques, toute connexion nouvellement créée dans le graphe d'information-percolation peut être représentée en loi par la sous-bande $`\beta_c<\xi_e\le t_\chi`$. Cette représentation est annealed et marginale ; elle ne transforme pas $D$ révélé en information observée supplémentaire.
+
+Trois tests doivent rester distincts :
+
+```math
+\begin{array}{c|c|c}
+\text{objet}&\text{condition}&\text{seuil en }p\\
+\hline
+\text{quotient jusqu'à }1&q_p(1)>q_c&0.673648\ldots\\
+\text{quotient informationnel}&(2p-1)^2>q_c&0.794659\ldots\\
+\text{bande pure }(\beta_c,1]&q_p(1)-q_c>q_c&0.847296\ldots
+\end{array}
+```
+
+Le premier redonne Swendsen--Wang. Le dernier est trop exigeant : il interdit d'utiliser les composantes déjà construites sous $`\beta_c`$.
+
+### Décomposition exacte du vote de bande sur une coupe fixée
+
+Pour un lien encore fermé au temps $\beta$, posons
+
+```math
+h_p(\beta)
+=
+\mathbb P(\beta<\xi_e\le1\mid\xi_e>\beta)
+=
+\tanh\left(\frac{u_p(1-\beta)}2\right).
+```
+
+Sur une coupe déterministe de $m$ liens fusionnant à $\beta$, l'arête gagnante est satisfaite. Pour les $m-1$ autres liens, notons $R$ le nombre de liens satisfaits dans la bande, $S$ le nombre de liens satisfaits après la censure $1$, et $U$ le nombre de liens insatisfaits. Avant le biais adaptatif de Kruskal,
+
+```math
+(R,S,U)
+\sim
+\mathrm{Mult}\left(
+m-1;
+h_p(\beta),
+\frac{1-h_p(\beta)}2,
+\frac{1-h_p(\beta)}2
+\right),
+```
+
+et
+
+```math
+k=1+R+S.
+```
+
+Ainsi, $R$ est exactement le signal biaisé produit par la bande, tandis que $S-U$ est un bruit symétrique. L'existence d'une arête de bande est gouvernée par $`m h_p(\beta)`$ ; la transmission de la parité est gouvernée par le rapport signal sur bruit quadratique
+
+```math
+m h_p(\beta)^2.
+```
+
+Pour une grande coupe, la fenêtre locale non triviale est $`1-\beta\asymp m^{-1/2}`$. Ce calcul indique que le prochain objet à estimer est la loi jointe de $`(m,\beta,B_u)`$ sous une fusion pivotale de Kruskal, et non une probabilité de chemin tardif non pondérée.
 
 ### Calibrations finies annealed
 

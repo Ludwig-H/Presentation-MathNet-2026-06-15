@@ -30,11 +30,33 @@ n+2\sum_u|C_{u,1}||C_{u,2}|\eta_u
 \le
 \frac1{n^2}\mathbb E\sum_{R\text{ racine}}|R|^2.
 ```
+
 La dernière quantité est la borne percolative de Swendsen--Wang : le nouveau score en est donc un raffinement exact, fusion par fusion.
+
+La nouvelle réduction à la bande critique fixe maintenant le rôle du seuil $\beta$. Si
+
+```math
+S_n(\beta)
+=
+\frac1{n^2}\mathbb E\sum_{C\in\Pi_\beta}|C|^2
+\longrightarrow0,
+```
+
+alors
+
+```math
+Q_n
+\le
+S_n(\beta)
++
+\mathcal M_n((\beta,1]),
+```
+
+où $`\mathcal M_n`$ somme les fusions au-dessus de $\beta$, pondérées par $`\eta_u`$. La weak recovery exige donc une masse macroscopique de **connexions informatives** nées dans la bande. La connectivité seule n'est pas suffisante : le critère exact se factorise en connexion quotient, fiabilité locale et cohérence signée après marginalisation de $D$.
 
 ## Socle de départ
 
-Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. Les points 3, 4 et 6 sont des résultats finis dont l'algèbre a été vérifiée et dont la preuve courte est donnée dans ce dossier ; ils restent à intégrer dans une rédaction formelle complète avec A1.
+Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. Les points 3, 4, 6 et 7 sont des résultats finis dont l'algèbre a été vérifiée et dont la preuve courte est donnée dans ce dossier ; ils restent à intégrer dans une rédaction formelle complète avec A1.
 
 1. La coupe $t=1$ des horloges redonne exactement les liens de Swendsen–Wang.
 2. Les heat baths des orientations globales des arbres redonnent la recoloration de Swendsen–Wang lorsque l'a priori est uniforme. Aux feuilles, on obtient le heat bath mono-site de Glauber ; un noyau de Metropolis–Hastings mono-site ciblant la même conditionnelle est une variante valide.
@@ -50,8 +72,10 @@ Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. L
 ```math
    p<\frac{1+\sqrt{2\sin(\pi/18)}}2=0.794659\ldots,
 ```
+
    ce qui est plus fort que les bornes Swendsen–Wang $0.673648\ldots$ et triangulaire d'ordre supérieur $0.719224\ldots$. Toute nouvelle borne hiérarchique doit donc être comparée à $0.794659\ldots$, pas seulement à la borne du chapitre 11.
 6. Pour une paire fixée, le noyau qui rafraîchit $D$ puis met à jour son LCA est positif et réversible. Ses autocorrélations $`A_{ij}^{(m)}`$ décroissent vers $`c_{ij}(O)^2`$ sous ergodicité. Le score à un pas est ainsi le premier terme d'une suite allant vers le critère exact à deux répliques.
+7. À toute coupe $\beta$ telle que $`S_n(\beta)\to0`$, la weak recovery se réduit au score signé des paires dont le LCA naît dans $`(\beta,1]`$. Sur la grille triangulaire, l'information-percolation se réécrit $`t_\chi(p)>\beta_c(p)`$, avec $`q_p(t_\chi)=(2p-1)^2`$.
 
 ## Carte du dossier
 
@@ -61,6 +85,7 @@ Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. L
 - [04_TRIANGULAR_GSBM.md](04_TRIANGULAR_GSBM.md) : calculs explicites sur la grille triangulaire et objectifs numériques/théoriques.
 - [05_PROOF_ROADMAP.md](05_PROOF_ROADMAP.md) : lemmes à démontrer, dépendances, cas tests et critères de succès.
 - [06_LCA_SPIN_CORRELATION.md](06_LCA_SPIN_CORRELATION.md) : quatre événements de flip, formule exacte faisant intervenir $`\beta_u=\xi_{e_u}`$, borne LCA, chaîne pair-spécifique et programme triangulaire.
+- [07_CRITICAL_BAND_CRITERION.md](07_CRITICAL_BAND_CRITERION.md) : réduction à la bande critique, distinction bande pure/quotient, temps informationnel $`t_\chi`$, flux pivotal et capacité de blocs.
 - [LITERATURE.md](LITERATURE.md) : état de l'art primaire, voisins conceptuels et positionnement prudent de la nouveauté.
 - [references.bib](references.bib) : bibliographie ciblée et autonome.
 - [computations/README.md](computations/README.md) : cahier des charges des calculs exacts et simulations à ajouter.
@@ -76,7 +101,7 @@ Chaque affirmation nouvelle doit porter l'un des statuts suivants :
 
 ## Premier objectif publiable
 
-Rédiger d'abord le théorème fini LCA : projection à quatre états, identité du gap, somme globale et domination de la borne de composantes. Puis, sur arbres et cactus triangulaires, calculer la suite $`A_{ij}^{(m)}`$ et le message d'ancêtres $`B_u`$. Sur la grille triangulaire homogène, l'objectif suivant est une zone rigoureuse de non-recouvrement dépassant $p=0.794659\ldots$. Atteindre le point multicritique de Nishimori conjecturé $p\simeq0.8358058$ serait beaucoup plus ambitieux.
+Rédiger d'abord le théorème fini LCA et le théorème de réduction à la bande critique. Puis, sur cactus et bandes triangulaires, calculer la contraction non oracle des bundles du quotient, en imposant la calibration à une arête $`\gamma_1=(2p-1)^2`$. Sur la grille triangulaire homogène, l'objectif suivant est une zone rigoureuse de non-recouvrement dépassant $p=0.794659\ldots$. Atteindre le point multicritique de Nishimori conjecturé $p\simeq0.8358058$ serait beaucoup plus ambitieux.
 
 ## Sources internes
 

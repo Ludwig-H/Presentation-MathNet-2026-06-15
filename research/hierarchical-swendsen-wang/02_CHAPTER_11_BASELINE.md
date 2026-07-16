@@ -95,9 +95,10 @@ Cela perd :
 
 Avec des heat baths internes, les descendants ne sont plus recolorés indépendamment. On ne peut donc pas remplacer mécaniquement $\theta^{\max}$ par la masse des composantes à une autre coupe.
 
-## 4. Baseline plus forte déjà connue : information-percolation
+## 4. Baseline de référence : information-percolation
 
-Avant d'utiliser la nouvelle dynamique, il faut comparer au meilleur résultat général déjà disponible. Pour un canal binaire sur une arête,
+Avant d'utiliser la nouvelle dynamique, il faut la comparer à la borne générale d'information-percolation retenue comme référence dans ce dossier. Pour un canal binaire sur une arête,
+
 ```math
 \mathbb P(H_e=1\mid\Sigma_i=\Sigma_j)=f_{\mathrm{in}}(r_e),
 \qquad
@@ -137,6 +138,25 @@ p<
 \quad\Longrightarrow\quad
 \text{pas de weak recovery}.
 ```
+
+Cette borne possède une lecture exacte dans l'échelle du dendrogramme. Si
+
+```math
+q_p(t)=p(1-e^{-u_pt}),
+\qquad
+u_p=\log\frac p{1-p},
+```
+
+si $`\beta_c=q_p^{-1}(p_c^{\mathrm{bond}})`$ et si $`t_\chi=q_p^{-1}((2p-1)^2)`$, alors
+
+```math
+(2p-1)^2>p_c^{\mathrm{bond}}
+\quad\Longleftrightarrow\quad
+t_\chi>\beta_c.
+```
+
+Après contraction de $`\Pi_{\beta_c}`$, la percolation informationnelle utilise donc la sous-bande $`\beta_c<\xi_e\le t_\chi`$. Cette reformulation ne révèle pas $D$ à l'estimateur : elle couple seulement deux graphes de Bernoulli ayant la même loi marginale.
+
 Cette borne est déjà plus forte que la borne par arêtes du chapitre 11 et que sa dynamique triangulaire. Le premier résultat hiérarchique utile doit donc :
 
 1. retrouver l'information-percolation comme cas simple ou comme borne dominée ;

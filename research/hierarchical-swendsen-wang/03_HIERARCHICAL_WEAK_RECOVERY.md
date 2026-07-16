@@ -204,7 +204,67 @@ H_n^{\mathrm{LCA}}
 \le
 \frac1{n^2}\mathbb E\sum_R|R|^2.
 ```
+
 Le second moment des composantes Swendsen--Wang, qui implique l'obstruction qualitative du chapitre 11 lorsque les composantes sont sous-macroscopiques, est donc la version non pondérée. Le facteur $`\eta_u`$ retient la fiabilité exacte de la fusion où la paire se rencontre. Cette comparaison ne remplace pas la borne quantitative $`\theta^{\max}`$ sur la fraction récupérable.
+
+### Réduction à une bande au-dessus d'une coupe
+
+Pour un niveau déterministe $\beta$, posons
+
+```math
+S_n(\beta)
+=
+\frac1{n^2}\mathbb E\sum_{C\in\Pi_\beta}|C|^2
+```
+
+et
+
+```math
+\mathcal M_n((\beta,1])
+=
+\frac2{n^2}
+\mathbb E\left[
+\sum_{u:\,\beta<\beta_u\le1}
+|C_{u,1}||C_{u,2}|\eta_u
+\right].
+```
+
+La décomposition des nœuds avant et après la coupe donne immédiatement
+
+```math
+\boxed{
+Q_n
+\le
+S_n(\beta)
++
+\mathcal M_n((\beta,1]).
+}
+```
+
+Ainsi, si $`S_n(\beta)\to0`$, la weak recovery impose une masse positive de fusions informatives dans $`(\beta,1]`$. Après contraction de $`\Pi_\beta`$, l'événement $`\beta<\beta_{ij}\le1`$ est exactement une connexion par sprinkling entre les deux composantes de la paire. Il ne faut pas le confondre avec un chemin composé uniquement d'arêtes tardives.
+
+Cette condition n'est pas suffisante. Si $`Z_{ij}^{>\beta}=g_{ij}\mathbf1_{\{\beta<\beta_{ij}\le1\}}`$, alors le critère exact de bande est
+
+```math
+Q_n^{>\beta}
+=
+\frac1{n^2}
+\sum_{i,j}
+\mathbb E_O\left[
+\left(\mathbb E_{\nu_O}Z_{ij}^{>\beta}\right)^2
+\right].
+```
+
+Sous $`S_n(\beta)\to0`$,
+
+```math
+|Q_n-Q_n^{>\beta}|
+\le
+S_n(\beta)+2\sqrt{S_n(\beta)}
+\longrightarrow0.
+```
+
+La différence entre $`\mathcal M_n((\beta,1])`$ et $`Q_n^{>\beta}`$ est la variance conditionnelle du score signé : elle mesure exactement les annulations dues à la marginalisation de $D$. La démonstration, les trois notions de bande et le cas triangulaire sont détaillés dans [07_CRITICAL_BAND_CRITERION.md](07_CRITICAL_BAND_CRITERION.md).
 
 ### Itération pair-spécifique
 
@@ -313,11 +373,12 @@ La première moitié doit être cherchée avec des strong data-processing inequa
 | 0 | $`\liminf_n Q_n>0`$ caractérise la weak recovery binaire à probabilité positive | Immédiat à formaliser |
 | 1 | $`h_n(S)\to0`$ pour un parcours invariant implique l'impossibilité | Immédiat à formaliser |
 | 2 | $`Q_n\le H_n^{\mathrm{LCA}}\le`$ second moment FK | Établi conditionnellement à A1 |
-| 3 | $`A_{ij}^{(m)}\downarrow c_{ij}^2`$ à volume fini | Établi sous ergodicité de l'observable |
-| 4 | Contrôle uniforme de $`H_n^{(m_n)}-Q_n`$ | À prouver |
-| 5 | Comparaison stricte à l'information-percolation | À prouver |
-| 6 | Non-disparition d'une capacité calculable $\Rightarrow$ estimateur récupérant | À prouver sous hypothèses |
-| 7 | Capacité nulle/positive donne le seuil exact sur la grille triangulaire | Conjecture |
+| 3 | $`Q_n\le S_n(\beta)+\mathcal M_n((\beta,1])`$ et réduction au score signé si $`S_n(\beta)\to0`$ | Établi conditionnellement à A1 |
+| 4 | $`A_{ij}^{(m)}\downarrow c_{ij}^2`$ à volume fini | Établi sous ergodicité de l'observable |
+| 5 | Contrôle uniforme de $`H_n^{(m_n)}-Q_n`$ | À prouver |
+| 6 | Comparaison stricte à l'information-percolation | À prouver |
+| 7 | Non-disparition d'une capacité calculable $\Rightarrow$ estimateur récupérant | À prouver sous hypothèses |
+| 8 | Capacité nulle/positive donne le seuil exact sur la grille triangulaire | Conjecture |
 
 Le niveau intermédiaire désormais concret est : $`H_n^{\mathrm{LCA}}\to0`$ implique l'impossibilité, tandis que $`H_n^{(m)}\downarrow Q_n`$ à volume fini sous ergodicité. La difficulté est de rendre la convergence uniforme en $n$ et calculable.
 

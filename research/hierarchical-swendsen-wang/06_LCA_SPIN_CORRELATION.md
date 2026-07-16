@@ -171,13 +171,17 @@ Tous les liens de $`E_u`$ interviennent par
 \qquad
 T_u=\sum_{e\in E_u}|W_e|.
 ```
+
 Posons $`F_v(x)=x e^{(1-\beta_v)x}`$, puis séparons le facteur du nœud $u$ des messages de l'a priori et des ancêtres :
+
 ```math
 A_u^{ab}
 =
 \mu_0(\sigma^{ab})
 \prod_{v\succ u}F_v(\Lambda_v(\sigma^{ab})),
-``````math
+```
+
+```math
 M_u^+=A_u^{00}+A_u^{11},
 \qquad
 M_u^-=A_u^{10}+A_u^{01},
@@ -486,7 +490,30 @@ H_n^{\mathrm{LCA}}
 =
 \frac1n+\int_0^1\mathcal M_n(dt).
 ```
+
 La même mesure sans $`\eta_u`$ décrit seulement la géométrie single-linkage/percolation. Le facteur $`\eta_u`$ ajoute la quantité d'information transmise au moment précis où les deux clusters fusionnent.
+
+Sous l'a priori binaire i.i.d. uniforme, pour une coupe déterministe $`\beta`$, notons $`\Pi_\beta`$ les composantes à ce niveau et
+
+```math
+S_n(\beta)
+=
+\frac1{n^2}\mathbb E\sum_{C\in\Pi_\beta}|C|^2.
+```
+
+La partie du score née avant la coupe est dominée par $`S_n(\beta)`$. On obtient donc
+
+```math
+\boxed{
+Q_n
+\le
+S_n(\beta)
++
+\mathcal M_n((\beta,1]).
+}
+```
+
+Si $`S_n(\beta)\to0`$, toute weak recovery impose ainsi une masse informative strictement positive de fusions au-dessus de la coupe. Avec un potentiel $`\mu_0`$ général, il faut ajouter la contribution inter-racines. Le [critère de bande critique](07_CRITICAL_BAND_CRITERION.md) sépare ensuite la connexion quotient, la fiabilité locale et la cohérence signée nécessaires pour rendre cette intuition exacte.
 
 ### Version strictement longue portée
 
@@ -807,7 +834,20 @@ s_p(t)
 =
 \mathrm{logistic}(u_p(1-t)).
 ```
+
+La partie biaisée du vote est exactement la probabilité conditionnelle d'une arête de la bande :
+
+```math
+h_p(t)
+=2s_p(t)-1
+=
+\tanh\left(\frac{u_p(1-t)}2\right).
+```
+
+Sur une coupe de taille $m$, l'existence d'une arête tardive est gouvernée par $`m h_p(t)`$, tandis que la stabilité statistique du vote l'est par $`m h_p(t)^2`$. Cette différence explique pourquoi une connexion de bande peut apparaître sans transmettre encore une information longue portée robuste.
+
 Si une arête ouvrante fusionne à l'instant $t$ deux composantes séparées par une coupe fixée de $m$ liens, cette arête est satisfaite et les $m-1$ autres liens de la coupe sont fermés. Conditionnellement à la filtration juste avant $t$,
+
 ```math
 \boxed{
 k

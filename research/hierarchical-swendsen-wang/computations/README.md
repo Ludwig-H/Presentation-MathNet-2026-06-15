@@ -4,6 +4,7 @@ Ce sous-dossier doit contenir uniquement des calculs reproductibles liés aux é
 
 ## Structure prévue
 
+- `critical_band_thresholds.py` : vérification sans dépendance des trois seuils triangulaires et des temps $`\beta_c,t_\chi`$ ;
 - `exact_enumeration/` : énumération de toutes les configurations et horloges discrétisées sur petits graphes ;
 - `symbolic/` : simplification des poids $`q_u^{ab}`$, contractions et seuils ;
 - `triangular_grid/` : tores triangulaires, bandes et cactus ;
@@ -57,7 +58,64 @@ Ce sous-dossier doit contenir uniquement des calculs reproductibles liés aux é
     k=1+\mathrm{Bin}\left(m-1,
     \mathrm{logistic}(u_p(1-t))\right)
 ```
+
     avant d'étudier le biais supplémentaire du choix de la coupe par Kruskal.
+12. Pour chaque coupe $`\beta`$, vérifier exactement
+
+```math
+    Q_n
+    \le
+    S_n(\beta)+\mathcal M_n((\beta,1]),
+```
+
+    puis enregistrer séparément $`R_n^{>\beta}`$, $`\overline\eta_n^{>\beta}`$ et $`\kappa_n^{>\beta}`$.
+13. Sur la grille triangulaire homogène, retrouver les trois seuils
+
+```math
+    p_{\mathrm{SW}}=0.673648\ldots,
+    \qquad
+    p_{\mathrm{info}}=0.794659\ldots,
+    \qquad
+    p_{\mathrm{pure}}=0.847296\ldots,
+```
+
+    et vérifier numériquement $`t_\chi(p_{\mathrm{info}})=\beta_c(p_{\mathrm{info}})`$.
+14. Pour une coupe déterministe, simuler la décomposition
+
+```math
+    (R,S,U)
+    \sim
+    \mathrm{Mult}\left(
+    m-1;
+    h_p(t),
+    \frac{1-h_p(t)}2,
+    \frac{1-h_p(t)}2
+    \right)
+```
+
+    et comparer les deux échelles $`m h_p(t)`$ et $`m h_p(t)^2`$.
+15. Vérifier la calibration non oracle des bundles indépendants :
+
+```math
+    \gamma_m^{\mathrm{BSC}}
+    =
+    \sum_{k=0}^m
+    \binom mk p^k(1-p)^{m-k}
+    \tanh^2\left(\frac{u_p}{2}(2k-m)\right),
+    \qquad
+    \gamma_1^{\mathrm{BSC}}=(2p-1)^2.
+```
+
+16. Estimer la dérivée de $`\tau_{ij}(q_p(t))`$ par différences finies et la comparer au nombre moyen d'arêtes pivotales donné par la formule de Russo.
+17. Sur des tores de diamètre $L$, tracer la mesure des temps de fusion dans la coordonnée proche-critique
+
+```math
+    \lambda
+    =
+    q_p'(\beta_c)L^{3/4}(t-\beta_c),
+```
+
+    en distinguant la masse géométrique, la masse pondérée par $`\eta_u`$ et le score signé.
 
 ## Métadonnées minimales
 
@@ -70,6 +128,8 @@ Chaque expérience devra enregistrer :
 - burn-in, nombre de chaînes et diagnostics de mélange ;
 - métrique utilisée : corrélation $`R_n`$, overlap $`\mathrm{ov}_n`$, $`Q_n`$ ou spectre de $`H_S`$.
 - paire $(i,j)$, statut « LCA / racines distinctes / diagonale », puis, si le LCA existe, $`\beta_u`$, $`|E_u|`$, $`\Lambda_u`$, message $`B_u`$, $`m_u`$ et $`\eta_u`$.
+- coupe critique utilisée, $`S_n(\beta)`$, masse de bande $`\mathcal M_n((\beta,1])`$ et facteurs $`R_n^{>\beta},\overline\eta_n^{>\beta},\kappa_n^{>\beta}`$ ;
+- pour chaque coupe testée, multiplicité $m$, $`h_p(t)`$, nombre d'arêtes de bande et statut pivotal.
 
 ## Ordre de mise en œuvre
 

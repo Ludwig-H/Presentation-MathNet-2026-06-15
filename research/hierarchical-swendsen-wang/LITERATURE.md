@@ -19,18 +19,29 @@ Des morceaux importants existent séparément. La nouveauté défendable n'est d
 1. [Fortuin–Kasteleyn, *On the random-cluster model I*](https://doi.org/10.1016/0031-8914(72)90045-6). Représentation random-cluster, fondation géométrique des algorithmes de clusters.
 2. [Swendsen–Wang, *Nonuniversal critical dynamics in Monte Carlo simulations*](https://doi.org/10.1103/PhysRevLett.58.86). Algorithme de clusters classique.
 3. [Edwards–Sokal, *Generalization of the Fortuin–Kasteleyn–Swendsen–Wang representation and Monte Carlo algorithm*](https://doi.org/10.1103/PhysRevD.38.2009). Mesure jointe spins–liens ; modèle méthodologique pour prouver la marginale de Gibbs.
-4. [Kandel–Ben-Av–Domany, *Cluster dynamics for fully frustrated systems*](https://doi.org/10.1103/PhysRevB.45.4700). Dynamiques par cellules pour interactions frustrées ; antécédent direct des règles triangulaires d'ordre supérieur.
+4. [Kandel–Ben-Av–Domany, *Cluster dynamics for fully frustrated systems*](https://doi.org/10.1103/PhysRevLett.65.941). Dynamiques par cellules pour interactions frustrées ; antécédent direct des règles triangulaires d'ordre supérieur.
 
 ## Révélation progressive et algorithmes voisins
 
 5. [Machta et al., *Invaded cluster algorithm for equilibrium critical points*](https://arxiv.org/abs/cond-mat/9507094). Révélation progressive de liens jusqu'à invasion/percolation. Très proche de l'idée d'horloges ordonnées, mais la cible est l'auto-ajustement au point critique, pas une conditionnelle de Gibbs sur un dendrogramme fixé.
 6. [Hauseux–Soprano-Loto–Avrachenkov, *Higher-order Monte Carlo cluster dynamics for community detection in Euclidean graphs*](https://inria.hal.science/hal-05267074). Travail directement antérieur du projet : dynamique d'ordre supérieur, frustration et bornes de percolation.
 
+- [Barbu–Zhu, *Generalizing Swendsen–Wang to sampling arbitrary posterior probabilities*](https://doi.org/10.1109/TPAMI.2005.161). Chaîne réversible de split/merge/relabel sur des partitions de graphe pour des postérieures générales. C'est un voisin important pour la généralisation de Swendsen--Wang, mais il ne construit ni filtration Kruskal/MSF ni heat bath indexé par les nœuds d'un dendrogramme.
+- [Houdayer, *A cluster Monte Carlo algorithm for 2-dimensional spin glasses*](https://arxiv.org/abs/cond-mat/0101116), [DOI](https://doi.org/10.1007/PL00011151). Mouvement de clusters à deux répliques adapté aux verres de spins ; voisin naturel du point de vue de l'overlap, sans hiérarchie de coalescence.
+
 ## Dendrogrammes, minimum spanning forests et percolation proche-critique
 
 7. [Gower–Ross, *Minimum Spanning Trees and Single Linkage Cluster Analysis*](https://doi.org/10.2307/2346439). Référence classique pour l'équivalence entre la hiérarchie single-linkage et l'ordre des arêtes d'un minimum spanning tree.
 8. [Lyons–Peres–Schramm, *Minimal Spanning Forests*](https://arxiv.org/abs/math/0412263), [DOI](https://doi.org/10.1214/009117906000000269). Géométrie des MSF en volume infini et lien avec l'invasion percolation.
 9. [Garban–Pete–Schramm, *The scaling limits of the Minimal Spanning Tree and Invasion Percolation in the plane*](https://arxiv.org/abs/1309.0269). Relie une construction planaire du MST à la percolation proche-critique ; c'est un guide naturel pour étudier la mesure des temps $`\beta_{ij}`$. Leur couplage triangulaire particulier ne s'applique toutefois pas directement aux horloges d'arêtes, possiblement non i.i.d., du présent modèle.
+
+### Bande critique, pivots et sprinkling
+
+- [Garban–Pete–Schramm, *The scaling limits of near-critical and dynamical percolation*](https://arxiv.org/abs/1305.5526), [DOI](https://doi.org/10.4171/JEMS/786). Construit la fenêtre proche-critique à partir des mesures pivotales ; c'est le cadre naturel pour la géométrie macroscopique des fusions autour de $`\beta_c`$.
+- [Garban–Pete–Schramm, *Pivotal, cluster, and interface measures for critical planar percolation*](https://arxiv.org/abs/1008.1378), [DOI](https://doi.org/10.1090/S0894-0347-2013-00772-9). Fournit la mesure limite des pivots qui motive le flux pivotal pondéré du nouveau critère.
+- [Nolin, *Near-critical percolation in two dimensions*](https://arxiv.org/abs/0711.4948), [DOI](https://doi.org/10.1214/EJP.v13-565). Présente les estimées de longueur de corrélation et les relations d'échelle nécessaires pour choisir une fenêtre $`\delta_n`$ autour du seuil.
+- [Damron–Sapozhnikov, *Outlets of 2D invasion percolation and multiple-armed incipient infinite clusters*](https://arxiv.org/abs/0903.4496), [DOI](https://doi.org/10.1007/s00440-010-0274-y). Montre que les goulots d'invasion approchent le seuil tout en conservant une structure d'outlets ; cette distinction avertit que $`\beta_{ij}`$ ne doit pas être supposé concentré exactement en $`\beta_c`$ pour une paire ponctuelle.
+- [Duminil-Copin–Raoufi–Tassion, *Sharp phase transition for the random-cluster and Potts models via decision trees*](https://arxiv.org/abs/1705.03104), [DOI](https://doi.org/10.4007/annals.2019.189.1.2). Donne décroissance exponentielle sous le seuil et densité supercritique sur les graphes transitifs pour le random-cluster $`q\ge1`$. Ces résultats justifient les dichotomies géométriques de référence, mais ne s'appliquent pas directement à la postérieure frustrée conditionnelle.
 
 ## GSBM et synchronisation
 
@@ -41,7 +52,9 @@ Des morceaux importants existent séparément. La nouveauté défendable n'est d
 ## Information-percolation et SDPI
 
 13. [Polyanskiy–Wu, *Application of Information-Percolation Method to Reconstruction Problems on Graphs*](https://arxiv.org/abs/1806.04195). Domination de l'information par une percolation dont les probabilités sont des contractions de canaux.
-14. [Abbe–Boix, *An Information-Percolation Bound for Spin Synchronization on General Graphs*](https://arxiv.org/abs/1806.03227), [DOI](https://doi.org/10.1214/19-AAP1523). Formulation $\chi^2$ directement adaptée aux canaux binaires du GSBM ; donne la baseline $p<0.794659\ldots$ sur la grille triangulaire homogène.
+14. [Abbe–Boix, *An Information-Percolation Bound for Spin Synchronization on General Graphs*](https://arxiv.org/abs/1806.03227), [DOI](https://doi.org/10.1214/19-AAP1523). Formulation $\chi^2$ directement adaptée aux canaux binaires du GSBM ; combinée au seuil triangulaire exact de Wierman, elle donne la baseline $p<0.794659\ldots$.
+
+Dans l'échelle des horloges, cette baseline se réécrit $`t_\chi>\beta_c`$, où $`q_p(t_\chi)=(2p-1)^2`$. Après contraction de $`\Pi_{\beta_c}`$, elle utilise la sous-bande $`(\beta_c,t_\chi]`$, et non le graphe pur formé par toutes les arêtes de $`(\beta_c,1]`$.
 15. [Gu–Polyanskiy, *Weak Recovery Threshold for the Hypergraph Stochastic Block Model*](https://arxiv.org/abs/2303.14689). SDPI multi-terminales : outil probable pour traiter simultanément tous les liens ou triangles traversant une fusion.
 16. [Gu, *Exact reconstruction thresholds on hypertrees over a symmetric binary alphabet*](https://arxiv.org/abs/2606.21699). Prépublication du 19 juin 2026 : canaux BMS, comparaison de canaux et population dynamics rigoureuse. C'est un outil particulièrement proche du programme « loi complète du message $`B_u`$ » sur cactus de triangles ; il ne traite pas directement le dendrogramme de Kruskal.
 
@@ -53,6 +66,7 @@ Des morceaux importants existent séparément. La nouveauté défendable n'est d
 
 ## Triangles, frustration et ligne de Nishimori
 
+- [Wierman, *Bond percolation on honeycomb and triangular lattices*](https://doi.org/10.2307/1426685). Établit le seuil exact $`q_c=2\sin(\pi/18)`$ de la percolation par arêtes sur la grille triangulaire.
 20. [Chayes–Lei, *Random Cluster Models on the Triangular Lattice*](https://arxiv.org/abs/cond-mat/0508254), [DOI](https://doi.org/10.1007/s10955-005-8078-7). Seuil autodual des états triangulaires corrélés utilisé au chapitre 11.
 21. [Nishimori–Ohzeki, *Location of the Multicritical Point for the Ising Spin Glass on the Triangular and Hexagonal Lattices*](https://arxiv.org/abs/cond-mat/0601356), [DOI](https://doi.org/10.1143/JPSJ.75.034004). Valeur conjecturée $`p_{\mathrm N}=0.8358058\ldots`$.
 22. [de Queiroz, *Multicritical Point of Ising Spin Glasses on Triangular and Honeycomb Lattices*](https://arxiv.org/abs/cond-mat/0510816), [DOI](https://doi.org/10.1103/PhysRevB.73.064410). Étude numérique par matrices de transfert ; classe critique distincte de la percolation ordinaire.
@@ -66,16 +80,22 @@ Des morceaux importants existent séparément. La nouveauté défendable n'est d
 27. [Chayes–Machta–Redner, *Graphical Representations for Ising Systems in External Fields*](https://arxiv.org/abs/cond-mat/9806312), [DOI](https://doi.org/10.1023/B:JOSS.0000026726.43558.80). Représentation graphique à deux répliques dans laquelle l'ordre est caractérisé par une percolation, pour le cadre ferromagnétique traité.
 28. [Machta–Newman–Stein, *The Percolation Signature of the Spin Glass Transition*](https://arxiv.org/abs/0707.0073), [DOI](https://doi.org/10.1007/s10955-007-9446-2). Relie overlap de répliques et géométrie de percolation dans les verres de spins.
 
+## Déplacement strict par enhancement
+
+- [Aizenman–Grimmett, *Strict monotonicity for critical points in percolation and ferromagnetic models*](https://doi.org/10.1007/BF01029985). Un enhancement local essentiel déplace strictement le seuil d'une percolation indépendante. C'est une piste pour transformer une vraie contraction multi-arêtes en gain strict, mais pas encore un théorème applicable aux signes frustrés ni aux coupes adaptatives de Kruskal.
+
 ## Lecture stratégique
 
 Ordre recommandé :
 
-1. Polyanskiy–Wu et Abbe–Boix pour fixer la meilleure borne d'impossibilité existante ;
+1. Polyanskiy–Wu et Abbe–Boix pour fixer la borne d'information-percolation de référence dans ce dossier ;
 2. Gu (2026) et Gu–Polyanskiy pour les canaux BMS et les contractions multi-terminales ;
 3. Pemantle–Peres et Evans et al. pour convertir ces contractions en capacité ;
-4. Gower–Ross puis Garban–Pete–Schramm pour la géométrie LCA/MST proche-critique ;
+4. Gower–Ross, Nolin puis les trois articles de Garban–Pete–Schramm pour la géométrie LCA, les pivots et la MSF proche-critique ;
 5. Aizenman, Chayes–Machta–Redner et Machta–Newman–Stein pour le lien deux répliques–connexion ;
 6. Chayes–Lei puis Nishimori–Ohzeki pour le cas triangulaire.
+
+La synthèse mathématique et les implications exactes pour la weak recovery sont centralisées dans [Bande critique et transmission de l'information](07_CRITICAL_BAND_CRITERION.md).
 
 ## Critère de nouveauté à viser
 
