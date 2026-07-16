@@ -1,248 +1,330 @@
 % Hierarchical Swendsen--Wang dynamics.
-% Inserted immediately before the Open Questions & Conclusion section.
+% Six deliberately simple frames, inserted before Open Questions & Conclusion.
 
-\begin{frame}{A Hierarchy as an Auxiliary Variable}
-  \begin{columns}[onlytextwidth,T]
-    \begin{column}{0.42\textwidth}
-      Start from any joint lift
-      \[
-        \nu(\sigma,dD),
-        \qquad \int \nu(\sigma,dD)=\mu(\sigma),
-      \]
-      where $D$ is a dendrogram of nested vertex sets.
-
-      One transition:
-      \begin{enumerate}
-        \item refresh $D\sim\nu(\,\cdot\mid\sigma)$;
-        \item sweep the clusters $A\in D$, from fine to coarse scales;
-        \item discard $D$.
-      \end{enumerate}
-
-      \vspace{0.2em}
-      Fresh auxiliary randomness makes $(\sigma_n)$ a Markov chain.
-    \end{column}
-    \begin{column}{0.55\textwidth}
-      \centering
-      \begin{tikzpicture}[
-        x=.82cm,y=.78cm,
-        leaf/.style={circle,draw,fill=white,minimum size=4.2mm,inner sep=0pt,font=\tiny},
-        merge/.style={circle,draw=inria-2024-rouge,fill=inria-2024-rouge!10,
-                      minimum size=4.3mm,inner sep=0pt},
-        tr/.style={line width=.8pt,draw=inria-2024-gris-bleu}
-      ]
-        \foreach \x/\s in {0/+,1/-,2/+,3/+,4/-,5/+}
-          \node[leaf] (l\x) at (\x,0) {$\s$};
-        \node[merge] (a) at (.5,1.05) {};
-        \node[merge] (b) at (2.5,1.05) {};
-        \node[merge] (c) at (4.5,1.05) {};
-        \node[merge] (d) at (1.5,2.15) {};
-        \node[merge] (r) at (3,3.30) {};
-        \foreach \u/\v in {l0/a,l1/a,l2/b,l3/b,l4/c,l5/c,a/d,b/d,d/r,c/r}
-          \draw[tr] (\u)--(\v);
-        \node[font=\scriptsize,text=inria-2024-bleu-canard] at (-.35,1.05) {fine};
-        \node[font=\scriptsize,text=inria-2024-orange] at (.35,2.35) {mesoscopic};
-        \node[font=\scriptsize,text=inria-2024-rouge] at (3,4.00) {coarse};
-        \draw[decorate,decoration={brace,amplitude=4pt},inria-2024-bleu-canard]
-          (-.2,-.45)--(1.2,-.45);
-        \draw[decorate,decoration={brace,amplitude=4pt},inria-2024-orange]
-          (-.2,-.82)--(3.2,-.82);
-        \draw[decorate,decoration={brace,amplitude=4pt},inria-2024-rouge]
-          (-.2,-1.19)--(5.2,-1.19);
-        \node[font=\scriptsize] at (2.5,-1.72) {nested clusters $A\in D$};
-      \end{tikzpicture}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{Heat-Bath Flips at Every Scale}
-  \begin{columns}[onlytextwidth,T]
-    \begin{column}{0.54\textwidth}
-      \centering
-      \begin{tikzpicture}[
-        x=.78cm,y=.82cm,
-        v/.style={circle,draw,fill=white,minimum size=4.2mm,inner sep=0pt,font=\tiny},
-        box/.style={rounded corners=4pt,line width=1pt,inner sep=4pt},
-        turn/.style={-{Latex[length=2mm]},thick}
-      ]
-        \foreach \x/\s in {0/+,1/-,2/+,3/+,4/-,5/+}
-          \node[v] (v\x) at (\x,0) {$\s$};
-        \begin{scope}[on background layer]
-          \node[box,draw=inria-2024-bleu-canard,fill=inria-2024-bleu-canard!8,
-                fit=(v0)(v1)] (small) {};
-          \node[box,draw=inria-2024-orange,fill=inria-2024-orange!6,
-                fit=(v0)(v3)] (medium) {};
-          \node[box,draw=inria-2024-rouge,fill=inria-2024-rouge!4,
-                fit=(v0)(v5)] (large) {};
-        \end{scope}
-        \draw[turn,inria-2024-bleu-canard]
-          (.25,.75) arc[start angle=205,end angle=510,radius=.45];
-        \draw[turn,inria-2024-orange]
-          (1.05,1.25) arc[start angle=205,end angle=510,radius=.65];
-        \draw[turn,inria-2024-rouge]
-          (2.25,1.85) arc[start angle=205,end angle=510,radius=.85];
-        \node[font=\scriptsize,text=inria-2024-bleu-canard] at (.5,1.65) {$F_{A_1}$};
-        \node[font=\scriptsize,text=inria-2024-orange] at (1.7,2.45) {$F_{A_2}$};
-        \node[font=\scriptsize,text=inria-2024-rouge] at (3,3.05) {$F_{A_3}$};
-      \end{tikzpicture}
-    \end{column}
+\begin{frame}{Exponential Clocks Replace Rigid Freezing}
+  \begin{columns}[onlytextwidth,c]
     \begin{column}{0.43\textwidth}
-      Write $\nu_D(\sigma)=\nu(\sigma\mid D)$ and let $F_A$ flip every
-      spin in $A$. At cluster $A$ use
+      An edge $e=\{i,j\}$ is \textbf{satisfied} when
       \[
-        p_A^D(\sigma)
-        =\frac{\nu_D(F_A\sigma)}
-        {\nu_D(\sigma)+\nu_D(F_A\sigma)}.
+        \begin{array}{ll}
+          \sigma_i=\sigma_j, & e\in F,\\[2pt]
+          \sigma_i\neq\sigma_j, & e\in\widetilde F.
+        \end{array}
       \]
-      Hence
+
+      For each satisfied edge, independently,
       \[
-        \sigma\longmapsto
-        \begin{cases}
-          F_A\sigma,&\text{with probability }p_A^D(\sigma),\\
-          \sigma,&\text{otherwise}.
-        \end{cases}
+        \boxed{\ \xi_e\sim\operatorname{Exp}(|W_e|)\ }.
       \]
-      Local, mesoscopic and macroscopic clusters are all proposed;
-      the conditional Gibbs weight decides each flip.
-    \end{column}
-  \end{columns}
-\end{frame}
+      At level $t$, keep the edges such that $\xi_e\leq t$;
+      unsatisfied edges are never kept.
 
-\begin{frame}{Why the Hierarchical Dynamics Preserves Gibbs}
-  \small
-  For the one-cluster kernel $H_A^D$,
-  \[
-    \nu_D(\sigma)H_A^D(\sigma,F_A\sigma)
-    =\frac{\nu_D(\sigma)\nu_D(F_A\sigma)}
-           {\nu_D(\sigma)+\nu_D(F_A\sigma)}
-    =\nu_D(F_A\sigma)H_A^D(F_A\sigma,\sigma).
-  \]
-  Thus every $H_A^D$ is $\nu_D$-reversible. Any full sweep $Q_D$ is
-  $\nu_D$-stationary; a random scan or a palindromic sweep is also reversible.
-
-  After refreshing $D$, the spin kernel is
-  \[
-    K(\sigma,\sigma')=\int\nu(dD\mid\sigma)Q_D(\sigma,\sigma').
-  \]
-  Therefore
-  \[
-    \sum_\sigma\mu(\sigma)K(\sigma,\sigma')
-    =\int\nu(dD)\sum_\sigma\nu_D(\sigma)Q_D(\sigma,\sigma')
-    =\int\nu(dD)\nu_D(\sigma')=\mu(\sigma').
-  \]
-  \begin{block}{Conclusion}
-    The spin chain is Markov and Gibbs-stationary. If $Q_D$ is reversible,
-    the same computation with $(\sigma,\sigma')$ proves detailed balance for $K$.
-  \end{block}
-\end{frame}
-
-\begin{frame}{A Canonical Lift: Censored Edwards--Sokal Clocks}
-  \small
-  Set $J_e=|W_e|$, $\eta_e=\operatorname{sgn}(W_e)$ and
-  \[
-    U(\sigma)=\sum_{e=\{i,j\}}J_e\ind{\sigma_i\sigma_j\neq\eta_e},
-    \qquad \mu(\sigma)=Z^{-1}e^{-U(\sigma)}.
-  \]
-  For independent $X_e\sim\mathrm{Exp}(J_e)$, retain
-  $T_e=X_e$ only when $\sigma_i\sigma_j=\eta_e$ and $X_e\leq1$;
-  otherwise set $T_e=\infty$. Equivalently,
-  \[
-    \overline\mu(\sigma,dT)=\frac1Z\prod_{e\in E}\left[
-      e^{-J_e}\delta_\infty(dT_e)
-      +\ind{\sigma_i\sigma_j=\eta_e}
-       J_e e^{-J_eT_e}\ind{0\leq T_e\leq1}\,dT_e
-    \right].
-  \]
-  Each factor integrates to
-  \[
-    \begin{cases}
-      e^{-J_e}+\int_0^1J_e e^{-J_et}\,dt=1,
-        &\sigma_i\sigma_j=\eta_e,\\
-      e^{-J_e},&\sigma_i\sigma_j\neq\eta_e,
-    \end{cases}
-  \]
-  so $\overline\mu(\sigma)=\mu(\sigma)$. Moreover, with
-  $A(T)=\{e:T_e<\infty\}$,
-  \[
-    \overline\mu(\sigma\mid T)=2^{-c(A)}\ind{\sigma\in\Omega_A},
-    \qquad
-    \Omega_A=\{\tau:\tau_i\tau_j=\eta_e\ \forall e\in A\}.
-  \]
-\end{frame}
-
-\begin{frame}{The Exact MSF Specialization Collapses to SW}
-  \begin{columns}[onlytextwidth,T]
-    \begin{column}{0.53\textwidth}
-      \centering
-      \begin{tikzpicture}[
-        x=.77cm,y=.77cm,
-        v/.style={circle,draw,fill=white,minimum size=4.1mm,inner sep=0pt},
-        ae/.style={line width=1.1pt,draw=inria-2024-gris-bleu},
-        cut/.style={line width=1pt,densely dashed,draw=gray!45},
-        arr/.style={-{Latex[length=2.3mm]},thick,draw=inria-2024-rouge}
-      ]
-        \foreach \p/\x/\y in {a/0/0,b/1.5/0,c/.75/1.3,d/2.55/.65}
-          \node[v] (L\p) at (\x,\y) {};
-        \foreach \u/\w in {a/b,b/c,c/a,b/d,c/d}\draw[ae] (L\u)--(L\w);
-        \node[font=\scriptsize] at (1.3,-.65) {$A(T)$};
-        \draw[arr] (3.05,.65)--(3.85,.65)
-          node[midway,above,font=\scriptsize] {Kruskal};
-        \foreach \p/\x/\y in {a/4.4/0,b/5.9/0,c/5.15/1.3,d/6.95/.65}
-          \node[v] (R\p) at (\x,\y) {};
-        \draw[ae] (Ra)--(Rb)--(Rc); \draw[ae] (Rb)--(Rd);
-        \draw[cut] (Rc)--(Ra); \draw[cut] (Rc)--(Rd);
-        \node[font=\scriptsize] at (5.7,-.65) {$F(T)$};
-      \end{tikzpicture}
-    \end{column}
-    \begin{column}{0.44\textwidth}
-      Every active edge is satisfied by the current spin configuration;
-      active signed components are balanced. Kruskal preserves connectivity
-      and all signed parities:
-      \[
-        \mathcal C(F(T))=\mathcal C(A(T)),
-        \qquad \Omega_{F(T)}=\Omega_{A(T)}.
-      \]
-      Hence exact conditional recoloring is one fair bit per final component.
-      Proper subtree flips are forbidden or redundant.
-    \end{column}
-  \end{columns}
-
-  \vspace{0.3em}
-  \[
-    \boxed{\ K_{\mathrm{ES\text{-}MSF}}=K_{\mathrm{SW}}\ }.
-  \]
-\end{frame}
-
-\begin{frame}{Consequences for Weak Recovery}
-  \begin{columns}[onlytextwidth,T]
-    \begin{column}{0.48\textwidth}
-      \begin{block}{What is rigorous}
-        The heat-bath dendrogram sweep is Gibbs-stationary.
-        For the censored edge lift, however, its exact MSF specialization has
-        exactly the SW component law.
-        On the homogeneous triangular GSBM, in the truth coupling,
+      \begin{block}{Classical \textsc{Swendsen}--\textsc{Wang}}
+        The usual freezing rule is exactly the cut $t=1$:
         \[
-          \mathbb P(e\text{ active})=2p-1,
-        \]
-        \[
-          p_c^{\mathrm{ES\text{-}MSF}}
-          =p_c^{\mathrm{SW}}
-          =\frac12+\sin\!\left(\frac{\pi}{18}\right)
-          \simeq0.67365.
+          \mathbb P(\xi_e\leq1)=1-e^{-|W_e|}.
         \]
       \end{block}
     \end{column}
-    \begin{column}{0.48\textwidth}
-      \begin{alertblock}{What a strict improvement requires}
-        To beat the triangle certificate
-        \[
-          p_c^\triangle=\frac{7-\sqrt{17}}4\simeq0.71922,
-        \]
-        one needs a genuinely new positive macro-block lift $\nu(\sigma,D)$
-        (so proper subtree flips have non-zero conditional weight), together
-        with a new boundary-connectivity/percolation proof.
 
-        \centering\textbf{Hierarchy alone is not a new threshold.}
+    \begin{column}{0.54\textwidth}
+      \centering
+      \begin{tikzpicture}[
+        x=.88cm,y=.88cm,
+        clock/.style={fill=white,inner sep=1.2pt,font=\scriptsize},
+        active/.style={line width=1.65pt},
+        inactive/.style={line width=1.15pt,draw=gray!45},
+        absent/.style={line width=.8pt,densely dotted,draw=gray!50}
+      ]
+        \node[spin] (a) at (0,0) {$+$};
+        \node[spin] (b) at (1.6,1.25) {$+$};
+        \node[spin] (c) at (3.2,0) {$-$};
+        \node[spin] (d) at (4.8,1.25) {$-$};
+        \node[spin] (e) at (6.4,0) {$+$};
+
+        \draw[active] (a)--node[clock,sloped] {$0.18$} (b);
+        \draw[active,dashed] (b)--node[clock,sloped] {$0.42$} (c);
+        \draw[active,dashed] (a)--node[clock,sloped,below] {$0.74$} (c);
+        \draw[active] (c)--node[clock,sloped] {$0.67$} (d);
+        \draw[active,dashed] (b)--node[clock,sloped] {$0.88$} (d);
+        \draw[inactive,dashed] (d)--node[clock,sloped] {$1.26$} (e);
+        \draw[absent] (c)--node[clock,sloped,below] {$\infty$} (e);
+
+        \node[font=\scriptsize,align=center,text=inria-2024-bleu-canard]
+          at (2.4,-1.05) {kept at $t=1$};
+        \draw[active] (.55,-1.55)--(1.2,-1.55);
+        \node[font=\scriptsize,anchor=west] at (1.35,-1.55) {$\xi_e\leq1$};
+        \draw[inactive] (3.25,-1.55)--(3.9,-1.55);
+        \node[font=\scriptsize,anchor=west] at (4.05,-1.55) {$\xi_e>1$};
+        \draw[absent] (2.0,-2.05)--(2.65,-2.05);
+        \node[font=\scriptsize,anchor=west] at (2.8,-2.05) {edge not satisfied};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{One Minimum Spanning Forest Contains Every Level}
+  \begin{columns}[onlytextwidth,c]
+    \begin{column}{0.59\textwidth}
+      \centering
+      \begin{tikzpicture}[
+        x=.55cm,y=.68cm,
+        v/.style={circle,draw,fill=white,minimum size=4.2mm,inner sep=0pt,font=\tiny},
+        w/.style={fill=white,inner sep=1pt,font=\tiny},
+        ge/.style={line width=1pt,draw=inria-2024-gris-bleu},
+        fe/.style={line width=1.65pt,draw=inria-2024-rouge},
+        arr/.style={-{Latex[length=2.4mm]},line width=1pt,draw=inria-2024-rouge}
+      ]
+        % Weighted graph
+        \node[v] (a) at (0,0) {$a$};
+        \node[v] (b) at (1.4,1.2) {$b$};
+        \node[v] (c) at (2.8,0) {$c$};
+        \node[v] (d) at (4.2,1.2) {$d$};
+        \node[v] (e) at (5.6,0) {$e$};
+        \draw[ge] (a)--node[w,sloped] {.18} (b);
+        \draw[ge] (b)--node[w,sloped] {.42} (c);
+        \draw[ge] (a)--node[w,sloped,below] {.74} (c);
+        \draw[ge] (c)--node[w,sloped] {.67} (d);
+        \draw[ge] (b)--node[w,sloped] {.88} (d);
+        \draw[ge,draw=gray!40] (d)--node[w,sloped] {1.26} (e);
+        \node[font=\scriptsize] at (2.8,-.75) {clock-weighted graph};
+
+        \draw[arr] (6.25,.55)--(7.15,.55)
+          node[midway,above,font=\scriptsize,text=black] {Kruskal};
+
+        % Minimum spanning forest at the cut t=1
+        \node[v] (aa) at (7.7,0) {$a$};
+        \node[v] (bb) at (9.1,1.2) {$b$};
+        \node[v] (cc) at (10.5,0) {$c$};
+        \node[v] (dd) at (11.9,1.2) {$d$};
+        \node[v] (ee) at (13.3,0) {$e$};
+        \draw[fe] (aa)--node[w,sloped] {.18} (bb);
+        \draw[fe] (bb)--node[w,sloped] {.42} (cc);
+        \draw[fe] (cc)--node[w,sloped] {.67} (dd);
+        \node[font=\scriptsize] at (10.5,-.75) {minimum spanning forest};
+      \end{tikzpicture}
+    \end{column}
+
+    \begin{column}{0.38\textwidth}
+      \centering
+      \begin{tikzpicture}[
+        x=.63cm,y=2.40cm,
+        leaf/.style={circle,draw,fill=white,minimum size=4mm,inner sep=0pt,font=\tiny},
+        merge/.style={circle,draw=inria-2024-rouge,fill=inria-2024-rouge!10,
+                      minimum size=3.8mm,inner sep=0pt},
+        branch/.style={line width=.9pt,draw=inria-2024-gris-bleu},
+        cut/.style={densely dashed,line width=.7pt,draw=gray!55}
+      ]
+        \node[leaf] (a) at (0,0) {$a$};
+        \node[leaf] (b) at (1,0) {$b$};
+        \node[leaf] (c) at (2,0) {$c$};
+        \node[leaf] (d) at (3,0) {$d$};
+        \node[leaf] (e) at (4.2,0) {$e$};
+        \node[merge] (ab) at (.5,.18) {};
+        \node[merge] (abc) at (1.25,.42) {};
+        \node[merge] (abcd) at (2.125,.67) {};
+        \foreach \u/\v in {a/ab,b/ab,ab/abc,c/abc,abc/abcd,d/abcd}
+          \draw[branch] (\u)--(\v);
+        \draw[cut] (-.35,.30)--(4.55,.30)
+          node[right,font=\tiny,text=black] {$t=.30$};
+        \draw[cut] (-.35,.55)--(4.55,.55)
+          node[right,font=\tiny,text=black] {$t=.55$};
+        \draw[cut] (-.35,1)--(4.55,1)
+          node[right,font=\tiny,text=black] {$t=1$};
+        \node[font=\tiny,anchor=east] at (-.12,.18) {.18};
+        \node[font=\tiny,anchor=east] at (.63,.42) {.42};
+        \node[font=\tiny,anchor=east] at (1.50,.67) {.67};
+        \node[font=\scriptsize] at (2.1,-.18) {dendrogram $D$};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.15em}
+  \begin{block}{Exact pruning property}
+    For every $0\leq t\leq1$, pruning the forest above level $t$ gives exactly
+    the connected components of the clock-weighted graph at level $t$:
+    \[
+      \operatorname{cc}\{e:\xi_e\leq t\}
+      =\operatorname{cc}\{e\in\mathrm{MSF}:\xi_e\leq t\}.
+    \]
+  \end{block}
+\end{frame}
+
+\begin{frame}{Keep the Merge, Forget the Winning Edge}
+  \begin{columns}[onlytextwidth,T]
+    \begin{column}{0.45\textwidth}
+      \begin{block}{What the dendrogram $D$ keeps}
+        \begin{itemize}
+          \item the nested partitions of the vertices;
+          \item the order and levels of the merges;
+          \item the cut $t=1$ separating the final forest components.
+        \end{itemize}
+      \end{block}
+
+      \begin{alertblock}{What $D$ does not keep}
+        The identity of the edge selected by Kruskal at a merge.
+        Keeping it would hard-constrain the two children and reduce the update
+        to ordinary component recolouring.
+      \end{alertblock}
+    \end{column}
+
+    \begin{column}{0.51\textwidth}
+      At a merge $C=C_1\mathbin{\dot\cup}C_2$, the exponential clocks form a race.
+      After summing over the winning edge, its rate is simply
+      \[
+        \boxed{
+        \operatorname{rate}(C_1,C_2\mid\sigma)
+        =\!\!\sum_{\substack{e=\{i,j\},\ i\in C_1,\ j\in C_2\\
+                         \sigma\ \mathrm{satisfies}\ e}}
+          |W_e|.}
+      \]
+      Multiplying these exponential-race densities along $D$ defines
+      \[
+        \mathbb P(\mathrm dD\mid\sigma)
+      \]
+      while marginalising the irrelevant winning edge.
+
+      The same $D$ may therefore have positive probability for $\sigma$ and
+      after a subtree flip. If not, the conditional heat bath assigns that
+      flip probability zero.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{An \textsc{Edwards}--\textsc{Sokal} Law on $(\sigma,D)$}
+  Let $\mathbb P(\mathrm dD\mid\sigma)$ be exactly the clock--Kruskal law from
+  the previous slides.  On pairs $(\sigma,D)$, define
+  \[
+    \boxed{
+      \mu(\mathrm d\sigma,\mathrm dD)
+      =\frac{1}{Z}\,
+        \mu_0(\mathrm d\sigma)\,e^{-U(\sigma)}
+        \mathbb P(\mathrm dD\mid\sigma)
+      =\mu(\mathrm d\sigma)\mathbb P(\mathrm dD\mid\sigma).}
+  \]
+
+  \begin{columns}[onlytextwidth,T]
+    \begin{column}{0.47\textwidth}
+      \begin{block}{Correct marginal}
+        Since $\mathbb P(\,\cdot\mid\sigma)$ is a probability law,
+        \[
+          \int \mu(\mathrm d\sigma,\mathrm dD)
+          =\frac{1}{Z}\mu_0(\mathrm d\sigma)e^{-U(\sigma)}
+          =\mu(\mathrm d\sigma).
+        \]
+      \end{block}
+    \end{column}
+
+    \begin{column}{0.49\textwidth}
+      \begin{block}{Conditional law used for recolouring}
+        For a fixed dendrogram,
+        \[
+          \mu(\mathrm d\sigma\mid D)
+          \propto
+          \mu_0(\mathrm d\sigma)e^{-U(\sigma)}
+          \mathbb P(\mathrm dD\mid\sigma).
+        \]
+        The prior $\mu_0$ is therefore preserved exactly; it need not be uniform.
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Prune from Coarse to Fine, with Two Choices at Each Split}
+  \begin{columns}[onlytextwidth,c]
+    \begin{column}{0.45\textwidth}
+      \centering
+      \begin{tikzpicture}[
+        x=.82cm,y=.82cm,
+        leaf/.style={circle,draw,fill=white,minimum size=4.2mm,inner sep=0pt,font=\tiny},
+        merge/.style={circle,draw=inria-2024-rouge,fill=inria-2024-rouge!10,
+                      minimum size=4.1mm,inner sep=0pt},
+        branch/.style={line width=.9pt,draw=inria-2024-gris-bleu},
+        focus/.style={rounded corners=3pt,draw=inria-2024-bleu-canard,
+                      fill=inria-2024-bleu-canard!7,inner sep=4pt},
+        down/.style={-{Latex[length=2.3mm]},line width=1pt,draw=inria-2024-rouge}
+      ]
+        \foreach \x/\s in {0/+,1/+,2/-,3/-,4/+,5/-}
+          \node[leaf] (l\x) at (\x,0) {$\s$};
+        \node[merge] (a) at (.5,.9) {};
+        \node[merge] (b) at (2.5,.9) {};
+        \node[merge] (c) at (4.5,.9) {};
+        \node[merge] (d) at (1.5,1.85) {};
+        \node[merge] (r) at (3,2.85) {};
+        \foreach \u/\v in {l0/a,l1/a,l2/b,l3/b,l4/c,l5/c,a/d,b/d,d/r,c/r}
+          \draw[branch] (\u)--(\v);
+        \begin{scope}[on background layer]
+          \node[focus,fit=(l0)(l1)(a)] (C1) {};
+          \node[focus,fit=(l2)(l3)(b)] (C2) {};
+        \end{scope}
+        \node[font=\scriptsize,text=inria-2024-bleu-canard] at (.5,1.32) {$C_1$};
+        \node[font=\scriptsize,text=inria-2024-bleu-canard] at (2.5,1.32) {$C_2$};
+        \node[font=\scriptsize] at (1.5,2.25) {$C=C_1\mathbin{\dot\cup}C_2$};
+        \draw[down] (-.8,2.85)--(-.8,.2);
+        \node[font=\scriptsize,rotate=90,anchor=south,text=inria-2024-rouge]
+          at (-1.0,1.5) {coarse $\longrightarrow$ fine};
+        \node[font=\scriptsize] at (3,-.55) {current top-down split};
+      \end{tikzpicture}
+    \end{column}
+
+    \begin{column}{0.52\textwidth}
+      At the current split $C=C_1\mathbin{\dot\cup}C_2$, compare only two
+      configurations:
+      \begin{itemize}
+        \item the current configuration $\sigma$;
+        \item $\sigma^{C_1}$, obtained by reversing every label in $C_1$.
+      \end{itemize}
+      Replace $\sigma$ by $\sigma^{C_1}$ with the conditional heat-bath probability
+      \[
+        \boxed{
+        \frac{\mu(\sigma^{C_1}\mid D)}
+             {\mu(\sigma\mid D)+\mu(\sigma^{C_1}\mid D)}.}
+      \]
+      Then update $\sigma$, descend to the next split, and recompute the
+      probability.
+
+      \begin{alertblock}{The essential point}
+        The choices at different levels are sequential conditional updates,
+        not independent flips.
       \end{alertblock}
     \end{column}
   \end{columns}
+\end{frame}
+
+\begin{frame}{The Gibbs Measure Is Stationary by Construction}
+  \begin{block}{One split satisfies detailed balance}
+    For the two configurations $\sigma$ and $\sigma^C$,
+    \[
+      \mu(\sigma\mid D)\,
+      \mathbb P(\sigma\to\sigma^C\mid D)
+      =\frac{\mu(\sigma\mid D)\mu(\sigma^C\mid D)}
+             {\mu(\sigma\mid D)+\mu(\sigma^C\mid D)}
+      =\mu(\sigma^C\mid D)\,
+       \mathbb P(\sigma^C\to\sigma\mid D).
+    \]
+    Hence every split preserves $\mu(\,\cdot\mid D)$, and so does the complete
+    top-down sweep.
+  \end{block}
+
+  \begin{center}
+    \Large
+    $\displaystyle
+      \sigma
+      \ \xrightarrow{\ D\sim\mathbb P(\,\cdot\mid\sigma)\ }\
+      (\sigma,D)
+      \ \xrightarrow{\ \text{top-down heat baths}\ }\
+      (\sigma',D)
+      \ \xrightarrow{\ \text{discard }D\ }\
+      \sigma'.$
+  \end{center}
+
+  \begin{block}{Whole transition}
+    The first arrow samples one conditional law of
+    $\mu(\mathrm d\sigma,\mathrm dD)$; the sweep preserves the other conditional law.
+    This is a Gibbs-within-Gibbs update on $(\sigma,D)$. Therefore
+    \[
+      \boxed{\ \sigma\sim\mu\quad\Longrightarrow\quad\sigma'\sim\mu.\ }
+    \]
+  \end{block}
+
 \end{frame}
