@@ -66,6 +66,20 @@ Sans la contrainte de distance, ce poids vaut exactement
 $`|C_{u,1}||C_{u,2}|`$. Avec la contrainte, cette égalité demande un argument
 géométrique et ne sera pas supposée.
 
+L'expérience n'est non vide avant la coupe $`1`$ que si le seuil géométrique
+est accessible. Sur la grille triangulaire homogène,
+
+```math
+\beta_c(p)\le1
+\quad\Longleftrightarrow\quad
+q_p(1)=2p-1\ge q_c
+\quad\Longleftrightarrow\quad
+p\ge p_{\mathrm{SW}}:=\frac{1+q_c}{2}.
+```
+
+Pour $`p<p_{\mathrm{SW}}`$, il n'existe donc pas de fusion au seuil de
+percolation dans le dendrogramme tronqué à $`1`$.
+
 Pour fixer les quantificateurs, prenons d'abord
 
 ```math
@@ -84,7 +98,7 @@ squelette vu depuis la paire favorable est
 \frac{
 \mathbb E\!\left[
   \sum_{u:\,\beta_u\in I_\varepsilon}
-  N_{u,L}^{\mathrm{far}}F(u,D)
+  N_{u,L}^{\mathrm{far}}F(u,D,|W|)
 \right]
 }{
 \mathbb E\!\left[
@@ -94,7 +108,8 @@ squelette vu depuis la paire favorable est
 },
 ```
 
-lorsque le dénominateur est non nul. Conditionner sur
+lorsque le dénominateur est non nul et pour toute $`F`$ mesurable par rapport
+aux données non marquées et aux modules des poids. Conditionner sur
 $`\beta_u=\beta_c`$ n'est pas une formulation correcte en volume fini : les
 temps sont continus. Il faut spécifier une fenêtre, puis l'ordre des limites.
 
@@ -128,6 +143,21 @@ fiabilité favorable exacte se désintègre sous la forme
 Le noyau conditionnel qui définit $`\Gamma_p`$ est calculé exactement dans
 les sections 3--5. Toute difficulté asymptotique est ainsi reportée, sans être
 cachée, dans la loi $`\mathbb P_{L,\varepsilon}^{\star}(d\mathscr S_u)`$.
+
+Notons $`\mathcal K_p(\mathscr S_u,dY)`$ le produit des noyaux de marques de
+la section 3. Dès qu'une fonctionnelle dépend des marques — c'est le cas de
+$`\ell_v`$ et de $`\mathcal R_u`$ — la mesure pertinente est l'extension
+
+```math
+\widehat{\mathbb P}_{L,\varepsilon}^{\star}
+(d\mathscr S_u,dY)
+:=
+\mathbb P_{L,\varepsilon}^{\star}(d\mathscr S_u)
+\mathcal K_p(\mathscr S_u,dY).
+```
+
+Cette distinction empêche d'attribuer au squelette seul une quantité qui
+dépend encore des marques conditionnelles.
 
 On peut définir un **seuil favorable ancestral** à partir de la non-disparition
 de $`\mathcal G_{L,\varepsilon}^{\mathrm{fav}}`$, après avoir fixé l'ordre des
@@ -643,6 +673,11 @@ revenir aux quatre poids exacts et non diviser par un taux possiblement nul.
 ## 7. Ce qu'il faut sommer : les contrastes, pas les niveaux communs
 
 Le heat bath est invariant par addition du même log-poids aux quatre états.
+Dans cette section, les quatre poids de l'a priori sont supposés strictement
+positifs et les quatre taux de chaque ancêtre considéré sont supposés positifs.
+Si cette hypothèse échoue, le calcul quatre états reste exact mais la réduction
+logarithmique et le certificat ci-dessous ne s'appliquent pas.
+
 Pour un ancêtre, posons
 
 ```math
@@ -771,7 +806,9 @@ u=v_0\prec v_1\prec\cdots\prec v_{H_L}.
 ```
 
 Le programme favorable critique serait fermé par les trois résultats
-géométriques suivants, sous $`\mathbb P_{L,\varepsilon}^{\star}`$.
+suivants. G1 porte sur $`\mathbb P_{L,\varepsilon}^{\star}`$ ; G2 et G3, qui
+dépendent des marques, portent sur
+$`\widehat{\mathbb P}_{L,\varepsilon}^{\star}`$.
 
 ### G1 — convergence du squelette marqué par les tailles
 
@@ -779,17 +816,23 @@ Pour tout $`K`$ fixé, établir la convergence de
 
 ```math
 \left(
+E_u,(|W_e|)_{e\in E_u},\beta_u;
+\left(
 \beta_{v_k},
 (|W_e|,r_e)_{e\in E_{v_k}}
-\right)_{1\le k\le K},
+\right)_{1\le k\le K}
+\right),
 ```
 
 ou, dans le cas homogène, au minimum de
 
 ```math
 \left(
+\beta_u,m_u;
+\left(
 \beta_{v_k},m_{v_k,0},m_{v_k,1},m_{v_k,2}
-\right)_{1\le k\le K}.
+\right)_{1\le k\le K}
+\right).
 ```
 
 ### G2 — sommabilité de la queue ancestrale
@@ -800,7 +843,7 @@ Pour tout $`\zeta>0`$, viser
 \lim_{K\to\infty}
 \limsup_{\varepsilon\downarrow0}
 \limsup_{L\to\infty}
-\mathbb P_{L,\varepsilon}^{\star}\!\left(
+\widehat{\mathbb P}_{L,\varepsilon}^{\star}\!\left(
 \mathcal R_u(\{v_k:k>K\})>\zeta
 \right)
 =0.
