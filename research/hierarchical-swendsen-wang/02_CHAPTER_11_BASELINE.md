@@ -4,7 +4,6 @@
 
 Le manuscrit utilise
 
-
 $$
 \operatorname{ov}_n(\sigma,\tau)
 =
@@ -13,9 +12,7 @@ $$
 \mathbf 1_{\{\tau_i=\pi(\sigma_i)\}}.
 $$
 
-
 Pour $K=2$, avec des spins dans $\{-1,+1\}$,
-
 
 $$
 \operatorname{ov}_n(\sigma,\tau)
@@ -26,13 +23,11 @@ $$
 \right).
 $$
 
-
 Le niveau général de random guess doit rester $`\operatorname{RG}_n(s)`$. La simplification au seuil $1/K$ exige notamment un a priori i.i.d. uniforme. « Équilibré et invariant par permutation des noms de labels » ne suffit pas : une loi uniforme sur $\{a,-a\}$, avec $a$ équilibrée, est un contre-exemple pour $K=2$.
 
 ## 2. Théorème $\theta^{\max}$ corrigé
 
 Soit $`\kappa_n`$ l'objet gelé produit par une transition de clusters et $`\mathcal C(\kappa_n)`$ sa famille de composantes. Posons
-
 
 $$
 \theta_\delta(\kappa_n)
@@ -41,9 +36,7 @@ $$
 |C|\,\mathbf 1_{\{|C|\ge\delta n\}},
 $$
 
-
 puis
-
 
 $$
 \theta^{\max}
@@ -55,7 +48,6 @@ $$
 \right\}.
 $$
 
-
 ### Hypothèses
 
 - $K$ est fixé.
@@ -66,7 +58,6 @@ $$
 
 Sous ces hypothèses, pour tout $\eta>0$ et tout algorithme $`\tau_n`$,
 
-
 $$
 \mathbb P\left[
 \operatorname{ov}_n(\Sigma_n,\tau_n)
@@ -76,34 +67,27 @@ $$
 \right]\longrightarrow0.
 $$
 
-
 Ainsi, une récupération au niveau
-
 
 $$
 \frac1K+\frac{K-1}{K}\varepsilon
 $$
 
-
 avec probabilité tendant vers $1$ impose
-
 
 $$
 \varepsilon\le\theta^{\max}.
 $$
 
-
 ### Correction de la preuve pour les petits clusters
 
 À $\delta$ fixé,
-
 
 $$
 \sum_{C:\,|C|<\delta n}
 \left(\frac{|C|}{n}\right)^2
 \le\delta.
 $$
-
 
 La fluctuation due aux petits clusters est donc $`O_{\mathbb P}(\sqrt\delta)`$, et non $`o_{\mathbb P}(1)`$ directement à $\delta$ fixé. L'ordre correct est :
 
@@ -131,16 +115,13 @@ Avec des heat baths internes, les descendants ne sont plus recolorés indépenda
 
 Avant d'utiliser la nouvelle dynamique, il faut comparer au meilleur résultat général déjà disponible. Pour un canal binaire sur une arête,
 
-
 $$
 \mathbb P(H_e=1\mid\Sigma_i=\Sigma_j)=f_{\mathrm{in}}(r_e),
 \qquad
 \mathbb P(H_e=1\mid\Sigma_i\ne\Sigma_j)=f_{\mathrm{out}}(r_e),
 $$
 
-
 la contraction $\chi^2$ du canal, sous entrée uniforme, vaut
-
 
 $$
 \boxed{
@@ -152,11 +133,9 @@ $$
 }
 $$
 
-
 Les bornes d'information-percolation de Polyanskiy–Wu et Abbe–Boix dominent les corrélations par une percolation indépendante de paramètres $`\eta_e`$. Si cette percolation ne porte pas de masse macroscopique — avec le passage en volume fini correctement justifié — la weak recovery est impossible.
 
 Dans le modèle homogène
-
 
 $$
 f_{\mathrm{in}}=p,
@@ -164,25 +143,19 @@ f_{\mathrm{in}}=p,
 f_{\mathrm{out}}=1-p,
 $$
 
-
 on obtient
-
 
 $$
 \eta=(2p-1)^2.
 $$
 
-
 Sur la grille triangulaire, comme
-
 
 $$
 p_c^{\mathrm{bond}}(\mathbb T)=2\sin(\pi/18),
 $$
 
-
 la borne sous-critique donne
-
 
 $$
 p<
@@ -192,33 +165,56 @@ p<
 \text{pas de weak recovery}.
 $$
 
-
 Cette borne est déjà plus forte que la borne par arêtes du chapitre 11 et que sa dynamique triangulaire. Le premier résultat hiérarchique utile doit donc :
 
 1. retrouver l'information-percolation comme cas simple ou comme borne dominée ;
 2. utiliser les fusions multi-arêtes pour la dépasser ;
 3. rester une vraie borne sur l'overlap, pas seulement sur la connectivité.
 
-## 5. A priori non uniforme
+## 5. Premier raffinement hiérarchique obtenu
+
+Le score LCA du [fichier dédié](06_LCA_SPIN_CORRELATION.md) remplace le second moment brut des composantes par
+
+$$
+H_n^{\mathrm{LCA}}
+=
+\frac1{n^2}\mathbb E\left[
+n+2\sum_u|C_{u,1}||C_{u,2}|\eta_u
+\right],
+\qquad
+\eta_u=\tanh^2(L_u/2).
+$$
+
+On a
+
+$$
+Q_n
+\le H_n^{\mathrm{LCA}}
+\le
+\frac1{n^2}\mathbb E\sum_{R\text{ racine}}|R|^2.
+$$
+
+Le dernier membre est la version second-moment de la percolation Swendsen--Wang. Le nouveau critère est donc déjà un raffinement démontré au niveau de l'algèbre finie, conditionnellement à la formalisation complète de la loi jointe A1. Il reste à le comparer quantitativement à l'information-percolation, qui demeure la baseline rigoureuse à battre sur la grille triangulaire.
+
+## 6. A priori non uniforme
 
 Pour $`\mu_0`$ général, deux modifications sont indispensables :
 
 1. conserver la définition $`\operatorname{RG}_n(s)`$ au lieu de remplacer sans preuve le niveau de référence par $1/K$ ;
 2. imposer au noyau de recoloriage $`R_\kappa`$ la balance
 
-   
-$$
-e^{-U_0(\sigma)}R_\kappa(\sigma,\sigma')
-   =
-   e^{-U_0(\sigma')}R_\kappa(\sigma',\sigma).
-$$
-
+    $$
+    e^{-U_0(\sigma)}R_\kappa(\sigma,\sigma')
+    =
+    e^{-U_0(\sigma')}R_\kappa(\sigma',\sigma).
+    $$
 
 La loi jointe $`\nu_O(\sigma,D)`$ du fichier précédent est conçue pour intégrer proprement cette seconde contrainte.
 
-## 6. Statut
+## 7. Statut
 
 - Théorème $\theta^{\max}$ : **établi après correction des hypothèses et de l'ordre des limites**.
 - Passage précis de la percolation infinie à $\theta^{\max}=0$ selon l'exhaustion finie : **à formaliser**.
 - Borne information-percolation : **établie dans les références primaires** ; adaptation exacte aux conventions du manuscrit à rédiger.
-- Remplacement de $\theta^{\max}$ par une capacité hiérarchique : **à prouver**.
+- Borne LCA $`Q_n\le H_n^{\mathrm{LCA}}`$ : **algèbre finie établie, conditionnelle à la finalisation de A1**.
+- Comparaison de $`H_n^{\mathrm{LCA}}`$ à l'information-percolation et seuil strictement meilleur : **à prouver**.

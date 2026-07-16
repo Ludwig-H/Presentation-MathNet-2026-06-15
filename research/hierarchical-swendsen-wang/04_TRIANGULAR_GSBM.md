@@ -6,7 +6,6 @@ Ce cas est le premier banc d'essai parce que plusieurs quantités de percolation
 
 On prend
 
-
 $$
 f_{\mathrm{in}}\equiv p,
 \qquad
@@ -15,21 +14,19 @@ f_{\mathrm{out}}\equiv1-p,
 p\in[1/2,1).
 $$
 
-
 Toutes les interactions observées ont le même module
-
 
 $$
 u_p=\log\frac p{1-p}.
 $$
 
+Les calculs conditionnels à une fusion supposent $p>1/2$, donc $`u_p>0`$. Au point dégénéré $p=1/2$, toutes les horloges ont taux nul, le dendrogramme ne contient aucune fusion et les formules conditionnelles de type $0/0$ ne sont pas utilisées.
 
 Sous la loi générative, conditionnellement à la vérité $\Sigma$ mais après moyenne sur l'observation $O$, le signe observé d'une arête est satisfait par $\Sigma$ avec probabilité $p$, indépendamment des autres arêtes.
 
 ## 2. Loi exacte de chaque coupe du dendrogramme
 
 Une arête est présente à la coupe $t$ si elle est satisfaite et si son horloge est inférieure à $t$. Par conséquent,
-
 
 $$
 \boxed{
@@ -45,31 +42,25 @@ p\left[
 }
 $$
 
-
 Sous cette même loi annealed, conditionnellement à $\Sigma$, les indicatrices sont indépendantes. Ainsi $`\Pi_t`$ a exactement la loi d'une percolation indépendante par arêtes de paramètre $`q_p(t)`$, et les différentes coupes sont couplées de façon monotone par les mêmes horloges.
 
 Cette identité ne vaut pas conditionnellement à une observation $O$ fixée. Elle vaut aussi lorsqu'on remplace la vérité par une réplique postérieure à l'équilibre, après moyenne jointe sur $O$, par l'identité de Nishimori.
 
 En particulier,
 
-
 $$
 q_p(1)=2p-1,
 $$
-
 
 ce qui redonne la percolation de Swendsen–Wang du chapitre 11.
 
 Soit
 
-
 $$
 q_c^{\mathrm{bond}}(\mathbb T)=2\sin(\pi/18).
 $$
 
-
 Le temps auquel la filtration brute atteint le seuil de percolation est
-
 
 $$
 t_c(p)
@@ -81,9 +72,7 @@ t_c(p)
 },
 $$
 
-
 lorsque le membre de droite est défini. On a $`t_c(p)\le1`$ si et seulement si
-
 
 $$
 p\ge
@@ -91,9 +80,7 @@ p\ge
 =0.673648\ldots
 $$
 
-
 La distribution des temps de coalescence est donc reliée aux fonctions de connexion de la percolation :
-
 
 $$
 \mathbb P_{\mathrm{ann}}(\beta_{ij}\le t\mid\Sigma)
@@ -101,13 +88,11 @@ $$
 \mathbb P_{q_p(t)}(i\leftrightarrow j).
 $$
 
-
 Cette identité rend toute la **géométrie brute** du dendrogramme calculable. La nouvelle information doit venir des probabilités de flips, pas seulement de $`\Pi_t`$.
 
 ## 3. Trois bornes rigoureuses déjà disponibles
 
 ### Swendsen–Wang par arêtes
-
 
 $$
 p_c^{\mathrm{edge}}
@@ -116,13 +101,11 @@ p_c^{\mathrm{edge}}
 =0.673648\ldots
 $$
 
-
 En dessous, le graphe gelé est sous-critique et la borne du chapitre 11 interdit la weak recovery, après formalisation du passage en volume fini.
 
 ### Dynamique triangulaire d'ordre supérieur
 
 Pour les triangles disjoints d'une couleur, posons
-
 
 $$
 \alpha_p=1-e^{-2u_p}
@@ -130,35 +113,27 @@ $$
 \frac{2p-1}{p^2}.
 $$
 
-
 Après moyenne sur les observations, les états locaux de percolation ont les probabilités
-
 
 $$
 a=p(2p-1)
 $$
 
-
 pour le triangle plein,
-
 
 $$
 s=(1-p)(2p-1)
 $$
 
-
 pour chacun des trois états à une arête, et
-
 
 $$
 e=4(1-p)^2
 $$
 
-
 pour le triangle vide. On vérifie $a+3s+e=1$.
 
 La condition autoduale $a=e$ donne
-
 
 $$
 p_c^\triangle
@@ -167,9 +142,7 @@ p_c^\triangle
 =0.719224\ldots
 $$
 
-
 Le théorème de Chayes–Lei demande aussi
-
 
 $$
 ae\ge2s^2,
@@ -177,11 +150,9 @@ ae\ge2s^2,
 a+e>\frac{2\sqrt2}{3+2\sqrt2},
 $$
 
-
 ainsi que l'isotropie et l'indépendance entre les triangles choisis. Ces hypothèses doivent accompagner l'utilisation du seuil.
 
 L'intervalle de stricte amélioration sur la dynamique par arêtes est
-
 
 $$
 \left(
@@ -190,21 +161,17 @@ $$
 \right).
 $$
 
-
 La borne gauche est ouverte : au point critique bidimensionnel, il n'y a pas de composante de densité positive sous les conditions de bord usuelles.
 
 ### Information-percolation
 
 La contraction $\chi^2$ du canal d'une arête vaut
 
-
 $$
 \eta=(2p-1)^2.
 $$
 
-
 La sous-criticité de la percolation d'information donne
-
 
 $$
 p<
@@ -216,18 +183,15 @@ p_c^{\mathrm{info}}
 \text{pas de weak recovery}.
 $$
 
-
 Cette borne est la baseline rigoureuse à dépasser.
 
 ## 4. Seuil informationnel attendu
 
 Après jauge par la vérité, le modèle est relié à l'Ising $\pm J$ sur la ligne de Nishimori. Les calculs de dualité/répliques et les simulations de la littérature situent le point multicritique triangulaire vers
 
-
 $$
 p_{\mathrm N}=0.8358058\ldots
 $$
-
 
 Cette valeur est **conjecturale**, pas un seuil rigoureux à utiliser dans une preuve.
 
@@ -244,16 +208,13 @@ Le paysage de travail est donc :
 
 Considérons une coupe $`E_u`$ contenant $m$ arêtes, dont $k$ sont satisfaites par la configuration courante. Alors
 
-
 $$
 T_u=mu_p,
 \qquad
 \Lambda_u=ku_p.
 $$
 
-
 Si l'a priori et les facteurs ancêtres s'annulent dans le rapport de parité, la log-vraisemblance locale vaut
-
 
 $$
 \boxed{
@@ -264,9 +225,7 @@ L_{m,k,\beta}^{\mathrm{loc}}
 }
 $$
 
-
 La fiabilité associée est
-
 
 $$
 \rho_{m,k,\beta}
@@ -274,18 +233,14 @@ $$
 \left|\tanh\frac{L_{m,k,\beta}^{\mathrm{loc}}}{2}\right|.
 $$
 
-
 Pour une coupe fixée ayant $k\ge1$ arêtes satisfaites,
-
 
 $$
 \beta=\min_{1\le j\le k}\xi_j
 \sim\operatorname{Exp}(ku_p).
 $$
 
-
 Conditionnellement à une fusion avant $1$,
-
 
 $$
 f(\beta\mid\beta\le1,k)
@@ -293,7 +248,6 @@ f(\beta\mid\beta\le1,k)
 \frac{ku_pe^{-ku_p\beta}}{1-e^{-ku_p}},
 \qquad 0\le\beta\le1.
 $$
-
 
 Cette loi ne peut pas être appliquée naïvement à une coupe **sélectionnée par Kruskal** : la sélection introduit un biais. Les premiers calculs doivent donc distinguer :
 
@@ -305,7 +259,6 @@ Cette loi ne peut pas être appliquée naïvement à une coupe **sélectionnée 
 
 Dans ce modèle,
 
-
 $$
 Q_n
 =
@@ -316,10 +269,140 @@ Q_n
 \right].
 $$
 
-
 Sur la ligne de Nishimori, des identités supplémentaires relient les corrélations plantées et les corrélations de répliques. La stratégie correcte est de contrôler cette somme, directement ou via $`H_S`$, plutôt que de chercher seulement une composante géante dans $`\Pi_1`$.
 
-## 7. Cas calculables à traiter dans cet ordre
+## 7. Programme LCA explicite
+
+Pour $`u=C_1\mathbin{\dot\cup}C_2`$, le poids informationnel de la fusion est
+
+$$
+\eta_u
+=
+\tanh^2\left[
+\frac12\left{
+B_u
++\log\frac{\Lambda_u}{T_u-\Lambda_u}
++(1-\beta_u)(2\Lambda_u-T_u)
+\right}
+\right],
+$$
+
+où $`T_u=|E_u|u_p`$, $`\Lambda_u`$ est le poids total des liens satisfaits entre les deux fils et $`B_u`$ est le message exact de l'a priori et des ancêtres. La borne à calculer est
+
+$$
+H_n^{\mathrm{LCA}}
+=
+\frac1{n^2}\mathbb E\left[
+n+2\sum_{u\in D}|C_{u,1}||C_{u,2}|\eta_u
+\right].
+$$
+
+Elle vérifie
+
+$$
+Q_n\le H_n^{\mathrm{LCA}}
+\le
+\frac1{n^2}\mathbb E\sum_{R\text{ racine}}|R|^2.
+$$
+
+### Géométrie du temps de fusion
+
+Pour une paire $(i,j)$,
+
+$$
+\beta_{ij}
+=
+\min_{\gamma:i\leadsto j}\max_{e\in\gamma}\xi_e,
+\qquad
+\mathbb P(\beta_{ij}\le t)
+=
+\tau_{ij}(q_p(t)),
+$$
+
+où $`\tau_{ij}(q)=\mathbb P_q(i\leftrightarrow j)`$. Sur un graphe fini, la densité de $`\beta_{ij}`$ peut donc s'écrire par dérivation de la fonction de connexion, ou par une somme d'événements pivotaux. C'est le point d'entrée vers les outils de percolation proche-critique et de minimum spanning forest.
+
+### Loi des liens encore fermés au temps $t$
+
+Conditionnellement au fait qu'un lien ne soit pas encore ouvert juste avant $t$,
+
+$$
+s_p(t)
+:=
+\mathbb P(\text{lien satisfait}\mid\text{fermé à }t^-)
+=
+\frac{pe^{-u_pt}}{1-p+pe^{-u_pt}}
+=
+\operatorname{logistic}(u_p(1-t)).
+$$
+
+Pour une coupe conditionnée de $m$ liens fusionnant à $t$, l'arête ouvrante est satisfaite et
+
+$$
+k\stackrel d=1+\operatorname{Bin}(m-1,s_p(t)).
+$$
+
+Cette identité est annealed et conditionnelle à la coupe ; elle ne rend pas $`E_u`$ indépendant du passé de Kruskal. Elle constitue néanmoins la première correction exacte au remplacement naïf $k\sim\operatorname{Bin}(m,p)$.
+
+Au temps $t=1$, dans le modèle local $`B_u=0`$,
+
+$$
+\mathbb E[\eta_u\mid m,\beta_u=1]=\frac1m.
+$$
+
+Pour $p>1/2$ et $t<1$ fixés, la même fiabilité locale tend au contraire vers $1$ lorsque $m\to\infty$. Les grandes coupes ne randomisent donc fortement la parité que dans une fenêtre proche de la coupure $1$. Comme les coalescences longue portée apparaissent autour de $`t_c(p)<1`$ dès que la percolation est supercritique, un seul pas LCA peut rester trop proche de la borne percolative. Il faut alors étudier les itérations avec rafraîchissement de $D$ ou propager la loi complète du message $`B_u`$.
+
+### Flux de susceptibilité informationnel
+
+Chaque ouverture qui joint deux composantes $A$ et $B$ augmente le second moment géométrique de $2|A||B|$. Le score LCA remplace cet accroissement par
+
+$$
+2|A||B|\,\eta_u.
+$$
+
+Le calcul recherché sur la grille est donc une mesure de fusions, indexée par $(t,m)$, multipliée par la fiabilité conditionnelle exacte. Cette décomposition sépare :
+
+1. la fréquence et la taille des fusions, problème de percolation/Kruskal ;
+2. le canal de parité à la fusion, problème de LLR et de messages d'ancêtres.
+
+### Calibrations finies annealed
+
+Dans les quatre exemples suivants, $`q=q_p(1)=2p-1`$.
+
+- **Une arête.** La valeur propre centrée du noyau pair-spécifique vaut $\lambda=q/(1+q)$, donc
+
+    $$
+    A_{ij}^{(m)}
+    =
+    q^2+(1-q^2)\left(\frac{q}{1+q}\right)^m.
+    $$
+
+    En particulier $`A_{ij}^{(1)}=q`$ et $`A_{ij}^{(m)}\downarrow q^2=c_{ij}^2`$.
+- **Chemin de longueur $\ell$.** Chaque coupe a $m=1$, donc la borne à un pas vaut $`A_{ij}^{(1)}=q^\ell`$, tandis que la valeur exacte est $`c_{ij}^2=q^{2\ell}`$. Ce gap montre pourquoi les itérations sont nécessaires même sans cycles.
+- **Triangle isolé.** La probabilité de connexion FK vaut $q+q^2-q^3$, mais la borne LCA à un pas se simplifie en $`A_{ij}^{(1)}=q`$. La corrélation exacte à deux répliques est
+
+    $$
+    \eta_\triangle
+    =
+    \frac12\left[
+    \frac{(q+q^2)^2}{1+q^3}
+    +
+    \frac{(q-q^2)^2}{1-q^3}
+    \right].
+    $$
+
+    Elle se simplifie en
+
+    $$
+    \eta_\triangle
+    =
+    \frac{q^2(1+2q^2)}{1+q^2+q^4}.
+    $$
+
+- **Cactus de $L$ triangles.** La fonction de connexion brute se factorise en $`[q+q^2-q^3]^L`$, tandis que la corrélation exacte vaut $`\eta_\triangle^L`$. C'est le premier banc d'essai pour vérifier numériquement et analytiquement $`A_{ij}^{(m)}\downarrow\eta_\triangle^L`$.
+
+Les démonstrations générales et la distinction entre couplage depuis la vérité et réplique indépendante sont dans [06_LCA_SPIN_CORRELATION.md](06_LCA_SPIN_CORRELATION.md).
+
+## 8. Cas calculables à traiter dans cet ordre
 
 1. **Arbre fini à degrés bornés.** Kruskal n'introduit aucun cycle ; comparer exactement capacité hiérarchique et reconstruction broadcast.
 2. **Cactus de triangles.** Premier modèle avec interactions triangulaires mais dépendances contrôlables.
@@ -327,14 +410,12 @@ Sur la ligne de Nishimori, des identités supplémentaires relient les corrélat
 4. **Tore triangulaire fini.** Énumération exacte pour petites tailles, puis bornes avec conditions de bord périodiques.
 5. **Limite planaire.** Seulement après une domination uniforme et un contrôle des effets de bord.
 
-## 8. Objectif quantitatif
+## 9. Objectif quantitatif
 
 Le premier succès non trivial est une constante $`p_\star`$ telle que
-
 
 $$
 p_\star>0.794659\ldots
 $$
-
 
 et une preuve que $`p<p_\star`$ interdit la weak recovery. Une condition nécessaire et suffisante explicite sur toute la grille triangulaire toucherait au point multicritique de Nishimori et constitue un objectif de long terme.

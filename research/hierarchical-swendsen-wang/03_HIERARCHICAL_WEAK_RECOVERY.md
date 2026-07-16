@@ -6,14 +6,11 @@ Ce fichier fixe la cible informationnelle exacte, puis décrit ce que la dynamiq
 
 On se place dans le cas binaire symétrique, avec a priori i.i.d. uniforme. Pour
 
-
 $$
 R_n(\sigma,\tau)=\frac1n\sum_{i=1}^n\sigma_i\tau_i,
 $$
 
-
 soient $\sigma^{(1)},\sigma^{(2)}$ deux tirages indépendants de $`\mu_O`$ conditionnellement à $O=(X,W)$. Posons
-
 
 $$
 Q_n
@@ -23,17 +20,13 @@ R_n(\sigma^{(1)},\sigma^{(2)})^2
 \right\rangle.
 $$
 
-
 Si
-
 
 $$
 C_O=\left\langle\sigma\sigma^\top\right\rangle_{\mu_O},
 $$
 
-
 alors
-
 
 $$
 Q_n
@@ -42,11 +35,9 @@ Q_n
 \mathbb E\operatorname{tr}(C_O^2).
 $$
 
-
 ### Proposition — statut : immédiat à formaliser
 
 La propriété
-
 
 $$
 \exists\,\varepsilon,\eta>0,\quad
@@ -55,14 +46,11 @@ $$
 \ge\eta
 $$
 
-
 pour un algorithme $`\tau_n`$ est équivalente à
-
 
 $$
 \liminf_{n\to\infty}Q_n>0.
 $$
-
 
 Cette formulation correspond à la weak recovery avec avantage de probabilité positif. La version « succès avec probabilité tendant vers $1$ » demande en plus un argument de concentration ou d'amplification.
 
@@ -70,16 +58,13 @@ Cette formulation correspond à la weak recovery avec avantage de probabilité p
 
 Si $`\tau_n`$ récupère avec paramètres $(\varepsilon,\eta)$, l'identité de Nishimori donne
 
-
 $$
 \varepsilon^2\eta
 \le
 \mathbb E R_n(\sigma,\tau_n)^2.
 $$
 
-
 Conditionnellement à $O$,
-
 
 $$
 \mathbb E\left[R_n(\sigma,\tau_n)^2\mid O,\tau_n\right]
@@ -89,9 +74,7 @@ $$
 \frac{\lambda_{\max}(C_O)}n.
 $$
 
-
 Comme
-
 
 $$
 \frac{\lambda_{\max}(C_O)}n
@@ -99,25 +82,19 @@ $$
 \frac{\sqrt{\operatorname{tr}(C_O^2)}}n,
 $$
 
-
 Jensen donne
-
 
 $$
 \varepsilon^2\eta\le\sqrt{Q_n}.
 $$
 
-
 Réciproquement, prendre comme algorithme une réplique postérieure $`\tau_n=\sigma^{(1)}`$. Par Nishimori,
-
 
 $$
 \mathbb E R_n(\Sigma_n,\tau_n)^2=Q_n.
 $$
 
-
 Puisque $`0\le R_n^2\le1`$, une borne $`Q_n\ge q>0`$ implique par exemple
-
 
 $$
 \mathbb P\left(
@@ -125,7 +102,6 @@ $$
 \right)
 \ge \frac q2.
 $$
-
 
 Ce critère est la cible nécessaire et suffisante. La percolation n'est qu'une manière de majorer $`Q_n`$.
 
@@ -135,7 +111,6 @@ Partons de $`\sigma\sim\mu_O`$, tirons $D\mid\sigma$, puis appliquons à $D$ fix
 
 Posons
 
-
 $$
 \zeta_i=\sigma_i\sigma_i',
 \qquad
@@ -144,11 +119,9 @@ H_S(O,\sigma,D)
 \mathbb E\left[\zeta\zeta^\top\mid O,\sigma,D\right],
 $$
 
-
 l'espérance portant sur le hasard des heat baths. La matrice $`H_S`$ est positive semi-définie et sa diagonale vaut $1$.
 
 Définissons
-
 
 $$
 h_n(S)
@@ -158,21 +131,17 @@ h_n(S)
 h_n^\star=\inf_{S\in\mathcal S_n}h_n(S),
 $$
 
-
 où $`\mathcal S_n`$ est une classe explicitement fixée de parcours admissibles.
 
 ### Théorème d'obstruction — statut : immédiat à formaliser
 
 Si une weak recovery existe avec paramètres $(\varepsilon,\eta)$, alors, pour tout parcours admissible $S$,
 
-
 $$
 h_n(S)\ge\varepsilon^2\eta+o(1).
 $$
 
-
 En particulier,
-
 
 $$
 h_n^\star\longrightarrow0
@@ -180,19 +149,15 @@ h_n^\star\longrightarrow0
 \text{pas de weak recovery}.
 $$
 
-
 ### Preuve courte
 
 Conditionnellement à $`O,\sigma,D,\tau_n`$, posons $`a_i=\sigma_i\tau_{n,i}`$. Le hasard du parcours est indépendant de celui de l'algorithme et
-
 
 $$
 R_n(\sigma',\tau_n)=\frac1n a^\top\zeta.
 $$
 
-
 Donc
-
 
 $$
 \mathbb E\left[R_n(\sigma',\tau_n)^2
@@ -203,30 +168,24 @@ $$
 \frac{\lambda_{\max}(H_S)}n,
 $$
 
-
 car $`\|a\|_2^2=n`$. La marginale de $\sigma'$ est postérieure ; l'identité de Nishimori donne la même probabilité de succès contre $\sigma'$ que contre la vérité.
 
 ## 3. Swendsen–Wang est exactement le cas racine
 
 Pour une recoloration **globale, uniforme et indépendante** des composantes $C$ de $`\Pi_1`$,
 
-
 $$
 H_S(i,j)=
 \mathbf 1_{\{i,j\text{ appartiennent au même }C\}}.
 $$
 
-
 Après permutation des sommets, $`H_S`$ est bloc-diagonale avec un bloc de $1$ de taille $|C|$ pour chaque composante. Par conséquent,
-
 
 $$
 \lambda_{\max}(H_S)=\max_C|C|.
 $$
 
-
 Ainsi,
-
 
 $$
 \frac{\max_C|C|}{n}\longrightarrow0
@@ -234,12 +193,95 @@ $$
 \text{pas de weak recovery}.
 $$
 
-
 Le théorème $\theta^{\max}$ du chapitre 11 est plus quantitatif pour la fraction récupérable ; la matrice $`H_S`$ est en revanche la bonne extension à des flips corrélés et multi-échelles.
 
 Cette identité concerne la recoloration globale de chaque composante, et non le heat bath à quatre états d'un nœud interne supérieur.
 
-## 4. Fermeture à l'équilibre
+## 4. Borne pairwise au nœud de coalescence
+
+Pour une paire $i\ne j$, soit $`u_{ij}=\operatorname{LCA}_D(i,j)`$ lorsqu'elle appartient au même arbre. Le heat bath des deux fils de $`u_{ij}`$ est la projection conditionnelle qui efface leurs orientations absolues tout en gardant leurs relations internes. Avec
+
+$$
+L_u=\log\frac{q_u^{00}+q_u^{11}}{q_u^{10}+q_u^{01}},
+\qquad
+\eta_u=\tanh^2\frac{L_u}{2},
+$$
+
+le lemme de projection donne, sous a priori binaire uniforme,
+
+$$
+\eta_{ij}^{\mathrm{LCA}}
+:=
+\begin{cases}
+\eta_{u_{ij}},&i,j\text{ dans le même arbre},\\
+0,&i,j\text{ dans deux racines distinctes},
+\end{cases}
+$$
+
+et
+
+$$
+\left\langle\sigma_i\sigma_j\right\rangle_O^2
+\le
+\mathbb E_{\nu_O}[\eta_{ij}^{\mathrm{LCA}}].
+$$
+
+Sur la diagonale, on pose $`\eta_{ii}^{\mathrm{LCA}}=1`$.
+
+En regroupant les paires par LCA,
+
+$$
+\boxed{
+Q_n
+\le
+H_n^{\mathrm{LCA}}
+:=
+\frac1{n^2}\mathbb E\left[
+n+2\sum_{u\in D}|C_{u,1}||C_{u,2}|\eta_u
+\right].
+}
+$$
+
+L'identité d'arbre
+
+$$
+n+2\sum_u|C_{u,1}||C_{u,2}|
+=
+\sum_{R\text{ racine}}|R|^2
+$$
+
+montre que
+
+$$
+H_n^{\mathrm{LCA}}
+\le
+\frac1{n^2}\mathbb E\sum_R|R|^2.
+$$
+
+Le second moment des composantes Swendsen--Wang, qui implique l'obstruction qualitative du chapitre 11 lorsque les composantes sont sous-macroscopiques, est donc la version non pondérée. Le facteur $`\eta_u`$ retient la fiabilité exacte de la fusion où la paire se rencontre. Cette comparaison ne remplace pas la borne quantitative $`\theta^{\max}`$ sur la fraction récupérable.
+
+### Itération pair-spécifique
+
+Rafraîchissons $D\mid\sigma$, appliquons le heat bath au LCA de la paire, oublions $D$, puis répétons. Le noyau marginal $`K_{ij}^{\mathrm{LCA}}`$ est auto-adjoint et positif. Ainsi
+
+$$
+A_{ij}^{(m)}
+=
+\langle f_{ij},(K_{ij}^{\mathrm{LCA}})^m f_{ij}\rangle_O,
+\qquad f_{ij}=\sigma_i\sigma_j,
+$$
+
+décroît avec $m$, reste supérieur à $`c_{ij}(O)^2`$, et converge vers cette valeur si le noyau est ergodique pour $`f_{ij}`$. On obtient donc une suite de bornes
+
+$$
+H_n^{(1)}=H_n^{\mathrm{LCA}}\ge H_n^{(2)}\ge\cdots\ge Q_n,
+$$
+
+exacte à la limite sous contrôle uniforme du mélange. Cette famille est pair-spécifique : elle ne doit pas être confondue avec une unique matrice de persistance $`H_S`$ issue d'un seul parcours commun à toutes les paires.
+
+Les identités, les quatre événements face à la vérité et la formule exacte contenant $`\beta_u=\xi_{e_u}`$ sont développés dans [06_LCA_SPIN_CORRELATION.md](06_LCA_SPIN_CORRELATION.md).
+
+## 5. Fermeture à l'équilibre
 
 Considérons maintenant la chaîne alternée complète :
 
@@ -249,7 +291,6 @@ Considérons maintenant la chaîne alternée complète :
 
 Si cette chaîne est ergodique et mélangée, $\sigma'$ devient une réplique postérieure indépendante de $\sigma$, conditionnellement à $O$. Après avoir éliminé $D$,
 
-
 $$
 H_\infty(O,\sigma)
 =
@@ -258,9 +299,7 @@ C_O\,
 \operatorname{diag}(\sigma),
 $$
 
-
 donc
-
 
 $$
 h_{n,\infty}
@@ -268,9 +307,7 @@ h_{n,\infty}
 \mathbb E\frac{\lambda_{\max}(C_O)}n.
 $$
 
-
 Comme $`C_O\succeq0`$ et $`\operatorname{tr}(C_O)=n`$,
-
 
 $$
 Q_n
@@ -278,16 +315,13 @@ Q_n
 \le\sqrt{Q_n}.
 $$
 
-
 Par le critère à deux répliques,
-
 
 $$
 \liminf h_{n,\infty}>0
 \quad\Longleftrightarrow\quad
 \text{weak recovery}.
 $$
-
 
 Cette identité sépare deux questions :
 
@@ -296,18 +330,15 @@ Cette identité sépare deux questions :
 
 À $D$ fixé, même après mélange, on n'obtient que $`\nu_O(\cdot\mid D)`$. Le rafraîchissement de $D$ est indispensable dans cette section.
 
-## 5. Coefficient informationnel d'un nœud
+## 6. Coefficient informationnel d'un nœud
 
 Pour un nœud $u$, les log-odds de l'orientation relative sont
-
 
 $$
 L_u=\log\frac{q_u^{00}+q_u^{11}}{q_u^{10}+q_u^{01}}.
 $$
 
-
 Deux coefficients naturels sont
-
 
 $$
 \rho_u=\left|\tanh\frac{L_u}{2}\right|,
@@ -315,16 +346,13 @@ $$
 \eta_u=\rho_u^2.
 $$
 
-
 $`\eta_u`$ est la contraction $\chi^2$ du canal binaire symétrique ayant les mêmes odds. Dans un modèle idéal où les nœuds seraient des canaux indépendants sur un arbre,
-
 
 $$
 K_D(i,j)
 =
 \prod_{u\in\operatorname{path}_D(i,j)}\rho_u
 $$
-
 
 serait la corrélation entre deux feuilles, et la positivité d'une capacité $L^2$ ou d'un rayon spectral associé donnerait un critère de reconstruction de type Kesten–Stigum.
 
@@ -335,41 +363,41 @@ Dans la dynamique réelle, cette factorisation est fausse en général :
 - Kruskal sélectionne les coupes de façon dépendante des horloges ;
 - les cycles créent des canaux multi-terminaux.
 
-## 6. Conjecture de capacité hiérarchique
+## 7. Conjecture de capacité hiérarchique
 
 **Conjecture.** Il existe une matrice positive $`K_D^{\mathrm{info}}`$, calculée récursivement à partir de contractions conditionnelles de blocs, telle que
-
 
 $$
 H_S\preceq K_D^{\mathrm{info}}
 $$
 
-
 pour un parcours hiérarchique convenable et telle que
-
 
 $$
 \lim_{n\to\infty}
 \mathbb E\frac{\lambda_{\max}(K_D^{\mathrm{info}})}n=0
 $$
 
-
 soit une condition d'impossibilité. Sous des hypothèses de localité et d'homogénéité, la positivité de la capacité correspondante devrait aussi permettre de construire un estimateur et devenir suffisante.
 
 La première moitié doit être cherchée avec des strong data-processing inequalities conditionnelles, idéalement multi-terminales. La seconde demande un algorithme explicite, par exemple une belief propagation sur des blocs du dendrogramme, et non l'usage oracle de $D$.
 
-## 7. Hiérarchie des objectifs
+## 8. Hiérarchie des objectifs
 
 | Niveau | Énoncé | Statut |
 |---|---|---|
-| 0 | $`Q_n>0`$ caractérise la weak recovery binaire à probabilité positive | Immédiat à formaliser |
+| 0 | $`\liminf_n Q_n>0`$ caractérise la weak recovery binaire à probabilité positive | Immédiat à formaliser |
 | 1 | $`h_n(S)\to0`$ pour un parcours invariant implique l'impossibilité | Immédiat à formaliser |
-| 2 | Borne calculable de $`H_S`$ par contractions de nœuds/blocs | À prouver |
-| 3 | La borne domine l'information-percolation arête par arête | À prouver |
-| 4 | Positivité de la capacité $\Rightarrow$ estimateur récupérant | À prouver sous hypothèses |
-| 5 | Capacité nulle/positive donne le seuil exact sur la grille triangulaire | Conjecture |
+| 2 | $`Q_n\le H_n^{\mathrm{LCA}}\le`$ second moment FK | Établi conditionnellement à A1 |
+| 3 | $`A_{ij}^{(m)}\downarrow c_{ij}^2`$ à volume fini | Établi sous ergodicité de l'observable |
+| 4 | Contrôle uniforme de $`H_n^{(m_n)}-Q_n`$ | À prouver |
+| 5 | Comparaison stricte à l'information-percolation | À prouver |
+| 6 | Non-disparition d'une capacité calculable $\Rightarrow$ estimateur récupérant | À prouver sous hypothèses |
+| 7 | Capacité nulle/positive donne le seuil exact sur la grille triangulaire | Conjecture |
 
-## 8. Extensions
+Le niveau intermédiaire désormais concret est : $`H_n^{\mathrm{LCA}}\to0`$ implique l'impossibilité, tandis que $`H_n^{(m)}\downarrow Q_n`$ à volume fini sous ergodicité. La difficulté est de rendre la convergence uniforme en $n$ et calculable.
+
+## 9. Extensions
 
 - $K>2$ : remplacer les corrélations binaires par les représentations non triviales de $`\mathfrak S_K`$ ou par un opérateur de confusion centré.
 - A priori non uniforme : centrer par le meilleur random guess et intégrer $`\mu_0`$ dans chaque noyau.

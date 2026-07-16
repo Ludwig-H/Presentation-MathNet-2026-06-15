@@ -26,45 +26,56 @@ Des morceaux importants existent séparément. La nouveauté défendable n'est d
 5. [Machta et al., *Invaded cluster algorithm for equilibrium critical points*](https://arxiv.org/abs/cond-mat/9507094). Révélation progressive de liens jusqu'à invasion/percolation. Très proche de l'idée d'horloges ordonnées, mais la cible est l'auto-ajustement au point critique, pas une conditionnelle de Gibbs sur un dendrogramme fixé.
 6. [Hauseux–Soprano-Loto–Avrachenkov, *Higher-order Monte Carlo cluster dynamics for community detection in Euclidean graphs*](https://inria.hal.science/hal-05267074). Travail directement antérieur du projet : dynamique d'ordre supérieur, frustration et bornes de percolation.
 
+## Dendrogrammes, minimum spanning forests et percolation proche-critique
+
+7. [Gower–Ross, *Minimum Spanning Trees and Single Linkage Cluster Analysis*](https://doi.org/10.2307/2346439). Référence classique pour l'équivalence entre la hiérarchie single-linkage et l'ordre des arêtes d'un minimum spanning tree.
+8. [Lyons–Peres–Schramm, *Minimal Spanning Forests*](https://arxiv.org/abs/math/0412263), [DOI](https://doi.org/10.1214/009117906000000269). Géométrie des MSF en volume infini et lien avec l'invasion percolation.
+9. [Garban–Pete–Schramm, *The scaling limits of the Minimal Spanning Tree and Invasion Percolation in the plane*](https://arxiv.org/abs/1309.0269). Relie une construction planaire du MST à la percolation proche-critique ; c'est un guide naturel pour étudier la mesure des temps $`\beta_{ij}`$. Leur couplage triangulaire particulier ne s'applique toutefois pas directement aux horloges d'arêtes, possiblement non i.i.d., du présent modèle.
+
 ## GSBM et synchronisation
 
-7. [Abbe–Baccelli–Sankararaman, *Community Detection on Euclidean Random Graphs*](https://arxiv.org/abs/1706.09942). Modèle GSBM de référence et bornes de weak recovery.
-8. [Saade–Krzakala–Lelarge–Zdeborová, *Spectral Detection in the Censored Block Model*](https://arxiv.org/abs/1502.00163). Seuil de reconstruction dans un modèle signé localement arborescent ; comparaison naturelle avec Kesten–Stigum.
-9. [Abbe–Massoulié–Montanari–Sly–Srivastava, *Group Synchronization on Grids*](https://arxiv.org/abs/1706.08561). Récupération multiscale sur des grilles et lien avec la ligne de Nishimori.
+10. [Abbe–Baccelli–Sankararaman, *Community Detection on Euclidean Random Graphs*](https://arxiv.org/abs/1706.09942). Modèle GSBM de référence et bornes de weak recovery.
+11. [Saade–Krzakala–Lelarge–Zdeborová, *Spectral Detection in the Censored Block Model*](https://arxiv.org/abs/1502.00163). Seuil de reconstruction dans un modèle signé localement arborescent ; comparaison naturelle avec Kesten–Stigum.
+12. [Abbe–Massoulié–Montanari–Sly–Srivastava, *Group Synchronization on Grids*](https://arxiv.org/abs/1706.08561). Récupération multiscale sur des grilles et lien avec la ligne de Nishimori.
 
 ## Information-percolation et SDPI
 
-10. [Polyanskiy–Wu, *Application of Information-Percolation Method to Reconstruction Problems on Graphs*](https://arxiv.org/abs/1806.04195). Domination de l'information par une percolation dont les probabilités sont des contractions de canaux.
-11. [Abbe–Boix, *An Information-Percolation Bound for Spin Synchronization on General Graphs*](https://arxiv.org/abs/1806.03227), [DOI](https://doi.org/10.1214/19-AAP1523). Formulation $\chi^2$ directement adaptée aux canaux binaires du GSBM ; donne la baseline $p<0.794659\ldots$ sur la grille triangulaire homogène.
-12. [Gu–Polyanskiy, *Weak Recovery Threshold for the Hypergraph Stochastic Block Model*](https://arxiv.org/abs/2303.14689). SDPI multi-terminales : outil probable pour traiter simultanément tous les liens ou triangles traversant une fusion.
+13. [Polyanskiy–Wu, *Application of Information-Percolation Method to Reconstruction Problems on Graphs*](https://arxiv.org/abs/1806.04195). Domination de l'information par une percolation dont les probabilités sont des contractions de canaux.
+14. [Abbe–Boix, *An Information-Percolation Bound for Spin Synchronization on General Graphs*](https://arxiv.org/abs/1806.03227), [DOI](https://doi.org/10.1214/19-AAP1523). Formulation $\chi^2$ directement adaptée aux canaux binaires du GSBM ; donne la baseline $p<0.794659\ldots$ sur la grille triangulaire homogène.
+15. [Gu–Polyanskiy, *Weak Recovery Threshold for the Hypergraph Stochastic Block Model*](https://arxiv.org/abs/2303.14689). SDPI multi-terminales : outil probable pour traiter simultanément tous les liens ou triangles traversant une fusion.
+16. [Gu, *Exact reconstruction thresholds on hypertrees over a symmetric binary alphabet*](https://arxiv.org/abs/2606.21699). Prépublication du 19 juin 2026 : canaux BMS, comparaison de canaux et population dynamics rigoureuse. C'est un outil particulièrement proche du programme « loi complète du message $`B_u`$ » sur cactus de triangles ; il ne traite pas directement le dendrogramme de Kruskal.
 
 ## Reconstruction et capacités sur arbres
 
-13. [Pemantle–Peres, *The Critical Ising Model on Trees, Concave Recursions and Nonlinear Capacity*](https://arxiv.org/abs/math/0503137). Critères de capacité pour des arbres non homogènes ; modèle conceptuel d'une capacité portée par les nœuds du dendrogramme.
-14. [Evans–Kenyon–Peres–Schulman, *Broadcasting on Trees and the Ising Model*](https://doi.org/10.1214/aop/1019160259). Reconstruction, flux et capacité électrique ; base des critères de transmission le long d'un arbre.
+17. [Pemantle–Peres, *The Critical Ising Model on Trees, Concave Recursions and Nonlinear Capacity*](https://arxiv.org/abs/math/0503137). Critères de capacité pour des arbres non homogènes ; modèle conceptuel d'une capacité portée par les nœuds du dendrogramme.
+18. [Evans–Kenyon–Peres–Schulman, *Broadcasting on Trees and the Ising Model*](https://doi.org/10.1214/aoap/1019487349). Reconstruction, flux et capacité électrique ; base des critères de transmission le long d'un arbre.
+19. [Peres–Roch, *Reconstruction on Trees: Exponential Moment Bounds for Linear Estimators*](https://arxiv.org/abs/0908.2056). Contrôle quantitatif des estimateurs au-dessus de Kesten–Stigum ; utile pour comparer la chaîne LCA aux récursions de broadcast.
 
 ## Triangles, frustration et ligne de Nishimori
 
-15. [Chayes–Lei, *Random Cluster Models on the Triangular Lattice*](https://arxiv.org/abs/cond-mat/0508254), [DOI](https://doi.org/10.1007/s10955-005-8078-7). Seuil autodual des états triangulaires corrélés utilisé au chapitre 11.
-16. [Nishimori–Ohzeki, *Location of the Multicritical Point for the Ising Spin Glass on the Triangular and Hexagonal Lattices*](https://arxiv.org/abs/cond-mat/0601356), [DOI](https://doi.org/10.1143/JPSJ.75.034004). Valeur conjecturée $`p_{\mathrm N}=0.8358058\ldots`$.
-17. [de Queiroz, *Multicritical Point of Ising Spin Glasses on Triangular and Honeycomb Lattices*](https://arxiv.org/abs/cond-mat/0510816), [DOI](https://doi.org/10.1103/PhysRevB.73.064410). Étude numérique par matrices de transfert ; classe critique distincte de la percolation ordinaire.
-18. [Yamaguchi, *Conjectured Exact Percolation Thresholds of the FK Cluster for the ±J Ising Spin Glass*](https://arxiv.org/abs/1004.0654). Retrouve le seuil FK triangulaire correspondant à $`p_c^{\mathrm{edge}}`$.
-19. [Fajen–Hartmann–Young, *Percolation of Fortuin–Kasteleyn Clusters for the Random-Bond Ising Model*](https://arxiv.org/abs/1905.04220), [DOI](https://doi.org/10.1103/PhysRevE.102.012131). Montre numériquement que, avec frustration, la percolation FK peut précéder l'ordre magnétique : raison précise pour laquelle la percolation seule n'est pas suffisante.
+20. [Chayes–Lei, *Random Cluster Models on the Triangular Lattice*](https://arxiv.org/abs/cond-mat/0508254), [DOI](https://doi.org/10.1007/s10955-005-8078-7). Seuil autodual des états triangulaires corrélés utilisé au chapitre 11.
+21. [Nishimori–Ohzeki, *Location of the Multicritical Point for the Ising Spin Glass on the Triangular and Hexagonal Lattices*](https://arxiv.org/abs/cond-mat/0601356), [DOI](https://doi.org/10.1143/JPSJ.75.034004). Valeur conjecturée $`p_{\mathrm N}=0.8358058\ldots`$.
+22. [de Queiroz, *Multicritical Point of Ising Spin Glasses on Triangular and Honeycomb Lattices*](https://arxiv.org/abs/cond-mat/0510816), [DOI](https://doi.org/10.1103/PhysRevB.73.064410). Étude numérique par matrices de transfert ; classe critique distincte de la percolation ordinaire.
+23. [Yamaguchi, *Conjectured Exact Percolation Thresholds of the FK Cluster for the ±J Ising Spin Glass*](https://arxiv.org/abs/1004.0654). Retrouve le seuil FK triangulaire correspondant à $`p_c^{\mathrm{edge}}`$.
+24. [Fajen–Hartmann–Young, *Percolation of Fortuin–Kasteleyn Clusters for the Random-Bond Ising Model*](https://arxiv.org/abs/1905.04220), [DOI](https://doi.org/10.1103/PhysRevE.102.012131). Montre numériquement que, avec frustration, la percolation FK peut précéder l'ordre magnétique : raison précise pour laquelle la percolation seule n'est pas suffisante.
 
 ## Deux répliques et représentations graphiques
 
-20. [Chayes–Machta–Redner, *Graphical Representations for Ising Systems in External Fields*](https://arxiv.org/abs/cond-mat/9806312), [DOI](https://doi.org/10.1023/B:JOSS.0000026726.43558.80). Représentation graphique à deux répliques dans laquelle l'ordre est caractérisé par une percolation, pour le cadre ferromagnétique traité.
-21. [Machta–Newman–Stein, *The Percolation Signature of the Spin Glass Transition*](https://arxiv.org/abs/0707.0073), [DOI](https://doi.org/10.1007/s10955-007-9446-2). Relie overlap de répliques et géométrie de percolation dans les verres de spins.
+25. [Contucci–Giardinà–Nishimori, *Spin Glass Identities and the Nishimori Line*](https://arxiv.org/abs/0805.0754). Benchmark d'identités overlap–magnétisation sur la ligne de Nishimori. L'identité bayésienne plantée utilisée ici est redérivée dans le dossier ; cette référence ne traite pas directement le canal binaire discret ni le couplage MCMC présent.
+26. [Aizenman, *Geometric Analysis of $\phi^4$ Fields and Ising Models. Parts I and II*](https://doi.org/10.1007/BF01205659). À champ nul dans l'Ising ferromagnétique, la représentation par courants aléatoires relie le carré d'une corrélation à la connexion dans l'union de deux courants indépendants sans sources. C'est un benchmark conceptuel pour le score LCA, pas une formule directement transférable au modèle frustré.
+27. [Chayes–Machta–Redner, *Graphical Representations for Ising Systems in External Fields*](https://arxiv.org/abs/cond-mat/9806312), [DOI](https://doi.org/10.1023/B:JOSS.0000026726.43558.80). Représentation graphique à deux répliques dans laquelle l'ordre est caractérisé par une percolation, pour le cadre ferromagnétique traité.
+28. [Machta–Newman–Stein, *The Percolation Signature of the Spin Glass Transition*](https://arxiv.org/abs/0707.0073), [DOI](https://doi.org/10.1007/s10955-007-9446-2). Relie overlap de répliques et géométrie de percolation dans les verres de spins.
 
 ## Lecture stratégique
 
 Ordre recommandé :
 
 1. Polyanskiy–Wu et Abbe–Boix pour fixer la meilleure borne d'impossibilité existante ;
-2. Gu–Polyanskiy pour définir une contraction de fusion multi-terminale ;
+2. Gu (2026) et Gu–Polyanskiy pour les canaux BMS et les contractions multi-terminales ;
 3. Pemantle–Peres et Evans et al. pour convertir ces contractions en capacité ;
-4. Chayes–Machta–Redner et Machta–Newman–Stein pour relier cette capacité au recouvrement de deux répliques ;
-5. Chayes–Lei puis Nishimori–Ohzeki pour le cas triangulaire.
+4. Gower–Ross puis Garban–Pete–Schramm pour la géométrie LCA/MST proche-critique ;
+5. Aizenman, Chayes–Machta–Redner et Machta–Newman–Stein pour le lien deux répliques–connexion ;
+6. Chayes–Lei puis Nishimori–Ohzeki pour le cas triangulaire.
 
 ## Critère de nouveauté à viser
 
