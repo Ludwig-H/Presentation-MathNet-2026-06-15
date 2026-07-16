@@ -75,9 +75,21 @@ contient le produit de tous les facteurs ancestraux. La priorité est donc
 d'estimer les quatre $`\Lambda_v(\sigma^{ab})`$ pour chaque $`v\succ u`$ sous
 la loi du squelette vu depuis une paire lointaine critique.
 
+Le premier audit multi-terminal est maintenant complet au niveau d'un
+triangle physique. Sa contraction sous a priori uniforme vaut
+$`\eta_\triangle=q^2(1+2q^2)/(1+q^2+q^4)`$, mais sa contraction SDPI globale
+vaut $`2q^2/(1+q^2)`$ à cause des a priori polarisés créés par l'information
+latérale. Un facteur triangulaire **scalaire** ne peut donc pas battre la
+baseline $`0.794659\ldots`$. En conservant séparément les trois relations dans
+un canal d'effacement multi-état, on obtient le candidat conditionnel
+$`0.8099092892\ldots`$. L'inégalité $`\chi^2`$ qui caractérise la comparaison
+less-noisy est prouvée pour les lois quatre états dont aucun atome ne dépasse
+$`1/2`$ ; le secteur polarisé et le passage des poids LCA au canal facteur
+restent à démontrer. Cette distinction est développée dans le fichier 11.
+
 ## Socle de départ
 
-Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. Les points 3, 4 et 6 à 9 sont des résultats finis dont l'algèbre a été vérifiée et dont la preuve courte est donnée dans ce dossier ; les résultats qui utilisent la mesure jointe restent à intégrer dans une rédaction formelle complète avec A1.
+Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. Les points 3, 4 et 6 à 10 rassemblent des résultats finis ou des audits conditionnels dont l'algèbre a été vérifiée et dont le statut précis est donné dans le dossier ; les résultats qui utilisent la mesure jointe restent à intégrer dans une rédaction formelle complète avec A1.
 
 1. La coupe $t=1$ des horloges redonne exactement les liens de Swendsen–Wang.
 2. Les heat baths des orientations globales des arbres redonnent la recoloration de Swendsen–Wang lorsque l'a priori est uniforme. Aux feuilles, on obtient le heat bath mono-site de Glauber ; un noyau de Metropolis–Hastings mono-site ciblant la même conditionnelle est une variante valide.
@@ -108,6 +120,13 @@ Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. L
    avec une limite gaussienne explicite dans la fenêtre $`m^{-1/2}`$. Ce bord
    est oracle et ne remplace ni la masse des paires ni la contraction non
    oracle.
+10. Pour un triangle observé, le profil de contraction sous un a priori de
+    masse $t$ est la fonction rationnelle exacte $`c_q(t)`$ du fichier 11. La
+    SDPI globale est $`2q^2/(1+q^2)`$, ce qui réfute la borne scalaire naïve
+    $`0.829491\ldots`$. Le candidat multi-état
+    $`0.809909\ldots`$ est explicitement étiqueté conditionnel : il dépend
+    encore de la positivité d'une matrice rationnelle $`3\times3`$ dans le
+    secteur polarisé.
 
 ## Carte du dossier
 
@@ -121,6 +140,7 @@ Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. L
 - [08_ANCESTRAL_LAMBDA_CHAIN.md](08_ANCESTRAL_LAMBDA_CHAIN.md) : formule exacte des quatre $`\Lambda_v`$ au-dessus du LCA, réduction à $`(h_1,h_2,J)`$, loi conditionnelle de Kruskal et méthodes de calcul certifiées.
 - [09_CRITICAL_MERGER_ORACLE.md](09_CRITICAL_MERGER_ORACLE.md) : résolution exacte de la fusion critique locale, fenêtre $`m^{-1/2}`$, sandwich des taux ancestraux et contre-audit de la masse des paires.
 - [10_ANCESTRAL_LAMBDA_ESTIMATION.md](10_ANCESTRAL_LAMBDA_ESTIMATION.md) : problème central des slides 31--33, course pondérée exacte, moments des quatre taux, concentration, certificat de queue et formulation du verrou géométrique sous le biais d'une paire critique.
+- [11_TRIANGLE_BLOCK_SDPI.md](11_TRIANGLE_BLOCK_SDPI.md) : profil SDPI exact du canal de triangle, échec du regroupement scalaire, canal d'effacement multi-état et candidat conditionnel $`0.809909\ldots`$ avec son lemme manquant explicite.
 - [LITERATURE.md](LITERATURE.md) : état de l'art primaire, voisins conceptuels et positionnement prudent de la nouveauté.
 - [references.bib](references.bib) : bibliographie ciblée et autonome.
 - [computations/README.md](computations/README.md) : cahier des charges des calculs exacts et simulations à ajouter.
@@ -146,7 +166,11 @@ calibrée à une arête par $`\gamma_1=(2p-1)^2`$ et la masse des fusions doit �
 conservée séparément. Sur la grille homogène, l'objectif reste une zone
 rigoureuse de non-recouvrement dépassant $p=0.794659\ldots$ ; le point
 multicritique de Nishimori conjecturé $p\simeq0.8358058$ demeure beaucoup plus
-ambitieux.
+ambitieux. Le test local prioritaire est désormais de prouver ou réfuter le
+lemme $`P_\star`$ du fichier 11. Ce lemme est exactement le critère less-noisy
+requis ; avec le théorème de Chayes--Lei, sa réussite donnerait la constante
+algébrique $`p_\star=0.8099092892\ldots`$. Tant qu'il n'est pas fermé, cette
+valeur ne doit pas être présentée comme une borne de weak recovery.
 
 ## Sources internes
 

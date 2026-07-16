@@ -242,7 +242,19 @@ $`\eta_u`$ ne peut être supposée.
 
 ### C3. Cycles et multi-terminal
 
-Une fusion voit tous les liens entre $`C_1`$ et $`C_2`$. Employer une SDPI multi-terminale pour éviter la multiplication naïve des contractions des arêtes. Les triangles doivent être le premier cas non trivial.
+Une fusion voit tous les liens entre $`C_1`$ et $`C_2`$. Employer une SDPI multi-terminale pour éviter la multiplication naïve des contractions des arêtes. Le [fichier 11](11_TRIANGLE_BLOCK_SDPI.md) ferme le premier audit :
+
+- la contraction uniforme d'un triangle est $`\eta_\triangle`$ ;
+- sa SDPI globale est $`\gamma_2=2q^2/(1+q^2)`$, donc le facteur scalaire est
+  moins bon que la baseline par arêtes ;
+- le canal d'effacement multi-état satisfait l'inégalité $`\chi^2`$ voulue
+  pour tout a priori $\mu$ tel que $`\max_x\mu_x\le1/2`$ ;
+- le cas d'un atome dominant est le lemme $`P_\star`$ encore à prouver.
+
+La prochaine étape n'est donc plus de recalculer $`\eta_\triangle`$, mais de
+prouver la positivité de la matrice rationnelle $`3\times3`$ du lemme
+$`P_\star`$. Le critère de Makur--Polyanskiy fournit alors directement la
+comparaison less-noisy globale.
 
 ### C4. Matrice dominante
 
@@ -359,7 +371,16 @@ Obtenir une borne rigoureuse
 ```math
 p_\star>0.794659\ldots.
 ```
-Le point $0.8358058\ldots$ reste un repère conjectural, non une cible à annoncer comme acquise.
+Le candidat local actuellement le plus précis est
+
+```math
+p_\star^{\mathrm{cond}}=0.8099092892\ldots,
+```
+
+racine de l'enveloppe affine multi-état du fichier 11. Il reste conditionnel au
+lemme $`P_\star`$ et ne doit pas être cité comme résultat établi. Le point
+$0.8358058\ldots$ reste un repère conjectural, non une cible à annoncer comme
+acquise.
 
 ## Bloc F — Mélange et interpolation algorithmique
 
@@ -397,3 +418,6 @@ Cette partie répond à une question algorithmique distincte du seuil de weak re
 6. Calculer C5 sur des bundles déterministes, puis sur un cactus.
 7. Comparer quantitativement $`H_n^{\mathrm{LCA}}`$ à l'information-percolation.
 8. Traiter les bandes triangulaires avant de viser une nouvelle constante sur la grille entière.
+9. Prouver ou réfuter le lemme $`P_\star`$ du canal de triangle en certifiant
+   la matrice $`3\times3`$ ; s'il est vrai, appliquer Chayes--Lei à la
+   constante $`0.809909\ldots`$.

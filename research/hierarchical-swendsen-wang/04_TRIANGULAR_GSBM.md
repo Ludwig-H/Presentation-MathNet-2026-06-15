@@ -458,3 +458,52 @@ Le premier succès non trivial est une constante $`p_\star`$ telle que
 p_\star>0.794659\ldots
 ```
 et une preuve que $`p<p_\star`$ interdit la weak recovery. Une condition nécessaire et suffisante explicite sur toute la grille triangulaire toucherait au point multicritique de Nishimori et constitue un objectif de long terme.
+
+## 10. Audit du canal de triangle
+
+Les triangles montants couvrent chaque arête exactement une fois. Il est donc
+légitime de regrouper les trois observations d'un triangle en un facteur
+indépendant conditionnellement aux spins. Ce regroupement ne donne toutefois
+pas la contraction uniforme comme paramètre SDPI global.
+
+Avec $`q=2p-1`$, les deux valeurs exactes sont
+
+```math
+\eta_\triangle(q)
+=\frac{q^2(1+2q^2)}{1+q^2+q^4}
+```
+
+sous l'a priori uniforme, et
+
+```math
+\gamma_2(q)=\frac{2q^2}{1+q^2}
+```
+
+pour la SDPI globale. La seconde valeur est atteinte lorsque l'extérieur a
+déjà révélé une relation et que les deux arêtes variables deviennent deux
+observations indépendantes du même bit. Une percolation scalaire de triangles
+aurait donc le seuil
+
+```math
+\gamma_2(q)=\frac12
+\quad\Longleftrightarrow\quad
+p=\frac12\left(1+\frac1{\sqrt3}\right)
+=0.788675\ldots,
+```
+
+moins bon que la baseline par arêtes.
+
+Le [calcul multi-état complet](11_TRIANGLE_BLOCK_SDPI.md) conserve séparément
+le triangle plein, chacune des trois relations révélées et l'état vide. Il
+produit le candidat algébrique
+
+```math
+p_\star^{\mathrm{cond}}=0.8099092892\ldots,
+```
+
+mais seulement sous un lemme less-noisy encore ouvert pour les a priori ayant
+un atome de masse $`>1/2`$. Ce lemme est réduit à la positivité d'une matrice
+rationnelle $`3\times3`$ au seul point algébrique critique. Le gain numérique
+n'est donc pas encore une borne rigoureuse. La fonction exacte $`c_q(t)`$ de
+ce fichier transforme la difficulté des $`\Lambda_v`$ ancestraux en un
+problème précis de polarisation des quatre poids.

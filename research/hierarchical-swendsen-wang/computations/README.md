@@ -12,6 +12,7 @@ python3 research/hierarchical-swendsen-wang/computations/critical_band_threshold
 python3 research/hierarchical-swendsen-wang/computations/ancestral_lambda_chain.py
 python3 research/hierarchical-swendsen-wang/computations/ancestral_lambda_estimation.py
 python3 research/hierarchical-swendsen-wang/computations/critical_merger_oracle.py
+python3 research/hierarchical-swendsen-wang/computations/triangle_block_sdpi.py
 ```
 
 ## Structure prévue
@@ -23,6 +24,8 @@ python3 research/hierarchical-swendsen-wang/computations/critical_merger_oracle.
 - `test_ancestral_lambda_estimation.py` : contre-audit indépendant par énumération complète, réduction homogène fermée et 250 tests reproductibles des bornes de contraste ;
 - `critical_merger_oracle.py` : paramètres critiques fermés, somme finie $`\Gamma_m^c`$, borne exponentielle et limite $`m^{-1/2}`$ de l'oracle local ;
 - `test_critical_merger_oracle.py` : contre-audits indépendants par LLR, expérience binaire symétrique, identité $`1/m`$ et limite gaussienne ;
+- `triangle_block_sdpi.py` : profil $`c_q(t)`$ du canal de triangle, SDPI globale, audit scalaire et enveloppe multi-état conditionnelle ;
+- `test_triangle_block_sdpi.py` : énumération directe du canal $`4\times8`$, information latérale, défaut de la droite naïve, matrice less-noisy $`3\times3`$ et conditions du candidat $`0.809909\ldots`$ ;
 - `exact_enumeration/` : énumération de toutes les configurations et horloges discrétisées sur petits graphes ;
 - `symbolic/` : simplification des poids $`q_u^{ab}`$, contractions et seuils ;
 - `triangular_grid/` : tores triangulaires, bandes et cactus ;
@@ -170,6 +173,21 @@ transport affine vers les quatre $`\Lambda_v^{ab}`$ et la borne
 ```math
 |B_u-B_u^{(-I)}|\le\mathcal R_u(I).
 ```
+
+20. Pour le canal de triangle, vérifier indépendamment
+
+```math
+c_q(1/4)=\eta_\triangle(q),
+\qquad
+c_q(1/2)=\frac{2q^2}{1+q^2},
+```
+
+le profil complet $`c_q(t)`$, l'échec des seules contraintes d'extrémité et
+l'enveloppe affine. Contre-auditer $`P_\star`$ sur des a priori polarisés à
+graine fixe en vérifiant tous les mineurs principaux de la matrice exacte,
+sans confondre ce test fini avec une preuve. Toute sortie proche de
+$`0.809909\ldots`$ doit conserver le statut « conditionnel au lemme
+$`P_\star`$ ».
 
 ## Métadonnées minimales
 
