@@ -38,7 +38,7 @@ To render math as a centered block on its own line, use double dollar signs (`$$
         \mathbf{P}(A \mid B) = \frac{\mathbf{P}(B \mid A)\mathbf{P}(A)}{\mathbf{P}(B)}
         $$
         ```
-*   **Math Code Block Syntax (Recommended for complex math):** Use ` ```math ` code blocks. This treats the entire block as raw LaTeX, preventing any Markdown parsing conflicts.
+*   **Math Code Block Syntax (Mandatory for complex/multiline math):** You **must** use ` ```math ` code blocks for any multi-line equations (equations containing newlines, `\\`, `\substack`, or environments like `align`, `matrix`, etc.). This treats the entire block as raw LaTeX, preventing any Markdown parsing conflicts.
     *   *Example:*
         ```markdown
         ```math
@@ -53,6 +53,10 @@ If you need to use a literal dollar sign in the same line as a math expression:
 *   **Outside Math:** Wrap the literal dollar sign in `<span>$</span>`.
     *   *Example:* `To split <span>$</span>100 in half, we calculate $100/2$` renders as "To split <span>$</span>100 in half, we calculate $100/2$".
 
+### D. Unsupported LaTeX Commands (GitHub/KaTeX Compatibility)
+*   **Avoid `\operatorname`**: Do **not** use `\operatorname{...}` (e.g. `\operatorname{Exp}`, `\operatorname{ov}`). GFM's math renderer (KaTeX) often fails to parse it or throws errors under various environments.
+    *   *Solution:* Always use `\mathrm{...}` or `\text{...}` instead (e.g., `\mathrm{Exp}`, `\mathrm{ov}`, `\mathrm{RG}`, `\mathrm{tr}`, `\mathrm{diag}`).
+
 ---
 
 ## 3. LaTeX Validity Checklist
@@ -60,4 +64,6 @@ If you need to use a literal dollar sign in the same line as a math expression:
 When adding mathematical equations, ensure:
 1.  All parentheses `()`, brackets `[]`, and braces `{}` are properly balanced.
 2.  Special characters like `%`, `&`, `_`, `#` are properly escaped when not used in their LaTeX command contexts.
-3.  Any newline in multiline equations (like inside `align` environments) uses `\\` or double backslashes properly.
+3.  Any newline in multiline equations (like inside `align` or `substack` environments) uses `\\` or double backslashes properly and the equation is wrapped in a ` ```math ` block.
+4.  No `\operatorname` is used in markdown equations.
+

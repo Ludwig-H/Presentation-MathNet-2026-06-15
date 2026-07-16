@@ -5,26 +5,21 @@ Ce dossier rassemble le programme théorique ouvert par la dynamique fondée sur
 ## Question centrale
 
 Pour $K=2$, quand l'observation $`(X_n,W_n)`$ contient-elle une information macroscopique sur $`\Sigma_n`$, c'est-à-dire quand existe-t-il un algorithme $`\tau_n`$ tel que
-
-$$
+```math
 \mathbb P\left[
 \left|\frac1n\sum_{i=1}^n \Sigma_{n,i}\tau_{n,i}\right|\ge \varepsilon
 \right]
-$$
-
+```
 reste strictement positive pour un $\varepsilon>0$ ? Avec l'a priori i.i.d. uniforme, cela équivaut à battre le random guess dans la définition du manuscrit.
 
 La dynamique hiérarchique doit servir de **couplage invariant de deux répliques postérieures**. La taille des composantes à la coupe $t=1$ n'est alors que le premier cas d'une observable plus riche : la persistance de l'information sous des heat baths effectués à différents nœuds du dendrogramme.
 
 La voie actuellement prioritaire suit chaque paire jusqu'à son nœud de coalescence
-
-$$
-u_{ij}=\operatorname{LCA}_D(i,j).
-$$
-
+```math
+u_{ij}=\mathrm{LCA}_D(i,j).
+```
 À ce nœud, la parité des quatre flips contrôle exactement la survie de $`\sigma_i\sigma_j`$. Cela donne un score de fusion $`\eta_u=\tanh^2(L_u/2)`$, puis une borne sommable en temps linéaire dans le nombre de nœuds :
-
-$$
+```math
 Q_n
 \le
 H_n^{\mathrm{LCA}}
@@ -34,8 +29,7 @@ n+2\sum_u|C_{u,1}||C_{u,2}|\eta_u
 \right]
 \le
 \frac1{n^2}\mathbb E\sum_{R\text{ racine}}|R|^2.
-$$
-
+```
 La dernière quantité est la borne percolative de Swendsen--Wang : le nouveau score en est donc un raffinement exact, fusion par fusion.
 
 ## Socle de départ
@@ -45,21 +39,17 @@ Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. L
 1. La coupe $t=1$ des horloges redonne exactement les liens de Swendsen–Wang.
 2. Les heat baths des orientations globales des arbres redonnent la recoloration de Swendsen–Wang lorsque l'a priori est uniforme. Aux feuilles, on obtient le heat bath mono-site de Glauber ; un noyau de Metropolis–Hastings mono-site ciblant la même conditionnelle est une variante valide.
 3. Pour deux répliques postérieures indépendantes $\sigma^{(1)},\sigma^{(2)}$, la non-disparition de
-
-   $$
+```math
    Q_n=\mathbb E\left\langle
    \left(\frac1n\sum_i\sigma_i^{(1)}\sigma_i^{(2)}\right)^2
    \right\rangle
-   $$
-
+```
    caractérise exactement la weak recovery au sens « avantage avec probabilité positive » dans le cas binaire symétrique.
 4. Tout parcours hiérarchique invariant fournit une matrice de persistance $`H_S`$. Si $`\mathbb E[\lambda_{\max}(H_S)/n]\to0`$ pour un parcours $S$, la weak recovery est impossible. Pour Swendsen–Wang aux racines, $`H_S(i,j)=\mathbf 1_{\{i,j\text{ dans la même composante}\}}`$ : on retrouve l'obstruction du chapitre 11.
 5. Sur la grille triangulaire homogène, la borne d'information-percolation déjà connue donne l'impossibilité pour
-
-   $$
+```math
    p<\frac{1+\sqrt{2\sin(\pi/18)}}2=0.794659\ldots,
-   $$
-
+```
    ce qui est plus fort que les bornes Swendsen–Wang $0.673648\ldots$ et triangulaire d'ordre supérieur $0.719224\ldots$. Toute nouvelle borne hiérarchique doit donc être comparée à $0.794659\ldots$, pas seulement à la borne du chapitre 11.
 6. Pour une paire fixée, le noyau qui rafraîchit $D$ puis met à jour son LCA est positif et réversible. Ses autocorrélations $`A_{ij}^{(m)}`$ décroissent vers $`c_{ij}(O)^2`$ sous ergodicité. Le score à un pas est ainsi le premier terme d'une suite allant vers le critère exact à deux répliques.
 
