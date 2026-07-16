@@ -598,6 +598,32 @@ avec $`Z\sim\mathcal N(0,1)`$. Ainsi,
 
 À $`\beta=1`$, on retrouve $`\mathbb E\eta_u=1/m`$.
 
+Le [fichier 09](09_CRITICAL_MERGER_ORACLE.md) applique cette fenêtre au temps
+$`\beta_c(p)`$. Il obtient les identités exactes
+
+```math
+h_p(\beta_c)
+=
+\frac{2(p-p_{\mathrm{SW}})}{1-q_c},
+\qquad
+u_p(1-\beta_c)
+=
+2\,\mathrm{artanh}(h_p(\beta_c)),
+```
+
+puis la limite
+
+```math
+\Gamma_m^c\left(
+p_{\mathrm{SW}}+\frac{(1-q_c)\alpha}{2\sqrt m}
+\right)
+\longrightarrow
+\mathbb E\left[\tanh^2(\alpha Z+\alpha^2)\right].
+```
+
+Cette calibration reste locale et oracle ; elle doit être multipliée par la
+masse de la fenêtre parmi les paires.
+
 ## 8. Attention : $\eta_u$ est une quantité oracle
 
 Conditionnellement au dendrogramme révélé, une coupe à une seule arête a $`\eta_u=1`$ dès qu'elle fusionne. Pourtant, la contraction informationnelle réelle d'un canal arête vaut
@@ -721,6 +747,23 @@ Dans un régime supercritique avec unicité et mélange spatial, la limite atten
 
 Conditionnellement à une connexion avant $1$, cela produit une distribution généralement non dégénérée au-dessus de $`\beta_c`$, et non un atome au seuil. Les attaches locales peuvent aussi introduire des goulots au-dessus de la fenêtre critique.
 
+Il existe en outre une obstruction de masse entièrement finie. Pour
+$`\mathcal A_{n,\delta}^c=\{\beta_c<\beta_{I_nJ_n}\le\beta_c+\delta\}`$,
+
+```math
+\mathbb E\left[
+\eta_{I_nJ_n}^{\mathrm{LCA}}
+\mathbf1_{\mathcal A_{n,\delta}^c}
+\right]
+\le
+S_n(\beta_c+\delta)-S_n(\beta_c).
+```
+
+Ainsi, une fiabilité conditionnelle parfaite dans une fenêtre où le membre de
+droite tend vers zéro ne peut pas soutenir un overlap macroscopique. La preuve
+et les conséquences sont détaillées dans le
+[contre-audit de l'oracle critique](09_CRITICAL_MERGER_ORACLE.md).
+
 Les résultats de percolation proche-critique et de MSF indiquent plutôt que la **géométrie macroscopique** est codée par les pivots proche-critiques. La formulation correcte est donc :
 
 1. contracter les détails microscopiques et les attaches locales ;
@@ -803,6 +846,8 @@ Si une contraction de bloc peut être encadrée par un enhancement local monoton
 | Bande pure nécessaire à la weak recovery | Pas un critère universel ; la contraction préalable est indispensable |
 | Réécriture $`t_\chi>\beta_c`$ de la borne information-percolation | Établi dans le modèle homogène annealed |
 | Loi multinomiale conditionnelle au squelette non marqué | Établie ; le biais restant porte sur la géométrie du squelette |
+| Fiabilité locale d'une fusion exactement critique | Établie ; bord oracle $`p_{\mathrm{SW}}`$ et fenêtre $`m^{-1/2}`$ |
+| Masse informative d'une fenêtre critique | Majorée exactement par $`S_n(\beta_c+\delta)-S_n(\beta_c)`$ |
 | Capacité de quotient pondérée par une contraction non oracle | À construire |
 | Seuil strictement supérieur à $`0.794659\ldots`$ | À prouver |
 

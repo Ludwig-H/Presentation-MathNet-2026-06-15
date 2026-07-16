@@ -9,6 +9,14 @@ Ce fichier ferme le problème algébrique laissé dans le message extérieur $`B
 
 Le résultat important est une désintégration finie exacte : la difficulté se sépare en une géométrie de Kruskal et un canal de marques indépendant conditionnellement à cette géométrie. Cela ne donne pas encore le seuil exact de weak recovery sur toute la grille, mais supprime le verrou « comment calculer tous les $`\Lambda_v`$ au-dessus de $u$ ? ».
 
+Le [cas d'une fusion au temps critique](09_CRITICAL_MERGER_ORACLE.md) donne une
+spécialisation supplémentaire : pour tout ancêtre strict,
+$`1/2\le s_p(\beta_v)<s_p(\beta_c)`$. Les comptes groupés admettent alors un
+couplage sandwich explicite entre des binomiales de paramètres $`1/2`$ et
+$`s_p(\beta_c)`$. Ce contrôle n'induit toutefois aucun ordre direct sur les
+quatre taux retournés ni sur $`\eta_u`$, car les compléments renversent les
+ordres et le message ancestral peut annuler le LLR local.
+
 ## 1. Le problème à deux points
 
 Soit $`(G_L)`$ une exhaustion du graphe, et soient $`i_L,j_L`$ tels que
@@ -34,17 +42,17 @@ Dans le GSBM homogène triangulaire,
 =
 \tau_{i_Lj_L}(q_p(t)),
 \qquad
-q_p(t)=p(1-e^{-u_pt}),
+q_p(t):=p(1-e^{-u_pt}),
 \qquad
-u_p=\log\frac p{1-p}.
+u_p:=\log\frac p{1-p}.
 ```
 
 Le niveau géométrique critique est
 
 ```math
-\beta_c(p)=q_p^{-1}(q_c),
+\beta_c(p):=q_p^{-1}(q_c),
 \qquad
-q_c=2\sin(\pi/18).
+q_c:=2\sin(\pi/18).
 ```
 
 ### Une restriction proche-critique n'est pas automatique
@@ -150,11 +158,11 @@ Posons, pour $`r\in\{0,1,2\}`$,
 
 ```math
 T_{v,r}
-=
+:=
 \sum_{e\in E_v^{(r)}}|W_e|,
 \qquad
 \lambda_{v,r}
-=
+:=
 \sum_{e\in E_v^{(r)}}
 |W_e|\mathbf1_{\{e\text{ satisfaite par }\sigma\}}.
 ```
@@ -184,7 +192,7 @@ T_{v,2}-\lambda_{v,2},&b=1.
 Équivalemment, avec
 
 ```math
-X_{v,r}=2\lambda_{v,r}-T_{v,r},
+X_{v,r}:=2\lambda_{v,r}-T_{v,r},
 ```
 
 on a
@@ -324,11 +332,11 @@ Le terme linéaire $`(1-\beta_v)\Lambda_v^{ab}`$ ne contribue pas à $`J_v`$ par
 Les coefficients de $`\log\mu_0(\sigma^{ab})`$ s'ajoutent aux sommes
 
 ```math
-h_1=\sum_{v\succ u}h_{v,1},
+h_1:=\sum_{v\succ u}h_{v,1},
 \qquad
-h_2=\sum_{v\succ u}h_{v,2},
+h_2:=\sum_{v\succ u}h_{v,2},
 \qquad
-J=\sum_{v\succ u}J_v
+J:=\sum_{v\succ u}J_v
 ```
 
 dans le cas uniforme. La sommation des deux orientations absolues donne alors
@@ -401,7 +409,7 @@ Cette section est annealed et utilise l'identité de Nishimori. Conditionnelleme
 
 ```math
 Y_e
-=
+:=
 \mathbf1_{\{e\text{ satisfaite}\}}
 \sim
 \mathrm{Bernoulli}(p),
@@ -411,7 +419,7 @@ puis un temps d'activation
 
 ```math
 T_e
-=
+:=
 \begin{cases}
 \mathrm{Exp}(u_p),&Y_e=1,\\
 +\infty,&Y_e=0.
@@ -425,16 +433,16 @@ Notons $`\mathscr D`$ le squelette non marqué : arbre de partitions, buckets $`
 Conditionnellement à $`\mathscr D`$, les marques portées par des buckets distincts sont indépendantes. Pour un bucket $v$ de taille
 
 ```math
-m_v=m_{v,0}+m_{v,1}+m_{v,2},
+m_v:=m_{v,0}+m_{v,1}+m_{v,2},
 \qquad
-m_{v,r}=|E_v^{(r)}|,
+m_{v,r}:=|E_v^{(r)}|,
 ```
 
 posons
 
 ```math
 s_v
-=
+:=
 s_p(\beta_v)
 =
 \frac{pe^{-u_p\beta_v}}
@@ -677,6 +685,8 @@ Une seconde amélioration possible est un heat bath **collapsed** qui marginalis
 - Désintégration de $`H_n^{\mathrm{LCA}}`$ par $`\Gamma_u(\mathscr D)`$ : **établie conditionnellement à la finalisation formelle de la mesure jointe A1**.
 - Concentration et certificats de troncature : **établis conditionnellement au squelette ; leur utilité asymptotique dépend de la géométrie des buckets**.
 - Concentration de tous les LCA ponctuels dans une fenêtre proche-critique : **fausse pour la connectivité brute et non démontrée pour le poids informationnel**.
+- Sandwich critique simultané des comptes ancestraux : **établi conditionnellement au squelette et aux catégories gagnantes**.
+- Monotonie de la fiabilité hiérarchique complète lorsque $`\beta_u`$ se rapproche de $`\beta_c`$ : **non établie ; une annulation par le message ancestral est possible**.
 - Nouveau seuil strict sur la grille triangulaire : **à prouver**.
 - Seuil exact $`p\simeq0.8358058`$ : **repère conjectural, non obtenu par les identités présentes**.
 

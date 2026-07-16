@@ -91,6 +91,8 @@ def log_factor(rate: float, beta: float) -> float:
 
 def _logsumexp(values: Iterable[float]) -> float:
     values = tuple(values)
+    if not values:
+        return -inf
     maximum = max(values)
     if maximum == -inf:
         return -inf

@@ -129,6 +129,31 @@ Le résultat doit inclure :
 3. la factorisation connexion $\times$ fiabilité $\times$ cohérence ;
 4. les bons quantificateurs pour une paire macroscopique.
 
+### B5 bis. Oracle de fusion critique — calcul local fermé
+
+Le [fichier 09](09_CRITICAL_MERGER_ORACLE.md) établit, pour un bucket critique
+homogène et $`B_u=0`$,
+
+```math
+\Gamma_m^c(p_{\mathrm{SW}})=\frac1m,
+\qquad
+\Gamma_m^c(p)\longrightarrow1
+\quad(p>p_{\mathrm{SW}}),
+```
+
+avec une borne exponentielle et la limite exacte dans la fenêtre
+$`p-p_{\mathrm{SW}}\asymp m^{-1/2}`$. Il établit aussi le contre-audit
+
+```math
+\mathcal C_{n,\delta}^c
+\le
+S_n(\beta_c+\delta)-S_n(\beta_c).
+```
+
+Ce bloc local est clos. Il ne doit pas être promu en seuil global : le travail
+restant consiste à contrôler simultanément la masse des fusions, le message
+ancestral, la contraction après marginalisation de $D$ et la cohérence signée.
+
 ### B6. Matrice de persistance
 
 Rédiger le théorème
@@ -194,6 +219,12 @@ B_u
 +(1-\beta_u)(2\Lambda_u-T_u).
 ```
 La décomposition en trois groupes du [fichier 08](08_ANCESTRAL_LAMBDA_CHAIN.md) donne désormais exactement les quatre $`\Lambda_v(\sigma^{ab})`$ et réduit la chaîne à quatre log-poids, ou à $`(h_1,h_2,J)`$ lorsque les taux sont positifs. Sur cactus, il faut propager leur loi exacte ; sur bandes, construire une matrice de transfert certifiée ; sur la grille, contrôler ou dominer cette loi conditionnellement au squelette proche-critique.
+
+Lorsque $`\beta_u=\beta_c`$, le fichier 09 fournit en plus le sandwich
+stochastique $`1/2\le s_p(\beta_v)<s_p(\beta_c)`$ pour tous les comptes
+ancestraux. Ce sandwich doit être transporté séparément dans chacun des quatre
+états : complémenter un groupe renverse ses bornes, et aucune monotonie de
+$`\eta_u`$ ne peut être supposée.
 
 ### C3. Cycles et multi-terminal
 

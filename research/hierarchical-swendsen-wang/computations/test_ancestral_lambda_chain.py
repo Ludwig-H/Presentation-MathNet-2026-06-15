@@ -6,6 +6,7 @@ from math import log
 from ancestral_lambda_chain import (
     AncestorBucket,
     AncestorGeometry,
+    _logsumexp,
     ancestral_log_weights,
     ancestral_message,
     closed_satisfaction_probability,
@@ -19,6 +20,9 @@ from ancestral_lambda_chain import (
 
 
 class AncestorLambdaTests(unittest.TestCase):
+    def test_empty_logsumexp_has_additive_zero_mass(self) -> None:
+        self.assertEqual(_logsumexp(()), float("-inf"))
+
     def test_four_rates_match_direct_complementation(self) -> None:
         bucket = AncestorBucket(
             beta=0.6,

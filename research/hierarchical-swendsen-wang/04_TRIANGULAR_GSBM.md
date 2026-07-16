@@ -291,7 +291,7 @@ Au temps $t=1$, dans le modèle local $`B_u=0`$,
 \mathbb E[\eta_u\mid m,\beta_u=1]=\frac1m.
 ```
 
-Pour $p>1/2$ et $t<1$ fixés, la même fiabilité locale tend au contraire vers $1$ lorsque $m\to\infty$. Les grandes coupes ne randomisent donc fortement la parité que dans une fenêtre proche de la coupure $1$. Comme les coalescences longue portée apparaissent autour de $`\beta_c(p)<1`$ dès que la percolation est supercritique, un seul pas LCA peut rester trop proche de la borne percolative. Il faut alors étudier les itérations avec rafraîchissement de $D$ ou propager la loi complète du message $`B_u`$.
+Pour $p>1/2$ et $t<1$ fixés, la même fiabilité locale tend au contraire vers $1$ lorsque $m\to\infty$. Les grandes coupes ne randomisent donc fortement la parité que dans une fenêtre proche de la coupure $1$. Le [calcul critique exact](09_CRITICAL_MERGER_ORACLE.md) donne désormais une borne exponentielle et identifie la fenêtre $`p-p_{\mathrm{SW}}\asymp m^{-1/2}`$. Comme les coalescences longue portée apparaissent autour de $`\beta_c(p)<1`$ dès que la percolation est supercritique, un seul pas LCA reste trop proche de la borne percolative. Il faut alors étudier la masse des paires, les itérations avec rafraîchissement de $D$ et la loi complète du message $`B_u`$.
 
 ### Flux de susceptibilité informationnel
 
