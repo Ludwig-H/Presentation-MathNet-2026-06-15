@@ -1,199 +1,163 @@
 % Hierarchical Swendsen--Wang dynamics.
-% Twelve frames: exact auxiliary law, four-state heat baths, and stationarity.
+% Eight concise frames: construction, exact move, and stationarity.
 
-\begin{frame}{Target Gibbs Law and Exponential Clocks}
-  Let $E=F\mathbin{\dot\cup}\widetilde F$.  An edge $e=\{i,j\}$ is
-  \textbf{satisfied} when
+\begin{frame}{Exponential Clocks Turn \textsc{Swendsen}--\textsc{Wang} into a Hierarchy}
   \[
-    \sigma_i=\sigma_j\quad(e\in F),
-    \qquad
-    \sigma_i\neq\sigma_j\quad(e\in\widetilde F).
-  \]
-  Thus, up to an additive constant,
-  \[
-    U(\sigma)=\sum_{e\in E}|W_e|\ind{e\text{ is not satisfied}},
-    \qquad
-    \boxed{\ \mu(\sigma)\propto\mu_0(\sigma)e^{-U(\sigma)}.\ }
+    \mu(\sigma)\propto
+    \mu_0(\sigma)
+    \exp\!\left[-\sum_{e\in E}|W_e|\ind{e\text{ is not satisfied}}\right].
   \]
 
   \begin{columns}[onlytextwidth,c]
-    \begin{column}{0.55\textwidth}
+    \begin{column}{0.46\textwidth}
       For each satisfied edge, independently,
       \[
         \boxed{\ \xi_e\sim\operatorname{Exp}(|W_e|)\ },
       \]
-      while $\xi_e=+\infty$ for an unsatisfied edge.  At level $t$, retain
-      precisely the links with $\xi_e\leq t$.
+      and set $\xi_e=+\infty$ otherwise.
 
-      \begin{block}{Classical \textsc{Swendsen}--\textsc{Wang} is the cut $t=1$}
+      At level $t$, keep the links with $\xi_e\leq t$.
+
+      \begin{block}{Classical cut}
         \[
-          \mathbb P(\xi_e\leq1\mid e\text{ satisfied})
+          \mathbb P(\xi_e\leq1)
           =1-e^{-|W_e|}.
         \]
       \end{block}
     \end{column}
 
-    \begin{column}{0.40\textwidth}
+    \begin{column}{0.50\textwidth}
       \centering
-      \begin{tikzpicture}[x=3.4cm,y=.75cm]
-        \draw[-{Latex[length=2.5mm]},line width=1pt]
-          (0,0)--(1.18,0) node[right,font=\scriptsize] {$t$};
-        \foreach \x/\lab in {.16/.18,.38/.42,.61/.67,.79/.88,1.08/1.26}{
-          \draw[line width=.8pt] (\x,-.11)--(\x,.11);
-          \node[font=\tiny,above] at (\x,.11) {$\lab$};
-        }
-        \draw[inria-2024-rouge,line width=1.2pt] (.88,-.22)--(.88,.27);
-        \node[font=\scriptsize,text=inria-2024-rouge,above] at (.88,.27) {$1$};
-        \node[font=\scriptsize,align=center] at (.43,-.55)
-          {retained by the classical cut};
-        \draw[decorate,decoration={brace,mirror,amplitude=4pt},gray!70]
-          (.02,-.21)--(.87,-.21);
-      \end{tikzpicture}
+      \begin{tikzpicture}[
+        x=.82cm,y=.78cm,
+        v/.style={circle,draw,fill=white,minimum size=4.8mm,inner sep=0pt,font=\tiny},
+        active/.style={line width=1.5pt,draw=inria-2024-gris-bleu},
+        late/.style={line width=1pt,draw=gray!45},
+        lab/.style={fill=white,inner sep=1pt,font=\tiny}
+      ]
+        \node[v] (a) at (0,0) {$a$};
+        \node[v] (b) at (1.5,1.1) {$b$};
+        \node[v] (c) at (3,0) {$c$};
+        \node[v] (d) at (4.5,1.1) {$d$};
+        \node[v] (e) at (6,0) {$e$};
+        \draw[active] (a)--node[lab,sloped] {.18} (b);
+        \draw[active] (b)--node[lab,sloped] {.42} (c);
+        \draw[active] (c)--node[lab,sloped] {.67} (d);
+        \draw[active] (a)--node[lab,sloped,below] {.74} (c);
+        \draw[active] (b)--node[lab,sloped] {.88} (d);
+        \draw[late] (d)--node[lab,sloped] {1.26} (e);
 
-      \vspace{0.5em}
-      Continuous clocks imply that merge times are distinct almost surely.
+        \draw[-{Latex[length=2.3mm]},line width=.9pt]
+          (0,-1.25)--(6.4,-1.25) node[right,font=\scriptsize] {$t$};
+        \foreach \x/\lab in {.75/.18,1.8/.42,3.0/.67,3.6/.74,4.3/.88,5.75/1.26}
+          \draw (\x,-1.37)--(\x,-1.13) node[above,font=\tiny] {$\lab$};
+        \draw[inria-2024-rouge,line width=1.2pt] (5.1,-1.52)--(5.1,-.98);
+        \node[font=\scriptsize,text=inria-2024-rouge,above] at (5.1,-.98) {$t=1$};
+      \end{tikzpicture}
     \end{column}
   \end{columns}
+
+  \begin{center}
+    \textbf{One clock sample contains every scale, not only the cut $t=1$.}
+  \end{center}
 \end{frame}
 
-\begin{frame}{The Auxiliary Variable Is the Component Dendrogram up to $1$}
-  Define the graph and its component partition at every level by
+\begin{frame}{Kruskal Reads the Whole Hierarchy}
   \[
-    G_t=\bigl(V,\{e\in E:\xi_e\leq t\}\bigr),
-    \qquad
-    \Pi_t=\operatorname{cc}(G_t),
+    \Pi_t=\operatorname{cc}\{e:\xi_e\leq t\},
     \qquad
     \boxed{\ D_{\leq1}=(\Pi_t)_{0\leq t\leq1}.\ }
   \]
 
   \begin{columns}[onlytextwidth,c]
-    \begin{column}{0.48\textwidth}
-      \begin{block}{Finite description of $D_{\leq1}$}
-        \begin{itemize}
-          \item the final components (the roots) $\Pi_1$;
-          \item for each merger $u:C=C_1\mathbin{\dot\cup}C_2$, the two
-            children $C_1,C_2$ and its height $\beta_u\leq1$.
-        \end{itemize}
-      \end{block}
-
-      Children are unordered.  The support is
-      \[
-        0<\beta_v<\beta_u\leq1
-        \quad\text{whenever $v$ is below $u$.}
-      \]
-      The reference measure is counting measure on these forest topologies
-      times Lebesgue measure on their admissible heights.
-    \end{column}
-
-    \begin{column}{0.48\textwidth}
-      \centering
-      \begin{tikzpicture}[
-        x=.75cm,y=3.0cm,
-        leaf/.style={circle,draw,fill=white,minimum size=4.4mm,inner sep=0pt,font=\tiny},
-        merge/.style={circle,draw=inria-2024-bleu-canard,
-          fill=inria-2024-bleu-canard!10,minimum size=4.2mm,inner sep=0pt},
-        branch/.style={line width=1pt,draw=inria-2024-gris-bleu},
-        cut/.style={densely dashed,line width=.7pt,draw=gray!55}
-      ]
-        \node[leaf] (a) at (0,0) {$a$};
-        \node[leaf] (b) at (1,0) {$b$};
-        \node[leaf] (c) at (2,0) {$c$};
-        \node[leaf] (d) at (3,0) {$d$};
-        \node[leaf] (e) at (4.35,0) {$e$};
-        \node[merge] (ab) at (.5,.18) {};
-        \node[merge] (abc) at (1.25,.42) {};
-        \node[merge] (abcd) at (2.125,.67) {};
-        \foreach \x/\y in {a/ab,b/ab,ab/abc,c/abc,abc/abcd,d/abcd}
-          \draw[branch] (\x)--(\y);
-        \draw[cut] (-.35,1)--(4.75,1)
-          node[right,font=\tiny,text=black] {$t=1$};
-        \node[font=\tiny,anchor=east] at (-.10,.18) {$\beta_1$};
-        \node[font=\tiny,anchor=east] at (.65,.42) {$\beta_2$};
-        \node[font=\tiny,anchor=east] at (1.52,.67) {$\beta_3$};
-        \node[font=\scriptsize,align=center] at (2.1,-.18)
-          {nested components and heights};
-        \node[font=\scriptsize,align=center,text=gray!70] at (4.35,.50)
-          {singleton\\root};
-      \end{tikzpicture}
-
-      \vspace{-0.4em}
-      \textcolor{inria-2024-rouge}{\textbf{Conditioned data at a node.}}
-      At $u$, they are exactly $(C_1,C_2,\beta_u)$; the likelihood below sums
-      over every graph link between $C_1$ and $C_2$.
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{A Minimum Spanning Forest Computes All Those Partitions}
-  \begin{columns}[onlytextwidth,c]
     \begin{column}{0.62\textwidth}
       \centering
       \begin{tikzpicture}[
-        x=.55cm,y=.68cm,
+        x=.52cm,y=.66cm,
         v/.style={circle,draw,fill=white,minimum size=4.2mm,inner sep=0pt,font=\tiny},
         w/.style={fill=white,inner sep=1pt,font=\tiny},
         ge/.style={line width=1pt,draw=inria-2024-gris-bleu},
-        fe/.style={line width=1.65pt,draw=inria-2024-rouge},
-        arr/.style={-{Latex[length=2.4mm]},line width=1pt,draw=inria-2024-rouge}
+        fe/.style={line width=1.6pt,draw=inria-2024-rouge},
+        arr/.style={-{Latex[length=2.3mm]},line width=1pt,draw=inria-2024-rouge}
       ]
         \node[v] (a) at (0,0) {$a$};
-        \node[v] (b) at (1.4,1.2) {$b$};
-        \node[v] (c) at (2.8,0) {$c$};
-        \node[v] (d) at (4.2,1.2) {$d$};
-        \node[v] (e) at (5.6,0) {$e$};
+        \node[v] (b) at (1.35,1.15) {$b$};
+        \node[v] (c) at (2.7,0) {$c$};
+        \node[v] (d) at (4.05,1.15) {$d$};
+        \node[v] (e) at (5.4,0) {$e$};
         \draw[ge] (a)--node[w,sloped] {.18} (b);
         \draw[ge] (b)--node[w,sloped] {.42} (c);
         \draw[ge] (a)--node[w,sloped,below] {.74} (c);
         \draw[ge] (c)--node[w,sloped] {.67} (d);
         \draw[ge] (b)--node[w,sloped] {.88} (d);
         \draw[ge,draw=gray!40] (d)--node[w,sloped] {1.26} (e);
-        \node[font=\scriptsize] at (2.8,-.75) {clock-weighted graph};
+        \node[font=\scriptsize] at (2.7,-.72) {clock graph};
 
-        \draw[arr] (6.2,.55)--(7.1,.55)
+        \draw[arr] (5.9,.52)--(6.75,.52)
           node[midway,above,font=\scriptsize,text=black] {Kruskal};
 
-        \node[v] (aa) at (7.65,0) {$a$};
-        \node[v] (bb) at (9.05,1.2) {$b$};
-        \node[v] (cc) at (10.45,0) {$c$};
-        \node[v] (dd) at (11.85,1.2) {$d$};
-        \node[v] (ee) at (13.25,0) {$e$};
+        \node[v] (aa) at (7.25,0) {$a$};
+        \node[v] (bb) at (8.60,1.15) {$b$};
+        \node[v] (cc) at (9.95,0) {$c$};
+        \node[v] (dd) at (11.30,1.15) {$d$};
+        \node[v] (ee) at (12.65,0) {$e$};
         \draw[fe] (aa)--node[w,sloped] {.18} (bb);
         \draw[fe] (bb)--node[w,sloped] {.42} (cc);
         \draw[fe] (cc)--node[w,sloped] {.67} (dd);
-        \node[font=\scriptsize] at (10.45,-.75) {MSF, cut at $1$};
+        \node[font=\scriptsize] at (9.95,-.72) {minimum spanning forest};
       \end{tikzpicture}
     \end{column}
 
     \begin{column}{0.34\textwidth}
-      \begin{block}{Exact pruning property}
-        For every $0\leq t\leq1$,
-        \[
-          \begin{aligned}
-          \Pi_t
-          &=\operatorname{cc}\{e:\xi_e\leq t\}\\
-          &=\operatorname{cc}\{e\in\mathrm{MSF}:\xi_e\leq t\}.
-          \end{aligned}
-        \]
-      \end{block}
-
-      The MSF is therefore a computational representation of the same nested
-      partitions.  The auxiliary variable used below remains $D_{\leq1}$.
+      \centering
+      \begin{tikzpicture}[
+        x=.68cm,y=2.50cm,
+        leaf/.style={circle,draw,fill=white,minimum size=4mm,inner sep=0pt,font=\tiny},
+        merge/.style={circle,draw=inria-2024-bleu-canard,
+          fill=inria-2024-bleu-canard!10,minimum size=4mm,inner sep=0pt},
+        branch/.style={line width=.9pt,draw=inria-2024-gris-bleu},
+        cut/.style={densely dashed,line width=.7pt,draw=gray!55}
+      ]
+        \node[leaf] (a) at (0,0) {$a$};
+        \node[leaf] (b) at (1,0) {$b$};
+        \node[leaf] (c) at (2,0) {$c$};
+        \node[leaf] (d) at (3,0) {$d$};
+        \node[leaf] (e) at (4.2,0) {$e$};
+        \node[merge] (ab) at (.5,.18) {};
+        \node[merge] (abc) at (1.25,.42) {};
+        \node[merge] (abcd) at (2.125,.67) {};
+        \foreach \x/\y in {a/ab,b/ab,ab/abc,c/abc,abc/abcd,d/abcd}
+          \draw[branch] (\x)--(\y);
+        \draw[cut] (-.3,1)--(4.5,1)
+          node[right,font=\tiny,text=black] {$1$};
+        \node[font=\tiny,anchor=east] at (-.08,.18) {.18};
+        \node[font=\tiny,anchor=east] at (.66,.42) {.42};
+        \node[font=\tiny,anchor=east] at (1.54,.67) {.67};
+        \node[font=\scriptsize] at (2.0,-.18) {dendrogram $D_{\leq1}$};
+      \end{tikzpicture}
     \end{column}
   \end{columns}
 
+  \[
+    \boxed{
+    \operatorname{cc}\{e:\xi_e\leq t\}
+    =\operatorname{cc}\{e\in\mathrm{MSF}:\xi_e\leq t\}
+    \quad(0\leq t\leq1).}
+  \]
+
   \begin{center}
-    \textbf{Kruskal gives the hierarchy; the probability law is derived from
-    the full set of graph links.}
+    \textbf{The MSF computes the hierarchy; its law still uses all graph links.}
   \end{center}
 \end{frame}
 
-\begin{frame}{At One Merge, All Links Across the Cut Race}
+\begin{frame}{At Each Merge, Every Crossing Link Competes}
   For $u:C=C_1\mathbin{\dot\cup}C_2$, use the whole cut
   \[
-    E_u=\bigl\{e=\{i,j\}\in E:i\in C_1,\ j\in C_2\bigr\},
+    E_u=\bigl\{\{i,j\}\in E:i\in C_1,\ j\in C_2\bigr\},
     \qquad
-    \boxed{\ \Lambda_u(\sigma)
-      =\sum_{e\in E_u}|W_e|\ind{e\text{ satisfied by }\sigma}.\ }
+    \boxed{
+    \Lambda_u(\sigma)=
+      \sum_{e\in E_u}|W_e|\ind{e\text{ satisfied by }\sigma}.}
   \]
 
   \begin{columns}[onlytextwidth,c]
@@ -220,7 +184,7 @@
         \draw[link] (.22,-.30)--node[lab] {$e_3$} (4.98,-.30);
         \draw[link] (.22,-.90)--node[lab] {$e_4$} (4.98,-.90);
         \node[font=\scriptsize,align=center] at (2.6,-1.75)
-          {solid: satisfied clock\\dotted: $\xi_e=+\infty$};
+          {solid: satisfied\\dotted: $\xi_e=+\infty$};
       \end{tikzpicture}
     \end{column}
 
@@ -237,336 +201,260 @@
         \draw[densely dashed,inria-2024-rouge,line width=1pt]
           (1.35,.05)--(1.35,2.48);
         \node[font=\scriptsize,text=inria-2024-rouge,anchor=west]
-          at (1.48,2.43) {first bell $=\beta_u$};
+          at (1.48,2.43) {$\beta_u$};
       \end{tikzpicture}
 
       \[
         \boxed{
         \beta_u=\min_{\substack{e\in E_u\\e\text{ satisfied}}}\xi_e.}
       \]
-      The possible first bell is summed over all satisfied $e\in E_u$:
+      Therefore the merge-time density is simply
       \[
-        \sum_{e\in E_u}|W_e|\ind{e\text{ satisfied}}
-        e^{-\beta_u\Lambda_u(\sigma)}
-        =\boxed{\Lambda_u(\sigma)e^{-\beta_u\Lambda_u(\sigma)}}.
+        \boxed{
+        \Lambda_u(\sigma)e^{-\beta_u\Lambda_u(\sigma)}.}
       \]
     \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{Exact Density of the Censored Dendrogram}
-  Fix a candidate forest topology.  Assign each graph edge to
-  \begin{itemize}
-    \item the unique split $E_u$ given by the first common cluster of its endpoints; or
-    \item $E_\infty$, if its endpoints lie in distinct roots of $\Pi_1$.
-  \end{itemize}
-  Hence
-  \[
-    E=\left(\mathop{\dot\bigcup}_{u\in\operatorname{Int}(D_{\leq1})}E_u\right)
-      \mathbin{\dot\cup}E_\infty,
-    \qquad
-    \Lambda_\infty(\sigma)
-      =\sum_{e\in E_\infty}|W_e|\ind{e\text{ satisfied}}.
-  \]
-
-  \begin{columns}[onlytextwidth,T]
-    \begin{column}{0.47\textwidth}
-      \begin{block}{Internal node $u$}
-        The first clock in $E_u$ has density
-        \[
-          \Lambda_u(\sigma)e^{-\beta_u\Lambda_u(\sigma)}\,d\beta_u.
-        \]
-      \end{block}
-    \end{column}
-    \begin{column}{0.47\textwidth}
-      \begin{block}{Between final roots}
-        No satisfied clock in $E_\infty$ rings before $1$:
-        \[
-          \mathbb P(\min_{e\in E_\infty}\xi_e>1\mid\sigma)
-          =e^{-\Lambda_\infty(\sigma)}.
-        \]
-      \end{block}
-    \end{column}
-  \end{columns}
-
-  The clock families in this disjoint partition are independent.  Therefore
+\begin{frame}{The \textsc{Edwards}--\textsc{Sokal} Lift Gives the Exact Conditional Law}
+  For an admissible $D_{\leq1}$,
   \[
     \boxed{
-    \mathbb P(dD_{\leq1}\mid\sigma)
-      =\ind{D_{\leq1}\text{ admissible}}
-       e^{-\Lambda_\infty(\sigma)}
-       \prod_{u\in\operatorname{Int}(D_{\leq1})}
-       \Lambda_u(\sigma)e^{-\beta_u\Lambda_u(\sigma)}\,dD_{\leq1}.}
+    \mathbb P(dD\mid\sigma)
+      =e^{-\Lambda_\infty(\sigma)}
+       \prod_{u}
+       \Lambda_u(\sigma)e^{-\beta_u\Lambda_u(\sigma)}\,dD,}
   \]
-  A topology with $\Lambda_u(\sigma)=0$ has zero density, as it should.
-\end{frame}
+  where $\Lambda_\infty$ is the satisfied weight between the final components.
 
-\begin{frame}{The \textsc{Edwards}--\textsc{Sokal} Lift and Its Conditional Law}
-  Define the joint law on spin--dendrogram pairs by
-  \[
-    \boxed{
-    \nu(d\sigma,dD)
-      =\frac{1}{Z}\mu_0(d\sigma)e^{-U(\sigma)}
-        \mathbb P(dD_{\leq1}\mid\sigma).}
-  \]
-  Since $\mathbb P(\,\cdot\mid\sigma)$ is a probability law, the
-  $\sigma$-marginal of $\nu$ is exactly the target Gibbs law $\mu$.
-
-  \begin{columns}[onlytextwidth,T]
-    \begin{column}{0.47\textwidth}
-      Every edge is in one $E_u$ or in $E_\infty$, so
-      \[
-        \sum_{e\in E}|W_e|\ind{e\text{ satisfied}}
-        =\sum_u\Lambda_u(\sigma)+\Lambda_\infty(\sigma).
-      \]
-      Moreover
-      \[
-        e^{-U(\sigma)}
-        =e^{-\sum_{e\in E}|W_e|}
-         e^{\sum_u\Lambda_u(\sigma)+\Lambda_\infty(\sigma)}.
-      \]
+  \begin{columns}[onlytextwidth,c]
+    \begin{column}{0.42\textwidth}
+      \begin{block}{Joint law}
+        \[
+          \nu(\sigma,D)
+          \propto
+          \mu_0(\sigma)e^{-U(\sigma)}
+          \mathbb P(D\mid\sigma).
+        \]
+      \end{block}
+      Its $\sigma$-marginal is the target Gibbs law $\mu$.
     \end{column}
 
-    \begin{column}{0.49\textwidth}
-      The $\Lambda_\infty$ terms cancel exactly at the cut $1$.  Thus, on the
-      support of $\nu$,
-      \begin{block}{Conditional law used by every flip}
+    \begin{column}{0.12\textwidth}
+      \centering
+      \textcolor{inria-2024-rouge}{\Large $\Longrightarrow$}
+
+      \scriptsize
+      Bayes +\newline cancellation
+    \end{column}
+
+    \begin{column}{0.42\textwidth}
+      \begin{block}{Conditional law}
         \[
           \boxed{
           \nu(\sigma\mid D)
           \propto
           \mu_0(\sigma)
-          \prod_{u}
-          \Lambda_u(\sigma)
-          e^{(1-\beta_u)\Lambda_u(\sigma)}.}
+          \prod_u
+          \Lambda_u(\sigma)e^{(1-\beta_u)\Lambda_u(\sigma)}.}
         \]
       \end{block}
     \end{column}
   \end{columns}
+
+  \begin{center}
+    \textbf{This is the law used to flip clusters at every level.}
+  \end{center}
 \end{frame}
 
-\begin{frame}{At a Split There Are Four Joint Events}
-  For $u:C=C_1\mathbin{\dot\cup}C_2$, let $\sigma^{ab}$ flip $C_1$ when
-  $a=1$ and $C_2$ when $b=1$.  In the binary signed model,
-  \[
-    \begin{array}{c|c|c|c}
-      (a,b) & C_1 & C_2 & \Lambda_u(\sigma^{ab}) \\
-      \hline
-      (0,0) & \text{keep} & \text{keep} & \Lambda_u(\sigma) \\
-      (1,0) & \text{flip} & \text{keep} & \displaystyle\sum_{e\in E_u}|W_e|-\Lambda_u(\sigma) \\
-      (0,1) & \text{keep} & \text{flip} & \displaystyle\sum_{e\in E_u}|W_e|-\Lambda_u(\sigma) \\
-      (1,1) & \text{flip} & \text{flip} & \Lambda_u(\sigma)
-    \end{array}
-  \]
+\begin{frame}{One Merge Gives Four Joint Cluster Moves}
+  At $u:C=C_1\mathbin{\dot\cup}C_2$, let $\sigma^{ab}$ flip $C_1$ when $a=1$
+  and $C_2$ when $b=1$.  In the binary signed model:
 
-  \vspace{-0.3em}
-  \begin{alertblock}{One four-state draw, not two independent coins}
-    The current split only distinguishes equal versus opposite flip parity.
-    The prior $\mu_0$ and the ancestor cuts generally distinguish all four events.
-  \end{alertblock}
+  \begin{columns}[onlytextwidth,c]
+    \begin{column}{0.43\textwidth}
+      \centering
+      \begin{tikzpicture}[
+        move/.style={rounded corners=5pt,draw=inria-2024-bleu-canard,
+          fill=inria-2024-bleu-canard!6,minimum width=2.45cm,
+          minimum height=1.25cm,align=center,font=\scriptsize},
+        parity/.style={font=\tiny,text=gray!70}
+      ]
+        \node[move] (m00) at (0,1.25)
+          {$\boldsymbol{(0,0)}$\\keep $C_1$, keep $C_2$\\$\Lambda_u$};
+        \node[move] (m10) at (3.05,1.25)
+          {$\boldsymbol{(1,0)}$\\flip $C_1$, keep $C_2$\\$A_u-\Lambda_u$};
+        \node[move] (m01) at (0,-.35)
+          {$\boldsymbol{(0,1)}$\\keep $C_1$, flip $C_2$\\$A_u-\Lambda_u$};
+        \node[move] (m11) at (3.05,-.35)
+          {$\boldsymbol{(1,1)}$\\flip $C_1$, flip $C_2$\\$\Lambda_u$};
+      \end{tikzpicture}
 
-  \vspace{-0.2em}
-  If $u$ is a root and $\mu_0$ is uniform, set
-  $A_u=\sum_{e\in E_u}|W_e|$.  Then the fully explicit local probabilities are
-  \[
-    p_{00}=p_{11}
-      =\frac{\Lambda_u e^{(1-\beta_u)\Lambda_u}}
-      {2\!\left[\Lambda_u e^{(1-\beta_u)\Lambda_u}
-      +(A_u-\Lambda_u)e^{(1-\beta_u)(A_u-\Lambda_u)}\right]},
-  \]
-  \[
-    p_{10}=p_{01}
-      =\frac{(A_u-\Lambda_u)e^{(1-\beta_u)(A_u-\Lambda_u)}}
-      {2\!\left[\Lambda_u e^{(1-\beta_u)\Lambda_u}
-      +(A_u-\Lambda_u)e^{(1-\beta_u)(A_u-\Lambda_u)}\right]}.
-  \]
-\end{frame}
+      \vspace{0.4em}
+      $\displaystyle A_u=\sum_{e\in E_u}|W_e|$.
+    \end{column}
 
-\begin{frame}{The Exact Four Probabilities at an Arbitrary Level}
-  For the general node $u$, factors below $u$ and on disjoint branches are
-  unchanged.  The exact heat bath is therefore
-  \[
-    \boxed{
-    p_u(a,b\mid\sigma,D)
-    =\frac{
-      \mu_0(\sigma^{ab})
-      \displaystyle\prod_{v\succeq u}
-      \left[\Lambda_v(\sigma^{ab})
-      e^{(1-\beta_v)\Lambda_v(\sigma^{ab})}\right]}
-    {\displaystyle\sum_{c,d\in\{0,1\}}
-      \mu_0(\sigma^{cd})
-      \prod_{v\succeq u}
-      \left[\Lambda_v(\sigma^{cd})
-      e^{(1-\beta_v)\Lambda_v(\sigma^{cd})}\right]}.}
-  \]
-  Here $v\succeq u$ means $v=u$ or $v$ is an ancestor of $u$, and
-  \[
-    \Lambda_v(\sigma^{ab})
-      =\sum_{e\in E_v}|W_e|\ind{e\text{ satisfied by }\sigma^{ab}}.
-  \]
+    \begin{column}{0.53\textwidth}
+      The four exact weights are
+      \[
+        q_u^{ab}
+        =\mu_0(\sigma^{ab})
+        \prod_{v\succeq u}
+        \left[
+          \Lambda_v(\sigma^{ab})
+          e^{(1-\beta_v)\Lambda_v(\sigma^{ab})}
+        \right],
+      \]
+      \[
+        \boxed{
+        p_u(a,b\mid\sigma,D)
+        =\frac{q_u^{ab}}
+        {\displaystyle\sum_{c,d\in\{0,1\}}q_u^{cd}}.}
+      \]
 
-  \begin{columns}[onlytextwidth,T]
-    \begin{column}{0.48\textwidth}
-      \begin{block}{Where the clock minimum enters}
-        The sampled height $\beta_v$ is the minimum crossing clock used to
-        construct $D$.  It is then held fixed and appears explicitly in every
-        factor $e^{(1-\beta_v)\Lambda_v}$.
+      \begin{block}{Only what changes is recomputed}
+        The node $u$, its ancestors, and $\mu_0$.
+        Descendants and disjoint branches cancel.
       \end{block}
     \end{column}
-    \begin{column}{0.48\textwidth}
-      \begin{alertblock}{Why a purely local rule is wrong}
-        Flipping $C_1$ or $C_2$ changes links crossing ancestor splits.  Omitting
-        $\mu_0$ or those ancestor factors generally breaks detailed balance.
-      \end{alertblock}
-    \end{column}
   \end{columns}
+
+  \begin{center}
+    \textcolor{inria-2024-rouge}{\textbf{One four-state draw---not two independent flips.}}
+  \end{center}
 \end{frame}
 
-\begin{frame}{Detailed Balance for Each Four-State Heat Bath}
-  Fix $D$ and $u$, and let
+\begin{frame}{Each Local Move Satisfies Detailed Balance}
+  For the four-state orbit
   \[
     \mathcal O_u(\sigma)
-      =\{\sigma^{00},\sigma^{10},\sigma^{01},\sigma^{11}\}.
+      =\{\sigma^{00},\sigma^{10},\sigma^{01},\sigma^{11}\},
   \]
-  This orbit is the same when viewed from any $x\in\mathcal O_u(\sigma)$.
-  The previous rule can be written
+  the previous rule is a heat bath.  Hence, for $x,y\in\mathcal O_u$,
   \[
-    K_u^D(x,y)
-      =\ind{y\in\mathcal O_u(x)}
-       \frac{\nu(y\mid D)}{\nu(\mathcal O_u(x)\mid D)}.
-  \]
-
-  \begin{block}{Detailed balance, line by line}
-    For $x,y$ in the same orbit,
-    \[
-      \nu(x\mid D)K_u^D(x,y)
+    \boxed{
+    \nu(x\mid D)K_u^D(x,y)
       =\frac{\nu(x\mid D)\nu(y\mid D)}
              {\nu(\mathcal O_u\mid D)}
-      =\nu(y\mid D)K_u^D(y,x).
-    \]
-    If $x,y$ are in different orbits, both sides are zero.
-  \end{block}
+      =\nu(y\mid D)K_u^D(y,x).}
+  \]
 
-  Hence $K_u^D$ is reversible and preserves the \emph{same} conditional law
-  $\nu(\,\cdot\mid D)$.  On the support of $\nu$, the orbit denominator is
-  positive; candidates with zero conditional weight simply receive probability zero.
+  \begin{columns}[onlytextwidth,c]
+    \begin{column}{0.44\textwidth}
+      \centering
+      \begin{tikzpicture}[
+        leaf/.style={circle,draw,fill=white,minimum size=4.2mm,inner sep=0pt,font=\tiny},
+        merge/.style={circle,draw=inria-2024-bleu-canard,
+          fill=inria-2024-bleu-canard!10,minimum size=4.2mm,inner sep=0pt},
+        branch/.style={line width=1pt,draw=inria-2024-gris-bleu}
+      ]
+        \node[leaf] (a) at (0,0) {$a$};
+        \node[leaf] (b) at (1,0) {$b$};
+        \node[leaf] (c) at (2,0) {$c$};
+        \node[leaf] (d) at (3,0) {$d$};
+        \node[leaf] (e) at (4.4,0) {$e$};
+        \node[merge] (ab) at (.5,.8) {};
+        \node[merge] (abc) at (1.25,1.55) {};
+        \node[merge] (root) at (2.125,2.3) {};
+        \foreach \x/\y in {a/ab,b/ab,ab/abc,c/abc,abc/root,d/root}
+          \draw[branch] (\x)--(\y);
+        \node[font=\scriptsize,text=inria-2024-bleu-canard] at (2.125,2.75)
+          {final root $R$};
+        \node[font=\scriptsize,text=gray!70] at (4.4,.55) {singleton root};
+      \end{tikzpicture}
+    \end{column}
+
+    \begin{column}{0.52\textwidth}
+      Final components use the analogous two-state heat bath:
+      \[
+        \boxed{
+        \mathbb P(\text{flip }R\mid\sigma,D)
+          =\frac{\mu_0(\sigma^R)}
+                 {\mu_0(\sigma)+\mu_0(\sigma^R)}.}
+      \]
+      For a uniform prior this is $1/2$: ordinary
+      \textsc{Swendsen}--\textsc{Wang} recolouring, including singleton roots.
+    \end{column}
+  \end{columns}
 \end{frame}
 
-\begin{frame}{Final Components Need Their Own Two-State Heat Bath}
-  Internal nodes alone miss a singleton root.  For every final component
-  $R\in\Pi_1$, also consider the two states $\sigma$ and $\sigma^R$, where all
-  spins in $R$ are flipped.
+\begin{frame}{A Hierarchical Sweep Preserves Gibbs}
+  \begin{center}
+    \begin{tikzpicture}[
+      box/.style={rounded corners=6pt,draw=inria-2024-bleu-canard,
+        fill=inria-2024-bleu-canard!7,minimum width=2.4cm,
+        minimum height=1.15cm,align=center},
+      arr/.style={-{Latex[length=3mm]},line width=1.2pt,draw=inria-2024-rouge}
+    ]
+      \node[box] (s) at (0,0) {$\sigma\sim\mu$};
+      \node[box] (d) at (3.6,0) {sample $D$\\from the clocks};
+      \node[box] (h) at (7.2,0) {root and node\\heat baths};
+      \node[box] (sp) at (10.8,0) {$\sigma'\sim\mu$};
+      \draw[arr] (s)--node[above,font=\scriptsize,text=black]
+        {$\mathbb P(D\mid\sigma)$} (d);
+      \draw[arr] (d)--node[above,font=\scriptsize,text=black]
+        {$K_D$} (h);
+      \draw[arr] (h)--node[above,font=\scriptsize,text=black]
+        {discard $D$} (sp);
+    \end{tikzpicture}
+  \end{center}
 
-  A root flip preserves every internal $\Lambda_u$, while the between-root term
-  has already cancelled.  Therefore
+  Every local heat bath preserves the same conditional law, so
   \[
-    \frac{\nu(\sigma^R\mid D)}{\nu(\sigma\mid D)}
-      =\frac{\mu_0(\sigma^R)}{\mu_0(\sigma)},
-    \qquad
-    \boxed{
-    \mathbb P(\text{flip }R\mid\sigma,D)
-      =\frac{\mu_0(\sigma^R)}
-             {\mu_0(\sigma)+\mu_0(\sigma^R)}.}
+    \nu(\,\cdot\mid D)K_D=\nu(\,\cdot\mid D)
+    \qquad\Longrightarrow\qquad
+    \boxed{\ \mu P=\mu.\ }
   \]
 
   \begin{columns}[onlytextwidth,T]
     \begin{column}{0.48\textwidth}
-      \begin{block}{Uniform prior}
-        Each final component, including a singleton, is flipped with probability
-        $1/2$: this is precisely the usual \textsc{Swendsen}--\textsc{Wang}
-        recolouring at the cut $1$.
+      \begin{block}{Fixed sweep}
+        Stationary for Gibbs, but not necessarily reversible.
       \end{block}
     \end{column}
     \begin{column}{0.48\textwidth}
-      \begin{alertblock}{Why this matters}
-        With two vertices in an unsatisfied state, $D$ has two singleton roots.
-        Without root moves, the proposed chain would be the identity and could
-        not converge from that state.
-      \end{alertblock}
-    \end{column}
-  \end{columns}
-
-  The internal four-state moves are the additional hierarchical moves.
-\end{frame}
-
-\begin{frame}{From Conditional Balance to Gibbs Balance}
-  Let $\mathcal L(D)$ be any list of root moves and internal-node moves chosen
-  from the full $D$ before the spins are updated.
-
-  \begin{columns}[onlytextwidth,T]
-    \begin{column}{0.48\textwidth}
-      \begin{block}{Stationary sweep}
-        Every deterministic composition of these heat baths preserves
-        $\nu(\,\cdot\mid D)$:
-        \[
-          \nu(\,\cdot\mid D)K_D
-          =\nu(\,\cdot\mid D).
-        \]
-        A deterministic sweep need not itself be reversible.
-      \end{block}
-    \end{column}
-    \begin{column}{0.48\textwidth}
-      \begin{block}{Reversible sweep}
-        Choose the order of $\mathcal L(D)$ uniformly at random.  Every order
-        and its reverse have the same probability, hence
-        \[
-          K_D^*=K_D
-          \quad\text{in }L^2(\nu(\,\cdot\mid D)).
-        \]
+      \begin{block}{Symmetric random order}
+        Every order and its reverse are equally likely: the whole dynamics
+        satisfies detailed balance.
       \end{block}
     \end{column}
   \end{columns}
 
-  For such a reversible conditional sweep,
-  \[
-    \begin{aligned}
-      \mu(dx)P(x,dy)
-      &=\int \mu(dx)\,\mathbb P(dD\mid x)\,K_D(x,dy)\\
-      &=\int \nu(dD)\,\nu(dx\mid D)\,K_D(x,dy),
-    \end{aligned}
-  \]
-  This is symmetric in $x,y$: the marginal hierarchical kernel satisfies
-  detailed balance for $\mu$.
-
+  \begin{center}
+    \textbf{Main result: the hierarchical dynamics has Gibbs stationary.}
+  \end{center}
 \end{frame}
 
-\begin{frame}{Stopping the Updates and Truncating $D$ Are Different}
-  \begin{columns}[onlytextwidth,T]
-    \begin{column}{0.48\textwidth}
-      \begin{block}{Full $D_{\leq1}$ is kept}
-        Choose from $D$---before any flip---a fixed depth, threshold, subtree,
-        or prefix of the traversal.  The resulting composition still preserves
-        $\nu(\,\cdot\mid D)$, hence its marginal preserves $\mu$.
+\begin{frame}{Stopping the Sweep: the Simple Rule}
+  \begin{columns}[onlytextwidth,c]
+    \begin{column}{0.47\textwidth}
+      \begin{block}{\Large $\checkmark$ Keep the full $D_{\leq1}$}
+        Sample the full dendrogram, then choose from $D$---before the flips---
+        a depth, a subtree, or a prefix of the sweep.
 
-        \medskip
-        An order or stopping rule that reacts to the spins produced during the
-        sweep needs a separate invariance proof.
+        \vspace{0.5em}
+        Every such partial sweep still preserves Gibbs:
+        \[
+          \boxed{\ \mu P_{\mathrm{partial}}=\mu.\ }
+        \]
       \end{block}
     \end{column}
 
-    \begin{column}{0.48\textwidth}
-      \begin{alertblock}{Only $D_{\leq t}$ is observed, $t<1$}
-        This is a different auxiliary variable.  If
-        $\Lambda_\infty^t(\sigma)$ is the satisfied weight between components
-        of $\Pi_t$, then
-        {\small
+    \begin{column}{0.47\textwidth}
+      \begin{alertblock}{\Large $\boldsymbol{\neq}$ Observe only $D_{\leq t}$}
+        Actually truncating the auxiliary variable at $t<1$ gives a different
+        conditional law, with the residual factor
         \[
-          \boxed{
-          \begin{aligned}
-          \nu(\sigma\mid D_{\leq t})\propto{}&\mu_0(\sigma)
-          e^{(1-t)\Lambda_\infty^t(\sigma)}\\[-2pt]
-          &\times\prod_{\beta_u\leq t}
-          \Lambda_u(\sigma)e^{(1-\beta_u)\Lambda_u(\sigma)}.
-          \end{aligned}}
+          \boxed{\ e^{(1-t)\Lambda_\infty^t(\sigma)}.\ }
         \]
-        }
-        The residual boundary factor disappears only at $t=1$.
+
+        The full-$D$ flip probabilities cannot simply be reused.
       \end{alertblock}
     \end{column}
   \end{columns}
 
   \begin{center}
-    \textbf{Exact conclusion:} a full sweep, or any $D$-measurable partial sweep,
-    has Gibbs stationary; convergence requires a separate ergodicity argument.
+    \textbf{Stop the updates if desired; do not silently change the auxiliary law.}
   \end{center}
 \end{frame}
