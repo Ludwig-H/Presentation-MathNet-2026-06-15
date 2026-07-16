@@ -1,5 +1,5 @@
 % Hierarchical Swendsen--Wang dynamics.
-% Six deliberately simple frames, inserted before Open Questions & Conclusion.
+% Eight deliberately simple frames, inserted before Open Questions & Conclusion.
 
 \begin{frame}{Exponential Clocks Replace Rigid Freezing}
   \begin{columns}[onlytextwidth,c]
@@ -101,7 +101,7 @@
         \draw[fe] (aa)--node[w,sloped] {.18} (bb);
         \draw[fe] (bb)--node[w,sloped] {.42} (cc);
         \draw[fe] (cc)--node[w,sloped] {.67} (dd);
-        \node[font=\scriptsize] at (10.5,-.75) {minimum spanning forest};
+        \node[font=\scriptsize] at (10.5,-.75) {MSF pruned at $t=1$};
       \end{tikzpicture}
     \end{column}
 
@@ -150,181 +150,272 @@
   \end{block}
 \end{frame}
 
-\begin{frame}{Keep the Merge, Forget the Winning Edge}
-  \begin{columns}[onlytextwidth,T]
-    \begin{column}{0.45\textwidth}
-      \begin{block}{What the dendrogram $D$ keeps}
-        \begin{itemize}
-          \item the nested partitions of the vertices;
-          \item the order and levels of the merges;
-          \item the cut $t=1$ separating the final forest components.
-        \end{itemize}
-      \end{block}
-
-      \begin{alertblock}{What $D$ does not keep}
-        The identity of the edge selected by Kruskal at a merge.
-        Keeping it would hard-constrain the two children and reduce the update
-        to ordinary component recolouring.
-      \end{alertblock}
-    \end{column}
-
-    \begin{column}{0.51\textwidth}
-      At a merge $C=C_1\mathbin{\dot\cup}C_2$, the exponential clocks form a race.
-      After summing over the winning edge, its rate is simply
-      \[
-        \boxed{
-        \operatorname{rate}(C_1,C_2\mid\sigma)
-        =\!\!\sum_{\substack{e=\{i,j\},\ i\in C_1,\ j\in C_2\\
-                         \sigma\ \mathrm{satisfies}\ e}}
-          |W_e|.}
-      \]
-      Multiplying these exponential-race densities along $D$ defines
-      \[
-        \mathbb P(\mathrm dD\mid\sigma)
-      \]
-      while marginalising the irrelevant winning edge.
-
-      The same $D$ may therefore have positive probability for $\sigma$ and
-      after a subtree flip. If not, the conditional heat bath assigns that
-      flip probability zero.
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{An \textsc{Edwards}--\textsc{Sokal} Law on $(\sigma,D)$}
-  Let $\mathbb P(\mathrm dD\mid\sigma)$ be exactly the clock--Kruskal law from
-  the previous slides.  On pairs $(\sigma,D)$, define
+\begin{frame}{At a Merge, Every Link Between the Two Children Counts}
+  For an internal node $u:C=C_1\mathbin{\dot\cup}C_2$, let
   \[
-    \boxed{
-      \mu(\mathrm d\sigma,\mathrm dD)
-      =\frac{1}{Z}\,
-        \mu_0(\mathrm d\sigma)\,e^{-U(\sigma)}
-        \mathbb P(\mathrm dD\mid\sigma)
-      =\mu(\mathrm d\sigma)\mathbb P(\mathrm dD\mid\sigma).}
+    E_u=\bigl\{e=\{i,j\}:i\in C_1,\ j\in C_2\bigr\},
+    \qquad
+    \boxed{\ \Lambda_u(\sigma)
+      =\sum_{e\in E_u}|W_e|\,\ind{\sigma\text{ satisfies }e}.\ }
   \]
 
-  \begin{columns}[onlytextwidth,T]
-    \begin{column}{0.47\textwidth}
-      \begin{block}{Correct marginal}
-        Since $\mathbb P(\,\cdot\mid\sigma)$ is a probability law,
-        \[
-          \int \mu(\mathrm d\sigma,\mathrm dD)
-          =\frac{1}{Z}\mu_0(\mathrm d\sigma)e^{-U(\sigma)}
-          =\mu(\mathrm d\sigma).
-        \]
-      \end{block}
-    \end{column}
-
-    \begin{column}{0.49\textwidth}
-      \begin{block}{Conditional law used for recolouring}
-        For a fixed dendrogram,
-        \[
-          \mu(\mathrm d\sigma\mid D)
-          \propto
-          \mu_0(\mathrm d\sigma)e^{-U(\sigma)}
-          \mathbb P(\mathrm dD\mid\sigma).
-        \]
-        The prior $\mu_0$ is therefore preserved exactly; it need not be uniform.
-      \end{block}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{Prune from Coarse to Fine, with Two Choices at Each Split}
   \begin{columns}[onlytextwidth,c]
-    \begin{column}{0.45\textwidth}
+    \begin{column}{0.52\textwidth}
       \centering
       \begin{tikzpicture}[
         x=.82cm,y=.82cm,
-        leaf/.style={circle,draw,fill=white,minimum size=4.2mm,inner sep=0pt,font=\tiny},
-        merge/.style={circle,draw=inria-2024-rouge,fill=inria-2024-rouge!10,
-                      minimum size=4.1mm,inner sep=0pt},
-        branch/.style={line width=.9pt,draw=inria-2024-gris-bleu},
-        focus/.style={rounded corners=3pt,draw=inria-2024-bleu-canard,
-                      fill=inria-2024-bleu-canard!7,inner sep=4pt},
-        down/.style={-{Latex[length=2.3mm]},line width=1pt,draw=inria-2024-rouge}
+        v/.style={circle,draw,fill=white,minimum size=4.7mm,inner sep=0pt,font=\tiny},
+        cluster/.style={rounded corners=7pt,draw=inria-2024-bleu-canard,
+                       fill=inria-2024-bleu-canard!6,inner sep=6pt},
+        sat/.style={line width=1.25pt,draw=inria-2024-gris-bleu},
+        nosat/.style={line width=.8pt,densely dotted,draw=gray!55},
+        winner/.style={line width=2.2pt,draw=inria-2024-rouge}
       ]
-        \foreach \x/\s in {0/+,1/+,2/-,3/-,4/+,5/-}
-          \node[leaf] (l\x) at (\x,0) {$\s$};
-        \node[merge] (a) at (.5,.9) {};
-        \node[merge] (b) at (2.5,.9) {};
-        \node[merge] (c) at (4.5,.9) {};
-        \node[merge] (d) at (1.5,1.85) {};
-        \node[merge] (r) at (3,2.85) {};
-        \foreach \u/\v in {l0/a,l1/a,l2/b,l3/b,l4/c,l5/c,a/d,b/d,d/r,c/r}
-          \draw[branch] (\u)--(\v);
+        \node[v] (a1) at (0,1.4) {$+$};
+        \node[v] (a2) at (0,0) {$+$};
+        \node[v] (a3) at (1.25,.7) {$-$};
+        \node[v] (b1) at (4.2,1.4) {$-$};
+        \node[v] (b2) at (4.2,0) {$+$};
+        \node[v] (b3) at (2.95,.7) {$-$};
         \begin{scope}[on background layer]
-          \node[focus,fit=(l0)(l1)(a)] (C1) {};
-          \node[focus,fit=(l2)(l3)(b)] (C2) {};
+          \node[cluster,fit=(a1)(a2)(a3)] {};
+          \node[cluster,fit=(b1)(b2)(b3)] {};
+          \draw[sat] (a1)--(b1);
+          \draw[sat] (a2)--(b3);
+          \draw[sat] (a3)--(b2);
+          \draw[nosat] (a1)--(b2);
+          \draw[nosat] (a3)--(b1);
+          \draw[winner] (a2)--(b1);
         \end{scope}
-        \node[font=\scriptsize,text=inria-2024-bleu-canard] at (.5,1.32) {$C_1$};
-        \node[font=\scriptsize,text=inria-2024-bleu-canard] at (2.5,1.32) {$C_2$};
-        \node[font=\scriptsize] at (1.5,2.25) {$C=C_1\mathbin{\dot\cup}C_2$};
-        \draw[down] (-.8,2.85)--(-.8,.2);
-        \node[font=\scriptsize,rotate=90,anchor=south,text=inria-2024-rouge]
-          at (-1.0,1.5) {coarse $\longrightarrow$ fine};
-        \node[font=\scriptsize] at (3,-.55) {current top-down split};
+        \node[font=\scriptsize,text=inria-2024-bleu-canard] at (.55,2.05) {$C_1$};
+        \node[font=\scriptsize,text=inria-2024-bleu-canard] at (3.65,2.05) {$C_2$};
+        \node[font=\scriptsize,text=inria-2024-rouge,fill=white,inner sep=1pt]
+          at (2.1,.95) {$e_u$};
+        \node[font=\scriptsize,align=center] at (2.1,-.82)
+          {red: one possible edge $e_u$ realising $\beta_u$;\\
+           solid: satisfied; dotted: unsatisfied};
       \end{tikzpicture}
     \end{column}
 
-    \begin{column}{0.52\textwidth}
-      At the current split $C=C_1\mathbin{\dot\cup}C_2$, compare only two
-      configurations:
-      \begin{itemize}
-        \item the current configuration $\sigma$;
-        \item $\sigma^{C_1}$, obtained by reversing every label in $C_1$.
-      \end{itemize}
-      Replace $\sigma$ by $\sigma^{C_1}$ with the conditional heat-bath probability
+    \begin{column}{0.44\textwidth}
+      In the sampled clock graph, one Kruskal edge $e_u$ realises the merge height
+      \[
+        \beta_u=\xi_{e_u}.
+      \]
+      The lift conditions on $(C_1,C_2,\beta_u)$. Its weight sums over all
+      satisfied links in $E_u$, not only $e_u$, giving the density
       \[
         \boxed{
-        \frac{\mu(\sigma^{C_1}\mid D)}
-             {\mu(\sigma\mid D)+\mu(\sigma^{C_1}\mid D)}.}
+          \Lambda_u(\sigma)
+          e^{-\beta_u\Lambda_u(\sigma)}.}
       \]
-      Then update $\sigma$, descend to the next split, and recompute the
-      probability.
 
-      \begin{alertblock}{The essential point}
-        The choices at different levels are sequential conditional updates,
-        not independent flips.
-      \end{alertblock}
+      \medskip
+      \textcolor{inria-2024-rouge}{\textbf{One edge fixes $\beta_u$;
+      all links enter $\Lambda_u(\sigma)$.}}
     \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{The Gibbs Measure Is Stationary by Construction}
-  \begin{block}{One split satisfies detailed balance}
-    For the two configurations $\sigma$ and $\sigma^C$,
+\begin{frame}{The Exact \textsc{Edwards}--\textsc{Sokal} Lift}
+  \begin{columns}[onlytextwidth,T]
+    \begin{column}{0.49\textwidth}
+      \begin{block}{Clock--Kruskal law}
+        On the support of $D$,
+        \[
+          \begin{aligned}
+          \mathbb P(\mathrm dD\mid\sigma)
+          &=e^{-\Lambda_\infty(\sigma)}\\[-2pt]
+          &\quad\times\prod_{u\in\operatorname{Int}(D)}
+            \Lambda_u(\sigma)e^{-\beta_u\Lambda_u(\sigma)}\,\mathrm dD.
+          \end{aligned}
+        \]
+        Here $\Lambda_\infty(\sigma)$ is the total satisfied weight between
+        distinct components at the cut $t=1$.
+      \end{block}
+
+      \begin{block}{Joint law}
+        \[
+          \mu(\mathrm d\sigma,\mathrm dD)
+          =\frac{1}{Z}\mu_0(\mathrm d\sigma)e^{-U(\sigma)}
+            \mathbb P(\mathrm dD\mid\sigma).
+        \]
+        Its $\sigma$-marginal is the target Gibbs law.
+      \end{block}
+    \end{column}
+
+    \begin{column}{0.47\textwidth}
+      Since every edge belongs to one merge, or joins two final components,
+      \[
+        e^{-U(\sigma)}
+        \ \propto\
+        \exp\!\left\{
+          \sum_u\Lambda_u(\sigma)+\Lambda_\infty(\sigma)
+        \right\}.
+      \]
+      The $\Lambda_\infty$ terms cancel at the cut $t=1$. Therefore
+      \begin{block}{Conditional law used for the flips}
+        {\small
+        \[
+          \boxed{
+          \begin{aligned}
+          \mu(\sigma\mid D)
+          &\ \propto\ \mu_0(\sigma)\\[-2pt]
+          &\quad\times\prod_{u}
+          \Lambda_u(\sigma)e^{(1-\beta_u)\Lambda_u(\sigma)}.
+          \end{aligned}}
+        \]
+        }
+      \end{block}
+      Thus $\mu_0$, all the $W_e$, and the merge clocks
+      $\beta_u=\xi_{e_u}$ are retained exactly.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{One Split Has Four Possible Outcomes}
+  At $u:C=C_1\mathbin{\dot\cup}C_2$, write $\sigma^{ab}$ for the configuration
+  obtained by flipping $C_1$ when $a=1$ and $C_2$ when $b=1$.
+
+  \vspace{0.05em}
+  \begin{center}
+    \renewcommand{\arraystretch}{1.18}
+    \begin{tabular}{c c c c}
+      \toprule
+      event $(a,b)$ & $C_1$ & $C_2$ & $\Lambda_u(\sigma^{ab})$ \\
+      \midrule
+      $(0,0)$ & keep & keep & $\Lambda_u(\sigma)$ \\
+      $(1,0)$ & flip & keep & $\displaystyle\sum_{e\in E_u}|W_e|-\Lambda_u(\sigma)$ \\
+      $(0,1)$ & keep & flip & $\displaystyle\sum_{e\in E_u}|W_e|-\Lambda_u(\sigma)$ \\
+      $(1,1)$ & flip & flip & $\Lambda_u(\sigma)$ \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+
+  \textbf{Contribution of the current merge:}
+  \[
+    \boxed{
+    \Lambda_u(\sigma^{ab})
+    \exp\!\left\{(1-\xi_{e_u})\Lambda_u(\sigma^{ab})\right\}.}
+  \]
+
+  \begin{alertblock}{Local symmetry, four global weights}
+    Locally, $a=b$ and $a\neq b$ are the two cases; $\mu_0$ and the ancestors
+    distinguish the four weights.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{The Four Probabilities Form One Exact Heat Bath}
+  The exact rule at $u$ is
+  \[
+    \boxed{
+      p_u(a,b\mid\sigma,D)
+      =\frac{\mu(\sigma^{ab}\mid D)}
+             {\displaystyle\sum_{c,d\in\{0,1\}}
+              \mu(\sigma^{cd}\mid D)},
+      \qquad (a,b)\in\{0,1\}^2.}
+  \]
+
+  \begin{columns}[onlytextwidth,T]
+    \begin{column}{0.60\textwidth}
+      After cancelling the factors common to the four candidates,
+      \[
+        \mu(\sigma^{ab}\mid D)
+        \ \propto\
+        \mu_0(\sigma^{ab})
+        \prod_{v\succeq u}
+        \left[
+          \Lambda_v(\sigma^{ab})
+          e^{(1-\beta_v)\Lambda_v(\sigma^{ab})}
+        \right],
+      \]
+      where $v\succeq u$ means $v=u$ or $v$ is an ancestor of $u$, and
+      $\beta_v=\xi_{e_v}$.
+    \end{column}
+
+    \begin{column}{0.36\textwidth}
+      \begin{block}{At each visited node}
+        \begin{enumerate}
+          \item form the four $\sigma^{ab}$;
+          \item evaluate $\mu_0(\sigma^{ab})$ and recompute
+            $\Lambda_v(\sigma^{ab})$ for $v=u$ and its ancestors;
+          \item normalise the four weights;
+          \item draw one event and update $\sigma$.
+        \end{enumerate}
+      \end{block}
+    \end{column}
+  \end{columns}
+
+  Descendant merges and disjoint branches are unchanged, so their factors cancel.
+  Each node uses one joint four-state heat bath; node updates are sequential.
+\end{frame}
+
+\begin{frame}{Detailed Balance Holds at Every Visited Node}
+  Fix $D$ and a node $u$.  From any of its four configurations, the candidate
+  set is the same:
+  \[
+    \bigl\{\sigma^{00},\sigma^{10},\sigma^{01},\sigma^{11}\bigr\}.
+  \]
+
+  For two candidates $x$ and $y$, the heat-bath kernel $K_u^D$ satisfies
+  \begin{block}{Detailed balance for the four-state update}
     \[
-      \mu(\sigma\mid D)\,
-      \mathbb P(\sigma\to\sigma^C\mid D)
-      =\frac{\mu(\sigma\mid D)\mu(\sigma^C\mid D)}
-             {\mu(\sigma\mid D)+\mu(\sigma^C\mid D)}
-      =\mu(\sigma^C\mid D)\,
-       \mathbb P(\sigma^C\to\sigma\mid D).
+      \mu(x\mid D)K_u^D(x,y)
+      =\frac{\mu(x\mid D)\mu(y\mid D)}
+             {\displaystyle\sum_{c,d\in\{0,1\}}\mu(\sigma^{cd}\mid D)}
+      =\mu(y\mid D)K_u^D(y,x).
     \]
-    Hence every split preserves $\mu(\,\cdot\mid D)$, and so does the complete
-    top-down sweep.
   \end{block}
+
+  Hence each node update is reversible and preserves $\mu(\,\cdot\mid D)$.
+  Zero conditional weight simply gives zero probability to the corresponding event.
+
+  \begin{alertblock}{One useful distinction}
+    Every local heat bath satisfies detailed balance.  A deterministic sweep of
+    several nodes is stationary, but need not itself be reversible.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{A Full Sweep---or Any Fixed Prefix---Preserves Gibbs}
+  Fix a traversal $u_1,\ldots,u_M$ of the full sampled dendrogram $D$, and stop
+  after the first $m$ nodes. Since every node heat bath preserves the same
+  conditional law,
+  \[
+    \boxed{
+      \mu(\,\cdot\mid D)K_{u_1}^D\cdots K_{u_m}^D
+      =\mu(\,\cdot\mid D),
+      \qquad m=0,1,\ldots,M.}
+  \]
 
   \begin{center}
     \Large
     $\displaystyle
-      \sigma
+      \sigma\sim\mu
       \ \xrightarrow{\ D\sim\mathbb P(\,\cdot\mid\sigma)\ }\
       (\sigma,D)
-      \ \xrightarrow{\ \text{top-down heat baths}\ }\
+      \ \xrightarrow{\ m\ \text{node heat baths}\ }\
       (\sigma',D)
       \ \xrightarrow{\ \text{discard }D\ }\
-      \sigma'.$
+      \sigma'\sim\mu.$
   \end{center}
 
-  \begin{block}{Whole transition}
-    The first arrow samples one conditional law of
-    $\mu(\mathrm d\sigma,\mathrm dD)$; the sweep preserves the other conditional law.
-    This is a Gibbs-within-Gibbs update on $(\sigma,D)$. Therefore
-    \[
-      \boxed{\ \sigma\sim\mu\quad\Longrightarrow\quad\sigma'\sim\mu.\ }
-    \]
-  \end{block}
+  \begin{columns}[onlytextwidth,T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Allowed stopping rules}
+        Keep the full $D$; traverse the whole forest, or stop at any depth fixed
+        in advance, chosen from $D$, or chosen by external randomness.
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{alertblock}{What is not automatic}
+        A stopping rule depending on the spins produced during the sweep
+        requires a separate invariance argument.
+      \end{alertblock}
+    \end{column}
+  \end{columns}
 
+  \begin{center}
+    \textbf{Stationarity, not perfect sampling:}
+    one sweep need not produce a Gibbs sample from an arbitrary initial state.
+  \end{center}
 \end{frame}
