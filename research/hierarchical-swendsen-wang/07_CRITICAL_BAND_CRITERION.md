@@ -478,7 +478,7 @@ Il est supérieur au point multicritique de Nishimori numérique $`0.835806\ldot
 
 ## 7. Ce que les arêtes de bande apportent à une coupe
 
-Considérons une coupe déterministe de $m$ liens, fusionnant au temps $\beta$. Conditionnellement au fait qu'un lien autre que l'arête gagnante soit encore fermé à $\beta$, posons
+Considérons un bucket de $m$ liens, fusionnant au temps $\beta$, conditionnellement au squelette de Kruskal non marqué. Une arête gagnante latente est uniforme ; conditionnellement au fait qu'un autre lien soit encore fermé à $\beta$, posons
 
 ```math
 h_p(\beta)
@@ -496,7 +496,7 @@ Les $m-1$ autres liens se répartissent en :
 - $S$ : satisfaits mais avec $`\xi_e>1`$ ;
 - $U$ : insatisfaits.
 
-Pour une coupe fixée ou prévisible, avant le biais supplémentaire de sélection de Kruskal,
+Conditionnellement à ce squelette, y compris lorsque le bucket est sélectionné par Kruskal, on a exactement
 
 ```math
 (R,S,U)
@@ -802,7 +802,7 @@ Si une contraction de bloc peut être encadrée par un enhancement local monoton
 | Connexion nouvellement créée dans le quotient par la bande équivaut à $`\beta<\beta_{ij}\le1`$ | Identité déterministe |
 | Bande pure nécessaire à la weak recovery | Pas un critère universel ; la contraction préalable est indispensable |
 | Réécriture $`t_\chi>\beta_c`$ de la borne information-percolation | Établi dans le modèle homogène annealed |
-| Loi multinomiale d'une coupe fixée ou prévisible | Établie ; biais de Kruskal restant |
+| Loi multinomiale conditionnelle au squelette non marqué | Établie ; le biais restant porte sur la géométrie du squelette |
 | Capacité de quotient pondérée par une contraction non oracle | À construire |
 | Seuil strictement supérieur à $`0.794659\ldots`$ | À prouver |
 

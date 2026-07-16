@@ -56,7 +56,7 @@ où $`\mathcal M_n`$ somme les fusions au-dessus de $\beta$, pondérées par $`\
 
 ## Socle de départ
 
-Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. Les points 3, 4, 6 et 7 sont des résultats finis dont l'algèbre a été vérifiée et dont la preuve courte est donnée dans ce dossier ; ils restent à intégrer dans une rédaction formelle complète avec A1.
+Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. Les points 3, 4, 6, 7 et 8 sont des résultats finis dont l'algèbre a été vérifiée et dont la preuve courte est donnée dans ce dossier ; ils restent à intégrer dans une rédaction formelle complète avec A1.
 
 1. La coupe $t=1$ des horloges redonne exactement les liens de Swendsen–Wang.
 2. Les heat baths des orientations globales des arbres redonnent la recoloration de Swendsen–Wang lorsque l'a priori est uniforme. Aux feuilles, on obtient le heat bath mono-site de Glauber ; un noyau de Metropolis–Hastings mono-site ciblant la même conditionnelle est une variante valide.
@@ -76,6 +76,7 @@ Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. L
    ce qui est plus fort que les bornes Swendsen–Wang $0.673648\ldots$ et triangulaire d'ordre supérieur $0.719224\ldots$. Toute nouvelle borne hiérarchique doit donc être comparée à $0.794659\ldots$, pas seulement à la borne du chapitre 11.
 6. Pour une paire fixée, le noyau qui rafraîchit $D$ puis met à jour son LCA est positif et réversible. Ses autocorrélations $`A_{ij}^{(m)}`$ décroissent vers $`c_{ij}(O)^2`$ sous ergodicité. Le score à un pas est ainsi le premier terme d'une suite allant vers le critère exact à deux répliques.
 7. À toute coupe $\beta$ telle que $`S_n(\beta)\to0`$, la weak recovery se réduit au score signé des paires dont le LCA naît dans $`(\beta,1]`$. Sur la grille triangulaire, l'information-percolation se réécrit $`t_\chi(p)>\beta_c(p)`$, avec $`q_p(t_\chi)=(2p-1)^2`$.
+8. Pour un nœud de fusion $u$, tous les taux $`\Lambda_v(\sigma^{ab})`$ de ses ancêtres se calculent exactement à partir de trois groupes par bucket. Dans le GSBM homogène, conditionnellement au squelette de Kruskal non marqué, les marques des buckets sont indépendantes et suivent une loi binomiale groupée explicite.
 
 ## Carte du dossier
 
@@ -86,6 +87,7 @@ Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. L
 - [05_PROOF_ROADMAP.md](05_PROOF_ROADMAP.md) : lemmes à démontrer, dépendances, cas tests et critères de succès.
 - [06_LCA_SPIN_CORRELATION.md](06_LCA_SPIN_CORRELATION.md) : quatre événements de flip, formule exacte faisant intervenir $`\beta_u=\xi_{e_u}`$, borne LCA, chaîne pair-spécifique et programme triangulaire.
 - [07_CRITICAL_BAND_CRITERION.md](07_CRITICAL_BAND_CRITERION.md) : réduction à la bande critique, distinction bande pure/quotient, temps informationnel $`t_\chi`$, flux pivotal et capacité de blocs.
+- [08_ANCESTRAL_LAMBDA_CHAIN.md](08_ANCESTRAL_LAMBDA_CHAIN.md) : formule exacte des quatre $`\Lambda_v`$ au-dessus du LCA, réduction à $`(h_1,h_2,J)`$, loi conditionnelle de Kruskal et méthodes de calcul certifiées.
 - [LITERATURE.md](LITERATURE.md) : état de l'art primaire, voisins conceptuels et positionnement prudent de la nouveauté.
 - [references.bib](references.bib) : bibliographie ciblée et autonome.
 - [computations/README.md](computations/README.md) : cahier des charges des calculs exacts et simulations à ajouter.

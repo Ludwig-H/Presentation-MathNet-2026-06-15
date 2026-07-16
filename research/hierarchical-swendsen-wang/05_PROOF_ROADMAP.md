@@ -193,7 +193,7 @@ B_u
 +\log\frac{\Lambda_u}{T_u-\Lambda_u}
 +(1-\beta_u)(2\Lambda_u-T_u).
 ```
-Sur cactus, $`B_u`$ doit obéir à une récursion de canal binaire symétrique ; sur bandes, à une matrice de transfert ; sur la grille, il faudra contrôler ou dominer sa loi.
+La décomposition en trois groupes du [fichier 08](08_ANCESTRAL_LAMBDA_CHAIN.md) donne désormais exactement les quatre $`\Lambda_v(\sigma^{ab})`$ et réduit la chaîne à quatre log-poids, ou à $`(h_1,h_2,J)`$ lorsque les taux sont positifs. Sur cactus, il faut propager leur loi exacte ; sur bandes, construire une matrice de transfert certifiée ; sur la grille, contrôler ou dominer cette loi conditionnellement au squelette proche-critique.
 
 ### C3. Cycles et multi-terminal
 
@@ -271,7 +271,7 @@ k\mid(m,\beta=t)
 \mathrm{logistic}(u_p(1-t))\right)
 ```
 
-pour une coupe annealed conditionnée, puis quantifier précisément ce qui reste biaisé par le choix aléatoire de $`E_u`$.
+conditionnellement au squelette non marqué. Le choix de Kruskal biaise encore la géométrie $`(E_u,m,\beta)`$, mais ne biaise plus les marques résiduelles une fois ce squelette fixé.
 
 ### E3. Bande critique et flux pivotal
 
@@ -285,11 +285,11 @@ t_\chi=q_p^{-1}((2p-1)^2),
 
 puis vérifier que $`t_\chi>\beta_c`$ redonne exactement $`p>0.794659\ldots`$. Désintégrer la mesure des fusions avec la formule de Russo et pondérer les pivots par la fiabilité conditionnelle.
 
-Sur une coupe fixée, vérifier la loi multinomiale des liens de bande et le crossover $`m h_p(\beta)^2`$. Sur une fusion choisie par Kruskal, cette loi reste à corriger par le biais de sélection.
+Employer la loi multinomiale exacte conditionnellement au squelette non marqué et vérifier le crossover $`m h_p(\beta)^2`$. Sur une fusion choisie par Kruskal, il reste à contrôler la loi du squelette groupé $`(m_{v,0},m_{v,1},m_{v,2},\beta_v)`$, pas à recorriger les marques conditionnelles.
 
-### E4. Biais de Kruskal
+### E4. Géométrie biaisée de Kruskal
 
-Décrire la loi d'une fusion conditionnellement à la filtration passée. Aucun remplacement de $k$ par une variable binomiale sans preuve.
+Décrire la loi du squelette d'une fusion conditionnellement à la filtration passée. Le noyau des marques est maintenant exact après conditionnement ; le verrou est la distribution des tailles de groupes et des temps le long de la chaîne ancestrale.
 
 ### E5. Cas intermédiaires
 

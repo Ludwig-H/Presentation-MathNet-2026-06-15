@@ -32,11 +32,13 @@ Pour $0\le t\le1$, soit $`\Pi_t`$ la partition en composantes connexes du graphe
 ```
 donc $`\Pi_1`$ est exactement la partition gelée de Swendsen–Wang par arêtes.
 
-Le dendrogramme $`D=(\Pi_t)_{0\le t\le1}`$ peut être calculé par Kruskal sur les poids $`\xi_e`$. La minimum spanning forest ne sert qu'à calculer la filtration : lorsqu'un nœud $u$ fusionne $`C_1`$ et $`C_2`$, les probabilités de flip utilisent **l'ensemble**
+Le dendrogramme $`D=(\Pi_t)_{0\le t\le1}`$ peut être calculé par Kruskal sur les poids $`\xi_e`$. Dans tout ce dossier, $D$ est le **dendrogramme de partitions non marqué** : il conserve les composantes fusionnées et leur temps, mais marginalise l'identité de l'arête qui réalise le minimum. La minimum spanning forest ne sert qu'à calculer la filtration : lorsqu'un nœud $u$ fusionne $`C_1`$ et $`C_2`$, les probabilités de flip utilisent **l'ensemble**
 ```math
 E_u=\{\{i,j\}\in E:i\in C_1,\ j\in C_2\},
 ```
 et pas seulement l'arête choisie par Kruskal.
+
+Cette convention est indispensable. Si l'identité de l'arête gagnante est conservée dans un dendrogramme enrichi, la densité conditionnelle contient son poids et l'indicatrice qu'elle reste satisfaite, et non le préfacteur $`\Lambda_u`$ ci-dessous. Les deux variables auxiliaires définissent des heat baths différents ; voir [08_ANCESTRAL_LAMBDA_CHAIN.md](08_ANCESTRAL_LAMBDA_CHAIN.md).
 
 On note
 ```math
@@ -158,7 +160,7 @@ B_u
 +(1-\beta_u)(2\Lambda_u-T_u).
 }
 ```
-Le temps $`\beta_u=\xi_{e_u}`$ vient de l'arête qui réalise la fusion de Kruskal ; $`\Lambda_u`$ et $`T_u`$ somment tous les liens de $`E_u`$. Le terme $`B_u`$ est le message exact du potentiel $`\mu_0`$ et des ancêtres.
+Le temps $`\beta_u=\xi_{e_u}`$ vient d'une arête gagnante latente utilisée pendant la construction de Kruskal, puis marginalisée dans $D$ ; $`\Lambda_u`$ et $`T_u`$ somment tous les liens de $`E_u`$. Le terme $`B_u`$ est le message exact du potentiel $`\mu_0`$ et des ancêtres. Sa décomposition explicite le long de la chaîne ancestrale est donnée dans [08_ANCESTRAL_LAMBDA_CHAIN.md](08_ANCESTRAL_LAMBDA_CHAIN.md).
 
 ### Formule locale simplifiée
 

@@ -2,9 +2,21 @@
 
 Ce sous-dossier doit contenir uniquement des calculs reproductibles liés aux énoncés du dossier de recherche. Aucun résultat numérique ne sera présenté comme preuve.
 
+Les contrôles sans dépendance se lancent depuis la racine du dépôt avec :
+
+```bash
+python3 -m unittest discover \
+  -s research/hierarchical-swendsen-wang/computations \
+  -p 'test_*.py' -v
+python3 research/hierarchical-swendsen-wang/computations/critical_band_thresholds.py
+python3 research/hierarchical-swendsen-wang/computations/ancestral_lambda_chain.py
+```
+
 ## Structure prévue
 
 - `critical_band_thresholds.py` : vérification sans dépendance des trois seuils triangulaires et des temps $`\beta_c,t_\chi`$ ;
+- `ancestral_lambda_chain.py` : calcul exact des quatre taux ancestraux, du message $`B_u`$ et de $`\mathbb E[\eta_u\mid\mathscr D]`$ sur un petit squelette homogène ;
+- `test_ancestral_lambda_chain.py` : tests unitaires sans dépendance de la course conditionnelle et des identités quatre états ;
 - `exact_enumeration/` : énumération de toutes les configurations et horloges discrétisées sur petits graphes ;
 - `symbolic/` : simplification des poids $`q_u^{ab}`$, contractions et seuils ;
 - `triangular_grid/` : tores triangulaires, bandes et cactus ;
@@ -59,7 +71,7 @@ Ce sous-dossier doit contenir uniquement des calculs reproductibles liés aux é
     \mathrm{logistic}(u_p(1-t))\right)
 ```
 
-    avant d'étudier le biais supplémentaire du choix de la coupe par Kruskal.
+    conditionnellement au squelette non marqué, puis étudier séparément la loi géométrique du squelette choisi par Kruskal.
 12. Pour chaque coupe $`\beta`$, vérifier exactement
 
 ```math
