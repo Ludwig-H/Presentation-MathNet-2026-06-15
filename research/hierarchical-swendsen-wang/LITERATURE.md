@@ -6,9 +6,9 @@ Recherche ciblée effectuée jusqu'au 16 juillet 2026. Elle ne constitue pas une
 
 La combinaison exacte suivante n'a pas été retrouvée dans les sources consultées :
 
-1. horloges exponentielles dépendant de \(|W_e|\) ;
+1. horloges exponentielles dépendant de $`|W_e|`$ ;
 2. filtration complète des composantes calculée par Kruskal/minimum spanning forest ;
-3. loi jointe exacte de type Edwards–Sokal sur \((\sigma,D)\) ;
+3. loi jointe exacte de type Edwards–Sokal sur $(\sigma,D)$ ;
 4. heat baths aux nœuds internes utilisant tous les liens entre les deux fils ;
 5. emploi de cette hiérarchie pour borner ou caractériser la weak recovery.
 
@@ -35,7 +35,7 @@ Des morceaux importants existent séparément. La nouveauté défendable n'est d
 ## Information-percolation et SDPI
 
 10. [Polyanskiy–Wu, *Application of Information-Percolation Method to Reconstruction Problems on Graphs*](https://arxiv.org/abs/1806.04195). Domination de l'information par une percolation dont les probabilités sont des contractions de canaux.
-11. [Abbe–Boix, *An Information-Percolation Bound for Spin Synchronization on General Graphs*](https://arxiv.org/abs/1806.03227), [DOI](https://doi.org/10.1214/19-AAP1523). Formulation \(\chi^2\) directement adaptée aux canaux binaires du GSBM ; donne la baseline \(p<0.794659\ldots\) sur la grille triangulaire homogène.
+11. [Abbe–Boix, *An Information-Percolation Bound for Spin Synchronization on General Graphs*](https://arxiv.org/abs/1806.03227), [DOI](https://doi.org/10.1214/19-AAP1523). Formulation $\chi^2$ directement adaptée aux canaux binaires du GSBM ; donne la baseline $p<0.794659\ldots$ sur la grille triangulaire homogène.
 12. [Gu–Polyanskiy, *Weak Recovery Threshold for the Hypergraph Stochastic Block Model*](https://arxiv.org/abs/2303.14689). SDPI multi-terminales : outil probable pour traiter simultanément tous les liens ou triangles traversant une fusion.
 
 ## Reconstruction et capacités sur arbres
@@ -46,9 +46,9 @@ Des morceaux importants existent séparément. La nouveauté défendable n'est d
 ## Triangles, frustration et ligne de Nishimori
 
 15. [Chayes–Lei, *Random Cluster Models on the Triangular Lattice*](https://arxiv.org/abs/cond-mat/0508254), [DOI](https://doi.org/10.1007/s10955-005-8078-7). Seuil autodual des états triangulaires corrélés utilisé au chapitre 11.
-16. [Nishimori–Ohzeki, *Location of the Multicritical Point for the Ising Spin Glass on the Triangular and Hexagonal Lattices*](https://arxiv.org/abs/cond-mat/0601356), [DOI](https://doi.org/10.1143/JPSJ.75.034004). Valeur conjecturée \(p_{\mathrm N}=0.8358058\ldots\).
+16. [Nishimori–Ohzeki, *Location of the Multicritical Point for the Ising Spin Glass on the Triangular and Hexagonal Lattices*](https://arxiv.org/abs/cond-mat/0601356), [DOI](https://doi.org/10.1143/JPSJ.75.034004). Valeur conjecturée $`p_{\mathrm N}=0.8358058\ldots`$.
 17. [de Queiroz, *Multicritical Point of Ising Spin Glasses on Triangular and Honeycomb Lattices*](https://arxiv.org/abs/cond-mat/0510816), [DOI](https://doi.org/10.1103/PhysRevB.73.064410). Étude numérique par matrices de transfert ; classe critique distincte de la percolation ordinaire.
-18. [Yamaguchi, *Conjectured Exact Percolation Thresholds of the FK Cluster for the ±J Ising Spin Glass*](https://arxiv.org/abs/1004.0654). Retrouve le seuil FK triangulaire correspondant à \(p_c^{\mathrm{edge}}\).
+18. [Yamaguchi, *Conjectured Exact Percolation Thresholds of the FK Cluster for the ±J Ising Spin Glass*](https://arxiv.org/abs/1004.0654). Retrouve le seuil FK triangulaire correspondant à $`p_c^{\mathrm{edge}}`$.
 19. [Fajen–Hartmann–Young, *Percolation of Fortuin–Kasteleyn Clusters for the Random-Bond Ising Model*](https://arxiv.org/abs/1905.04220), [DOI](https://doi.org/10.1103/PhysRevE.102.012131). Montre numériquement que, avec frustration, la percolation FK peut précéder l'ordre magnétique : raison précise pour laquelle la percolation seule n'est pas suffisante.
 
 ## Deux répliques et représentations graphiques
@@ -68,12 +68,12 @@ Ordre recommandé :
 
 ## Critère de nouveauté à viser
 
-Un résultat qui ne ferait que retrouver la percolation de \(\Pi_1\) serait déjà couvert par les représentations FK. Un résultat qui ne ferait que retrouver la contraction \((2p-1)^2\) serait couvert par information-percolation.
+Un résultat qui ne ferait que retrouver la percolation de $`\Pi_1`$ serait déjà couvert par les représentations FK. Un résultat qui ne ferait que retrouver la contraction $(2p-1)^2$ serait couvert par information-percolation.
 
 La contribution spécifique doit exploiter au moins un des éléments suivants :
 
-- la valeur de \(\beta_u\) ;
-- l'ensemble des liens entre \(C_1\) et \(C_2\) ;
+- la valeur de $`\beta_u`$ ;
+- l'ensemble des liens entre $`C_1`$ et $`C_2`$ ;
 - une SDPI de bloc plus fine que le produit arête par arête ;
 - le spectre ou la capacité de la matrice de persistance hiérarchique ;
 - une caractérisation à deux répliques qui devienne nécessaire et suffisante dans un cas non trivial.

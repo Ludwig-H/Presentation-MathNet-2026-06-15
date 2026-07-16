@@ -4,47 +4,53 @@ Ce dossier rassemble le programme théorique ouvert par la dynamique fondée sur
 
 ## Question centrale
 
-Pour \(K=2\), quand l'observation \((X_n,W_n)\) contient-elle une information macroscopique sur \(\Sigma_n\), c'est-à-dire quand existe-t-il un algorithme \(\tau_n\) tel que
+Pour $K=2$, quand l'observation $`(X_n,W_n)`$ contient-elle une information macroscopique sur $`\Sigma_n`$, c'est-à-dire quand existe-t-il un algorithme $`\tau_n`$ tel que
 
-\[
+
+$$
 \mathbb P\!\left[
 \left|\frac1n\sum_{i=1}^n \Sigma_{n,i}\tau_{n,i}\right|\ge \varepsilon
 \right]
-\]
+$$
 
-reste strictement positive pour un \(\varepsilon>0\) ? Avec l'a priori i.i.d. uniforme, cela équivaut à battre le random guess dans la définition du manuscrit.
 
-La dynamique hiérarchique doit servir de **couplage invariant de deux répliques postérieures**. La taille des composantes à la coupe \(t=1\) n'est alors que le premier cas d'une observable plus riche : la persistance de l'information sous des heat baths effectués à différents nœuds du dendrogramme.
+reste strictement positive pour un $\varepsilon>0$ ? Avec l'a priori i.i.d. uniforme, cela équivaut à battre le random guess dans la définition du manuscrit.
+
+La dynamique hiérarchique doit servir de **couplage invariant de deux répliques postérieures**. La taille des composantes à la coupe $t=1$ n'est alors que le premier cas d'une observable plus riche : la persistance de l'information sous des heat baths effectués à différents nœuds du dendrogramme.
 
 ## Socle de départ
 
 Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. Les points 3 et 4 sont des propositions finies dont l'algèbre a été vérifiée et dont la preuve courte est donnée dans ce dossier ; elles restent à intégrer dans une rédaction formelle.
 
-1. La coupe \(t=1\) des horloges redonne exactement les liens de Swendsen–Wang.
+1. La coupe $t=1$ des horloges redonne exactement les liens de Swendsen–Wang.
 2. Les heat baths des orientations globales des arbres redonnent la recoloration de Swendsen–Wang lorsque l'a priori est uniforme. Aux feuilles, on obtient le heat bath mono-site de Glauber ; un noyau de Metropolis–Hastings mono-site ciblant la même conditionnelle est une variante valide.
-3. Pour deux répliques postérieures indépendantes \(\sigma^{(1)},\sigma^{(2)}\), la non-disparition de
+3. Pour deux répliques postérieures indépendantes $\sigma^{(1)},\sigma^{(2)}$, la non-disparition de
 
-   \[
-   Q_n=\mathbb E\left\langle
+   
+$$
+Q_n=\mathbb E\left\langle
    \left(\frac1n\sum_i\sigma_i^{(1)}\sigma_i^{(2)}\right)^2
    \right\rangle
-   \]
+$$
+
 
    caractérise exactement la weak recovery au sens « avantage avec probabilité positive » dans le cas binaire symétrique.
-4. Tout parcours hiérarchique invariant fournit une matrice de persistance \(H_S\). Si \(\mathbb E[\lambda_{\max}(H_S)/n]\to0\) pour un parcours \(S\), la weak recovery est impossible. Pour Swendsen–Wang aux racines, \(H_S(i,j)=\mathbf 1_{\{i,j\text{ dans la même composante}\}}\) : on retrouve l'obstruction du chapitre 11.
+4. Tout parcours hiérarchique invariant fournit une matrice de persistance $`H_S`$. Si $`\mathbb E[\lambda_{\max}(H_S)/n]\to0`$ pour un parcours $S$, la weak recovery est impossible. Pour Swendsen–Wang aux racines, $`H_S(i,j)=\mathbf 1_{\{i,j\text{ dans la même composante}\}}`$ : on retrouve l'obstruction du chapitre 11.
 5. Sur la grille triangulaire homogène, la borne d'information-percolation déjà connue donne l'impossibilité pour
 
-   \[
-   p<\frac{1+\sqrt{2\sin(\pi/18)}}2=0.794659\ldots,
-   \]
+   
+$$
+p<\frac{1+\sqrt{2\sin(\pi/18)}}2=0.794659\ldots,
+$$
 
-   ce qui est plus fort que les bornes Swendsen–Wang \(0.673648\ldots\) et triangulaire d'ordre supérieur \(0.719224\ldots\). Toute nouvelle borne hiérarchique doit donc être comparée à \(0.794659\ldots\), pas seulement à la borne du chapitre 11.
+
+   ce qui est plus fort que les bornes Swendsen–Wang $0.673648\ldots$ et triangulaire d'ordre supérieur $0.719224\ldots$. Toute nouvelle borne hiérarchique doit donc être comparée à $0.794659\ldots$, pas seulement à la borne du chapitre 11.
 
 ## Carte du dossier
 
-- [01_MATHEMATICAL_FRAMEWORK.md](01_MATHEMATICAL_FRAMEWORK.md) : définition exacte de \(D\), loi jointe de type Edwards–Sokal, règles de mise à jour et hypothèses.
-- [02_CHAPTER_11_BASELINE.md](02_CHAPTER_11_BASELINE.md) : théorème \(\theta^{\max}\) corrigé, portée réelle et baseline d'information-percolation.
-- [03_HIERARCHICAL_WEAK_RECOVERY.md](03_HIERARCHICAL_WEAK_RECOVERY.md) : critère à deux répliques, obstruction \(H_S\), capacité hiérarchique et conjectures.
+- [01_MATHEMATICAL_FRAMEWORK.md](01_MATHEMATICAL_FRAMEWORK.md) : définition exacte de $D$, loi jointe de type Edwards–Sokal, règles de mise à jour et hypothèses.
+- [02_CHAPTER_11_BASELINE.md](02_CHAPTER_11_BASELINE.md) : théorème $\theta^{\max}$ corrigé, portée réelle et baseline d'information-percolation.
+- [03_HIERARCHICAL_WEAK_RECOVERY.md](03_HIERARCHICAL_WEAK_RECOVERY.md) : critère à deux répliques, obstruction $`H_S`$, capacité hiérarchique et conjectures.
 - [04_TRIANGULAR_GSBM.md](04_TRIANGULAR_GSBM.md) : calculs explicites sur la grille triangulaire et objectifs numériques/théoriques.
 - [05_PROOF_ROADMAP.md](05_PROOF_ROADMAP.md) : lemmes à démontrer, dépendances, cas tests et critères de succès.
 - [LITERATURE.md](LITERATURE.md) : état de l'art primaire, voisins conceptuels et positionnement prudent de la nouveauté.
@@ -62,7 +68,7 @@ Chaque affirmation nouvelle doit porter l'un des statuts suivants :
 
 ## Premier objectif publiable
 
-Sur la grille triangulaire homogène : construire une contraction informationnelle par nœud qui tient compte de tous les liens entre les deux fils, établir une borne globale par SDPI, puis obtenir une zone rigoureuse de non-recouvrement dépassant \(p=0.794659\ldots\). Atteindre le point multicritique de Nishimori conjecturé \(p\simeq0.8358058\) serait un objectif beaucoup plus ambitieux.
+Sur la grille triangulaire homogène : construire une contraction informationnelle par nœud qui tient compte de tous les liens entre les deux fils, établir une borne globale par SDPI, puis obtenir une zone rigoureuse de non-recouvrement dépassant $p=0.794659\ldots$. Atteindre le point multicritique de Nishimori conjecturé $p\simeq0.8358058$ serait un objectif beaucoup plus ambitieux.
 
 ## Sources internes
 
