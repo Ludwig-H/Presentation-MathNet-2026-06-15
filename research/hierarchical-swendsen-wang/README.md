@@ -8,7 +8,7 @@ Pour $K=2$, quand l'observation $`(X_n,W_n)`$ contient-elle une information macr
 
 
 $$
-\mathbb P\!\left[
+\mathbb P\left[
 \left|\frac1n\sum_{i=1}^n \Sigma_{n,i}\tau_{n,i}\right|\ge \varepsilon
 \right]
 $$

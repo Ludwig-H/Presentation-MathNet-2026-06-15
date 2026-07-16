@@ -51,7 +51,7 @@ $$
 \inf\left\{
 \theta\in[0,1]:
 \lim_{\delta\downarrow0}\limsup_{n\to\infty}
-\mathbb P\!\left[\theta_\delta(\kappa_n)>\theta\right]=0
+\mathbb P\left[\theta_\delta(\kappa_n)>\theta\right]=0
 \right\}.
 $$
 
@@ -68,7 +68,7 @@ Sous ces hypothèses, pour tout $\eta>0$ et tout algorithme $`\tau_n`$,
 
 
 $$
-\mathbb P\!\left[
+\mathbb P\left[
 \operatorname{ov}_n(\Sigma_n,\tau_n)
 \ge
 \frac1K+\frac{K-1}{K}

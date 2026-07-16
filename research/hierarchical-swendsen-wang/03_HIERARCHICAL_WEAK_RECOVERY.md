@@ -82,7 +82,7 @@ Conditionnellement à $O$,
 
 
 $$
-\mathbb E\!\left[R_n(\sigma,\tau_n)^2\mid O,\tau_n\right]
+\mathbb E\left[R_n(\sigma,\tau_n)^2\mid O,\tau_n\right]
 =
 \frac{\tau_n^\top C_O\tau_n}{n^2}
 \le
@@ -120,7 +120,7 @@ Puisque $`0\le R_n^2\le1`$, une borne $`Q_n\ge q>0`$ implique par exemple
 
 
 $$
-\mathbb P\!\left(
+\mathbb P\left(
 |R_n(\Sigma_n,\tau_n)|\ge\sqrt{q/2}
 \right)
 \ge \frac q2.
@@ -141,7 +141,7 @@ $$
 \qquad
 H_S(O,\sigma,D)
 =
-\mathbb E\!\left[\zeta\zeta^\top\mid O,\sigma,D\right],
+\mathbb E\left[\zeta\zeta^\top\mid O,\sigma,D\right],
 $$
 
 
@@ -195,7 +195,7 @@ Donc
 
 
 $$
-\mathbb E\!\left[R_n(\sigma',\tau_n)^2
+\mathbb E\left[R_n(\sigma',\tau_n)^2
 \mid O,\sigma,D,\tau_n\right]
 =
 \frac{a^\top H_Sa}{n^2}

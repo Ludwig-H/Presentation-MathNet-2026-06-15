@@ -75,9 +75,9 @@ $$
 t_c(p)
 =
 \frac{
-\log\!\left(1-q_c^{\mathrm{bond}}/p\right)
+\log\left(1-q_c^{\mathrm{bond}}/p\right)
 }{
-\log\!\left((1-p)/p\right)
+\log\left((1-p)/p\right)
 },
 $$
 

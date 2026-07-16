@@ -9,7 +9,7 @@ $$
 \mu_O(\sigma)
 \propto
 \mu_0(\sigma)
-\exp\!\left[-\sum_{e\in E}|W_e|\,
+\exp\left[-\sum_{e\in E}|W_e|\,
 \mathbf 1_{\{e\text{ non satisfaite par }\sigma\}}\right].
 $$
 
