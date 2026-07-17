@@ -48,6 +48,11 @@ Les résultats nouveaux de ce fichier sont les suivants.
 5. **À prouver.** Sur la grille entière, le verrou restant est la loi du
    squelette ancestral sous la mesure biaisée par une paire lointaine dont le
    LCA tombe dans la fenêtre critique.
+6. **Établi sous une domination explicite.** Le
+   [théorème de réduction favorable](12_FAVORABLE_HIERARCHICAL_REDUCTION.md)
+   montre que l'annulation de la fiabilité critique implique l'impossibilité
+   globale dès que l'expérience postcritique est dominée par l'oracle où la
+   paire se sépare au seuil.
 
 ## 1. Expérience favorable et quantité à calculer
 
@@ -161,9 +166,11 @@ dépend encore des marques conditionnelles.
 
 On peut définir un **seuil favorable ancestral** à partir de la non-disparition
 de $`\mathcal G_{L,\varepsilon}^{\mathrm{fav}}`$, après avoir fixé l'ordre des
-limites. Ce seuil est un benchmark conditionnel. À lui seul, il n'est pas le
-seuil global de weak recovery : il ne contient ni la masse de la fenêtre
-critique parmi toutes les paires, ni la cohérence signée après oubli de $D$.
+limites. Pour une preuve d'impossibilité, son rôle est plus précis qu'un simple
+benchmark : si le lemme de domination HF du fichier 12 est établi, toute la
+contribution postcritique est majorée par cet oracle critique. Son annulation
+devient alors une condition suffisante d'impossibilité. Sans HF, le succès ou
+l'échec sous ce seul conditionnement ne détermine pas le seuil global.
 
 ## 2. Statistiques minimales d'un ancêtre
 
@@ -864,6 +871,25 @@ calcul fini, puis à une limite $`K\to\infty`$. Ce serait une véritable
 solution du problème ancestral. Les seules formules locales au nœud $u$ ne
 peuvent pas remplacer G1--G3.
 
+Le lemme 6.1 du [fichier 12](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) transporte
+quantitativement cette approximation jusqu'à la fiabilité : si
+$`B_u^{(K)}`$ conserve les $`K`$ premiers ancêtres, alors
+
+```math
+\left|
+\tanh^2\left(\frac{\ell_u^{\mathrm{crit}}+B_u}{2}\right)
+-
+\tanh^2\left(\frac{\ell_u^{\mathrm{crit}}+B_u^{(K)}}{2}\right)
+\right|
+\le
+\min\left(1,\frac{2\mathcal R_u^{(>K)}}{3\sqrt3}\right).
+```
+
+Ainsi G1--G3 ferment l'oracle favorable. Pour en déduire une borne globale de
+weak recovery sans supposer que tous les temps LCA se concentrent, il reste à
+prouver G4 : la domination HF entre la chaîne postcritique et la chaîne
+critique.
+
 ### Quelle géométrie doit être estimée ?
 
 Le squelette est sélectionné deux fois :
@@ -941,10 +967,11 @@ pas une preuve de sommabilité.
 7. **Mauvais biais de paire.** Un nœud uniforme n'a pas la loi du LCA d'une
    paire ; il faut le poids $`N_{u,L}^{\mathrm{far}}`$, ou
    $`|C_{u,1}||C_{u,2}|`$ lorsque toutes les paires sont incluses.
-8. **Benchmark contre seuil global.** Le succès conditionnel des fusions les
-   plus favorables n'est pas une condition suffisante de weak recovery
-   globale. Une impossibilité dans cette expérience favorable peut devenir
-   informative seulement après une domination clairement démontrée.
+8. **Oracle favorable et portée logique.** Le succès conditionnel des fusions
+   les plus favorables n'est pas une condition suffisante de weak recovery.
+   En revanche, leur impossibilité donne une impossibilité globale dès que la
+   domination HF du fichier 12 est démontrée ; ce lemme ne doit pas rester
+   implicite.
 
 ## 11. Implémentation et vérification
 

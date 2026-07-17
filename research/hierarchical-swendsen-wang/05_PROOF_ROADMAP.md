@@ -210,6 +210,21 @@ Trois voies sont à tester :
 2. **domination** par un canal symétrique indépendant plus informatif ;
 3. **élargissement de l'état** du nœud pour rendre le processus markovien sur l'arbre.
 
+La voie prioritaire est maintenant le lemme HF du
+[fichier 12](12_FAVORABLE_HIERARCHICAL_REDUCTION.md). Pour une paire lointaine
+du même arbre, il demande de coupler le log-rapport postcritique complet avec
+celui de l'oracle où la séparation a lieu en $`\beta_c`$, de sorte que
+
+```math
+|L^{\mathrm{post}}|
+\le
+|L^{\mathrm c}|+o(1)
+```
+
+avec probabilité $`1-o(1)`$. Sous ce lemme, l'annulation de la fiabilité de
+l'oracle critique interdit la weak recovery sans supposer que les temps LCA
+réels se concentrent au seuil.
+
 La décomposition de départ est additive :
 ```math
 L_u
@@ -232,7 +247,16 @@ paire lointaine critique.
 Sur cactus, il faut propager cette loi exacte ; sur bandes, construire une
 matrice de transfert certifiée ; sur la grille, établir la convergence des
 premiers ancêtres, la sommabilité de $`\mathcal R_u`$ et le contrôle des quatre
-coins proches de zéro.
+coins proches de zéro. La borne
+
+```math
+|\eta_u-\eta_u^{(K)}|
+\le
+\min\left(1,\frac{2\mathcal R_u^{(>K)}}{3\sqrt3}\right)
+```
+
+transporte ensuite directement ces résultats vers la quantité de weak
+recovery.
 
 Lorsque $`\beta_u\simeq\beta_c`$, le fichier 09 fournit en plus le sandwich
 stochastique $`1/2\le s_p(\beta_v)<s_p(\beta_c)`$ pour tous les comptes
@@ -251,10 +275,10 @@ Une fusion voit tous les liens entre $`C_1`$ et $`C_2`$. Employer une SDPI multi
   pour tout a priori $\mu$ tel que $`\max_x\mu_x\le1/2`$ ;
 - le cas d'un atome dominant est le lemme $`P_\star`$ encore à prouver.
 
-La prochaine étape n'est donc plus de recalculer $`\eta_\triangle`$, mais de
-prouver la positivité de la matrice rationnelle $`3\times3`$ du lemme
-$`P_\star`$. Le critère de Makur--Polyanskiy fournit alors directement la
-comparaison less-noisy globale.
+Ce calcul reste un audit auxiliaire. La prochaine étape de la voie
+hiérarchique n'est pas de recalculer $`\eta_\triangle`$ ni de fermer d'abord
+$`P_\star`$, mais de contrôler la chaîne des $`\Lambda_v`$ sous le biais de la
+paire critique et de prouver HF.
 
 ### C4. Matrice dominante
 
@@ -371,14 +395,17 @@ Obtenir une borne rigoureuse
 ```math
 p_\star>0.794659\ldots.
 ```
-Le candidat local actuellement le plus précis est
+Le calcul auxiliaire du fichier 11 produit le candidat conditionnel
 
 ```math
 p_\star^{\mathrm{cond}}=0.8099092892\ldots,
 ```
 
-racine de l'enveloppe affine multi-état du fichier 11. Il reste conditionnel au
-lemme $`P_\star`$ et ne doit pas être cité comme résultat établi. Le point
+racine de son enveloppe affine multi-état. Il reste conditionnel au lemme
+$`P_\star`$ et ne doit pas être cité comme résultat établi ni comme sortie de
+la dynamique hiérarchique. La cible prioritaire est la valeur obtenue, ou
+l'absence d'amélioration constatée, après calcul de
+$`\Gamma_{L,\varepsilon}^{\mathrm{fav}}`$ avec tous les ancêtres. Le point
 $0.8358058\ldots$ reste un repère conjectural, non une cible à annoncer comme
 acquise.
 
@@ -418,6 +445,7 @@ Cette partie répond à une question algorithmique distincte du seuil de weak re
 6. Calculer C5 sur des bundles déterministes, puis sur un cactus.
 7. Comparer quantitativement $`H_n^{\mathrm{LCA}}`$ à l'information-percolation.
 8. Traiter les bandes triangulaires avant de viser une nouvelle constante sur la grille entière.
-9. Prouver ou réfuter le lemme $`P_\star`$ du canal de triangle en certifiant
-   la matrice $`3\times3`$ ; s'il est vrai, appliquer Chayes--Lei à la
-   constante $`0.809909\ldots`$.
+9. Prouver HF sur cactus puis sur bandes en couplant les vecteurs quatre états
+   de la chaîne ancestrale critique et postcritique.
+10. Conserver le lemme $`P_\star`$ comme piste auxiliaire indépendante ; ne
+    pas substituer sa constante conditionnelle au résultat hiérarchique.

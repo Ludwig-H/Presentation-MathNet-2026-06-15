@@ -505,5 +505,9 @@ mais seulement sous un lemme less-noisy encore ouvert pour les a priori ayant
 un atome de masse $`>1/2`$. Ce lemme est réduit à la positivité d'une matrice
 rationnelle $`3\times3`$ au seul point algébrique critique. Le gain numérique
 n'est donc pas encore une borne rigoureuse. La fonction exacte $`c_q(t)`$ de
-ce fichier transforme la difficulté des $`\Lambda_v`$ ancestraux en un
-problème précis de polarisation des quatre poids.
+ce fichier isole un problème de polarisation pour un facteur physique, mais ne
+transforme pas la difficulté des $`\Lambda_v`$ ancestraux. La voie
+hiérarchique prioritaire est le
+[cas favorable critique](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : paire
+lointaine du même arbre, séparation en $`\beta_c`$, puis calcul du message
+formé par tous les ancêtres et preuve de la domination HF.

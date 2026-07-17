@@ -5,7 +5,7 @@ lointains sont étudiés conditionnellement au fait que leur fusion de Kruskal a
 lieu au seuil géométrique de percolation. Le calcul local se ferme exactement
 dans le GSBM homogène sur la grille triangulaire.
 
-Le verdict comporte deux parties distinctes.
+Le verdict comporte trois parties distinctes.
 
 > **Périmètre.** Ce fichier calibre le bucket $u$. Le problème principal des
 > slides 31--33 — estimer tous les $`\Lambda_v`$ pour $`v\succ u`$ — est
@@ -23,13 +23,18 @@ Le verdict comporte deux parties distinctes.
 2. **Contre-audit global.** Cette fiabilité est conditionnelle et oracle. Une
    fenêtre critique de masse $`o(1)`$ parmi les paires contribue au plus
    $`o(1)`$ à l'overlap, même si sa fiabilité conditionnelle tend vers $1$.
-   Elle ne mesure donc pas, à elle seule, le seuil de weak recovery. Le seuil
-   local favorable retombe précisément sur la borne géométrique trop faible.
+   Elle ne mesure donc pas, à elle seule, le seuil de weak recovery.
+3. **Usage correct du cas favorable.** Le
+   [fichier 12](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) formule le lemme de
+   domination qui remplace toutes les expériences postcritiques par l'oracle
+   où la paire lointaine du même arbre se sépare au seuil. Sous ce lemme,
+   l'échec de l'oracle favorable donne bien une impossibilité globale, sans
+   demander que la masse réelle des temps LCA se concentre au seuil.
 
-Autrement dit, se placer au temps critique est un excellent calcul de
-calibration, mais pas une réduction suffisante du problème global. La quantité
-à contrôler reste le produit de la masse de naissance des paires, de la
-contraction après marginalisation de $D$ et de la cohérence signée.
+Autrement dit, se placer au temps critique est le bon oracle extrémal pour la
+voie hiérarchique, mais son caractère « le plus favorable » doit être prouvé
+sur le log-rapport complet. La quantité à contrôler n'est pas seulement le
+bucket local : elle contient tous les $`\Lambda_v`$ pour $`v\succ u`$.
 
 ## 1. Cadre fini et convention de conditionnement
 
@@ -185,6 +190,13 @@ Ainsi, concentrer toute l'analyse sur une fenêtre critique rétrécissante exig
 un théorème supplémentaire montrant que le dernier terme contient encore une
 masse macroscopique, ou qu'une dynamique ultérieure transforme les pivots
 critiques en information cohérente sur une masse macroscopique de sommets.
+
+Il existe une seconde voie, prioritaire ici : ne pas supposer la concentration
+des temps réels, mais démontrer que leur expérience hiérarchique est dominée
+par celle d'une paire lointaine qui se sépare au seuil. Le théorème 3.1 du
+[fichier 12](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) absorbe alors en une seule
+borne la fenêtre et tout le reste tardif. La preuve de cette domination porte
+nécessairement sur le message $`B_u`$ construit avec tous les taux ancestraux.
 
 ## 3. Les paramètres critiques se simplifient exactement
 
@@ -508,8 +520,9 @@ Il faut lire correctement cette égalité : au point frontière lui-même,
 $`\Gamma_m^c=1/m\to0`$ ; pour tout $`p>p_{\mathrm{SW}}`$, la limite vaut
 $`1`$. Pour $`m`$ fixé, la fiabilité est déjà positive au seuil, et le cas
 $`m=1`$ donne même $`\Gamma_1^c=1`$ pour tout $`p`$. Ces faits montrent que
-l'oracle conditionnel est trop favorable pour localiser le seuil réel de weak
-recovery.
+l'oracle **local avec $`B_u=0`$** est trop favorable pour localiser le seuil
+réel de weak recovery. Ils ne dispensent pas d'estimer le message ancestral
+du véritable oracle hiérarchique.
 
 ## 6. Fenêtre critique en $p$ : limite exacte
 

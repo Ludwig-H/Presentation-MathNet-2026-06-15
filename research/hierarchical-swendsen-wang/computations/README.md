@@ -20,8 +20,8 @@ python3 research/hierarchical-swendsen-wang/computations/triangle_block_sdpi.py
 - `critical_band_thresholds.py` : vérification sans dépendance des trois seuils triangulaires et des temps $`\beta_c,t_\chi`$ ;
 - `ancestral_lambda_chain.py` : calcul exact des quatre taux ancestraux, du message $`B_u`$ et de $`\mathbb E[\eta_u\mid\mathscr D]`$ sur un petit squelette homogène ;
 - `test_ancestral_lambda_chain.py` : tests unitaires sans dépendance de la course conditionnelle et des identités quatre états ;
-- `ancestral_lambda_estimation.py` : course pondérée exacte conditionnelle au squelette, moments des trois groupes et des quatre taux, puis certificat déterministe de queue ancestrale ;
-- `test_ancestral_lambda_estimation.py` : contre-audit indépendant par énumération complète, réduction homogène fermée et 250 tests reproductibles des bornes de contraste ;
+- `ancestral_lambda_estimation.py` : course pondérée exacte conditionnelle au squelette, moments des trois groupes et des quatre taux, certificat déterministe de queue ancestrale et transport vers la fiabilité LCA ;
+- `test_ancestral_lambda_estimation.py` : contre-audit indépendant par énumération complète, réduction homogène fermée, bornes de contraste et constante de Lipschitz exacte $`2/(3\sqrt3)`$ de la fiabilité ;
 - `critical_merger_oracle.py` : paramètres critiques fermés, somme finie $`\Gamma_m^c`$, borne exponentielle et limite $`m^{-1/2}`$ de l'oracle local ;
 - `test_critical_merger_oracle.py` : contre-audits indépendants par LLR, expérience binaire symétrique, identité $`1/m`$ et limite gaussienne ;
 - `triangle_block_sdpi.py` : profil $`c_q(t)`$ du canal de triangle, SDPI globale, audit scalaire et enveloppe multi-état conditionnelle ;
@@ -173,6 +173,19 @@ transport affine vers les quatre $`\Lambda_v^{ab}`$ et la borne
 ```math
 |B_u-B_u^{(-I)}|\le\mathcal R_u(I).
 ```
+
+Vérifier également, sur une grille déterministe et à proximité du point où la
+dérivée est maximale,
+
+```math
+\left|
+\tanh^2(L/2)-\tanh^2(\widetilde L/2)
+\right|
+\le
+\frac{2}{3\sqrt3}|L-\widetilde L|
+```
+
+ainsi que $`\tanh^2(L/2)\le L^2/4`$.
 
 20. Pour le canal de triangle, vérifier indépendamment
 

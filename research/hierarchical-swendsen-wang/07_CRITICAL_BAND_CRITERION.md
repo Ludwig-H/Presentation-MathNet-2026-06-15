@@ -770,6 +770,15 @@ Les résultats de percolation proche-critique et de MSF indiquent plutôt que la
 2. étudier une fenêtre autour de $`\beta_c`$ pour les goulots macroscopiques ;
 3. conserver toute la mesure $`\mathcal M_n(dt)`$ pour les paires ponctuelles.
 
+Une autre réduction, adaptée à une preuve d'impossibilité, est désormais
+formulée dans le
+[fichier 12](12_FAVORABLE_HIERARCHICAL_REDUCTION.md). Au lieu de prétendre que
+la mesure des temps se concentre, elle compare les **canaux hiérarchiques** :
+si le log-rapport complet de toute paire postcritique est dominé par celui de
+l'oracle où une paire lointaine du même arbre se sépare au seuil, toute
+l'intégrale ci-dessus est majorée par la seule fiabilité critique. Ce lemme HF
+porte sur tous les $`\Lambda_v^{ab}`$ ancestraux et reste à prouver.
+
 ### Échelle de fenêtre à tester en volume fini
 
 Sur un tore de diamètre linéaire $L$, la théorie proche-critique de la percolation de sites triangulaire utilise l'échelle
@@ -848,6 +857,7 @@ Si une contraction de bloc peut être encadrée par un enhancement local monoton
 | Loi multinomiale conditionnelle au squelette non marqué | Établie ; le biais restant porte sur la géométrie du squelette |
 | Fiabilité locale d'une fusion exactement critique | Établie ; bord oracle $`p_{\mathrm{SW}}`$ et fenêtre $`m^{-1/2}`$ |
 | Masse informative d'une fenêtre critique | Majorée exactement par $`S_n(\beta_c+\delta)-S_n(\beta_c)`$ |
+| Domination de toute l'expérience postcritique par l'oracle critique HF | À prouver ; formulation exacte dans le fichier 12 |
 | Capacité de quotient pondérée par une contraction non oracle | À construire |
 | Seuil strictement supérieur à $`0.794659\ldots`$ | À prouver |
 
@@ -864,4 +874,8 @@ Si une contraction de bloc peut être encadrée par un enhancement local monoton
 - [Evans--Kenyon--Peres--Schulman](https://doi.org/10.1214/aoap/1019487349) : capacité $L^2$ et reconstruction sur arbres.
 - [Aizenman--Grimmett](https://doi.org/10.1007/BF01029985) : déplacement strict sous enhancement essentiel.
 
-La prochaine étape mathématique n'est donc pas de tester une connectivité brute supplémentaire, mais de construire la contraction de bloc marginalisée qui remplace $`\eta_u`$ sur le quotient critique.
+La prochaine étape mathématique n'est donc pas de tester une connectivité
+brute supplémentaire. Pour la voie hiérarchique, elle consiste à calculer
+$`\eta_u`$ avec tous les $`\Lambda_v`$ au-dessus du LCA critique et à prouver
+HF. La contraction de bloc marginalisée sur le quotient reste la voie
+complémentaire non oracle.

@@ -54,8 +54,28 @@ S_n(\beta)
 
 où $`\mathcal M_n`$ somme les fusions au-dessus de $\beta$, pondérées par $`\eta_u`$. La weak recovery exige donc une masse macroscopique de **connexions informatives** nées dans la bande. La connectivité seule n'est pas suffisante : le critère exact se factorise en connexion quotient, fiabilité locale et cohérence signée après marginalisation de $D$.
 
-Le cas favorable d'une fusion exactement critique est résolu au seul niveau
-local. Si $`B_u=0`$ et si le bucket critique contient $`m`$ arêtes, sa
+La réduction favorable hiérarchique fixe désormais le bon oracle pour une
+borne d'impossibilité : $`i,j`$ sont lointains, appartiennent au même arbre et
+se séparent à la descente au niveau $`\beta_c`$, c'est-à-dire que leur LCA
+fusionne au seuil de percolation. Les paires proches sont négligeables et les
+racines distinctes ont un score LCA nul. Si l'on prouve en plus que cet oracle
+critique domine les paires qui fusionnent plus tard, alors
+
+```math
+Q_L
+\le
+b_L+S_L(\beta_c-\varepsilon)
++\Gamma_{L,\varepsilon}^{\mathrm{fav}}
++\text{erreur de domination}.
+```
+
+Cette réduction ne suppose pas que les temps LCA réels se concentrent au
+seuil. Elle remplace leur expérience quatre états par une expérience critique
+plus informative. Le lemme de domination correspondant, nommé HF, est formulé
+dans le fichier 12.
+
+Le calcul d'une fusion exactement critique n'est résolu au seul niveau local
+que lorsque $`B_u=0`$. Si le bucket critique contient $`m`$ arêtes, sa
 fiabilité $`\Gamma_m^c`$ vérifie
 
 ```math
@@ -65,31 +85,23 @@ fiabilité $`\Gamma_m^c`$ vérifie
 \quad\text{pour tout }p>p_{\mathrm{SW}}.
 ```
 
-Sa fenêtre exacte est $`p-p_{\mathrm{SW}}\asymp m^{-1/2}`$. Ce calcul ne
-donne toutefois pas le seuil de weak recovery : la contribution d'une fenêtre
-critique est au plus sa masse
-$`S_n(\beta_c+\delta)-S_n(\beta_c)`$ parmi les paires. Une fiabilité
-conditionnelle proche de $`1`$ sur une masse $`o(1)`$ reste invisible dans
-l'overlap global. Surtout, les slides 31--33 montrent que le vrai heat bath
-contient le produit de tous les facteurs ancestraux. La priorité est donc
+Sa fenêtre exacte est $`p-p_{\mathrm{SW}}\asymp m^{-1/2}`$. Ce calcul local
+est seulement un contre-audit. Les slides 31--33 montrent que le vrai heat
+bath contient le produit de tous les facteurs ancestraux. La priorité est donc
 d'estimer les quatre $`\Lambda_v(\sigma^{ab})`$ pour chaque $`v\succ u`$ sous
-la loi du squelette vu depuis une paire lointaine critique.
+la loi du squelette vu depuis une paire lointaine critique, puis de prouver la
+domination HF. Le fichier 10 donne le noyau exact des marques et un certificat
+de queue ; le fichier 12 transporte cette erreur jusqu'à la fiabilité
+$`\tanh^2(L_u/2)`$.
 
-Le premier audit multi-terminal est maintenant complet au niveau d'un
-triangle physique. Sa contraction sous a priori uniforme vaut
-$`\eta_\triangle=q^2(1+2q^2)/(1+q^2+q^4)`$, mais sa contraction SDPI globale
-vaut $`2q^2/(1+q^2)`$ à cause des a priori polarisés créés par l'information
-latérale. Un facteur triangulaire **scalaire** ne peut donc pas battre la
-baseline $`0.794659\ldots`$. En conservant séparément les trois relations dans
-un canal d'effacement multi-état, on obtient le candidat conditionnel
-$`0.8099092892\ldots`$. L'inégalité $`\chi^2`$ qui caractérise la comparaison
-less-noisy est prouvée pour les lois quatre états dont aucun atome ne dépasse
-$`1/2`$ ; le secteur polarisé et le passage des poids LCA au canal facteur
-restent à démontrer. Cette distinction est développée dans le fichier 11.
+Le canal d'un triangle physique étudié dans le fichier 11 reste un calcul
+auxiliaire. Il ne remplace ni la chaîne hiérarchique des $`\Lambda_v`$, ni le
+biais de la paire critique, ni HF. Sa constante conditionnelle ne constitue
+donc pas l'objectif prioritaire de ce dossier.
 
 ## Socle de départ
 
-Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. Les points 3, 4 et 6 à 10 rassemblent des résultats finis ou des audits conditionnels dont l'algèbre a été vérifiée et dont le statut précis est donné dans le dossier ; les résultats qui utilisent la mesure jointe restent à intégrer dans une rédaction formelle complète avec A1.
+Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. Les points 3, 4 et 6 à 11 rassemblent des résultats finis ou des audits conditionnels dont l'algèbre a été vérifiée et dont le statut précis est donné dans le dossier ; les résultats qui utilisent la mesure jointe restent à intégrer dans une rédaction formelle complète avec A1.
 
 1. La coupe $t=1$ des horloges redonne exactement les liens de Swendsen–Wang.
 2. Les heat baths des orientations globales des arbres redonnent la recoloration de Swendsen–Wang lorsque l'a priori est uniforme. Aux feuilles, on obtient le heat bath mono-site de Glauber ; un noyau de Metropolis–Hastings mono-site ciblant la même conditionnelle est une variante valide.
@@ -127,6 +139,16 @@ Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. L
     $`0.809909\ldots`$ est explicitement étiqueté conditionnel : il dépend
     encore de la positivité d'une matrice rationnelle $`3\times3`$ dans le
     secteur polarisé.
+11. Pour une paire lointaine, la réduction favorable du fichier 12 donne une
+    implication globale exacte sous HF. Le message tronqué aux $`K`$ premiers
+    ancêtres approche la fiabilité complète avec l'erreur certifiée
+
+    ```math
+    \min\left(1,\frac{2\mathcal R_u^{(>K)}}{3\sqrt3}\right).
+    ```
+
+    Une nouvelle borne triangulaire exige donc la convergence du squelette
+    critique, la sommabilité de cette queue et la domination HF.
 
 ## Carte du dossier
 
@@ -141,6 +163,7 @@ Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. L
 - [09_CRITICAL_MERGER_ORACLE.md](09_CRITICAL_MERGER_ORACLE.md) : résolution exacte de la fusion critique locale, fenêtre $`m^{-1/2}`$, sandwich des taux ancestraux et contre-audit de la masse des paires.
 - [10_ANCESTRAL_LAMBDA_ESTIMATION.md](10_ANCESTRAL_LAMBDA_ESTIMATION.md) : problème central des slides 31--33, course pondérée exacte, moments des quatre taux, concentration, certificat de queue et formulation du verrou géométrique sous le biais d'une paire critique.
 - [11_TRIANGLE_BLOCK_SDPI.md](11_TRIANGLE_BLOCK_SDPI.md) : profil SDPI exact du canal de triangle, échec du regroupement scalaire, canal d'effacement multi-état et candidat conditionnel $`0.809909\ldots`$ avec son lemme manquant explicite.
+- [12_FAVORABLE_HIERARCHICAL_REDUCTION.md](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : réduction exacte aux paires lointaines du même arbre, oracle de séparation au seuil, lemme de domination HF et transport certifié de la queue ancestrale vers la weak recovery.
 - [LITERATURE.md](LITERATURE.md) : état de l'art primaire, voisins conceptuels et positionnement prudent de la nouveauté.
 - [references.bib](references.bib) : bibliographie ciblée et autonome.
 - [computations/README.md](computations/README.md) : cahier des charges des calculs exacts et simulations à ajouter.
@@ -156,21 +179,20 @@ Chaque affirmation nouvelle doit porter l'un des statuts suivants :
 
 ## Premier objectif publiable
 
-Rédiger d'abord le théorème fini LCA et le théorème de réduction à la bande
-critique. Le premier calcul nouveau doit ensuite porter sur la loi de
+Rédiger d'abord le théorème fini LCA et le théorème de réduction favorable du
+fichier 12. Le premier calcul nouveau doit porter sur la loi de
 $`(m_{v,0},m_{v,1},m_{v,2},\beta_v)_{v\succ u}`$ vue depuis une paire
-lointaine dont le LCA est critique : exactement sur cactus, puis par matrices
-de transfert certifiées sur bandes triangulaires. Cette loi alimente le noyau
-conditionnel exact du fichier 10. La contraction non oracle doit toujours être
-calibrée à une arête par $`\gamma_1=(2p-1)^2`$ et la masse des fusions doit être
-conservée séparément. Sur la grille homogène, l'objectif reste une zone
-rigoureuse de non-recouvrement dépassant $p=0.794659\ldots$ ; le point
-multicritique de Nishimori conjecturé $p\simeq0.8358058$ demeure beaucoup plus
-ambitieux. Le test local prioritaire est désormais de prouver ou réfuter le
-lemme $`P_\star`$ du fichier 11. Ce lemme est exactement le critère less-noisy
-requis ; avec le théorème de Chayes--Lei, sa réussite donnerait la constante
-algébrique $`p_\star=0.8099092892\ldots`$. Tant qu'il n'est pas fermé, cette
-valeur ne doit pas être présentée comme une borne de weak recovery.
+lointaine du même arbre dont le LCA est critique : exactement sur cactus, puis
+par matrices de transfert certifiées sur bandes triangulaires. Cette loi
+alimente le noyau conditionnel exact du fichier 10. Il faut alors fermer, dans
+cet ordre, la convergence des premiers ancêtres, la sommabilité du certificat
+$`\mathcal R_u`$, le contrôle des coins nuls et la domination HF entre les
+expériences postcritique et critique. Sur la grille homogène, l'objectif reste
+une zone rigoureuse de non-recouvrement dépassant $p=0.794659\ldots$ ; aucune
+nouvelle constante n'est annoncée avant ces quatre preuves. Le point
+multicritique de Nishimori conjecturé $p\simeq0.8358058$ demeure un repère de
+long terme. Le fichier 11 est conservé comme audit auxiliaire, sans priorité
+sur la chaîne hiérarchique.
 
 ## Sources internes
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 import random
 import unittest
 from itertools import product
-from math import exp, log, prod
+from math import atanh, exp, log, prod, sqrt
 
 from ancestral_lambda_chain import (
     AncestorBucket,
@@ -16,6 +16,7 @@ from ancestral_lambda_chain import (
     walsh_coefficients,
 )
 from ancestral_lambda_estimation import (
+    RELIABILITY_LIPSCHITZ_CONSTANT,
     WeightedEdge,
     ancestral_tail_bound,
     closed_satisfaction_probability,
@@ -23,6 +24,8 @@ from ancestral_lambda_estimation import (
     contrast_envelope,
     four_rate_moments,
     homogeneous_four_rate_moments,
+    lca_reliability,
+    reliability_tail_bound,
     winner_probabilities,
 )
 
@@ -416,6 +419,35 @@ class WeightedAncestorEstimationTests(unittest.TestCase):
             self.assertLessEqual(
                 actual_change, ancestral_tail_bound(omitted) + 1e-11
             )
+
+    def test_reliability_transport_bounds_are_sharp_and_quadratic(self) -> None:
+        generator = random.Random(314159)
+        for _ in range(1000):
+            first = generator.uniform(-20.0, 20.0)
+            second = generator.uniform(-20.0, 20.0)
+            actual_error = abs(lca_reliability(first) - lca_reliability(second))
+            self.assertLessEqual(
+                actual_error,
+                reliability_tail_bound(abs(first - second)) + 1e-14,
+            )
+            self.assertLessEqual(
+                lca_reliability(first),
+                min(1.0, first**2 / 4.0) + 1e-14,
+            )
+
+        # The derivative reaches its global maximum when
+        # tanh(x / 2) = 1 / sqrt(3).
+        maximizer = 2.0 * atanh(1.0 / sqrt(3.0))
+        increment = 1e-6
+        numerical_derivative = (
+            lca_reliability(maximizer + increment)
+            - lca_reliability(maximizer - increment)
+        ) / (2.0 * increment)
+        self.assertAlmostEqual(
+            numerical_derivative,
+            RELIABILITY_LIPSCHITZ_CONSTANT,
+            places=9,
+        )
 
 
 if __name__ == "__main__":

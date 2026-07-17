@@ -10,7 +10,8 @@ This module implements:
 * the exact heterogeneous winner mixture;
 * exact conditional means and covariances of the three satisfied weights;
 * their affine transport to the four rates after the two child flips;
-* deterministic bounds on the three useful Walsh contrasts.
+* deterministic bounds on the three useful Walsh contrasts;
+* certified transport of an ancestral-message error to the LCA reliability.
 
 No external dependency is required.  Exact enumeration of all residual marks
 is intentionally left to small counter-audits; the formulas below scale
@@ -20,10 +21,34 @@ linearly in the bucket size.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from math import exp, isfinite, log, log1p
+from math import exp, isfinite, log, log1p, sqrt, tanh
 from typing import Iterable
 
 from ancestral_lambda_chain import AncestorBucket, STATES, State, coupling
+
+
+RELIABILITY_LIPSCHITZ_CONSTANT = 2.0 / (3.0 * sqrt(3.0))
+
+
+def lca_reliability(log_odds: float) -> float:
+    """Return the exact LCA persistence ``tanh(log_odds / 2)^2``."""
+
+    if not isfinite(log_odds):
+        raise ValueError("log_odds must be finite")
+    return tanh(0.5 * log_odds) ** 2
+
+
+def reliability_tail_bound(message_error: float) -> float:
+    """Transport a deterministic log-odds error to a reliability error.
+
+    The derivative of ``tanh(x / 2)^2`` is
+    ``tanh(x / 2) * sech(x / 2)^2``.  Its sharp global supremum is
+    ``2 / (3 sqrt(3))``.
+    """
+
+    if not isfinite(message_error) or message_error < 0.0:
+        raise ValueError("message_error must be finite and nonnegative")
+    return min(1.0, RELIABILITY_LIPSCHITZ_CONSTANT * message_error)
 
 
 def _logistic(value: float) -> float:
