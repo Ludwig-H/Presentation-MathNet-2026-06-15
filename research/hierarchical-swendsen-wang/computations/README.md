@@ -13,6 +13,7 @@ python3 research/hierarchical-swendsen-wang/computations/ancestral_lambda_chain.
 python3 research/hierarchical-swendsen-wang/computations/ancestral_lambda_estimation.py
 python3 research/hierarchical-swendsen-wang/computations/critical_merger_oracle.py
 python3 research/hierarchical-swendsen-wang/computations/triangle_block_sdpi.py
+python3 research/hierarchical-swendsen-wang/computations/nishimori_hierarchical_entropy.py
 ```
 
 ## Structure prévue
@@ -26,6 +27,8 @@ python3 research/hierarchical-swendsen-wang/computations/triangle_block_sdpi.py
 - `test_critical_merger_oracle.py` : contre-audits indépendants par LLR, expérience binaire symétrique, identité $`1/m`$ et limite gaussienne ;
 - `triangle_block_sdpi.py` : profil $`c_q(t)`$ du canal de triangle, SDPI globale, audit scalaire et enveloppe multi-état conditionnelle ;
 - `test_triangle_block_sdpi.py` : énumération directe du canal $`4\times8`$, information latérale, défaut de la droite naïve, matrice less-noisy $`3\times3`$ et conditions du candidat $`0.809909\ldots`$ ;
+- `nishimori_hierarchical_entropy.py` : réduction exacte de l'équation (28) de Nishimori--Ohzeki à $`3h_2(p)-h_2((1+(2p-1)^3)/2)=1`$, racine unique, lois de bruit conditionnelles à quatre états et représentation par course exponentielle ;
+- `test_nishimori_hierarchical_entropy.py` : contre-audit indépendant par énumération des huit mots de bruit, comparaison directe à l'équation publiée, monotonie de la balance et identité d'entropie du gagnant ;
 - `exact_enumeration/` : énumération de toutes les configurations et horloges discrétisées sur petits graphes ;
 - `symbolic/` : simplification des poids $`q_u^{ab}`$, contractions et seuils ;
 - `triangular_grid/` : tores triangulaires, bandes et cactus ;
@@ -49,6 +52,9 @@ python3 research/hierarchical-swendsen-wang/computations/triangle_block_sdpi.py
 ```
     par énumération exacte.
 6. Retrouver les trois constantes $0.673648\ldots$, $0.719224\ldots$ et $0.794659\ldots$ à partir des formules symboliques.
+6 bis. Retrouver $`0.835805792367\ldots`$ comme unique racine supérieure de
+$`H(Z_1,Z_2,Z_3\mid Z_1Z_2Z_3)=1`$ bit, puis vérifier algébriquement qu'il
+s'agit exactement de l'équation (28), sans l'annoncer comme seuil démontré.
 7. Pour chaque paire $i\ne j$, vérifier les identités LCA étendues aux racines distinctes
 ```math
     \mathbb E[m_{ij}^{\mathrm{LCA}}]

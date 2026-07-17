@@ -409,6 +409,15 @@ $`\Gamma_{L,\varepsilon}^{\mathrm{fav}}`$ avec tous les ancêtres. Le point
 $0.8358058\ldots$ reste un repère conjectural, non une cible à annoncer comme
 acquise.
 
+Le fichier 13 fournit désormais une seconde calibration exacte : l'équation
+de Nishimori--Ohzeki est une entropie conditionnelle de face égale à un bit et
+se représente par quatre horloges exponentielles. Cela ne modifie pas le
+statut du seuil. Le calcul prioritaire associé consiste à construire sur un
+cactus le premier défaut autodual hiérarchique $`\Psi_1`$, en conservant tous
+les $`\Lambda_v^{ab}`$, puis à le comparer sur la même loi à
+$`\Gamma_1^{\mathrm{fav}}`$. Sans le lemme NH3 reliant ces deux quantités,
+l'autodualité ne donne aucune borne de weak recovery.
+
 ## Bloc F — Mélange et interpolation algorithmique
 
 Pour un nombre $m$ de mises à jour, comparer :

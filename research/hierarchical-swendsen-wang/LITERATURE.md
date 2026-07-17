@@ -1,6 +1,6 @@
 # État de l'art ciblé
 
-Recherche ciblée effectuée jusqu'au 16 juillet 2026. Elle ne constitue pas une preuve exhaustive de nouveauté.
+Recherche ciblée effectuée jusqu'au 17 juillet 2026. Elle ne constitue pas une preuve exhaustive de nouveauté.
 
 ## Positionnement prudent
 
@@ -70,17 +70,18 @@ Dans l'échelle des horloges, cette baseline se réécrit $`t_\chi>\beta_c`$, o�
 
 - [Wierman, *Bond percolation on honeycomb and triangular lattices*](https://doi.org/10.2307/1426685). Établit le seuil exact $`q_c=2\sin(\pi/18)`$ de la percolation par arêtes sur la grille triangulaire.
 20. [Chayes–Lei, *Random Cluster Models on the Triangular Lattice*](https://arxiv.org/abs/cond-mat/0508254), [DOI](https://doi.org/10.1007/s10955-005-8078-7). Seuil autodual des états triangulaires corrélés utilisé au chapitre 11.
-21. [Nishimori–Ohzeki, *Location of the Multicritical Point for the Ising Spin Glass on the Triangular and Hexagonal Lattices*](https://arxiv.org/abs/cond-mat/0601356), [DOI](https://doi.org/10.1143/JPSJ.75.034004). Valeur conjecturée $`p_{\mathrm N}=0.8358058\ldots`$.
-22. [de Queiroz, *Multicritical Point of Ising Spin Glasses on Triangular and Honeycomb Lattices*](https://arxiv.org/abs/cond-mat/0510816), [DOI](https://doi.org/10.1103/PhysRevB.73.064410). Étude numérique par matrices de transfert ; classe critique distincte de la percolation ordinaire.
-23. [Yamaguchi, *Conjectured Exact Percolation Thresholds of the FK Cluster for the ±J Ising Spin Glass*](https://arxiv.org/abs/1004.0654). Retrouve le seuil FK triangulaire correspondant à $`p_c^{\mathrm{edge}}`$.
-24. [Fajen–Hartmann–Young, *Percolation of Fortuin–Kasteleyn Clusters for the Random-Bond Ising Model*](https://arxiv.org/abs/1905.04220), [DOI](https://doi.org/10.1103/PhysRevE.102.012131). Montre numériquement que, avec frustration, la percolation FK peut précéder l'ordre magnétique : raison précise pour laquelle la percolation seule n'est pas suffisante.
+21. [Nishimori–Ohzeki, *Location of the Multicritical Point for the Ising Spin Glass on the Triangular and Hexagonal Lattices*](https://arxiv.org/abs/cond-mat/0601356), [DOI](https://doi.org/10.1143/JPSJ.75.034004). Condition principale face-vers-face et valeur conjecturée $`p_{\mathrm N}^{(0)}=0.8358058\ldots`$. Le fichier 13 réduit exactement leur équation (28) à $`H(Z_1,Z_2,Z_3\mid Z_1Z_2Z_3)=1`$ bit ; cette simplification ne transforme pas l'ansatz principal en théorème de seuil.
+22. [Ohzeki, *Locations of Multicritical Points for Spin Glasses on Regular Lattices*](https://arxiv.org/abs/0811.0464), [DOI](https://doi.org/10.1103/PhysRevE.79.021129). Remplace la condition principale de niveau zéro par des sommes partielles sur des amas suivant davantage le flot de renormalisation. La première approximation triangulaire donne $`0.835985`$ et montre pourquoi une hiérarchie ancestrale peut corriger, plutôt que reproduire à chaque profondeur, la valeur $`0.8358058`$.
+23. [de Queiroz, *Multicritical Point of Ising Spin Glasses on Triangular and Honeycomb Lattices*](https://arxiv.org/abs/cond-mat/0510816), [DOI](https://doi.org/10.1103/PhysRevB.73.064410). Étude numérique par matrices de transfert ; classe critique distincte de la percolation ordinaire.
+24. [Yamaguchi, *Conjectured Exact Percolation Thresholds of the FK Cluster for the ±J Ising Spin Glass*](https://arxiv.org/abs/1004.0654). Retrouve le seuil FK triangulaire correspondant à $`p_c^{\mathrm{edge}}`$.
+25. [Fajen–Hartmann–Young, *Percolation of Fortuin–Kasteleyn Clusters for the Random-Bond Ising Model*](https://arxiv.org/abs/1905.04220), [DOI](https://doi.org/10.1103/PhysRevE.102.012131). Montre numériquement que, avec frustration, la percolation FK peut précéder l'ordre magnétique : raison précise pour laquelle la percolation seule n'est pas suffisante.
 
 ## Deux répliques et représentations graphiques
 
-25. [Contucci–Giardinà–Nishimori, *Spin Glass Identities and the Nishimori Line*](https://arxiv.org/abs/0805.0754). Benchmark d'identités overlap–magnétisation sur la ligne de Nishimori. L'identité bayésienne plantée utilisée ici est redérivée dans le dossier ; cette référence ne traite pas directement le canal binaire discret ni le couplage MCMC présent.
-26. [Aizenman, *Geometric Analysis of $\phi^4$ Fields and Ising Models. Parts I and II*](https://doi.org/10.1007/BF01205659). À champ nul dans l'Ising ferromagnétique, la représentation par courants aléatoires relie le carré d'une corrélation à la connexion dans l'union de deux courants indépendants sans sources. C'est un benchmark conceptuel pour le score LCA, pas une formule directement transférable au modèle frustré.
-27. [Chayes–Machta–Redner, *Graphical Representations for Ising Systems in External Fields*](https://arxiv.org/abs/cond-mat/9806312), [DOI](https://doi.org/10.1023/B:JOSS.0000026726.43558.80). Représentation graphique à deux répliques dans laquelle l'ordre est caractérisé par une percolation, pour le cadre ferromagnétique traité.
-28. [Machta–Newman–Stein, *The Percolation Signature of the Spin Glass Transition*](https://arxiv.org/abs/0707.0073), [DOI](https://doi.org/10.1007/s10955-007-9446-2). Relie overlap de répliques et géométrie de percolation dans les verres de spins.
+26. [Contucci–Giardinà–Nishimori, *Spin Glass Identities and the Nishimori Line*](https://arxiv.org/abs/0805.0754). Benchmark d'identités overlap–magnétisation sur la ligne de Nishimori. L'identité bayésienne plantée utilisée ici est redérivée dans le dossier ; cette référence ne traite pas directement le canal binaire discret ni le couplage MCMC présent.
+27. [Aizenman, *Geometric Analysis of $\phi^4$ Fields and Ising Models. Parts I and II*](https://doi.org/10.1007/BF01205659). À champ nul dans l'Ising ferromagnétique, la représentation par courants aléatoires relie le carré d'une corrélation à la connexion dans l'union de deux courants indépendants sans sources. C'est un benchmark conceptuel pour le score LCA, pas une formule directement transférable au modèle frustré.
+28. [Chayes–Machta–Redner, *Graphical Representations for Ising Systems in External Fields*](https://arxiv.org/abs/cond-mat/9806312), [DOI](https://doi.org/10.1023/B:JOSS.0000026726.43558.80). Représentation graphique à deux répliques dans laquelle l'ordre est caractérisé par une percolation, pour le cadre ferromagnétique traité.
+29. [Machta–Newman–Stein, *The Percolation Signature of the Spin Glass Transition*](https://arxiv.org/abs/0707.0073), [DOI](https://doi.org/10.1007/s10955-007-9446-2). Relie overlap de répliques et géométrie de percolation dans les verres de spins.
 
 ## Déplacement strict par enhancement
 
@@ -95,7 +96,7 @@ Ordre recommandé :
 3. Pemantle–Peres et Evans et al. pour convertir ces contractions en capacité ;
 4. Gower–Ross, Nolin puis les trois articles de Garban–Pete–Schramm pour la géométrie LCA, les pivots et la MSF proche-critique ;
 5. Aizenman, Chayes–Machta–Redner et Machta–Newman–Stein pour le lien deux répliques–connexion ;
-6. Chayes–Lei puis Nishimori–Ohzeki pour le cas triangulaire.
+6. Chayes–Lei, Nishimori–Ohzeki puis Ohzeki pour le cas triangulaire et les corrections de blocs.
 
 La synthèse mathématique et les implications exactes pour la weak recovery sont centralisées dans [Bande critique et transmission de l'information](07_CRITICAL_BAND_CRITERION.md).
 

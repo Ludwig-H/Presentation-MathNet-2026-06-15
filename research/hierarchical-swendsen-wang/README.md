@@ -99,9 +99,26 @@ auxiliaire. Il ne remplace ni la chaîne hiérarchique des $`\Lambda_v`$, ni le
 biais de la paire critique, ni HF. Sa constante conditionnelle ne constitue
 donc pas l'objectif prioritaire de ce dossier.
 
+Le fichier 13 donne en revanche une calibration exacte directement liée aux
+horloges. L'équation triangulaire de Nishimori--Ohzeki est identiquement
+
+```math
+H(Z_1,Z_2,Z_3\mid Z_1Z_2Z_3)=1\ \text{bit},
+```
+
+et sa racine supérieure unique est
+$`p_{\mathrm N}^{(0)}=0.835805792367\ldots`$. Cette entropie conditionnelle à
+quatre états est l'espérance de la surprise du gagnant d'une course
+exponentielle. Au LCA, la course analogue a pour taux les quatre poids
+$`q_u^{ab}`$ et dépend de tous les $`\Lambda_v^{ab}`$ ancestraux. L'identité
+retrouve donc exactement la constante de la conjecture au niveau d'une face,
+mais ne prouve pas qu'elle est le seuil de weak recovery : il manque le pont
+entre autodualité de blocs, fiabilité collapsed de la paire critique, fuite
+d'information par $D$ et domination HF.
+
 ## Socle de départ
 
-Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. Les points 3, 4 et 6 à 11 rassemblent des résultats finis ou des audits conditionnels dont l'algèbre a été vérifiée et dont le statut précis est donné dans le dossier ; les résultats qui utilisent la mesure jointe restent à intégrer dans une rédaction formelle complète avec A1.
+Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. Les points 3, 4 et 6 à 12 rassemblent des résultats finis ou des audits conditionnels dont l'algèbre a été vérifiée et dont le statut précis est donné dans le dossier ; les résultats qui utilisent la mesure jointe restent à intégrer dans une rédaction formelle complète avec A1.
 
 1. La coupe $t=1$ des horloges redonne exactement les liens de Swendsen–Wang.
 2. Les heat baths des orientations globales des arbres redonnent la recoloration de Swendsen–Wang lorsque l'a priori est uniforme. Aux feuilles, on obtient le heat bath mono-site de Glauber ; un noyau de Metropolis–Hastings mono-site ciblant la même conditionnelle est une variante valide.
@@ -149,6 +166,13 @@ Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. L
 
     Une nouvelle borne triangulaire exige donc la convergence du squelette
     critique, la sommabilité de cette queue et la domination HF.
+12. L'équation (28) de Nishimori--Ohzeki se réduit exactement à
+    $`3h_2(p)-h_2((1+(2p-1)^3)/2)=1`$. Une course conditionnelle de quatre
+    horloges redonne cette entropie sans répliques. La hiérarchie autoduale
+    proposée dans le fichier 13 conserve les $`K`$ premiers ancêtres du LCA :
+    son niveau face $`K=0`$ donne $`0.835805792367\ldots`$, tandis que les
+    niveaux $`K\ge1`$ sont des problèmes de blocs à construire et certifier,
+    non des seuils déjà démontrés.
 
 ## Carte du dossier
 
@@ -164,6 +188,7 @@ Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées. L
 - [10_ANCESTRAL_LAMBDA_ESTIMATION.md](10_ANCESTRAL_LAMBDA_ESTIMATION.md) : problème central des slides 31--33, course pondérée exacte, moments des quatre taux, concentration, certificat de queue et formulation du verrou géométrique sous le biais d'une paire critique.
 - [11_TRIANGLE_BLOCK_SDPI.md](11_TRIANGLE_BLOCK_SDPI.md) : profil SDPI exact du canal de triangle, échec du regroupement scalaire, canal d'effacement multi-état et candidat conditionnel $`0.809909\ldots`$ avec son lemme manquant explicite.
 - [12_FAVORABLE_HIERARCHICAL_REDUCTION.md](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : réduction exacte aux paires lointaines du même arbre, oracle de séparation au seuil, lemme de domination HF et transport certifié de la queue ancestrale vers la weak recovery.
+- [13_NISHIMORI_HIERARCHICAL_CLOCKS.md](13_NISHIMORI_HIERARCHICAL_CLOCKS.md) : réduction exacte de la conjecture triangulaire à une entropie de face, représentation par course exponentielle, entropie collapsed avec tous les ancêtres et hiérarchie autoduale à contrôler.
 - [LITERATURE.md](LITERATURE.md) : état de l'art primaire, voisins conceptuels et positionnement prudent de la nouveauté.
 - [references.bib](references.bib) : bibliographie ciblée et autonome.
 - [computations/README.md](computations/README.md) : cahier des charges des calculs exacts et simulations à ajouter.
@@ -190,9 +215,13 @@ $`\mathcal R_u`$, le contrôle des coins nuls et la domination HF entre les
 expériences postcritique et critique. Sur la grille homogène, l'objectif reste
 une zone rigoureuse de non-recouvrement dépassant $p=0.794659\ldots$ ; aucune
 nouvelle constante n'est annoncée avant ces quatre preuves. Le point
-multicritique de Nishimori conjecturé $p\simeq0.8358058$ demeure un repère de
-long terme. Le fichier 11 est conservé comme audit auxiliaire, sans priorité
-sur la chaîne hiérarchique.
+multicritique de Nishimori conjecturé $p\simeq0.8358058$ est maintenant
+retrouvé exactement comme zéro de l'entropie autoduale d'une face. Le premier
+test nouveau doit calculer sur un cactus, avec les mêmes taux ancestraux, le
+défaut autodual $`\Psi_1`$ et la fiabilité favorable
+$`\Gamma_1^{\mathrm{fav}}`$ : leur comparaison teste le lemme de pont NH3 sans
+confondre une calibration locale avec un seuil. Le fichier 11 est conservé
+comme audit auxiliaire, sans priorité sur la chaîne hiérarchique.
 
 ## Sources internes
 

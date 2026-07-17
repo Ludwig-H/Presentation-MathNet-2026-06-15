@@ -699,7 +699,12 @@ Une seconde amélioration possible est un heat bath **collapsed** qui marginalis
 - Sandwich critique simultané des comptes ancestraux : **établi conditionnellement au squelette et aux catégories gagnantes**.
 - Monotonie de la fiabilité hiérarchique complète lorsque $`\beta_u`$ se rapproche de $`\beta_c`$ : **non établie ; une annulation par le message ancestral est possible**.
 - Nouveau seuil strict sur la grille triangulaire : **à prouver**.
-- Seuil exact $`p\simeq0.8358058`$ : **repère conjectural, non obtenu par les identités présentes**.
+- Équation de face donnant $`p=0.835805792367\ldots`$ : **retrouvée
+  exactement par l'identité entropique et la course quatre états du fichier
+  13**.
+- Identification de cette racine au seuil de weak recovery : **conjecturale ;
+  elle exige la hiérarchie autoduale collapsed, le contrôle de la fuite par
+  $D$ et les lemmes NH1--NH4**.
 
 Le prochain calcul décisif est donc clair : estimer la loi de
 $`(m_{v,0},m_{v,1},m_{v,2},\beta_v)_{v\succ u}`$ sous le biais d'une paire

@@ -155,11 +155,20 @@ Cette borne est la baseline rigoureuse à dépasser.
 
 ## 4. Seuil informationnel attendu
 
-Après jauge par la vérité, le modèle est relié à l'Ising $\pm J$ sur la ligne de Nishimori. Les calculs de dualité/répliques et les simulations de la littérature situent le point multicritique triangulaire vers
+Après jauge par la vérité, le modèle est relié à l'Ising $\pm J$ sur la ligne de Nishimori. La condition principale face-vers-face de Nishimori--Ohzeki donne la valeur conjecturée
 ```math
-p_{\mathrm N}=0.8358058\ldots
+p_{\mathrm N}^{(0)}=0.835805792367\ldots
 ```
-Cette valeur est **conjecturale**, pas un seuil rigoureux à utiliser dans une preuve.
+Le fichier 13 montre exactement que son équation est
+
+```math
+3h_2(p)-h_2\left(\frac{1+(2p-1)^3}{2}\right)=1.
+```
+
+La racine de cette équation est certifiée, mais son identification au point
+multicritique reste **conjecturale**. Une amélioration de dualité par amas
+donne déjà $`0.835985`$ au premier niveau publié ; la constante à huit décimales
+ne doit donc pas être utilisée comme seuil rigoureux.
 
 Le paysage de travail est donc :
 
@@ -168,7 +177,8 @@ Le paysage de travail est donc :
 | FK / Swendsen–Wang par arêtes | $0.673648\ldots$ | Rigoureux |
 | Dynamique triangulaire | $0.719224\ldots$ | Rigoureux sous les hypothèses de Chayes–Lei |
 | Information-percolation $\chi^2$ | $0.794659\ldots$ | Rigoureux |
-| Point de Nishimori triangulaire | $0.8358058\ldots$ | Conjecture + numérique |
+| Condition principale de face de Nishimori--Ohzeki | $0.835805792367\ldots$ | Racine exacte d'une équation conjecturale pour le seuil |
+| Première correction de dualité par amas | $0.835985\ldots$ | Approximation, pas un théorème de seuil |
 
 ## 5. Poids exact d'une fusion locale
 
@@ -510,4 +520,9 @@ transforme pas la difficulté des $`\Lambda_v`$ ancestraux. La voie
 hiérarchique prioritaire est le
 [cas favorable critique](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : paire
 lointaine du même arbre, séparation en $`\beta_c`$, puis calcul du message
-formé par tous les ancêtres et preuve de la domination HF.
+formé par tous les ancêtres et preuve de la domination HF. La
+[voie autoduale par horloges](13_NISHIMORI_HIERARCHICAL_CLOCKS.md) fournit une
+calibration complémentaire : elle retrouve exactement l'équation de
+Nishimori--Ohzeki au niveau d'une face, puis définit les lemmes nécessaires
+pour comparer les blocs ancestraux à la fiabilité de cette même paire
+critique.

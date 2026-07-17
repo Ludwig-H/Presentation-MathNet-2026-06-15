@@ -683,3 +683,21 @@ isolé, qui déterminent la voie hiérarchique demandée.
 | Domination favorable HF | À prouver | autorise le remplacement de toutes les paires par le cas critique |
 | Convergence du squelette critique et sommabilité | À prouver | ferme la limite ancestrale |
 | Nouvelle borne triangulaire $`p_\star>0.794659\ldots`$ | Ouvert | conséquence seulement après fermeture des deux lignes précédentes |
+
+## 11. Calibration autoduale de Nishimori
+
+Le [fichier 13](13_NISHIMORI_HIERARCHICAL_CLOCKS.md) montre que l'équation de
+face de Nishimori--Ohzeki est exactement
+
+```math
+H(Z_1,Z_2,Z_3\mid Z_1Z_2Z_3)=1\ \text{bit},
+```
+
+et qu'elle se réalise par une course conditionnelle de quatre horloges. Son
+niveau zéro redonne $`0.835805792367\ldots`$. Le pont avec le présent théorème
+favorable n'est toutefois pas automatique : il faut construire le défaut
+autodual sur les mêmes buckets ancestraux que
+$`\Gamma_{L,\varepsilon}^{\mathrm{fav}}`$, prouver que son signe contracte la
+fiabilité collapsed après oubli de $D$, puis appliquer HF. Cette exigence est
+le lemme NH3 ; elle empêche d'annoncer la racine de face comme une borne déjà
+démontrée.
