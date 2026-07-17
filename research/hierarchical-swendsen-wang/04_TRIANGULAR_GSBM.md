@@ -522,8 +522,11 @@ hiérarchique prioritaire est le
 [cas favorable critique](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : paire
 lointaine du même arbre, séparation en $`\beta_c`$, puis calcul du message
 formé par tous les ancêtres et preuve de la domination HF. La
-[voie autoduale par horloges](13_NISHIMORI_HIERARCHICAL_CLOCKS.md) fournit une
-calibration complémentaire : elle retrouve exactement l'équation de
-Nishimori--Ohzeki au niveau d'une face, puis définit les lemmes nécessaires
-pour comparer les blocs ancestraux à la fiabilité de cette même paire
-critique.
+[calibration entropique par horloges](13_NISHIMORI_HIERARCHICAL_CLOCKS.md)
+retrouve exactement l'équation de Nishimori--Ohzeki au niveau d'une face. Le
+[bilan d'information ancestral](14_ANCESTRAL_INFORMATION_LEDGER.md) montre
+ensuite que cette face ne peut pas être identifiée à l'oracle critique : il
+faut calculer, sous une même loi, la fuite du sélecteur géométrique et les
+incréments des horloges censurées associés aux quatre
+$`\Lambda_v^{ab}`$. Le cactus de deux triangles est le premier modèle où ce
+bilan possède un ancêtre strict et reste exactement énumérable.

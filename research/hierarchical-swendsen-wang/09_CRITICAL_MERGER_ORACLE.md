@@ -753,6 +753,12 @@ M
 \max\{|\ell+\underline B|,|\ell+\overline B|\}.
 ```
 
+Cette annulation est un énoncé point par point. Le bilan martingale du
+[fichier 14](14_ANCESTRAL_INFORMATION_LEDGER.md) montre qu'elle ne peut pas
+faire décroître en moyenne un score obtenu par marginalisation correcte des
+ancêtres encore cachés. Le modèle $`B_u=0`$ reste donc une calibration, pas un
+préfixe de la filtration réelle.
+
 Alors seulement
 
 ```math

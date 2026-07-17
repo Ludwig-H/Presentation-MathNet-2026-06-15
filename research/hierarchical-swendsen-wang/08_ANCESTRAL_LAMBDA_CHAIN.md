@@ -22,7 +22,10 @@ $`1/2\le s_p(\beta_v)<s_p(\beta_c)`$. Les comptes groupés admettent alors un
 couplage sandwich explicite entre des binomiales de paramètres $`1/2`$ et
 $`s_p(\beta_c)`$. Ce contrôle n'induit toutefois aucun ordre direct sur les
 quatre taux retournés ni sur $`\eta_u`$, car les compléments renversent les
-ordres et le message ancestral peut annuler le LLR local.
+ordres et le message ancestral peut annuler le LLR local **ponctuellement**.
+Le fichier 14 prouve en revanche que révéler un ancêtre ne diminue jamais en
+moyenne le score d'un préfixe correctement collapsed ; poser $`B_u=0`$ n'est
+pas une marginalisation.
 
 ## 1. Le problème à deux points
 
@@ -702,12 +705,13 @@ Une seconde amélioration possible est un heat bath **collapsed** qui marginalis
 - Équation de face donnant $`p=0.835805792367\ldots`$ : **retrouvée
   exactement par l'identité entropique et la course quatre états du fichier
   13**.
-- Identification de cette racine au seuil de weak recovery : **conjecturale ;
-  elle exige la hiérarchie autoduale collapsed, le contrôle de la fuite par
-  $D$ et les lemmes NH1--NH4**.
+- Identification de cette racine au seuil de weak recovery : **conjecturale**.
+  Le fichier 14 montre exactement qu'il faut contrôler séparément la fuite du
+  sélecteur LCA, celle du squelette et les incréments d'horloge produits par
+  les quatre taux ; une troncature brute des facteurs n'est pas une marginale.
 
 Le prochain calcul décisif est donc clair : estimer la loi de
 $`(m_{v,0},m_{v,1},m_{v,2},\beta_v)_{v\succ u}`$ sous le biais d'une paire
-lointaine critique, évaluer $`\Gamma_u(\mathscr D)`$ exactement sur cactus,
-puis par intervalles sur des bandes de largeur croissante, avant toute
-extrapolation au plan.
+lointaine critique, évaluer sur cactus les cinq termes du bilan d'information
+du fichier 14 et $`\Gamma_u(\mathscr D)`$, puis les borner par intervalles sur
+des bandes de largeur croissante, avant toute extrapolation au plan.

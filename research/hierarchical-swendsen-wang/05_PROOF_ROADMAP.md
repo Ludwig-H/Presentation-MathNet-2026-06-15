@@ -412,12 +412,16 @@ acquise.
 Le fichier 13 fournit désormais une seconde calibration exacte : l'équation
 de Nishimori--Ohzeki est une entropie conditionnelle de face égale à un bit et
 se représente par quatre horloges exponentielles. Cela ne modifie pas le
-statut du seuil. Le calcul prioritaire associé consiste à construire sur un
-cactus les défauts autoduals hiérarchiques
-$`\widehat\Psi_0,\widehat\Psi_1`$, en conservant tous les
-$`\Lambda_v^{ab}`$, puis à les comparer sur la même loi à
-$`\Gamma_1^{\mathrm{fav}}`$. Sans le lemme NH3 reliant ces deux quantités,
-l'autodualité ne donne aucune borne de weak recovery.
+statut du seuil. Le fichier 14 remplace la troncature autoduale non canonique
+par un bilan martingale sur une expérience jointe spécifiée. Le calcul
+prioritaire consiste à évaluer exactement ce bilan sur le cactus de deux
+triangles : corrélation réelle, fuite de sélection/environnement, incrément du
+LCA, incrément du premier ancêtre calculé avec les quatre
+$`\Lambda_v^{ab}`$, puis score terminal. La divergence fermée des horloges
+censurées et sa borne de transport $`2\times2`$ fournissent le premier contrôle
+quantitatif de cet incrément. Sans contrôle séparé du squelette sélectionné et
+sans HF, ni l'autodualité de face ni le score oracle ne donnent une borne de
+weak recovery.
 
 ## Bloc F — Mélange et interpolation algorithmique
 

@@ -679,12 +679,12 @@ isolé, qui déterminent la voie hiérarchique demandée.
 | Formule de $`L_u`$ avec tous les $`\Lambda_v^{ab}`$ | Établi, volume fini | définit l'oracle hiérarchique exact |
 | Noyau conditionnel des marques ancestrales | Établi, volume fini | calcule tout préfixe fini de la chaîne |
 | Transport de la queue vers $`\eta_u`$ | Établi | donne une erreur certifiée sur la fiabilité |
-| Nécessité d'une compensation $`B_u\simeq-\ell_u^{\mathrm{crit}}`$ si l'oracle contracte | Établi | contre-audit des grandes coupes critiques |
+| Nécessité pointwise d'une compensation $`B_u\simeq-\ell_u^{\mathrm{crit}}`$ si l'oracle contracte | Établi | diagnostic local ; pas une annulation moyenne du score collapsed |
 | Domination favorable HF | À prouver | autorise le remplacement de toutes les paires par le cas critique |
 | Convergence du squelette critique et sommabilité | À prouver | ferme la limite ancestrale |
 | Nouvelle borne triangulaire $`p_\star>0.794659\ldots`$ | Ouvert | conséquence seulement après fermeture des deux lignes précédentes |
 
-## 11. Calibration autoduale de Nishimori
+## 11. Calibration entropique et coût de l'oracle critique
 
 Le [fichier 13](13_NISHIMORI_HIERARCHICAL_CLOCKS.md) montre que l'équation de
 face de Nishimori--Ohzeki est exactement
@@ -693,11 +693,25 @@ face de Nishimori--Ohzeki est exactement
 H(Z_1,Z_2,Z_3\mid Z_1Z_2Z_3)=1\ \text{bit},
 ```
 
-et qu'elle se réalise par une course conditionnelle de quatre horloges. Son
-niveau zéro redonne $`0.835805792367\ldots`$. Le pont avec le présent théorème
-favorable n'est toutefois pas automatique : il faut construire le défaut
-autodual sur les mêmes buckets ancestraux que
-$`\Gamma_{L,\varepsilon}^{\mathrm{fav}}`$, prouver que son signe contracte la
-fiabilité collapsed après oubli de $D$, puis appliquer HF. Cette exigence est
-le lemme NH3 ; elle empêche d'annoncer la racine de face comme une borne déjà
-démontrée.
+et qu'elle se réalise par une course conditionnelle de quatre horloges. Sa
+racine supérieure redonne $`0.835805792367\ldots`$ au niveau d'une face.
+
+Le [fichier 14](14_ANCESTRAL_INFORMATION_LEDGER.md) montre pourquoi le pont
+avec le présent théorème favorable n'est pas automatique. Oublier complètement
+$D$ redonne la postérieure initiale ; conserver $D$ garde les quatre
+$`\Lambda_v^{ab}`$, mais ajoute une information oracle. Le score favorable se
+décompose exactement en corrélation postérieure, fuite de sélection et
+d'environnement, fuite du LCA et fuites ancestrales. Pour chaque coupe fixée,
+une formule de KL pour l'horloge exponentielle censurée et une borne de
+transport $`2\times2`$ contrôlent la contribution des quatre taux. La loi du
+squelette sélectionné reste un terme distinct.
+
+Le contre-audit d'une face quantifie déjà cet écart : au point de Nishimori et
+au temps critique, une fonction grossière du dendrogramme révèle au moins
+$`0.078638140273\ldots`$ bit sur la classe relative complète et
+$`0.042759377412\ldots`$ bit sur une parité de paire fixée, tandis que
+l'entropie résiduelle de la classe sous la loi de Palm favorable vaut
+$`0.251560120699\ldots`$ bit. Ces nombres vivent sous des lois différentes,
+mais interdisent d'identifier la condition de face à l'oracle critique. Une
+borne de weak recovery exige donc le bilan ancestral sur une même loi, puis
+HF ; la racine de face n'est pas une borne déjà démontrée.

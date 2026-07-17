@@ -1,4 +1,4 @@
-# Calculs et expériences à ajouter
+# Calculs reproductibles
 
 Ce sous-dossier doit contenir uniquement des calculs reproductibles liés aux énoncés du dossier de recherche. Aucun résultat numérique ne sera présenté comme preuve.
 
@@ -14,9 +14,10 @@ python3 research/hierarchical-swendsen-wang/computations/ancestral_lambda_estima
 python3 research/hierarchical-swendsen-wang/computations/critical_merger_oracle.py
 python3 research/hierarchical-swendsen-wang/computations/triangle_block_sdpi.py
 python3 research/hierarchical-swendsen-wang/computations/nishimori_hierarchical_entropy.py
+python3 research/hierarchical-swendsen-wang/computations/ancestral_information_ledger.py
 ```
 
-## Structure prévue
+## Modules et extensions prévues
 
 - `critical_band_thresholds.py` : vérification sans dépendance des trois seuils triangulaires et des temps $`\beta_c,t_\chi`$ ;
 - `ancestral_lambda_chain.py` : calcul exact des quatre taux ancestraux, du message $`B_u`$ et de $`\mathbb E[\eta_u\mid\mathscr D]`$ sur un petit squelette homogène ;
@@ -29,6 +30,8 @@ python3 research/hierarchical-swendsen-wang/computations/nishimori_hierarchical_
 - `test_triangle_block_sdpi.py` : énumération directe du canal $`4\times8`$, information latérale, défaut de la droite naïve, matrice less-noisy $`3\times3`$ et conditions du candidat $`0.809909\ldots`$ ;
 - `nishimori_hierarchical_entropy.py` : réduction exacte de l'équation (28) de Nishimori--Ohzeki à $`3h_2(p)-h_2((1+(2p-1)^3)/2)=1`$, racine unique, lois de bruit conditionnelles à quatre états et représentation par course exponentielle ;
 - `test_nishimori_hierarchical_entropy.py` : contre-audit indépendant par énumération des huit mots de bruit, comparaison directe à l'équation publiée, monotonie de la balance et identité d'entropie du gagnant ;
+- `ancestral_information_ledger.py` : bilan martingale générique d'une expérience binaire, bornes de logit, KL exacte d'une horloge exponentielle censurée, transport optimal $`2\times2`$ des quatre taux, information du dendrogramme d'une face et loi de Palm de la fusion critique ;
+- `test_ancestral_information_ledger.py` : contre-audits du télescopage, des bornes de KL/transport, de l'énumération à huit états et des densités de Palm ;
 - `exact_enumeration/` : énumération de toutes les configurations et horloges discrétisées sur petits graphes ;
 - `symbolic/` : simplification des poids $`q_u^{ab}`$, contractions et seuils ;
 - `triangular_grid/` : tores triangulaires, bandes et cactus ;
@@ -55,6 +58,19 @@ python3 research/hierarchical-swendsen-wang/computations/nishimori_hierarchical_
 6 bis. Retrouver $`0.835805792367\ldots`$ comme unique racine supérieure de
 $`H(Z_1,Z_2,Z_3\mid Z_1Z_2Z_3)=1`$ bit, puis vérifier algébriquement qu'il
 s'agit exactement de l'équation (28), sans l'annoncer comme seuil démontré.
+6 ter. Vérifier le bilan $L^2$ et entropique sur toute filtration binaire
+finie, puis contre-auditer la formule
+
+```math
+D_{\mathrm{KL}}(P_{\lambda,\tau}\|P_{\mu,\tau})
+=
+(1-e^{-\lambda\tau})
+\left(\log\frac\lambda\mu+\frac\mu\lambda-1\right)
+```
+
+par intégration indépendante. Sur le cactus de deux triangles, enregistrer
+séparément corrélation réelle, fuite du sélecteur, incrément du LCA,
+incrément du premier ancêtre et score terminal.
 7. Pour chaque paire $i\ne j$, vérifier les identités LCA étendues aux racines distinctes
 ```math
     \mathbb E[m_{ij}^{\mathrm{LCA}}]
