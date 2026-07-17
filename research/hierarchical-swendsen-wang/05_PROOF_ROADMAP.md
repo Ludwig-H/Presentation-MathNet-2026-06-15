@@ -202,6 +202,44 @@ grande composante ne suffisent pas : une interface critique peut être réduite
 à une arête pivotale. Un exposant pour la moyenne exige en plus une grande
 déviation jointe de $`(K_L,B_L,M_L)`$.
 
+### B5 quater. Probabilités de flip et chemin descendant
+
+Le [fichier 16](16_FLIP_PROBABILITIES_DESCENDANT_PATH.md) ferme les
+probabilités élémentaires : racine à deux états, feuille à deux états et
+nœud interne à quatre états. Il donne aussi, à tout niveau $`t`$,
+
+```math
+K\stackrel d=1+\mathrm{Bin}(m-1,s_p(t)),
+```
+
+```math
+\ell_{m,k}(t;p)
+=
+\log\frac{k}{m-k}
++u_p(1-t)(2k-m).
+```
+
+Pour un balayage de clusters, la relation d'une paire est exactement le
+produit des signes de flip sur les deux bras vers son LCA. Le programme
+descendant se sépare alors en trois étapes.
+
+1. **PATH-JOINT.** Estimer la corrélation jointe des décisions de heat bath,
+   sans remplacer son espérance par un produit de marginales.
+2. **SIDE-MSG.** Marginaliser les branches latérales par des messages de
+   frontière, exactement sur cactus puis sur bandes.
+3. **PATH-COMP.** Comparer le vrai canal de chemin à l'oracle factorisé
+   PATH-FAC. Aucun ordre stochastique n'est actuellement établi.
+
+Une récursion tordue sur un état de frontière calcule déjà exactement cette
+corrélation sur cactus et séparateurs bornés. Dans l'oracle factorisé, la
+condition $`m_{\min}\ge(c_c(p)^{-1}+\varepsilon)\log H`$ suffit à
+préserver la relation le long d'un chemin critique de longueur $`H`$ ; elle
+n'est pas encore transférée à la grille complète.
+
+Le chemin de la MSF avec gagnants marqués est exclu de cette comparaison : il
+révèle exactement la relation de la réplique génératrice et définit une
+variable auxiliaire différente.
+
 ### B6. Matrice de persistance
 
 Rédiger le théorème

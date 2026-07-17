@@ -194,6 +194,12 @@ Attention : faire mélanger uniquement la chaîne en $\sigma$ à $D$ fixé produ
 - **Orientations globales des arbres.** Sous a priori uniforme, le heat bath de l'orientation globale de chaque composante de $`\Pi_1`$ est uniforme ; on retrouve la recoloration Swendsen–Wang. Cette mise à jour à deux états est distincte du heat bath à quatre états d'un nœud interne supérieur.
 - **Feuilles.** Le heat bath d'une feuille est une mise à jour mono-site de Glauber. Un noyau de Metropolis–Hastings mono-site satisfaisant la balance pour la même conditionnelle peut être substitué. Il vaut donc mieux écrire que la famille interpole entre Swendsen–Wang et les dynamiques locales heat bath/Metropolis, plutôt que d'identifier automatiquement une feuille à toute règle Metropolis–Hastings.
 
+Le [calcul explicite des probabilités de flip](16_FLIP_PROBABILITIES_DESCENDANT_PATH.md)
+donne le rapport exact d'une feuille, distingue sa probabilité heat bath de
+l'acceptation Metropolis--Hastings, et écrit les quatre probabilités d'un
+nœud interne ainsi que leurs marginales dans les coordonnées
+$`(h_1,h_2,J)`$.
+
 ## 7. Points de vigilance mathématique
 
 1. $D$ est une variable auxiliaire corrélée à une réplique postérieure ; elle n'est pas observée dans le problème statistique original.

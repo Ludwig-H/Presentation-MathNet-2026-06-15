@@ -15,6 +15,7 @@ python3 research/hierarchical-swendsen-wang/computations/critical_merger_oracle.
 python3 research/hierarchical-swendsen-wang/computations/triangle_block_sdpi.py
 python3 research/hierarchical-swendsen-wang/computations/nishimori_hierarchical_entropy.py
 python3 research/hierarchical-swendsen-wang/computations/critical_component_boundary.py
+python3 research/hierarchical-swendsen-wang/computations/hierarchical_flip_probabilities.py
 ```
 
 ## Modules et extensions prévues
@@ -32,6 +33,8 @@ python3 research/hierarchical-swendsen-wang/computations/critical_component_boun
 - `test_nishimori_hierarchical_entropy.py` : contre-audit indépendant par énumération des huit mots de bruit, comparaison directe à l'équation publiée, monotonie de la balance et identité d'entropie du gagnant ;
 - `critical_component_boundary.py` : frontière d'une partition, biais de Palm par les paires, temps critique, loi résiduelle vraie tardive/vraie censurée/fausse, séparation entre densité interne ouverte et marques fermées, vote binomial d'une coupe, quatre taux groupés, cône de Walsh positif et parité du heat bath ;
 - `test_critical_component_boundary.py` : contre-audits par énumération d'un triangle, annulation des arêtes internes, factorisation des seules marques de frontière, proportions internes, biais exact de paire, votes binaires, borne de Hoeffding et fermeture exhaustive du certificat de Walsh ;
+- `hierarchical_flip_probabilities.py` : probabilités à deux états des racines et feuilles, distinction heat bath/Metropolis, probabilités quatre états en coordonnées de Walsh, bucket homogène à niveau arbitraire, oracle factorisé et récursion de transfert tordue exacte sur un état fini ;
+- `test_hierarchical_flip_probabilities.py` : balance détaillée des deux noyaux mono-site, reconstruction indépendante des quatre poids, spécialisation critique, monotonie des majorités précoces, énumération exhaustive de PATH-FAC et contre-exemple dépendant à sa factorisation ;
 - `exact_enumeration/` : énumération de toutes les configurations et horloges discrétisées sur petits graphes ;
 - `symbolic/` : simplification des poids $`q_u^{ab}`$, contractions et seuils ;
 - `triangular_grid/` : tores triangulaires, bandes et cactus ;
@@ -196,6 +199,26 @@ l'erreur de Bayes et l'équivalent
 \sim
 \frac{C_{m\bmod2}(p)}{\sqrt m}e^{-mI_c(p)}.
 ```
+
+18 ter. Vérifier à un niveau arbitraire $`t`$ les identités
+
+```math
+s_p(t)=\mathrm{logistic}(u_p(1-t)),
+\qquad
+K=1+\mathrm{Bin}(m-1,s_p(t)),
+```
+
+la formule quatre états en $`(h_1,h_2,J)`$, les marginales de flip, la
+distinction Glauber/Metropolis et
+
+```math
+P_{ij}^{\mathrm{PATH-FAC}}
+=
+\frac12\left(1+\prod_{w\in\mathcal P(i,j)}\Gamma_{m_w}(t_w;p)\right)
+```
+
+par énumération complète de petits chemins. Ce test ne doit jamais être
+étiqueté comme validation de l'indépendance dans le balayage réel.
 
 19. Pour chaque bucket ancestral pondéré, vérifier indépendamment :
 

@@ -202,10 +202,28 @@ change pas la répartition fausse/vraie-tardive parmi les arêtes encore
 fermées, mais il change leur masse parmi toutes les arêtes internes via la
 densité déjà ouverte.
 
+Le fichier 16 donne maintenant un calcul unifié des probabilités de flip à
+tous les niveaux. Une racine finale a une orientation uniforme sous a priori
+uniforme ; une feuille suit le heat bath mono-site de Glauber, tandis que
+Metropolis--Hastings est une substitution distincte de même cible. À un nœud
+interne, les quatre probabilités et leurs marginales sont explicites en trois
+coefficients $`(h_1,h_2,J)`$. Sans message extérieur, leurs moyennes valent
+$`(1+\Gamma_m)/4`$ pour chacun des états $`00,11`$ et
+$`(1-\Gamma_m)/4`$ pour chacun des états $`01,10`$. Le même fichier
+formalise la voie descendante :
+la relation après un balayage est exactement un produit de signes sur les
+deux bras $`i\leadsto\mathrm{LCA}(i,j)`$ et
+$`j\leadsto\mathrm{LCA}(i,j)`$. L'espérance de ce produit ne factorise
+toutefois pas dans la dynamique complète. Un oracle PATH-FAC est isolé pour
+quantifier précisément l'approximation, et le chemin physique marqué de la
+MSF est identifié comme un oracle différent, trop informatif. Une récursion
+de transfert tordue donne en parallèle le calcul exact dès qu'un état de
+frontière fini peut être conservé.
+
 ## Socle de départ
 
 Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées.
-Les points 3, 4 et 6 à 13 rassemblent des résultats finis ou des audits
+Les points 3, 4 et 6 à 15 rassemblent des résultats finis ou des audits
 conditionnels dont l'algèbre a été vérifiée et dont le statut précis est donné
 dans le dossier ; les résultats qui utilisent la mesure jointe restent à
 intégrer dans une rédaction formelle complète avec A1.
@@ -276,6 +294,14 @@ intégrer dans une rédaction formelle complète avec A1.
     préfacteurs pair/impair explicites. Son transport à une paire lointaine de
     la grille est conditionnel à CUT et ANC. Aucun équivalent fonction de
     $`p`$ seul n'est annoncé pour le heat bath hiérarchique complet.
+15. Les probabilités de flip se ferment exactement aux trois niveaux : deux
+    états à une racine finale, deux états à une feuille, quatre états à un
+    nœud interne. Pour un bucket homogène arbitraire de niveau $`t`$, la loi
+    locale est $`1+\mathrm{Bin}(m-1,s_p(t))`$ et l'exposant de grande coupe
+    vaut $`D(1/2\|s_p(t))`$. Les descendants s'annulent dans un heat bath
+    unique, mais un balayage le long des deux bras d'une paire possède une
+    identité de parité exacte. Sa factorisation reste un oracle, pas un
+    théorème sur la dynamique complète.
 
 ## Carte du dossier
 
@@ -294,6 +320,7 @@ intégrer dans une rédaction formelle complète avec A1.
 - [13_NISHIMORI_HIERARCHICAL_CLOCKS.md](13_NISHIMORI_HIERARCHICAL_CLOCKS.md) : réduction exacte de la conjecture triangulaire à une entropie de face et représentation par une course exponentielle, avec séparation stricte entre calibration de face et seuil global.
 - [14_CRITICAL_COMPONENT_BOUNDARY.md](14_CRITICAL_COMPONENT_BOUNDARY.md) : annulation exacte des arêtes internes, loi des marques de frontière, composante critique sous biais de paire, LCA localisé par la gauche, majorités groupées ancestrales et critère quatre états du heat bath.
 - [15_CRITICAL_GIANT_PAIR_FLIP.md](15_CRITICAL_GIANT_PAIR_FLIP.md) : loi résiduelle des arêtes internes sous conditionnement de géante, probabilité exacte des états pairs au LCA critique, exposant de grande coupe, hypothèses CUT et ANC et contre-audits du passage distance--interface.
+- [16_FLIP_PROBABILITIES_DESCENDANT_PATH.md](16_FLIP_PROBABILITIES_DESCENDANT_PATH.md) : probabilités explicites aux racines, feuilles et nœuds internes, paramétrisation quatre états, buckets à niveau arbitraire, identité de chemin descendant, oracle PATH-FAC, distinction MSF marquée/non marquée et obstruction des messages de frontière.
 - [LITERATURE.md](LITERATURE.md) : état de l'art primaire, voisins conceptuels et positionnement prudent de la nouveauté.
 - [references.bib](references.bib) : bibliographie ciblée et autonome.
 - [computations/README.md](computations/README.md) : cahier des charges des calculs exacts et simulations à ajouter.

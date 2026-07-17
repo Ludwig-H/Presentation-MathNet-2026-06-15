@@ -742,6 +742,12 @@ Il est donc le candidat canonique dans cette classe restreinte de mouvements « 
 
 Une mise à jour jointe de toutes les variables d'orientation sur le chemin entre $i$ et $j$, ou dans le sous-arbre enraciné en $`u_{ij}`$, conditionne sur moins d'information et peut fournir une borne plus petite. Elle est mathématiquement plus difficile, mais constitue l'étape suivante si le LCA seul reste trop peu précis.
 
+Le [fichier 16](16_FLIP_PROBABILITIES_DESCENDANT_PATH.md) formalise cette
+extension : il donne l'identité déterministe de parité sur les deux bras,
+calcule l'oracle factorisé PATH-FAC et montre pourquoi la véritable
+marginalisation descendante doit transporter un message indexé par la
+frontière, plutôt qu'un seul scalaire par niveau.
+
 Plus généralement, si un « LCA collapsed » rééchantillonne la parité de $u$ en marginalisant aussi une partie des messages ancestraux, sa sigma-algèbre $`\mathcal G_u^{\mathrm{coarse}}`$ vérifie
 ```math
 \mathcal G_u^{\mathrm{coarse}}\subseteq\mathcal G_u.

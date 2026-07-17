@@ -342,7 +342,11 @@ K_D(i,j)
 =
 \prod_{u\in\mathrm{path}_D(i,j)}\rho_u
 ```
-serait la corrélation entre deux feuilles, et la positivité d'une capacité $L^2$ ou d'un rayon spectral associé donnerait un critère de reconstruction de type Kesten–Stigum.
+serait la corrélation de **broadcast** entre deux feuilles, et la positivité
+d'une capacité $L^2$ ou d'un rayon spectral associé donnerait un critère de
+reconstruction de type Kesten–Stigum. Ce produit en $`\rho_u`$ ne décrit pas
+le couplage entrée--sortie de deux répliques d'un heat bath : à message fixé,
+la persistance de cette projection vaut $`\eta_u=\rho_u^2`$.
 
 Dans la dynamique réelle, cette factorisation est fausse en général :
 
@@ -350,6 +354,23 @@ Dans la dynamique réelle, cette factorisation est fausse en général :
 - plusieurs fusions dépendent des mêmes arêtes du graphe initial ;
 - Kruskal sélectionne les coupes de façon dépendante des horloges ;
 - les cycles créent des canaux multi-terminaux.
+
+Le [calcul par chemin descendant](16_FLIP_PROBABILITIES_DESCENDANT_PATH.md)
+précise ce point. Pour un balayage commun, l'entrée $`H_S(i,j)`$ est
+exactement une récursion de transfert tordue sur les deux bras vers le LCA.
+L'oracle PATH-FAC remplace cette récursion par
+
+```math
+\prod_{w\in\mathcal P(i,j)}\Gamma_{m_w}(t_w;p).
+```
+
+Ici $`\Gamma_m`$ est précisément la moyenne, sous l'expérience locale
+symétrique, de la persistance $`\eta=\tanh^2(L/2)`$.
+
+Cette quantité fournit une cible calculable pour améliorer l'obstruction de
+weak recovery, mais elle ne peut remplacer $`H_S(i,j)`$ dans un théorème
+avant d'avoir établi une comparaison dans le bon sens entre le transfert
+joint et son produit factorisé.
 
 ## 7. Conjecture de capacité hiérarchique
 
