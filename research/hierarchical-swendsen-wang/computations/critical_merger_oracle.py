@@ -112,6 +112,142 @@ def _squared_posterior_bias(log_odds: float) -> float:
     return value * value
 
 
+def posterior_same_parity_probability(log_odds: float) -> float:
+    """Return the heat-bath probability of the even pair of flip states."""
+
+    if log_odds == inf:
+        return 1.0
+    if log_odds == -inf:
+        return 0.0
+    if log_odds >= 0.0:
+        return 1.0 / (1.0 + exp(-log_odds))
+    exponential = exp(log_odds)
+    return exponential / (1.0 + exponential)
+
+
+def critical_same_parity_probability_given_count(
+    size: int, count: int, p: float
+) -> float:
+    """Return P((a,b) is (0,0) or (1,1) | K=count) for B_u=0."""
+
+    return posterior_same_parity_probability(
+        critical_local_log_odds(size, count, p)
+    )
+
+
+def critical_mean_opposite_parity_probability(size: int, p: float) -> float:
+    """Return the mean local probability of choosing an odd flip parity.
+
+    Computing the deficit directly avoids subtracting two floating-point
+    numbers close to one when the critical bucket is large.
+    """
+
+    plus = critical_plus_count_pmf(size, p)
+    return fsum(
+        mass
+        * (
+            1.0
+            - critical_same_parity_probability_given_count(
+                size, count, p
+            )
+        )
+        for count, mass in plus.items()
+    )
+
+
+def critical_mean_same_parity_probability(size: int, p: float) -> float:
+    """Return the mean local probability of an even flip parity."""
+
+    return 1.0 - critical_mean_opposite_parity_probability(size, p)
+
+
+def critical_bayes_error(size: int, p: float) -> float:
+    """Bayes error for the two mirrored critical count experiments."""
+
+    plus = critical_plus_count_pmf(size, p)
+    error = 0.0
+    for count, mass in plus.items():
+        log_odds = critical_local_log_odds(size, count, p)
+        if log_odds < 0.0:
+            error += mass
+        elif log_odds == 0.0:
+            error += 0.5 * mass
+    return error
+
+
+def critical_mean_error_exponent(p: float) -> float:
+    """Return D(1/2 || s_c) = -log(1-h_c^2)/2."""
+
+    bias = critical_parameters(p).bias
+    return -0.5 * log(1.0 - bias * bias)
+
+
+def _hyperbolic_secant(value: float) -> float:
+    """Evaluate sech(value) without overflowing for large arguments."""
+
+    exponential = exp(-abs(value))
+    return 2.0 * exponential / (1.0 + exponential * exponential)
+
+
+def critical_mean_error_prefactor(p: float, size_parity: int) -> float:
+    """Return the sharp m^(-1/2) prefactor on an even/odd subsequence.
+
+    For fixed ``p > P_SW`` and ``m`` with parity ``size_parity``, the mean
+    opposite-parity probability is asymptotic to
+
+        prefactor * exp(-m * critical_mean_error_exponent(p)) / sqrt(m).
+
+    The defining shifted-sech series is evaluated directly for large
+    residual log-odds and through Poisson summation for small log-odds.
+    """
+
+    parameters = critical_parameters(p)
+    if parameters.residual_log_odds <= 0.0:
+        raise ValueError("the sharp prefactor is defined only for p > p_SW")
+    if size_parity not in (0, 1):
+        raise ValueError("size_parity must be 0 (even) or 1 (odd)")
+
+    a_c = parameters.residual_log_odds
+    tolerance = 1e-16
+
+    if a_c <= pi:
+        # Poisson summation:
+        # sum_j sech(a(j+eps)) = (pi/a) sum_k
+        # exp(2 pi i k eps) sech(pi^2 k/a).
+        transformed = 1.0
+        frequency = 1
+        while True:
+            term = _hyperbolic_secant(pi * pi * frequency / a_c)
+            sign = -1.0 if size_parity == 1 and frequency % 2 else 1.0
+            transformed += 2.0 * sign * term
+            if term < tolerance:
+                break
+            frequency += 1
+        shifted_series = pi * transformed / a_c
+    elif size_parity == 0:
+        shifted_series = 1.0
+        index = 1
+        while True:
+            term = _hyperbolic_secant(a_c * index)
+            shifted_series += 2.0 * term
+            if term < tolerance:
+                break
+            index += 1
+    else:
+        shifted_series = 0.0
+        index = 0
+        while True:
+            term = _hyperbolic_secant(a_c * (index + 0.5))
+            shifted_series += 2.0 * term
+            if term < tolerance:
+                break
+            index += 1
+
+    return shifted_series / (
+        2.0 * parameters.satisfaction * sqrt(2.0 * pi)
+    )
+
+
 def critical_oracle_reliability(size: int, p: float) -> float:
     """Return Gamma_m^c from the local hierarchical likelihood ratio."""
 

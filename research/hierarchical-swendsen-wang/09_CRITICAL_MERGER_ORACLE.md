@@ -392,10 +392,24 @@ s_c^{k-1}(1-s_c)^{m-k}
 }
 ```
 
-Cette quantité est exacte, finie et comprise dans $`[0,1]`. Elle est la
+Cette quantité est exacte, finie et comprise dans $`[0,1]`$. Elle est la
 contraction $`L^2`$ de l'expérience binaire locale conditionnelle au bucket et
 au temps critiques. Elle n'est pas encore la contraction non oracle du modèle
 après marginalisation de tout le dendrogramme.
+
+La probabilité moyenne de choisir les deux états de parité paire est reliée
+exactement à cette fiabilité par
+
+```math
+\overline P_m^c(p)
+=
+\frac{1+\Gamma_m^c(p)}2.
+```
+
+La preuve, l'équivalent précis de son déficit et les hypothèses CUT/ANC
+nécessaires pour passer d'une grande coupe à une paire lointaine de la grille
+sont donnés dans le
+[fichier 15](15_CRITICAL_GIANT_PAIR_FLIP.md).
 
 ### Proposition 4.2 — valeur exacte au seuil géométrique
 

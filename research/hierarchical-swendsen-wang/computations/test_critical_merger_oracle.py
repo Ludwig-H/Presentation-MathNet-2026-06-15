@@ -1,13 +1,18 @@
 from __future__ import annotations
 
 import unittest
-from math import atanh, exp, log
+from math import atanh, cosh, exp, log, pi, sqrt
 
 from critical_band_thresholds import Q_CRITICAL, open_probability
 from critical_merger_oracle import (
     P_INFO,
     P_SW,
+    critical_bayes_error,
     critical_local_log_odds,
+    critical_mean_error_exponent,
+    critical_mean_error_prefactor,
+    critical_mean_opposite_parity_probability,
+    critical_mean_same_parity_probability,
     critical_minus_count_pmf,
     critical_oracle_reliability,
     critical_parameters,
@@ -82,6 +87,86 @@ class CriticalMergerOracleTests(unittest.TestCase):
             self.assertAlmostEqual(
                 critical_oracle_reliability(size, P_SW), 1.0 / size
             )
+
+    def test_mean_even_probability_is_one_plus_reliability_over_two(
+        self,
+    ) -> None:
+        for size in (1, 2, 5, 16, 64):
+            for p in (P_SW, 0.72, P_INFO, 0.8358058):
+                probability = critical_mean_same_parity_probability(size, p)
+                reliability = critical_oracle_reliability(size, p)
+                self.assertAlmostEqual(
+                    probability, (1.0 + reliability) / 2.0
+                )
+
+    def test_exact_sw_even_probability(self) -> None:
+        for size in range(1, 21):
+            self.assertAlmostEqual(
+                critical_mean_same_parity_probability(size, P_SW),
+                0.5 + 0.5 / size,
+            )
+
+    def test_even_deficit_is_comparable_to_bayes_error(self) -> None:
+        for size in (1, 2, 7, 32):
+            for p in (P_SW, 0.72, P_INFO, 0.8358058):
+                deficit = critical_mean_opposite_parity_probability(size, p)
+                bayes = critical_bayes_error(size, p)
+                self.assertGreaterEqual(deficit + 1e-15, bayes)
+                self.assertLessEqual(deficit, 2.0 * bayes + 1e-15)
+
+    def test_mean_even_deficit_has_the_claimed_logarithmic_rate(self) -> None:
+        p = 0.75
+        exponent = critical_mean_error_exponent(p)
+        errors = []
+        for size in (128, 256, 512):
+            deficit = critical_mean_opposite_parity_probability(size, p)
+            errors.append(abs(-log(deficit) / size - exponent))
+        self.assertLess(errors[-1], errors[0])
+        self.assertLess(errors[-1], 0.02)
+
+    def test_sharp_error_prefactor_matches_its_defining_series(self) -> None:
+        p = 0.75
+        parameters = critical_parameters(p)
+        a_c = parameters.residual_log_odds
+        for parity, shift in ((0, 0.0), (1, 0.5)):
+            direct_series = sum(
+                1.0 / cosh(a_c * (index + shift))
+                for index in range(-100, 101)
+            )
+            direct = direct_series / (
+                2.0 * parameters.satisfaction * sqrt(2.0 * pi)
+            )
+            self.assertAlmostEqual(
+                critical_mean_error_prefactor(p, parity), direct
+            )
+
+    def test_mean_even_deficit_has_the_sharp_prefactor(self) -> None:
+        p = 0.75
+        exponent = critical_mean_error_exponent(p)
+        for parity in (0, 1):
+            ratios = []
+            for base_size in (128, 256, 512):
+                size = base_size + parity
+                asymptotic = (
+                    critical_mean_error_prefactor(p, parity)
+                    * exp(-size * exponent)
+                    / sqrt(size)
+                )
+                exact = critical_mean_opposite_parity_probability(size, p)
+                ratios.append(exact / asymptotic)
+            self.assertLess(abs(1.0 - ratios[-1]), abs(1.0 - ratios[0]))
+            self.assertGreater(ratios[-1], 0.94)
+
+    def test_sharp_prefactor_rejects_the_critical_endpoint(self) -> None:
+        with self.assertRaises(ValueError):
+            critical_mean_error_prefactor(P_SW, 0)
+
+    def test_even_and_odd_prefactors_are_genuinely_distinct(self) -> None:
+        self.assertNotAlmostEqual(
+            critical_mean_error_prefactor(0.9, 0),
+            critical_mean_error_prefactor(0.9, 1),
+            places=4,
+        )
 
     def test_single_edge_oracle_is_perfect(self) -> None:
         for p in (P_SW, 0.72, P_INFO, 0.8358058, 0.95):

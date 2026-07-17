@@ -48,6 +48,17 @@ class CriticalMasses:
     false: float
 
 
+@dataclass(frozen=True)
+class InternalProportions:
+    """Targets among all potential internal edges at fixed open density."""
+
+    open_true: float
+    late_true: float
+    censored_true: float
+    false: float
+    unactivated_true: float
+
+
 def _validate_p(p: float) -> None:
     if not 0.5 < p < 1.0:
         raise ValueError("p must satisfy 0.5 < p < 1")
@@ -84,6 +95,33 @@ def closed_categories(p: float, time: float) -> ClosedCategories:
         false=false,
         true_probability=true_probability,
         signed_margin=signed_margin,
+    )
+
+
+def internal_proportions(
+    p: float, time: float, open_density: float
+) -> InternalProportions:
+    """Return conditional targets among all potential edges inside a cluster.
+
+    The cluster selection may be any event measurable by the open graph at
+    ``time``.  Its only input here is the realized or limiting fraction of
+    already-open internal edges.  The residual split is the universal closed
+    edge law returned by :func:`closed_categories`.
+    """
+
+    if not 0.0 <= open_density <= 1.0:
+        raise ValueError("open_density must belong to [0, 1]")
+    residual = closed_categories(p, time)
+    closed_density = 1.0 - open_density
+    late_true = closed_density * residual.late_true
+    censored_true = closed_density * residual.censored_true
+    false = closed_density * residual.false
+    return InternalProportions(
+        open_true=open_density,
+        late_true=late_true,
+        censored_true=censored_true,
+        false=false,
+        unactivated_true=late_true + censored_true,
     )
 
 

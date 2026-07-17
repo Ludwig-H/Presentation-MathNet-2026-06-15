@@ -24,14 +24,14 @@ python3 research/hierarchical-swendsen-wang/computations/critical_component_boun
 - `test_ancestral_lambda_chain.py` : tests unitaires sans dépendance de la course conditionnelle et des identités quatre états ;
 - `ancestral_lambda_estimation.py` : course pondérée exacte conditionnelle au squelette, moments des trois groupes et des quatre taux, certificat déterministe de queue ancestrale et transport vers la fiabilité LCA ;
 - `test_ancestral_lambda_estimation.py` : contre-audit indépendant par énumération complète, réduction homogène fermée, bornes de contraste et constante de Lipschitz exacte $`2/(3\sqrt3)`$ de la fiabilité ;
-- `critical_merger_oracle.py` : paramètres critiques fermés, somme finie $`\Gamma_m^c`$, borne exponentielle et limite $`m^{-1/2}`$ de l'oracle local ;
-- `test_critical_merger_oracle.py` : contre-audits indépendants par LLR, expérience binaire symétrique, identité $`1/m`$ et limite gaussienne ;
+- `critical_merger_oracle.py` : paramètres critiques fermés, somme finie $`\Gamma_m^c`$, probabilité paire $`(1+\Gamma_m^c)/2`$, exposant et préfacteurs précis pair/impair, borne exponentielle et limite $`m^{-1/2}`$ de l'oracle local ;
+- `test_critical_merger_oracle.py` : contre-audits indépendants par LLR, expérience binaire symétrique, erreur de Bayes, identité $`1/m`$, préfacteurs de Bahadur--Rao, probabilité paire et limite gaussienne ;
 - `triangle_block_sdpi.py` : profil $`c_q(t)`$ du canal de triangle, SDPI globale, audit scalaire et enveloppe multi-état conditionnelle ;
 - `test_triangle_block_sdpi.py` : énumération directe du canal $`4\times8`$, information latérale, défaut de la droite naïve, matrice less-noisy $`3\times3`$ et conditions du candidat $`0.809909\ldots`$ ;
 - `nishimori_hierarchical_entropy.py` : réduction exacte de l'équation (28) de Nishimori--Ohzeki à $`3h_2(p)-h_2((1+(2p-1)^3)/2)=1`$, racine unique, lois de bruit conditionnelles à quatre états et représentation par course exponentielle ;
 - `test_nishimori_hierarchical_entropy.py` : contre-audit indépendant par énumération des huit mots de bruit, comparaison directe à l'équation publiée, monotonie de la balance et identité d'entropie du gagnant ;
-- `critical_component_boundary.py` : frontière d'une partition, biais de Palm par les paires, temps critique, loi résiduelle vraie tardive/vraie censurée/fausse, vote binomial d'une coupe, quatre taux groupés, cône de Walsh positif et parité du heat bath ;
-- `test_critical_component_boundary.py` : contre-audits par énumération d'un triangle, annulation des arêtes internes, factorisation des seules marques de frontière, biais exact de paire, votes binaires, borne de Hoeffding et fermeture exhaustive du certificat de Walsh ;
+- `critical_component_boundary.py` : frontière d'une partition, biais de Palm par les paires, temps critique, loi résiduelle vraie tardive/vraie censurée/fausse, séparation entre densité interne ouverte et marques fermées, vote binomial d'une coupe, quatre taux groupés, cône de Walsh positif et parité du heat bath ;
+- `test_critical_component_boundary.py` : contre-audits par énumération d'un triangle, annulation des arêtes internes, factorisation des seules marques de frontière, proportions internes, biais exact de paire, votes binaires, borne de Hoeffding et fermeture exhaustive du certificat de Walsh ;
 - `exact_enumeration/` : énumération de toutes les configurations et horloges discrétisées sur petits graphes ;
 - `symbolic/` : simplification des poids $`q_u^{ab}`$, contractions et seuils ;
 - `triangular_grid/` : tores triangulaires, bandes et cactus ;
@@ -178,6 +178,23 @@ exacte.
     \right)
     \longrightarrow
     \mathbb E[\tanh^2(\alpha Z+\alpha^2)].
+```
+
+18 bis. Vérifier la probabilité de parité paire
+
+```math
+\overline P_m^c(p)
+=
+\frac{1+\Gamma_m^c(p)}2,
+```
+
+sa valeur $`1/2+1/(2m)`$ au bord $`p_{\mathrm{SW}}`$, les bornes par
+l'erreur de Bayes et l'équivalent
+
+```math
+1-\overline P_m^c(p)
+\sim
+\frac{C_{m\bmod2}(p)}{\sqrt m}e^{-mI_c(p)}.
 ```
 
 19. Pour chaque bucket ancestral pondéré, vérifier indépendamment :

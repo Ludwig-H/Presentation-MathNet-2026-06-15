@@ -18,6 +18,7 @@ from critical_component_boundary import (
     critical_masses,
     critical_time_untruncated,
     grouped_rates,
+    internal_proportions,
     margin_failure_bound,
     margin_success_probability,
     multiply_four_weights,
@@ -58,6 +59,37 @@ class CriticalComponentBoundaryTests(unittest.TestCase):
             self.assertAlmostEqual(result.signed_margin, result.late_true)
             self.assertAlmostEqual(
                 result.signed_margin, tanh(rate * (1.0 - time) / 2.0)
+            )
+
+    def test_internal_proportions_separate_geometry_from_residual_marks(
+        self,
+    ) -> None:
+        for p, time in ((0.7, 0.2), (0.8, 0.6), (0.9, 1.0)):
+            rate = log(p / (1.0 - p))
+            open_density = p * (1.0 - exp(-rate * time))
+            baseline = internal_proportions(p, time, open_density)
+            self.assertAlmostEqual(baseline.open_true, open_density)
+            self.assertAlmostEqual(
+                baseline.late_true,
+                p * (exp(-rate * time) - exp(-rate)),
+            )
+            self.assertAlmostEqual(baseline.censored_true, 1.0 - p)
+            self.assertAlmostEqual(baseline.false, 1.0 - p)
+            self.assertAlmostEqual(
+                baseline.open_true
+                + baseline.late_true
+                + baseline.censored_true
+                + baseline.false,
+                1.0,
+            )
+
+            more_connected = internal_proportions(
+                p, time, min(1.0, open_density + 0.1)
+            )
+            self.assertLessEqual(more_connected.false, baseline.false)
+            self.assertLessEqual(
+                more_connected.unactivated_true,
+                baseline.unactivated_true,
             )
 
     def test_critical_unconditional_masses_and_closed_forms(self) -> None:

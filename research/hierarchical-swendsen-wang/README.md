@@ -162,6 +162,46 @@ Les ancêtres ont seulement $`\beta_v>\beta_u`$ : certains peuvent encore
 trois tailles de groupe et des temps sous le biais exact d'une paire critique,
 puis HF, restent les deux verrous globaux.
 
+Le fichier 15 sépare désormais la probabilité de parité paire de sa seule
+fiabilité carrée. Pour une coupe critique locale de taille $`m`$ et sans
+message ancestral,
+
+```math
+\overline P_m^c(p)
+=
+\mathbb P\bigl((a,b)\in\{(0,0),(1,1)\}\bigr)
+=
+\frac{1+\Gamma_m^c(p)}2.
+```
+
+Au bord $`p_{\mathrm{SW}}`$, cette probabilité vaut exactement
+$`1/2+1/(2m)`$. Pour $`p>p_{\mathrm{SW}}`$ fixé, elle tend vers $`1`$ lorsque
+$`m\to\infty`$, avec l'équivalent
+
+```math
+1-\overline P_m^c(p)
+\sim
+\frac{C_{m\bmod2}(p)}{\sqrt m}e^{-mI_c(p)},
+```
+
+où le préfacteur pair/impair $`C_r(p)`$ est une série explicite et
+
+```math
+I_c(p)
+=
+-\frac12\log(1-h_c(p)^2).
+```
+
+Le passage d'une paire lointaine à cette grande-coupe limite exige deux
+lemmes qui restent ouverts sur la grille : la croissance de la coupe du LCA
+critique (CUT) et la sous-linéarité du message ancestral devant cette coupe
+(ANC). La distance seule n'implique pas CUT : deux amas macroscopiques peuvent
+être reliés par une unique arête pivotale. Le même fichier établit aussi la
+loi des marques internes à temps fixé : le conditionnement de géante ne
+change pas la répartition fausse/vraie-tardive parmi les arêtes encore
+fermées, mais il change leur masse parmi toutes les arêtes internes via la
+densité déjà ouverte.
+
 ## Socle de départ
 
 Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées.
@@ -230,6 +270,12 @@ intégrer dans une rédaction formelle complète avec A1.
     Aux ancêtres, cette loi s'applique séparément aux trois groupes qui
     donnent les quatre $`\Lambda_v^{ab}`$ ; une majorité globale de la coupe
     ne suffit pas.
+14. Pour l'oracle local critique, la probabilité moyenne de parité paire est
+    exactement $`(1+\Gamma_m^c(p))/2`$. Sa limite de grande coupe vaut $`1`$
+    pour $`p>p_{\mathrm{SW}}`$ et son déficit admet un équivalent précis avec
+    préfacteurs pair/impair explicites. Son transport à une paire lointaine de
+    la grille est conditionnel à CUT et ANC. Aucun équivalent fonction de
+    $`p`$ seul n'est annoncé pour le heat bath hiérarchique complet.
 
 ## Carte du dossier
 
@@ -247,6 +293,7 @@ intégrer dans une rédaction formelle complète avec A1.
 - [12_FAVORABLE_HIERARCHICAL_REDUCTION.md](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : réduction exacte aux paires lointaines, oracle de composante critique avec LCA dans la fenêtre gauche, lemme de domination HF et transport certifié de la queue ancestrale vers la weak recovery.
 - [13_NISHIMORI_HIERARCHICAL_CLOCKS.md](13_NISHIMORI_HIERARCHICAL_CLOCKS.md) : réduction exacte de la conjecture triangulaire à une entropie de face et représentation par une course exponentielle, avec séparation stricte entre calibration de face et seuil global.
 - [14_CRITICAL_COMPONENT_BOUNDARY.md](14_CRITICAL_COMPONENT_BOUNDARY.md) : annulation exacte des arêtes internes, loi des marques de frontière, composante critique sous biais de paire, LCA localisé par la gauche, majorités groupées ancestrales et critère quatre états du heat bath.
+- [15_CRITICAL_GIANT_PAIR_FLIP.md](15_CRITICAL_GIANT_PAIR_FLIP.md) : loi résiduelle des arêtes internes sous conditionnement de géante, probabilité exacte des états pairs au LCA critique, exposant de grande coupe, hypothèses CUT et ANC et contre-audits du passage distance--interface.
 - [LITERATURE.md](LITERATURE.md) : état de l'art primaire, voisins conceptuels et positionnement prudent de la nouveauté.
 - [references.bib](references.bib) : bibliographie ciblée et autonome.
 - [computations/README.md](computations/README.md) : cahier des charges des calculs exacts et simulations à ajouter.

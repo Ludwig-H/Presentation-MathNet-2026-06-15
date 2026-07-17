@@ -243,6 +243,13 @@ bloc. C'est précisément pourquoi il serait faux de leur appliquer (3.1).
 Cette difficulté n'affecte pas le taux de la frontière courante, car ces
 arêtes n'y figurent pas.
 
+Le [fichier 15](15_CRITICAL_GIANT_PAIR_FLIP.md) donne la désintégration
+correcte de ces arêtes internes. Conditionnellement au graphe ouvert complet,
+les seules arêtes internes encore fermées retrouvent la loi résiduelle ; la
+connexité et le conditionnement de plus grande composante agissent uniquement
+sur leur nombre. Il en déduit aussi la probabilité exacte des deux états de
+parité paire au LCA critique.
+
 ### Spécialisation critique
 
 Supposons $`p\ge p_{\mathrm{SW}}`$. L'identité

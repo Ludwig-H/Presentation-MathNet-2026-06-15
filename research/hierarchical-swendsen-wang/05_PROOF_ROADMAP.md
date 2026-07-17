@@ -154,6 +154,54 @@ Ce bloc local est clos. Il ne doit pas être promu en seuil global : le travail
 restant consiste à contrôler simultanément la masse des fusions, le message
 ancestral, la contraction après marginalisation de $D$ et la cohérence signée.
 
+### B5 ter. Probabilité paire critique — du bucket à la paire lointaine
+
+Le [fichier 15](15_CRITICAL_GIANT_PAIR_FLIP.md) établit pour le bucket local
+
+```math
+\overline P_m^c(p)
+=
+\frac{1+\Gamma_m^c(p)}2,
+```
+
+ainsi que
+
+```math
+\overline P_m^c(p_{\mathrm{SW}})
+=
+\frac12+\frac1{2m},
+```
+
+et, pour $`p>p_{\mathrm{SW}}`$ fixé,
+
+```math
+1-\overline P_m^c(p)
+\sim
+\frac{C_{m\bmod2}(p)}{\sqrt m}e^{-mI_c(p)},
+\qquad
+I_c(p)=-\frac12\log(1-h_c(p)^2).
+```
+
+Les deux constantes $`C_0(p),C_1(p)`$ sont des séries absolument
+convergentes données explicitement dans le fichier 15 ; distinguer la parité
+est nécessaire pour avoir un véritable équivalent.
+
+Deux lemmes distincts sont nécessaires pour transporter cette calibration à
+une paire lointaine de la grille.
+
+1. **CUT.** La taille $`M_L=|E_{u_{I_LJ_L}}|`$ de la coupe critique tend vers
+   l'infini sous le biais de Palm retenu, ou sa loi limite est calculée
+   explicitement si elle reste tendue.
+2. **ANC.** Le message ancestral vérifie $`B_L/M_L\to0`$, ou plus
+   généralement possède une limite jointe avec $`M_L`$ permettant de décider
+   le signe de $`a_ch_c+B_L/M_L`$.
+
+Sous CUT et ANC, la probabilité paire complète tend vers $`1`$. Ces hypothèses
+sont **à prouver**. La distance des sommets et leur appartenance à la plus
+grande composante ne suffisent pas : une interface critique peut être réduite
+à une arête pivotale. Un exposant pour la moyenne exige en plus une grande
+déviation jointe de $`(K_L,B_L,M_L)`$.
+
 ### B6. Matrice de persistance
 
 Rédiger le théorème
