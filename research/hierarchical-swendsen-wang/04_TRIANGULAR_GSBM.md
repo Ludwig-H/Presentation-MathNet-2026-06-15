@@ -165,8 +165,9 @@ Le fichier 13 montre exactement que son équation est
 3h_2(p)-h_2\left(\frac{1+(2p-1)^3}{2}\right)=1.
 ```
 
-La racine de cette équation est certifiée, mais son identification au point
-multicritique reste **conjecturale**. Une amélioration de dualité par amas
+L'équation a une unique racine supérieure et le calcul reproductible l'encadre
+entre $`0.835805792366`$ et $`0.835805792368`$, mais son identification au
+point multicritique reste **conjecturale**. Une amélioration de dualité par amas
 donne déjà $`0.835985`$ au premier niveau publié ; la constante à huit décimales
 ne doit donc pas être utilisée comme seuil rigoureux.
 

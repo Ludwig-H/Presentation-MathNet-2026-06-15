@@ -163,6 +163,10 @@ une entropie de canal fini.
 L'équation (NO) possède une unique solution dans $`(1/2,1)`$, donnée par
 
 ```math
+0.835805792366
+<p_{\mathrm N}^{(0)}
+<0.835805792368,
+\qquad
 p_{\mathrm N}^{(0)}=0.835805792367\ldots.
 ```
 
@@ -196,8 +200,11 @@ G(1)=0.
 ```
 
 La continuité et la stricte décroissance donnent une unique solution de
-$`G(p)=\log2`$. La valeur affichée est obtenue par dichotomie certifiée dans
-le script associé.
+$`G(p)=\log2`$. La valeur affichée est obtenue par dichotomie dans le script
+associé. Pour contre-audit, une évaluation décimale à 80 chiffres donne pour
+$`G(p)-\log2`$ respectivement
+$`4.0296\times10^{-12}`$ et $`-4.0416\times10^{-12}`$ aux deux bornes
+décimales ci-dessus ; la monotonie fournit alors l'encadrement annoncé.
 
 Au point racine, les valeurs de contrôle sont
 

@@ -217,8 +217,8 @@ une zone rigoureuse de non-recouvrement dépassant $p=0.794659\ldots$ ; aucune
 nouvelle constante n'est annoncée avant ces quatre preuves. Le point
 multicritique de Nishimori conjecturé $p\simeq0.8358058$ est maintenant
 retrouvé exactement comme zéro de l'entropie autoduale d'une face. Le premier
-test nouveau doit calculer sur un cactus, avec les mêmes taux ancestraux, le
-défaut autodual $`\Psi_1`$ et la fiabilité favorable
+test nouveau doit calculer sur un cactus, avec les mêmes taux ancestraux, les
+défauts autoduals $`\widehat\Psi_0,\widehat\Psi_1`$ et la fiabilité favorable
 $`\Gamma_1^{\mathrm{fav}}`$ : leur comparaison teste le lemme de pont NH3 sans
 confondre une calibration locale avec un seuil. Le fichier 11 est conservé
 comme audit auxiliaire, sans priorité sur la chaîne hiérarchique.

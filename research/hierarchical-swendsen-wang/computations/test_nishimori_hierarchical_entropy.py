@@ -70,6 +70,8 @@ class NishimoriHierarchicalEntropyTests(unittest.TestCase):
 
     def test_root_and_strict_uniqueness_on_upper_half(self) -> None:
         root = conjectured_nishimori_root()
+        self.assertGreater(nishimori_entropy_balance_bits(0.835805792366), 0.0)
+        self.assertLess(nishimori_entropy_balance_bits(0.835805792368), 0.0)
         self.assertAlmostEqual(root, 0.8358058, places=7)
         self.assertAlmostEqual(nishimori_entropy_balance_bits(root), 0.0, places=14)
         for index in range(1, 1000):
