@@ -220,10 +220,58 @@ MSF est identifié comme un oracle différent, trop informatif. Une récursion
 de transfert tordue donne en parallèle le calcul exact dès qu'un état de
 frontière fini peut être conservé.
 
+Le fichier 17 identifie le seuil de décorrélation de cette voie. Dans
+PATH-FAC, la quantité exacte est l'atténuation
+
+```math
+A_L(p)=-\sum_{w\in\mathcal P_L}\log\Gamma_{m_w}(t_w;p),
+```
+
+et la probabilité de conserver la relation vaut
+$`(1+e^{-A_L})/2`$. Un nombre divergent de buckets non triviaux de taille
+bornée force donc la limite $`1/2`$ pour tout $`p<1`$ fixé. Un seuil non
+trivial apparaît seulement après une hypothèse géométrique. Pour des coupes
+critiques régulières $`m_L\sim\alpha\log H_L`$, il est
+
+```math
+p_{\mathrm{path}}(\alpha)
+=
+\frac{1+q_\triangle+(1-q_\triangle)\sqrt{1-e^{-2/\alpha}}}{2}.
+```
+
+Pour des tailles hétérogènes qui s'échappent vers l'infini, la taille moyenne
+est remplacée par la fonction de partition
+
+```math
+\Phi_L(I_c(p))
+=
+\sum_{w\in\mathcal P_L}m_w^{-1/2}e^{-I_c(p)m_w}.
+```
+
+Sa divergence donne la limite $`1/2`$ et sa convergence vers zéro la
+conservation dans PATH-FAC ; les plus petites interfaces dominent donc le
+seuil.
+
+La valeur de Nishimori correspondrait à
+$`\alpha=7.053596192884\ldots`$, ce qui est une cible géométrique et non une
+preuve. Dépasser la baseline $`0.794659\ldots`$ exige déjà
+$`\alpha<13.521628164595\ldots`$ dans cet oracle. Pour la vraie dynamique
+jointe, une borne par les normes des opérateurs de transfert tordus remplace
+rigoureusement la factorisation.
+
+Les niveaux descendants changent fortement cette calibration. Dans l'oracle
+régulier $`t=\theta\beta_c`$ avec le coefficient $`\alpha`$ ajusté à
+Nishimori au niveau critique, les seuils valent respectivement
+$`0.7484399`$, $`0.7983165`$ et $`0.8358058`$ pour
+$`\theta=0,1/2,1`$. À grande interface, seuls les buckets situés dans la
+bande $`\beta_c-t=O(1/m)`$ ont le même poids exponentiel qu'un bucket
+critique. Le LCA critique ne suffit donc pas : il faut mesurer combien de
+nœuds descendants tombent dans cette bande.
+
 ## Socle de départ
 
 Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées.
-Les points 3, 4 et 6 à 15 rassemblent des résultats finis ou des audits
+Les points 3, 4 et 6 à 16 rassemblent des résultats finis ou des audits
 conditionnels dont l'algèbre a été vérifiée et dont le statut précis est donné
 dans le dossier ; les résultats qui utilisent la mesure jointe restent à
 intégrer dans une rédaction formelle complète avec A1.
@@ -302,6 +350,13 @@ intégrer dans une rédaction formelle complète avec A1.
     unique, mais un balayage le long des deux bras d'une paire possède une
     identité de parité exacte. Sa factorisation reste un oracle, pas un
     théorème sur la dynamique complète.
+16. Dans PATH-FAC, la décorrélation est équivalente à
+    $`A_L=-\sum_w\log\Gamma_w\to\infty`$. Pour tout $`p<1`$ fixé, un nombre
+    divergent de coupes $`2\le m_w\le M`$ suffit. Sous l'ansatz régulier
+    $`m_L\sim\alpha\log H_L`$, le seuil conditionnel
+    $`p_{\mathrm{path}}(\alpha)`$ est explicite, avec une fenêtre aiguë
+    d'ordre $`\log\log H_L`$. Dans la dynamique jointe, la sommabilité des
+    contractions $L^2$ des opérateurs tordus est un critère suffisant exact.
 
 ## Carte du dossier
 
@@ -321,6 +376,7 @@ intégrer dans une rédaction formelle complète avec A1.
 - [14_CRITICAL_COMPONENT_BOUNDARY.md](14_CRITICAL_COMPONENT_BOUNDARY.md) : annulation exacte des arêtes internes, loi des marques de frontière, composante critique sous biais de paire, LCA localisé par la gauche, majorités groupées ancestrales et critère quatre états du heat bath.
 - [15_CRITICAL_GIANT_PAIR_FLIP.md](15_CRITICAL_GIANT_PAIR_FLIP.md) : loi résiduelle des arêtes internes sous conditionnement de géante, probabilité exacte des états pairs au LCA critique, exposant de grande coupe, hypothèses CUT et ANC et contre-audits du passage distance--interface.
 - [16_FLIP_PROBABILITIES_DESCENDANT_PATH.md](16_FLIP_PROBABILITIES_DESCENDANT_PATH.md) : probabilités explicites aux racines, feuilles et nœuds internes, paramétrisation quatre états, buckets à niveau arbitraire, identité de chemin descendant, oracle PATH-FAC, distinction MSF marquée/non marquée et obstruction des messages de frontière.
+- [17_PATH_DECORRELATION_THRESHOLD.md](17_PATH_DECORRELATION_THRESHOLD.md) : atténuation exacte du chemin, perte pour petites interfaces, spectre de tailles hétérogène, longueur de corrélation, seuil conditionnel $`p_{\mathrm{path}}(\alpha)`$ pour coupes logarithmiques, fenêtre $`p\uparrow1`$ à taille fixe, calibration Nishimori et critère de contraction pour le transfert joint.
 - [LITERATURE.md](LITERATURE.md) : état de l'art primaire, voisins conceptuels et positionnement prudent de la nouveauté.
 - [references.bib](references.bib) : bibliographie ciblée et autonome.
 - [computations/README.md](computations/README.md) : cahier des charges des calculs exacts et simulations à ajouter.

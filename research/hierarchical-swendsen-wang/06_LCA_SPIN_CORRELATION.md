@@ -748,6 +748,11 @@ calcule l'oracle factorisé PATH-FAC et montre pourquoi la véritable
 marginalisation descendante doit transporter un message indexé par la
 frontière, plutôt qu'un seul scalaire par niveau.
 
+Le [fichier 17](17_PATH_DECORRELATION_THRESHOLD.md) identifie ensuite le
+critère de perte : l'atténuation factorisée doit diverger, ou, pour le
+balayage joint, les normes $L^2$ des opérateurs tordus doivent avoir un
+produit tendant vers zéro.
+
 Plus généralement, si un « LCA collapsed » rééchantillonne la parité de $u$ en marginalisant aussi une partie des messages ancestraux, sa sigma-algèbre $`\mathcal G_u^{\mathrm{coarse}}`$ vérifie
 ```math
 \mathcal G_u^{\mathrm{coarse}}\subseteq\mathcal G_u.

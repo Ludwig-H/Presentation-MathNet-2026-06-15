@@ -1407,3 +1407,9 @@ Le calcul par descendants est donc une piste réelle, mais son objet correct
 est une corrélation de décisions le long d'un balayage ou un message de
 frontière collapsed. Il ne remplace pas algébriquement le message ancestral
 du heat bath à un nœud unique.
+
+Le [fichier 17](17_PATH_DECORRELATION_THRESHOLD.md) poursuit cette voie : il
+caractérise exactement la limite $`1/2`$ par l'atténuation cumulée du chemin,
+calcule les fenêtres en $`p`$ pour interfaces bornées ou logarithmiques et
+remplace la factorisation, dans la dynamique jointe, par un critère de normes
+$L^2$ des opérateurs tordus.

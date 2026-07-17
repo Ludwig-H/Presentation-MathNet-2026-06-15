@@ -240,6 +240,46 @@ Le chemin de la MSF avec gagnants marqués est exclu de cette comparaison : il
 révèle exactement la relation de la réplique génératrice et définit une
 variable auxiliaire différente.
 
+### B5 quinquies. Seuil de décorrélation du chemin
+
+Le [fichier 17](17_PATH_DECORRELATION_THRESHOLD.md) remplace la question
+qualitative par l'atténuation exacte
+
+```math
+A_L(p)=-\sum_{w\in\mathcal P_L}\log\Gamma_{m_w}(t_w;p).
+```
+
+Les sous-objectifs géométriques sont désormais ordonnés.
+
+1. Montrer ou réfuter que, pour un $`M`$ fixé,
+   $`N_{L,M}=\#\{w:2\le m_w\le M\}`$ diverge sous la loi de paire critique.
+   Une réponse positive force déjà PATH-FAC vers $`1/2`$ pour tout
+   $`p<1`$ fixé.
+2. Si les petites coupes sont rares, mesurer d'abord la fonction de partition
+   $`\Phi_L(I)=\sum_w m_w^{-1/2}e^{-Im_w}`$. Son abscisse de transition est le
+   seuil géométrique général. Dans le sous-cas
+   $`m_L\sim\alpha\log H_L`$, l'oracle régulier possède le seuil explicite
+
+   ```math
+   p_{\mathrm{path}}(\alpha)
+   =
+   \frac{1+q_\triangle+(1-q_\triangle)\sqrt{1-e^{-2/\alpha}}}{2}.
+   ```
+
+   Pour le vrai chemin descendant, remplacer cette somme par
+   $`\sum_w m_w^{-1/2}e^{-m_wI(t_w;p)}`$ et mesurer le nombre de niveaux dans
+   la fenêtre $`\beta_c-t_w=O(m_w^{-1})`$ ; hors de cette fenêtre, leur poids
+   relatif est exponentiellement plus petit.
+
+3. Sur cactus puis bandes, calculer les normes $`\kappa_r`$ des opérateurs
+   tordus et prouver une contraction de bloc sommable. C'est la version jointe
+   rigoureuse du critère $`A_L\to\infty`$.
+
+La constante de Nishimori correspond formellement à
+$`\alpha=7.053596192884\ldots`$. Cette égalité est seulement une cible à
+contre-auditer par la géométrie ; elle ne doit pas être utilisée comme entrée
+du raisonnement.
+
 ### B6. Matrice de persistance
 
 Rédiger le théorème

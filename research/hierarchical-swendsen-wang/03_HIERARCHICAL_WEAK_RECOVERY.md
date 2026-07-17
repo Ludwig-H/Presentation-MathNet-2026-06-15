@@ -372,6 +372,20 @@ weak recovery, mais elle ne peut remplacer $`H_S(i,j)`$ dans un théorème
 avant d'avoir établi une comparaison dans le bon sens entre le transfert
 joint et son produit factorisé.
 
+Le [seuil de décorrélation du chemin](17_PATH_DECORRELATION_THRESHOLD.md)
+montre que PATH-FAC perd exactement la corrélation lorsque
+$`-\sum_w\log\Gamma_w\to\infty`$. Il donne aussi un substitut non factorisé :
+si $`\kappa_r`$ est la norme $L^2$ du $`r`$-ième opérateur de transfert
+tordu, alors
+
+```math
+|H_S(i,j)|\le\prod_r\kappa_r.
+```
+
+Contrôler une somme divergente de contractions de blocs fournit donc une voie
+rigoureuse vers $`\lambda_{\max}(H_S)/n\to0`$, sans identifier les
+$`\kappa_r`$ aux fiabilités locales moyennes $`\Gamma_r`$.
+
 ## 7. Conjecture de capacité hiérarchique
 
 **Conjecture.** Il existe une matrice positive $`K_D^{\mathrm{info}}`$, calculée récursivement à partir de contractions conditionnelles de blocs, telle que

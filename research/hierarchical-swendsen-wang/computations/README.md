@@ -16,6 +16,7 @@ python3 research/hierarchical-swendsen-wang/computations/triangle_block_sdpi.py
 python3 research/hierarchical-swendsen-wang/computations/nishimori_hierarchical_entropy.py
 python3 research/hierarchical-swendsen-wang/computations/critical_component_boundary.py
 python3 research/hierarchical-swendsen-wang/computations/hierarchical_flip_probabilities.py
+python3 research/hierarchical-swendsen-wang/computations/path_decorrelation_threshold.py
 ```
 
 ## Modules et extensions prévues
@@ -35,6 +36,8 @@ python3 research/hierarchical-swendsen-wang/computations/hierarchical_flip_proba
 - `test_critical_component_boundary.py` : contre-audits par énumération d'un triangle, annulation des arêtes internes, factorisation des seules marques de frontière, proportions internes, biais exact de paire, votes binaires, borne de Hoeffding et fermeture exhaustive du certificat de Walsh ;
 - `hierarchical_flip_probabilities.py` : probabilités à deux états des racines et feuilles, distinction heat bath/Metropolis, probabilités quatre états en coordonnées de Walsh, bucket homogène à niveau arbitraire, oracle factorisé et récursion de transfert tordue exacte sur un état fini ;
 - `test_hierarchical_flip_probabilities.py` : balance détaillée des deux noyaux mono-site, reconstruction indépendante des quatre poids, spécialisation critique, monotonie des majorités précoces, énumération exhaustive de PATH-FAC et contre-exemple dépendant à sa factorisation ;
+- `path_decorrelation_threshold.py` : atténuation cumulée du chemin, fonction de partition des tailles hétérogènes, inversion de l'exposant géométrique, seuil $`p_{\mathrm{path}}(\alpha)`$ pour interfaces logarithmiques, fenêtre aiguë, déficit à taille fixe lorsque $`p\uparrow1`$ et coefficient géométrique associé à Nishimori ;
+- `test_path_decorrelation_threshold.py` : inversion indépendante du seuil, constantes pair/impair à haute fidélité, limite de la fenêtre logarithmique, échelle des niveaux descendants et contre-audit numérique de la calibration Nishimori ;
 - `exact_enumeration/` : énumération de toutes les configurations et horloges discrétisées sur petits graphes ;
 - `symbolic/` : simplification des poids $`q_u^{ab}`$, contractions et seuils ;
 - `triangular_grid/` : tores triangulaires, bandes et cactus ;
@@ -219,6 +222,29 @@ P_{ij}^{\mathrm{PATH-FAC}}
 
 par énumération complète de petits chemins. Ce test ne doit jamais être
 étiqueté comme validation de l'indépendance dans le balayage réel.
+
+18 quater. Vérifier le critère de décorrélation
+
+```math
+P_L^{\mathrm{PATH-FAC}}-\frac12
+=
+\frac12\exp\left[
+\sum_{w\in\mathcal P_L}\log\Gamma_{m_w}(t_w;p)
+\right],
+```
+
+le seuil conditionnel $`\alpha I_c(p)=1`$ lorsque
+$`m_L\sim\alpha\log H_L`$, sa correction en $`\log\log H_L`$, et, pour
+$`m`$ fixé,
+
+```math
+1-\Gamma_m^c(p)
+\sim
+D_m\left(\frac{1-p}{1-q_\triangle}\right)^{\lceil m/2\rceil}.
+```
+
+Les sorties doivent toujours distinguer l'oracle factorisé de la corrélation
+obtenue par la récursion tordue jointe.
 
 19. Pour chaque bucket ancestral pondéré, vérifier indépendamment :
 

@@ -43,6 +43,18 @@ Des morceaux importants existent séparément. La nouveauté défendable n'est d
 - [Damron–Sapozhnikov, *Outlets of 2D invasion percolation and multiple-armed incipient infinite clusters*](https://arxiv.org/abs/0903.4496), [DOI](https://doi.org/10.1007/s00440-010-0274-y). Montre que les goulots d'invasion approchent le seuil tout en conservant une structure d'outlets ; cette distinction avertit que $`\beta_{ij}`$ ne doit pas être supposé concentré exactement en $`\beta_c`$ pour une paire ponctuelle.
 - [Duminil-Copin–Raoufi–Tassion, *Sharp phase transition for the random-cluster and Potts models via decision trees*](https://arxiv.org/abs/1705.03104), [DOI](https://doi.org/10.4007/annals.2019.189.1.2). Donne décroissance exponentielle sous le seuil et densité supercritique sur les graphes transitifs pour le random-cluster $`q\ge1`$. Ces résultats justifient les dichotomies géométriques de référence, mais ne s'appliquent pas directement à la postérieure frustrée conditionnelle.
 
+**Contre-audit pour le chemin hiérarchique.** La mesure pivotale, la limite
+d'échelle du MST et les outlets d'invasion ne donnent pas directement la loi
+des tailles de buckets $`m_w`$ entre les deux fils successifs du dendrogramme.
+L'exposant pivotal $`3/4`$ ne doit notamment pas être identifié au coefficient
+$`\alpha`$ d'un éventuel régime $`m_w\sim\alpha\log H_L`$. Le nombre d'outlets
+ne contrôle pas non plus $`N_{L,M}`$ : une arête record isolée peut produire
+un bucket $`m_w=1`$, qui est un canal parfait dans l'oracle descendant. Le
+verrou propre au projet est la loi jointe des variables
+$`(H_L,(m_w,t_w)_w)`$ sous le conditionnement de paire lointaine dans la
+géante et de LCA critique ; aucun des articles cités ci-dessus n'énonce ce
+résultat.
+
 ## GSBM et synchronisation
 
 10. [Abbe–Baccelli–Sankararaman, *Community Detection on Euclidean Random Graphs*](https://arxiv.org/abs/1706.09942). Modèle GSBM de référence et bornes de weak recovery.
