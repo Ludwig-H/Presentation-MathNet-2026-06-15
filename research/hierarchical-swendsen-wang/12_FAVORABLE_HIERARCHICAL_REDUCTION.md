@@ -2,10 +2,12 @@
 
 Ce fichier formalise la voie prioritaire pour la weak recovery. On suit deux
 sommets lointains $`i,j`$ dans le dendrogramme d'horloges exponentielles. Le
-cas géométriquement le plus favorable est celui où ils appartiennent au même
-arbre à la coupe $`1`$ et où, en descendant cet arbre, leurs branches se
-séparent au seuil de percolation. De façon équivalente, leur LCA $`u`$ est une
-fusion de Kruskal au temps $`\beta_u\simeq\beta_c`$.
+cas géométriquement favorable étudié est celui où ils appartiennent à une
+même composante critique macroscopique et où leur LCA $u$ est une fusion de
+Kruskal dans la fenêtre gauche
+$`\beta_u\in[\beta_c-\varepsilon,\beta_c]`$. L'appartenance à la composante
+critique impose $`\beta_u\le\beta_c`$ ; une localisation vers le seuil est un
+énoncé supplémentaire, pas une équivalence déterministe.
 
 La conclusion rigoureuse comporte trois niveaux.
 
@@ -13,10 +15,9 @@ La conclusion rigoureuse comporte trois niveaux.
    dans deux racines distinctes ont un score LCA nul. La borne de weak
    recovery se réduit donc aux paires lointaines du même arbre.
 2. **Établi sous un lemme de domination explicite.** Si l'expérience LCA
-   postcritique est moins informative que l'oracle où la séparation a lieu au
-   seuil, alors toute la contribution postcritique est majorée par cet oracle
-   favorable. Il n'est pas nécessaire que les temps LCA réels se concentrent
-   en $`\beta_c`$.
+   postcritique est moins informative que l'oracle de paire critique, alors
+   toute la contribution postcritique est majorée par cet oracle favorable.
+   Le conditionnement de paire seul ne fournit pas cette domination.
 3. **Problème central.** Dans cet oracle, la fiabilité dépend du log-rapport
    complet
 
@@ -86,16 +87,18 @@ lentement que le diamètre, on peut choisir $`r_L`$ de sorte que $`b_L\to0`$.
 Cette propriété géométrique doit être vérifiée pour les conditions de bord
 retenues.
 
+Pour la spécialisation réellement macroscopique du fichier 14, on prend
+$`r_{L,\rho}=\rho L`$ à $`\rho>0`$ fixé, puis on fait tendre $`L\to\infty`$
+avant $`\rho\downarrow0`$. Le terme proche $`b_{L,\rho}`$ ne disparaît alors
+qu'à la seconde limite. Les identités finies ci-dessous restent valables dans
+les deux régimes ; l'ordre des limites doit être annoncé.
+
 Pour $`\varepsilon>0`$, notons
 
 ```math
 a_\varepsilon
 =
-\max(0,\beta_c-\varepsilon),
-\qquad
-c_\varepsilon
-=
-\min(1,\beta_c+\varepsilon)
+\max(0,\beta_c-\varepsilon).
 ```
 
 On suppose ici $`\beta_c\in[0,1]`$. Dans le GSBM triangulaire homogène, cela
@@ -109,18 +112,20 @@ Définissons alors l'événement favorable
 =
 \left\{
 d(I_L,J_L)\ge r_L,
-\ a_\varepsilon\le\beta_{I_LJ_L}\le c_\varepsilon
+\ a_\varepsilon\le\beta_{I_LJ_L}\le\beta_c
 \right\}.
 ```
 
-La condition $`\beta_{I_LJ_L}\le c_\varepsilon\le1`$ implique déjà que les
-deux sommets sont dans le même arbre. Comme les temps sont continus, une
+La condition $`\beta_{I_LJ_L}\le\beta_c`$ signifie exactement que les deux
+sommets appartiennent à la même composante de $`\Pi_{\beta_c}`$. La
+contrainte de distance sélectionne cette composante avec un poids égal à son
+nombre de paires lointaines, et incline aussi la loi de la partition. Ce biais
+de Palm est explicité dans le fichier 14. Comme les temps sont continus, une
 fusion exactement à $`\beta_c`$ a probabilité nulle en volume fini. Le cas
-« au seuil » désigne donc cette fenêtre suivie de la limite
-$`L\to\infty`$, puis $`\varepsilon\downarrow0`$, ou une désintégration de Palm
-équivalente.
+« au seuil » désigne la fenêtre gauche suivie de la limite $`L\to\infty`$,
+puis $`\varepsilon\downarrow0`$.
 
-## 2. Réduction exacte : loin, même arbre, puis temps critique
+## 2. Réduction exacte : loin, même composante critique, puis LCA au seuil
 
 Rappelons le second moment géométrique
 
@@ -159,7 +164,7 @@ lorsque la fenêtre a une masse non nulle, et
 \eta_{I_LJ_L}^{\mathrm{LCA}}
 \mathbf1_{\{
 d(I_L,J_L)\ge r_L,
-\ c_\varepsilon<\beta_{I_LJ_L}\le1
+\ \beta_c<\beta_{I_LJ_L}\le1
 \}}
 \right].
 ```
@@ -184,7 +189,7 @@ b_L
 
 On partitionne les paires en quatre classes : distance inférieure à $`r_L`$,
 distance supérieure avec fusion avant $`a_\varepsilon`$, fusion dans la
-fenêtre, puis fusion après $`c_\varepsilon`$. Les deux premières contributions
+fenêtre gauche, puis fusion après $`\beta_c`$. Les deux premières contributions
 sont majorées respectivement par $`b_L`$ et $`S_L(a_\varepsilon)`$, car
 $`0\le\eta^{\mathrm{LCA}}\le1`$. La contribution de la fenêtre est exactement
 $`\rho^{\mathrm{fav}}\Gamma^{\mathrm{fav}}`$. Les racines distinctes ont
@@ -653,7 +658,9 @@ isolé, qui déterminent la voie hiérarchique demandée.
    supérieure sur les autres paires. C'est exactement le contenu de HF.
 2. **Même arbre.** Cette restriction est rigoureuse pour la borne LCA parce
    que deux racines distinctes ont un score nul ; elle ne signifie pas qu'une
-   composante géante suffit à la weak recovery.
+   composante géante suffit à la weak recovery. Dans la spécialisation
+   $`r_{L,\rho}=\rho L`$, la composante critique sélectionnée est de diamètre
+   macroscopique mais n'a pas une densité positive typique.
 3. **Temps exact.** En volume fini, l'événement
    $`\beta_u=\beta_c`$ a probabilité nulle. Toute preuve doit annoncer la
    fenêtre ou la mesure de Palm et l'ordre des limites.
@@ -696,10 +703,10 @@ H(Z_1,Z_2,Z_3\mid Z_1Z_2Z_3)=1\ \text{bit},
 et qu'elle se réalise par une course conditionnelle de quatre horloges. Sa
 racine supérieure redonne $`0.835805792367\ldots`$ au niveau d'une face.
 
-Le [fichier 14](14_POSTCRITICAL_GROUND_TRUTH_MAJORITY.md) formalise l'avantage
-exact de l'expérience favorable. Conditionnellement à un lien encore fermé
-au temps $t$, les trois catégories « vrai tardif, vrai censuré, faux » ont
-les probabilités
+Le [fichier 14](14_CRITICAL_COMPONENT_BOUNDARY.md) formalise l'avantage
+exact de l'expérience favorable. Conditionnellement à la partition complète
+au temps $t$, une arête de frontière a les trois catégories « vraie tardive,
+vraie censurée, fausse » avec les probabilités
 
 ```math
 \left(
@@ -709,14 +716,16 @@ h_p(t),
 \right).
 ```
 
-Ainsi les vrais censurés et les faux se compensent exactement, et tout le
-biais conforme provient des horloges dans $`(t,1]`$. Ce biais est maximal à
-$`t=\beta_c`$. Cela prouve l'optimalité **par lien et à coupe fixée** du cas
-critique ; cela ne prouve pas HF, car la taille des trois groupes et la loi
-du squelette sont elles-mêmes sélectionnées par la paire.
+Ainsi les vraies censurées et les fausses de frontière se compensent
+exactement, et tout le biais conforme provient des horloges dans $`(t,1]`$.
+Les arêtes internes aux enfants n'entrent dans aucun taux de la coupe. Ce
+biais est maximal à $`t=\beta_c`$ parmi les temps postcritiques. Cela prouve
+l'optimalité **par arête de frontière et à coupe fixée** ; cela ne prouve pas
+HF, car la partition, la taille des trois groupes et toute la chaîne sont
+sélectionnées par la paire.
 
-Le contre-audit numérique est sans ambiguïté : le sous-pool « vrais tardifs
-contre faux » devient déjà majoritaire à
+Le contre-audit numérique est sans ambiguïté : le diagnostic de frontière
+« vraies tardives contre fausses » devient déjà majoritaire à
 $`p=(2+q_c)/3=0.782432\ldots`$, avant la baseline
 $`p_{\mathrm{info}}=0.794659\ldots`$. Une meilleure borne ne peut donc pas
 venir du seul signe de cette majorité. Elle doit exploiter, sous une même

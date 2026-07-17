@@ -1,17 +1,16 @@
-"""Exact postcritical ground-truth majority calculus for hierarchical SW.
+"""Exact critical-boundary calculus for hierarchical Swendsen--Wang.
 
-The module separates three objects that must not be conflated:
+Only edges crossing the current merge cut enter a Lambda rate.  The module
+therefore separates boundary geometry, residual boundary marks, pair-Palm
+selection, and the four grouped ancestor rates.  Internal edges are never
+silently assigned the residual boundary law.
 
-* the asymmetric pool: false edges versus true clocks in (t, 1];
-* the full closed bucket entering Lambda, including true clocks after 1;
-* the four grouped ancestor rates under the two child flips.
-
-All formulas are annealed and conditional on a fixed unmarked Kruskal bucket.
-They do not assert a global weak-recovery threshold.
+The formulas do not assert a global weak-recovery threshold.
 """
 
 from __future__ import annotations
 
+from collections.abc import Callable, Iterable
 from dataclasses import dataclass
 from math import comb, exp, fsum, log, log1p, prod, sqrt, tanh
 
@@ -19,13 +18,16 @@ from critical_band_thresholds import Q_CRITICAL, coupling
 
 
 P_SW = (1.0 + Q_CRITICAL) / 2.0
-P_LATE = (2.0 + Q_CRITICAL) / 3.0
+P_BOUNDARY_LATE = (2.0 + Q_CRITICAL) / 3.0
 P_INFO = (1.0 + sqrt(Q_CRITICAL)) / 2.0
+
+Edge = tuple[int, int]
+Partition = tuple[frozenset[int], ...]
 
 
 @dataclass(frozen=True)
 class ClosedCategories:
-    """Conditional categories for an edge still closed at ``time``."""
+    """Categories for a boundary edge conditional on no opening by ``time``."""
 
     p: float
     time: float
@@ -101,16 +103,102 @@ def critical_masses(p: float) -> CriticalMasses:
 
 
 def critical_closed_categories(p: float) -> ClosedCategories:
-    """Return conditional link quality at the percolation merger."""
+    """Return conditional quality of a critical boundary edge."""
 
     return closed_categories(p, critical_time_untruncated(p))
 
 
-def late_pool_true_fraction(p: float) -> float:
-    """Fraction true in {false edges} union {true clocks in (beta_c, 1]} ."""
+def boundary_late_true_fraction(p: float) -> float:
+    """Boundary diagnostic: late-true mass among late-true and false marks."""
 
     masses = critical_masses(p)
     return masses.late_true / (masses.late_true + masses.false)
+
+
+def connected_components(
+    vertices: Iterable[int], open_edges: Iterable[Edge]
+) -> Partition:
+    """Return the canonical component partition of a finite open graph."""
+
+    vertex_set = set(vertices)
+    parent = {vertex: vertex for vertex in vertex_set}
+
+    def find(vertex: int) -> int:
+        root = vertex
+        while parent[root] != root:
+            root = parent[root]
+        while parent[vertex] != vertex:
+            next_vertex = parent[vertex]
+            parent[vertex] = root
+            vertex = next_vertex
+        return root
+
+    def union(left: int, right: int) -> None:
+        left_root = find(left)
+        right_root = find(right)
+        if left_root != right_root:
+            parent[right_root] = left_root
+
+    for left, right in open_edges:
+        if left not in vertex_set or right not in vertex_set:
+            raise ValueError("every edge endpoint must belong to vertices")
+        union(left, right)
+
+    blocks: dict[int, set[int]] = {}
+    for vertex in vertex_set:
+        blocks.setdefault(find(vertex), set()).add(vertex)
+    return tuple(
+        sorted(
+            (frozenset(block) for block in blocks.values()),
+            key=lambda block: (min(block), len(block)),
+        )
+    )
+
+
+def partition_boundary(
+    edges: Iterable[Edge], partition: Partition
+) -> tuple[Edge, ...]:
+    """Return exactly the edges whose endpoints lie in distinct blocks."""
+
+    membership: dict[int, int] = {}
+    for block_index, block in enumerate(partition):
+        if not block:
+            raise ValueError("partition blocks must be nonempty")
+        for vertex in block:
+            if vertex in membership:
+                raise ValueError("partition blocks must be disjoint")
+            membership[vertex] = block_index
+
+    boundary: list[Edge] = []
+    for left, right in edges:
+        if left not in membership or right not in membership:
+            raise ValueError("every edge endpoint must belong to the partition")
+        if membership[left] != membership[right]:
+            boundary.append((left, right))
+    return tuple(boundary)
+
+
+def pair_palm_weights(
+    partition: Partition,
+    distance: Callable[[int, int], float],
+    minimum_distance: float,
+) -> dict[frozenset[int], float]:
+    """Return cluster weights induced by an ordered distant vertex pair."""
+
+    if minimum_distance < 0.0:
+        raise ValueError("minimum_distance must be nonnegative")
+    counts = {
+        block: sum(
+            left != right and distance(left, right) >= minimum_distance
+            for left in block
+            for right in block
+        )
+        for block in partition
+    }
+    total = sum(counts.values())
+    if total == 0:
+        raise ValueError("the partition contains no eligible ordered pair")
+    return {block: count / total for block, count in counts.items()}
 
 
 def strict_majority_probability(size: int, p: float, time: float) -> float:
@@ -296,14 +384,14 @@ def parity_log_odds(weights: dict[tuple[int, int], float]) -> float:
 
 
 def main() -> None:
-    print("postcritical majority thresholds")
+    print("critical boundary thresholds")
     print(f"q_c       = {Q_CRITICAL:.12f}")
     print(f"p_SW      = {P_SW:.12f}")
-    print(f"p_late    = {P_LATE:.12f}")
+    print(f"p_dlate   = {P_BOUNDARY_LATE:.12f}")
     print(f"p_info    = {P_INFO:.12f}")
     print("\ncritical category audit")
     print("p              beta_c        late          censored      false         s_c")
-    for p in (P_SW, P_LATE, P_INFO, 0.835805792367):
+    for p in (P_SW, P_BOUNDARY_LATE, P_INFO, 0.835805792367):
         beta = critical_time_untruncated(p)
         categories = critical_closed_categories(p)
         print(

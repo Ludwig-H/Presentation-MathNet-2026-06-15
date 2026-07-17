@@ -14,7 +14,7 @@ python3 research/hierarchical-swendsen-wang/computations/ancestral_lambda_estima
 python3 research/hierarchical-swendsen-wang/computations/critical_merger_oracle.py
 python3 research/hierarchical-swendsen-wang/computations/triangle_block_sdpi.py
 python3 research/hierarchical-swendsen-wang/computations/nishimori_hierarchical_entropy.py
-python3 research/hierarchical-swendsen-wang/computations/postcritical_ground_truth_majority.py
+python3 research/hierarchical-swendsen-wang/computations/critical_component_boundary.py
 ```
 
 ## Modules et extensions prévues
@@ -30,8 +30,8 @@ python3 research/hierarchical-swendsen-wang/computations/postcritical_ground_tru
 - `test_triangle_block_sdpi.py` : énumération directe du canal $`4\times8`$, information latérale, défaut de la droite naïve, matrice less-noisy $`3\times3`$ et conditions du candidat $`0.809909\ldots`$ ;
 - `nishimori_hierarchical_entropy.py` : réduction exacte de l'équation (28) de Nishimori--Ohzeki à $`3h_2(p)-h_2((1+(2p-1)^3)/2)=1`$, racine unique, lois de bruit conditionnelles à quatre états et représentation par course exponentielle ;
 - `test_nishimori_hierarchical_entropy.py` : contre-audit indépendant par énumération des huit mots de bruit, comparaison directe à l'équation publiée, monotonie de la balance et identité d'entropie du gagnant ;
-- `postcritical_ground_truth_majority.py` : temps critique non censuré, décomposition exacte vrai tardif/vrai censuré/faux, deux seuils de majorité, vote binomial du bucket, quatre taux groupés, cône de Walsh positif et parité du heat bath ;
-- `test_postcritical_ground_truth_majority.py` : contre-audits par masses directes, énumération de tous les votes binaires, flips arête par arête, borne de Hoeffding et fermeture exhaustive du certificat de Walsh ;
+- `critical_component_boundary.py` : frontière d'une partition, biais de Palm par les paires, temps critique, loi résiduelle vraie tardive/vraie censurée/fausse, vote binomial d'une coupe, quatre taux groupés, cône de Walsh positif et parité du heat bath ;
+- `test_critical_component_boundary.py` : contre-audits par énumération d'un triangle, annulation des arêtes internes, factorisation des seules marques de frontière, biais exact de paire, votes binaires, borne de Hoeffding et fermeture exhaustive du certificat de Walsh ;
 - `exact_enumeration/` : énumération de toutes les configurations et horloges discrétisées sur petits graphes ;
 - `symbolic/` : simplification des poids $`q_u^{ab}`$, contractions et seuils ;
 - `triangular_grid/` : tores triangulaires, bandes et cactus ;
@@ -64,8 +64,8 @@ s'agit exactement de l'équation (28), sans l'annoncer comme seuil démontré.
 \left(q_c,\ 2p-1-q_c,\ 1-p,\ 1-p\right),
 ```
 
-les identités $`2s_p(t)-1=h_p(t)`$ et
-$`p_{\mathrm{late}}=(2+q_c)/3`$. Sur le cactus de deux triangles, enregistrer
+les identités $`2s_p(t)-1=h_p(t)`$ sur une frontière conditionnelle et
+$`p_{\partial,\mathrm{late}}=(2+q_c)/3`$. Sur le cactus de deux triangles, enregistrer
 séparément les trois comptes de chaque ancêtre, les quatre
 $`\Lambda_v^{ab}`$, les deux majorités groupées et la préférence pair/impair
 exacte.

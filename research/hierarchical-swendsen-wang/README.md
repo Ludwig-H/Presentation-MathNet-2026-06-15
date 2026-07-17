@@ -55,11 +55,14 @@ S_n(\beta)
 où $`\mathcal M_n`$ somme les fusions au-dessus de $\beta$, pondérées par $`\eta_u`$. La weak recovery exige donc une masse macroscopique de **connexions informatives** nées dans la bande. La connectivité seule n'est pas suffisante : le critère exact se factorise en connexion quotient, fiabilité locale et cohérence signée après marginalisation de $D$.
 
 La réduction favorable hiérarchique fixe désormais le bon oracle pour une
-borne d'impossibilité : $`i,j`$ sont lointains, appartiennent au même arbre et
-se séparent à la descente au niveau $`\beta_c`$, c'est-à-dire que leur LCA
-fusionne au seuil de percolation. Les paires proches sont négligeables et les
-racines distinctes ont un score LCA nul. Si l'on prouve en plus que cet oracle
-critique domine les paires qui fusionnent plus tard, alors
+borne d'impossibilité : $`i,j`$ sont lointains, appartiennent à une même
+composante critique macroscopique et leur LCA fusionne dans la fenêtre gauche
+$`[\beta_c-\varepsilon,\beta_c]`$. La condition de composante implique
+déterministiquement $`\beta_{ij}\le\beta_c`$ ; les estimations RSW et la
+décroissance sous-critique localisent une paire macroscopique vers le seuil
+par la gauche. Les paires proches sont négligeables et les racines distinctes
+ont un score LCA nul. Si l'on prouve en plus que cet oracle critique domine
+les paires qui fusionnent plus tard, alors
 
 ```math
 Q_L
@@ -69,10 +72,12 @@ b_L+S_L(\beta_c-\varepsilon)
 +\text{erreur de domination}.
 ```
 
-Cette réduction ne suppose pas que les temps LCA réels se concentrent au
-seuil. Elle remplace leur expérience quatre états par une expérience critique
-plus informative. Le lemme de domination correspondant, nommé HF, est formulé
-dans le fichier 12.
+La composante sélectionnée n'est pas une géante de densité positive au seuil :
+c'est une composante de diamètre macroscopique sous une loi de Palm pondérée
+par son nombre de paires lointaines. Cette réduction remplace l'expérience
+quatre états des paires plus tardives par une expérience critique
+conditionnelle. Le lemme de domination correspondant, nommé HF, est formulé
+dans le fichier 12 ; le conditionnement seul ne donne aucun ordre global.
 
 Le calcul d'une fusion exactement critique n'est résolu au seul niveau local
 que lorsque $`B_u=0`$. Si le bucket critique contient $`m`$ arêtes, sa
@@ -114,10 +119,14 @@ $`\Lambda_v^{ab}`$ ancestraux. L'identité retrouve donc exactement la
 constante de la conjecture au niveau d'une face, mais ne prouve pas qu'elle
 est le seuil de weak recovery.
 
-Le fichier 14 formalise maintenant directement la qualité des liens
-postcritiques. Au temps $t$, les liens vrais censurés après $1$ et les liens
-faux ont exactement la même masse conditionnelle. L'excès de majorité
-conforme est donc exactement la masse des vraies horloges dans $`(t,1]`$ :
+Le fichier 14 formalise maintenant l'objet exact des slides : seules les
+arêtes de la coupe courante $`E_v`$ entrent dans $`\Lambda_v`$. Les arêtes
+fausses internes à un enfant s'annulent sous le flip global et ne reçoivent
+jamais la loi résiduelle de frontière. Conditionnellement à la partition
+complète au temps $t$, les arêtes entre blocs restent indépendantes ; sur
+cette frontière, les vraies censurées après $1$ et les fausses ont exactement
+la même masse. L'excès conforme est la masse des vraies horloges dans
+$`(t,1]`$ :
 
 ```math
 2s_p(t)-1
@@ -125,13 +134,13 @@ conforme est donc exactement la masse des vraies horloges dans $`(t,1]`$ :
 \tanh\left(\frac{u_p(1-t)}2\right).
 ```
 
-Ce biais est maximal à $`t=\beta_c`$ parmi les fusions postcritiques. Au
-seuil, le sous-pool conservateur « faux contre vrais tardifs » devient
-majoritairement conforme à $`p_{\mathrm{late}}=(2+q_c)/3`$, tandis que le
-paquet complet vu par $`\Lambda`$ est majoritaire dès
-$`p>p_{\mathrm{SW}}`$. Ces deux seuils sont strictement sous la baseline
-$`p_{\mathrm{info}}=0.794659\ldots`$ : une majorité scalaire ne peut donc
-pas, à elle seule, améliorer la borne connue.
+Ce biais est maximal à $`t=\beta_c`$ parmi les fusions postcritiques, à coupe
+fixée. Au seuil, le diagnostic conservateur de **frontière** « fausses contre
+vraies tardives » devient favorable à
+$`p_{\partial,\mathrm{late}}=(2+q_c)/3`$, tandis que la frontière complète est
+majoritaire dès $`p>p_{\mathrm{SW}}`$. Ces deux seuils sont strictement sous
+la baseline $`p_{\mathrm{info}}=0.794659\ldots`$ : une majorité scalaire ne
+peut donc pas, à elle seule, améliorer la borne connue.
 
 Le gain potentiel est nécessairement hiérarchique. Chaque ancêtre exige deux
 majorités groupées, une pour chacun des fils du LCA touchés par les flips,
@@ -148,9 +157,10 @@ précédente. La preuve passe par un cône de coefficients de Walsh positifs,
 stable par produit. Le critère quatre états peut toutefois réussir même si ce
 certificat suffisant échoue.
 
-Les ancêtres ont $`\beta_v>\beta_c`$ et des liens de qualité strictement
-moindre. La loi des trois tailles de groupe sous le biais d'une paire
-lointaine critique, puis HF, restent les deux verrous globaux.
+Les ancêtres ont seulement $`\beta_v>\beta_u`$ : certains peuvent encore
+être dans la fenêtre gauche, les suivants sont postcritiques. La loi des
+trois tailles de groupe et des temps sous le biais exact d'une paire critique,
+puis HF, restent les deux verrous globaux.
 
 ## Socle de départ
 
@@ -211,13 +221,15 @@ intégrer dans une rédaction formelle complète avec A1.
     horloges redonne cette entropie sans répliques. Son unique racine
     supérieure est $`0.835805792367\ldots`$ ; c'est une calibration exacte de
     face, pas un seuil de weak recovery démontré.
-13. Au temps critique, les quatre masses exactes sont $`q_c`$ pour les vrais
-    liens précoces, $`2p-1-q_c`$ pour les vrais tardifs, et $`1-p`$ pour
-    chacun des vrais censurés et des faux. Conditionnellement à un bucket
-    non marqué, son vote est $`1+\mathrm{Bin}(m-1,s_c(p))`$. Aux ancêtres,
-    cette loi doit être appliquée séparément aux trois groupes qui donnent
-    les quatre $`\Lambda_v^{ab}`$ ; une majorité globale du bucket ne suffit
-    pas.
+13. Au temps critique, les quatre masses exactes par arête sont $`q_c`$ pour
+    les vraies précoces, $`2p-1-q_c`$ pour les vraies tardives, et $`1-p`$
+    pour chacune des vraies censurées et des fausses. La loi résiduelle ne
+    s'applique qu'aux arêtes de frontière après conditionnement par la
+    partition complète. Conditionnellement à une coupe de Kruskal non
+    marquée, son vote est $`1+\mathrm{Bin}(m-1,s_c(p))`$ au temps critique.
+    Aux ancêtres, cette loi s'applique séparément aux trois groupes qui
+    donnent les quatre $`\Lambda_v^{ab}`$ ; une majorité globale de la coupe
+    ne suffit pas.
 
 ## Carte du dossier
 
@@ -232,9 +244,9 @@ intégrer dans une rédaction formelle complète avec A1.
 - [09_CRITICAL_MERGER_ORACLE.md](09_CRITICAL_MERGER_ORACLE.md) : résolution exacte de la fusion critique locale, fenêtre $`m^{-1/2}`$, sandwich des taux ancestraux et contre-audit de la masse des paires.
 - [10_ANCESTRAL_LAMBDA_ESTIMATION.md](10_ANCESTRAL_LAMBDA_ESTIMATION.md) : problème central des slides 31--33, course pondérée exacte, moments des quatre taux, concentration, certificat de queue et formulation du verrou géométrique sous le biais d'une paire critique.
 - [11_TRIANGLE_BLOCK_SDPI.md](11_TRIANGLE_BLOCK_SDPI.md) : profil SDPI exact du canal de triangle, échec du regroupement scalaire, canal d'effacement multi-état et candidat conditionnel $`0.809909\ldots`$ avec son lemme manquant explicite.
-- [12_FAVORABLE_HIERARCHICAL_REDUCTION.md](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : réduction exacte aux paires lointaines du même arbre, oracle de séparation au seuil, lemme de domination HF et transport certifié de la queue ancestrale vers la weak recovery.
+- [12_FAVORABLE_HIERARCHICAL_REDUCTION.md](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : réduction exacte aux paires lointaines, oracle de composante critique avec LCA dans la fenêtre gauche, lemme de domination HF et transport certifié de la queue ancestrale vers la weak recovery.
 - [13_NISHIMORI_HIERARCHICAL_CLOCKS.md](13_NISHIMORI_HIERARCHICAL_CLOCKS.md) : réduction exacte de la conjecture triangulaire à une entropie de face et représentation par une course exponentielle, avec séparation stricte entre calibration de face et seuil global.
-- [14_POSTCRITICAL_GROUND_TRUTH_MAJORITY.md](14_POSTCRITICAL_GROUND_TRUTH_MAJORITY.md) : décomposition exacte faux/vrais tardifs/vrais censurés, seuils de majorité, loi du bucket critique, majorités groupées des ancêtres et critère quatre états du heat bath.
+- [14_CRITICAL_COMPONENT_BOUNDARY.md](14_CRITICAL_COMPONENT_BOUNDARY.md) : annulation exacte des arêtes internes, loi des marques de frontière, composante critique sous biais de paire, LCA localisé par la gauche, majorités groupées ancestrales et critère quatre états du heat bath.
 - [LITERATURE.md](LITERATURE.md) : état de l'art primaire, voisins conceptuels et positionnement prudent de la nouveauté.
 - [references.bib](references.bib) : bibliographie ciblée et autonome.
 - [computations/README.md](computations/README.md) : cahier des charges des calculs exacts et simulations à ajouter.
@@ -253,8 +265,9 @@ Chaque affirmation nouvelle doit porter l'un des statuts suivants :
 Rédiger d'abord le théorème fini LCA et le théorème de réduction favorable du
 fichier 12. Le premier calcul nouveau doit porter sur la loi de
 $`(m_{v,0},m_{v,1},m_{v,2},\beta_v)_{v\succ u}`$ vue depuis une paire
-lointaine du même arbre dont le LCA est critique : exactement sur cactus, puis
-par matrices de transfert certifiées sur bandes triangulaires. Cette loi
+lointaine d'une même composante critique macroscopique, sous le biais de Palm
+exact : exactement sur cactus, puis par matrices de transfert certifiées sur
+bandes triangulaires. Cette loi
 alimente le noyau conditionnel exact du fichier 10. Il faut alors fermer, dans
 cet ordre, la convergence des premiers ancêtres, la sommabilité du certificat
 $`\mathcal R_u`$, le contrôle des coins nuls et la domination HF entre les
@@ -267,9 +280,9 @@ calculer, sur le cactus de deux triangles et sous **une même loi jointe**, la
 chaîne complète des triplets $`(m_{v,r},K_{v,r})`$, les quatre
 $`\Lambda_v^{ab}`$ et le critère de parité
 $`q_u^{00}+q_u^{11}>q_u^{10}+q_u^{01}`$. Il faut comparer exactement ce
-critère à la majorité globale, aux deux majorités groupées et au test
-conservateur « vrais tardifs contre faux ». Une seconde implémentation par
-énumération directe doit contre-auditer chaque probabilité. Ce calcul dira si
+critère à la majorité globale, aux deux majorités groupées et au diagnostic
+de frontière « vraies tardives contre fausses ». Une seconde implémentation
+par énumération directe doit contre-auditer chaque probabilité. Ce calcul dira si
 les amplitudes hiérarchiques peuvent dépasser la borne
 $`0.794659\ldots`$, alors que la seule majorité ne le peut pas.
 Le fichier 11 est conservé comme audit auxiliaire, sans priorité sur la chaîne

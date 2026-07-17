@@ -222,7 +222,7 @@ $`\Lambda_v^{00}`$ ne suffit pas : il faut au minimum le niveau commun
 $`X_{v,0}`$ et les deux déséquilibres retournables
 $`X_{v,1},X_{v,2}`$.
 
-Le [certificat de majorité hiérarchique](14_POSTCRITICAL_GROUND_TRUTH_MAJORITY.md)
+Le [certificat de majorité hiérarchique](14_CRITICAL_COMPONENT_BOUNDARY.md)
 donne une première cible probabiliste fermée. Sous a priori uniforme, si le
 nœud local possède une majorité conforme stricte et si
 

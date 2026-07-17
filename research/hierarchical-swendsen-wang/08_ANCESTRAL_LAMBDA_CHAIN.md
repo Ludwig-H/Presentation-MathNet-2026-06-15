@@ -23,7 +23,7 @@ couplage sandwich explicite entre des binomiales de paramètres $`1/2`$ et
 $`s_p(\beta_c)`$. Ce contrôle n'induit toutefois aucun ordre direct sur les
 quatre taux retournés ni sur $`\eta_u`$, car les compléments renversent les
 ordres et le message ancestral peut annuler le LLR local **ponctuellement**.
-Le [fichier 14](14_POSTCRITICAL_GROUND_TRUTH_MAJORITY.md) précise le contrôle
+Le [fichier 14](14_CRITICAL_COMPONENT_BOUNDARY.md) précise le contrôle
 utile : l'excès conforme d'un groupe est exactement porté par les vraies
 horloges de $`(\beta_v,1]`$. Grâce à la convexité des facteurs, la majorité
 locale et les deux majorités groupées de chaque ancêtre forment un certificat

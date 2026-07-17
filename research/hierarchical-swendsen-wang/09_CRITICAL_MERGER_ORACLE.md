@@ -755,7 +755,7 @@ M
 
 Cette annulation est un énoncé point par point. Le modèle $`B_u=0`$ reste une
 calibration, pas un préfixe de la filtration réelle. La
-[décomposition postcritique](14_POSTCRITICAL_GROUND_TRUTH_MAJORITY.md)
+[calcul des frontières critiques](14_CRITICAL_COMPONENT_BOUNDARY.md)
 donne le contrôle qui subsiste sans annulation : chaque ancêtre possède un
 biais $`h_p(\beta_v)<h_p(\beta_c)`$, mais la préférence finale est décidée
 par la somme des deux poids pairs contre celle des deux poids impairs.

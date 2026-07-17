@@ -400,7 +400,7 @@ $`\Lambda_v^{ab}`$ interviennent, mais l'expérience devient plus informative.
 Il n'existe donc pas de défaut autodual hiérarchique canonique obtenu en
 supprimant simplement les facteurs au-delà d'une profondeur $`K`$.
 
-La [décomposition postcritique](14_POSTCRITICAL_GROUND_TRUTH_MAJORITY.md)
+Le [calcul des frontières critiques](14_CRITICAL_COMPONENT_BOUNDARY.md)
 donne le test hiérarchique concret qui remplace une troncature autoduale :
 calculer les majorités dans les deux groupes affectés de chaque ancêtre, puis
 évaluer exactement
@@ -431,12 +431,12 @@ triangulaire vers $`0.835985\ldots`$. Une hiérarchie complète peut donc corrig
 $`p_{\mathrm N}^{(0)}`$ au lieu de le reproduire à chaque profondeur.
 
 Le fichier 14 fournit un contre-audit directement adapté au cas favorable.
-Les deux seuils de majorité postcritique sont
+Les deux seuils de majorité **de frontière** sont
 
 ```math
 p_{\mathrm{SW}}=0.673648\ldots,
 \qquad
-p_{\mathrm{late}}=0.782432\ldots.
+p_{\partial,\mathrm{late}}=0.782432\ldots.
 ```
 
 Ils sont tous deux strictement inférieurs à la baseline

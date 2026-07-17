@@ -5,29 +5,32 @@ import unittest
 from math import comb, exp, log, tanh
 
 from critical_band_thresholds import Q_CRITICAL, open_probability
-from postcritical_ground_truth_majority import (
+from critical_component_boundary import (
+    P_BOUNDARY_LATE,
     P_INFO,
-    P_LATE,
     P_SW,
+    boundary_late_true_fraction,
     bucket_vote_moments,
     clock_factor_weights,
     closed_categories,
+    connected_components,
     critical_closed_categories,
     critical_masses,
     critical_time_untruncated,
     grouped_rates,
-    late_pool_true_fraction,
     margin_failure_bound,
     margin_success_probability,
     multiply_four_weights,
+    pair_palm_weights,
     parity_keep_probability,
     parity_log_odds,
+    partition_boundary,
     strict_majority_probability,
     walsh_coefficients,
 )
 
 
-class PostcriticalGroundTruthMajorityTests(unittest.TestCase):
+class CriticalComponentBoundaryTests(unittest.TestCase):
     def test_untruncated_critical_time_and_censoring_domain(self) -> None:
         for p in (0.51, 0.6, P_SW, P_INFO, 0.9):
             beta = critical_time_untruncated(p)
@@ -58,7 +61,7 @@ class PostcriticalGroundTruthMajorityTests(unittest.TestCase):
             )
 
     def test_critical_unconditional_masses_and_closed_forms(self) -> None:
-        for p in (P_SW, P_LATE, P_INFO, 0.835805792367, 0.95):
+        for p in (P_SW, P_BOUNDARY_LATE, P_INFO, 0.835805792367, 0.95):
             masses = critical_masses(p)
             categories = critical_closed_categories(p)
             self.assertAlmostEqual(
@@ -78,11 +81,117 @@ class PostcriticalGroundTruthMajorityTests(unittest.TestCase):
             )
 
     def test_two_majority_thresholds_are_distinct(self) -> None:
-        self.assertAlmostEqual(late_pool_true_fraction(P_LATE), 0.5)
+        self.assertAlmostEqual(
+            boundary_late_true_fraction(P_BOUNDARY_LATE), 0.5
+        )
         self.assertAlmostEqual(critical_closed_categories(P_SW).true_probability, 0.5)
-        self.assertLess(P_SW, P_LATE)
-        self.assertLess(P_LATE, P_INFO)
-        self.assertGreater(late_pool_true_fraction(P_INFO), 0.5)
+        self.assertLess(P_SW, P_BOUNDARY_LATE)
+        self.assertLess(P_BOUNDARY_LATE, P_INFO)
+        self.assertGreater(boundary_late_true_fraction(P_INFO), 0.5)
+
+    def test_internal_edges_cancel_and_only_the_current_cut_is_retained(self) -> None:
+        left_child = frozenset({0, 1})
+        right_child = frozenset({2, 3})
+        partition = (left_child, right_child)
+        marked_edges = (
+            (0, 1, -1),  # false and internal to the left child
+            (2, 3, 1),   # true and internal to the right child
+            (0, 2, -1),  # false and crossing the current cut
+            (1, 3, 1),   # true and crossing the current cut
+        )
+        boundary = partition_boundary(
+            ((left, right) for left, right, _ in marked_edges), partition
+        )
+        self.assertEqual(set(boundary), {(0, 2), (1, 3)})
+
+        satisfaction: dict[tuple[int, int], tuple[bool, ...]] = {}
+        for a, b in itertools.product((0, 1), repeat=2):
+            values: list[bool] = []
+            for left, right, truth_sign in marked_edges:
+                left_spin = -1 if (left in left_child and a) or (
+                    left in right_child and b
+                ) else 1
+                right_spin = -1 if (right in left_child and a) or (
+                    right in right_child and b
+                ) else 1
+                values.append(truth_sign * left_spin * right_spin == 1)
+            satisfaction[(a, b)] = tuple(values)
+
+        for edge_index in (0, 1):
+            self.assertEqual(
+                {values[edge_index] for values in satisfaction.values()},
+                {satisfaction[(0, 0)][edge_index]},
+            )
+        for edge_index in (2, 3):
+            self.assertEqual(
+                {values[edge_index] for values in satisfaction.values()},
+                {False, True},
+            )
+
+    def test_boundary_marks_factor_after_conditioning_on_triangle_partition(
+        self,
+    ) -> None:
+        vertices = (0, 1, 2)
+        edges = ((0, 1), (0, 2), (1, 2))
+        target = (frozenset({0, 1}), frozenset({2}))
+        self.assertEqual(partition_boundary(edges, target), edges[1:])
+
+        p = 0.82
+        time = 0.47
+        q = 1.0 - p
+        rate = log(p / q)
+        category_probabilities = (
+            p * (1.0 - exp(-rate * time)),  # early true
+            p * (exp(-rate * time) - exp(-rate)),  # late true
+            p * exp(-rate),  # censored true
+            q,  # false
+        )
+        total = 0.0
+        marginal = [[0.0] * 4 for _ in range(2)]
+        joint = [[0.0] * 4 for _ in range(4)]
+        internal = [0.0] * 4
+        for categories in itertools.product(range(4), repeat=len(edges)):
+            probability = 1.0
+            early_edges = []
+            for edge, category in zip(edges, categories):
+                probability *= category_probabilities[category]
+                if category == 0:
+                    early_edges.append(edge)
+            if connected_components(vertices, early_edges) != target:
+                continue
+            total += probability
+            internal[categories[0]] += probability
+            marginal[0][categories[1]] += probability
+            marginal[1][categories[2]] += probability
+            joint[categories[1]][categories[2]] += probability
+
+        self.assertGreater(total, 0.0)
+        residual = closed_categories(p, time)
+        expected = (0.0, residual.late_true, residual.censored_true, residual.false)
+        for edge_marginal in marginal:
+            for observed, target_probability in zip(edge_marginal, expected):
+                self.assertAlmostEqual(observed / total, target_probability)
+        for first_category in range(4):
+            for second_category in range(4):
+                self.assertAlmostEqual(
+                    joint[first_category][second_category] / total,
+                    expected[first_category] * expected[second_category],
+                )
+        self.assertAlmostEqual(internal[0] / total, 1.0)
+        self.assertAlmostEqual(sum(internal[1:]) / total, 0.0)
+
+    def test_pair_palm_selection_is_weighted_by_ordered_pairs(self) -> None:
+        large = frozenset({0, 1, 2})
+        medium = frozenset({4, 5})
+        singleton = frozenset({9})
+        weights = pair_palm_weights(
+            (large, medium, singleton),
+            distance=lambda left, right: abs(left - right),
+            minimum_distance=0.0,
+        )
+        self.assertAlmostEqual(weights[large], 6.0 / 8.0)
+        self.assertAlmostEqual(weights[medium], 2.0 / 8.0)
+        self.assertEqual(weights[singleton], 0.0)
 
     def test_critical_time_maximizes_postcritical_quality(self) -> None:
         for p in (0.7, P_INFO, 0.835805792367, 0.95):

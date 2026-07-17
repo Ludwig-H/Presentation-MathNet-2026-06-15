@@ -520,15 +520,17 @@ ce fichier isole un problème de polarisation pour un facteur physique, mais ne
 transforme pas la difficulté des $`\Lambda_v`$ ancestraux. La voie
 hiérarchique prioritaire est le
 [cas favorable critique](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : paire
-lointaine du même arbre, séparation en $`\beta_c`$, puis calcul du message
-formé par tous les ancêtres et preuve de la domination HF. La
+lointaine dans une même composante critique macroscopique, LCA dans la
+fenêtre gauche du seuil, puis calcul du message formé par tous les ancêtres et
+preuve de la domination HF. La
 [calibration entropique par horloges](13_NISHIMORI_HIERARCHICAL_CLOCKS.md)
 retrouve exactement l'équation de Nishimori--Ohzeki au niveau d'une face. Le
-[décomposition postcritique](14_POSTCRITICAL_GROUND_TRUTH_MAJORITY.md)
-identifie exactement le signal : les vrais liens censurés après $1$ et les
-liens faux se compensent, et tout l'excès conforme vient des vraies horloges
-dans $`(\beta_c,1]`$. Elle montre aussi pourquoi une majorité scalaire ne
-suffit pas : le test conservateur « vrais tardifs contre faux » a déjà son
-seuil à $`(2+q_c)/3=0.782432\ldots<p_{\mathrm{info}}`$. Le cactus de deux
+[calcul des frontières critiques](14_CRITICAL_COMPONENT_BOUNDARY.md)
+identifie exactement le signal **sur les frontières conditionnelles** : les
+vraies censurées après $1$ et les fausses se compensent, tandis que les
+arêtes internes aux enfants sont exclues. Tout l'excès conforme vient des
+vraies horloges dans $`(\beta_c,1]`$. Il montre aussi pourquoi une majorité
+scalaire ne suffit pas : le diagnostic « vraies tardives contre fausses » a
+déjà son seuil à $`(2+q_c)/3=0.782432\ldots<p_{\mathrm{info}}`$. Le cactus de deux
 triangles doit donc calculer les deux majorités groupées de chaque ancêtre,
 les quatre $`\Lambda_v^{ab}`$, puis le critère de parité exact du heat bath.
