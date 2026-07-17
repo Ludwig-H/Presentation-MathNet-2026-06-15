@@ -753,11 +753,12 @@ M
 \max\{|\ell+\underline B|,|\ell+\overline B|\}.
 ```
 
-Cette annulation est un énoncé point par point. Le bilan martingale du
-[fichier 14](14_ANCESTRAL_INFORMATION_LEDGER.md) montre qu'elle ne peut pas
-faire décroître en moyenne un score obtenu par marginalisation correcte des
-ancêtres encore cachés. Le modèle $`B_u=0`$ reste donc une calibration, pas un
-préfixe de la filtration réelle.
+Cette annulation est un énoncé point par point. Le modèle $`B_u=0`$ reste une
+calibration, pas un préfixe de la filtration réelle. La
+[décomposition postcritique](14_POSTCRITICAL_GROUND_TRUTH_MAJORITY.md)
+donne le contrôle qui subsiste sans annulation : chaque ancêtre possède un
+biais $`h_p(\beta_v)<h_p(\beta_c)`$, mais la préférence finale est décidée
+par la somme des deux poids pairs contre celle des deux poids impairs.
 
 Alors seulement
 

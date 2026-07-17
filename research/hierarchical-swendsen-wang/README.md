@@ -114,26 +114,43 @@ $`\Lambda_v^{ab}`$ ancestraux. L'identité retrouve donc exactement la
 constante de la conjecture au niveau d'une face, mais ne prouve pas qu'elle
 est le seuil de weak recovery.
 
-Le fichier 14 fournit le recul manquant. Marginaliser complètement $D$
-redonne exactement la postérieure et fait disparaître les facteurs
-hiérarchiques ; conserver $D$ garde les $`\Lambda_v^{ab}`$, mais révèle une
-information oracle. Une martingale de magnétisations décompose alors le score
-LCA en corrélation postérieure réelle, fuite du sélecteur/environnement, fuite
-du LCA et fuites de tous les ancêtres. Pour une coupe fixée, le coût d'un
-ancêtre est borné explicitement par les divergences entre quatre horloges
-exponentielles censurées. En moyenne, révéler un ancêtre ne peut jamais
-diminuer un score correctement collapsed ; l'annulation ponctuelle du
-message $`B_u`$ n'est donc pas une stratégie de preuve. À la racine de face
-et au temps critique, un
-dendrogramme grossier révèle déjà au moins $`0.078638140273\ldots`$ bit sur la
-classe relative complète et $`0.042759377412\ldots`$ bit sur une parité de
-paire fixée, avec un gain martingale $L^2$ de
-$`0.019523088673\ldots`$ ; sous la loi de Palm de la fusion critique
-favorable, l'entropie résiduelle vaut seulement
-$`0.251560120699\ldots`$ bit. La calibration de face et l'oracle critique ne
-peuvent donc pas être identifiés. Aucun nouveau seuil n'est revendiqué à ce
-stade : le calcul de face élimine un raccourci, tandis que le cactus croissant
-doit décider si le coût oracle persiste ou se dissipe à grande distance.
+Le fichier 14 formalise maintenant directement la qualité des liens
+postcritiques. Au temps $t$, les liens vrais censurés après $1$ et les liens
+faux ont exactement la même masse conditionnelle. L'excès de majorité
+conforme est donc exactement la masse des vraies horloges dans $`(t,1]`$ :
+
+```math
+2s_p(t)-1
+=
+\tanh\left(\frac{u_p(1-t)}2\right).
+```
+
+Ce biais est maximal à $`t=\beta_c`$ parmi les fusions postcritiques. Au
+seuil, le sous-pool conservateur « faux contre vrais tardifs » devient
+majoritairement conforme à $`p_{\mathrm{late}}=(2+q_c)/3`$, tandis que le
+paquet complet vu par $`\Lambda`$ est majoritaire dès
+$`p>p_{\mathrm{SW}}`$. Ces deux seuils sont strictement sous la baseline
+$`p_{\mathrm{info}}=0.794659\ldots`$ : une majorité scalaire ne peut donc
+pas, à elle seule, améliorer la borne connue.
+
+Le gain potentiel est nécessairement hiérarchique. Chaque ancêtre exige deux
+majorités groupées, une pour chacun des fils du LCA touchés par les flips,
+puis le critère quatre états exact
+
+```math
+q_u^{00}+q_u^{11}>q_u^{10}+q_u^{01}.
+```
+
+La croissance et la convexité de $`F_v(x)=xe^{(1-\beta_v)x}`$ donnent ici un
+résultat exact : sous a priori uniforme, une majorité locale stricte à $u$ et
+deux majorités non négatives dans chaque ancêtre suffisent à l'inégalité
+précédente. La preuve passe par un cône de coefficients de Walsh positifs,
+stable par produit. Le critère quatre états peut toutefois réussir même si ce
+certificat suffisant échoue.
+
+Les ancêtres ont $`\beta_v>\beta_c`$ et des liens de qualité strictement
+moindre. La loi des trois tailles de groupe sous le biais d'une paire
+lointaine critique, puis HF, restent les deux verrous globaux.
 
 ## Socle de départ
 
@@ -194,18 +211,13 @@ intégrer dans une rédaction formelle complète avec A1.
     horloges redonne cette entropie sans répliques. Son unique racine
     supérieure est $`0.835805792367\ldots`$ ; c'est une calibration exacte de
     face, pas un seuil de weak recovery démontré.
-13. Pour toute paire fixée, le score LCA possède un bilan martingale exact.
-    Conditionnellement à une coupe ancestrale fixée, la divergence entre deux
-    taux est
-
-    ```math
-    (1-e^{-\lambda\tau})
-    \left(\log\frac\lambda\mu+\frac\mu\lambda-1\right),
-    ```
-
-    et une borne de transport $`2\times2`$ combine les quatre
-    $`\Lambda_v^{ab}`$. La sélection géométrique de la coupe reste un terme
-    d'information distinct : c'est désormais le verrou asymptotique explicite.
+13. Au temps critique, les quatre masses exactes sont $`q_c`$ pour les vrais
+    liens précoces, $`2p-1-q_c`$ pour les vrais tardifs, et $`1-p`$ pour
+    chacun des vrais censurés et des faux. Conditionnellement à un bucket
+    non marqué, son vote est $`1+\mathrm{Bin}(m-1,s_c(p))`$. Aux ancêtres,
+    cette loi doit être appliquée séparément aux trois groupes qui donnent
+    les quatre $`\Lambda_v^{ab}`$ ; une majorité globale du bucket ne suffit
+    pas.
 
 ## Carte du dossier
 
@@ -222,7 +234,7 @@ intégrer dans une rédaction formelle complète avec A1.
 - [11_TRIANGLE_BLOCK_SDPI.md](11_TRIANGLE_BLOCK_SDPI.md) : profil SDPI exact du canal de triangle, échec du regroupement scalaire, canal d'effacement multi-état et candidat conditionnel $`0.809909\ldots`$ avec son lemme manquant explicite.
 - [12_FAVORABLE_HIERARCHICAL_REDUCTION.md](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : réduction exacte aux paires lointaines du même arbre, oracle de séparation au seuil, lemme de domination HF et transport certifié de la queue ancestrale vers la weak recovery.
 - [13_NISHIMORI_HIERARCHICAL_CLOCKS.md](13_NISHIMORI_HIERARCHICAL_CLOCKS.md) : réduction exacte de la conjecture triangulaire à une entropie de face et représentation par une course exponentielle, avec séparation stricte entre calibration de face et seuil global.
-- [14_ANCESTRAL_INFORMATION_LEDGER.md](14_ANCESTRAL_INFORMATION_LEDGER.md) : bilan martingale exact du score LCA, dichotomie marginaliser/conditionner par $D$, borne à quatre taux pour une horloge ancestrale et audits exacts de la fusion critique d'une face.
+- [14_POSTCRITICAL_GROUND_TRUTH_MAJORITY.md](14_POSTCRITICAL_GROUND_TRUTH_MAJORITY.md) : décomposition exacte faux/vrais tardifs/vrais censurés, seuils de majorité, loi du bucket critique, majorités groupées des ancêtres et critère quatre états du heat bath.
 - [LITERATURE.md](LITERATURE.md) : état de l'art primaire, voisins conceptuels et positionnement prudent de la nouveauté.
 - [references.bib](references.bib) : bibliographie ciblée et autonome.
 - [computations/README.md](computations/README.md) : cahier des charges des calculs exacts et simulations à ajouter.
@@ -251,13 +263,15 @@ une zone rigoureuse de non-recouvrement dépassant $p=0.794659\ldots$ ; aucune
 nouvelle constante n'est annoncée avant ces quatre preuves. Le point
 multicritique de Nishimori conjecturé $p\simeq0.8358058$ est retrouvé
 exactement comme zéro de l'entropie de face. Le premier test nouveau doit
-calculer, sur le cactus de deux triangles et sous **une même loi jointe**, les
-cinq lignes du bilan du fichier 14 : corrélation réelle, fuite de sélection et
-d'environnement, incrément du LCA, incrément du premier ancêtre obtenu avec
-les quatre $`\Lambda_v^{ab}`$, puis score terminal. Chaque ligne doit être
-contre-auditée par conditionnements successifs et par énumération directe. Ce
-calcul dira si l'oracle critique reste assez contractant pour dépasser la
-borne $`0.794659\ldots`$, sans confondre une calibration locale avec un seuil.
+calculer, sur le cactus de deux triangles et sous **une même loi jointe**, la
+chaîne complète des triplets $`(m_{v,r},K_{v,r})`$, les quatre
+$`\Lambda_v^{ab}`$ et le critère de parité
+$`q_u^{00}+q_u^{11}>q_u^{10}+q_u^{01}`$. Il faut comparer exactement ce
+critère à la majorité globale, aux deux majorités groupées et au test
+conservateur « vrais tardifs contre faux ». Une seconde implémentation par
+énumération directe doit contre-auditer chaque probabilité. Ce calcul dira si
+les amplitudes hiérarchiques peuvent dépasser la borne
+$`0.794659\ldots`$, alors que la seule majorité ne le peut pas.
 Le fichier 11 est conservé comme audit auxiliaire, sans priorité sur la chaîne
 hiérarchique.
 

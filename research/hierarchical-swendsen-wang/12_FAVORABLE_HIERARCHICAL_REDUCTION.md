@@ -684,7 +684,7 @@ isolé, qui déterminent la voie hiérarchique demandée.
 | Convergence du squelette critique et sommabilité | À prouver | ferme la limite ancestrale |
 | Nouvelle borne triangulaire $`p_\star>0.794659\ldots`$ | Ouvert | conséquence seulement après fermeture des deux lignes précédentes |
 
-## 11. Calibration entropique et coût de l'oracle critique
+## 11. Calibration entropique et qualité postcritique
 
 Le [fichier 13](13_NISHIMORI_HIERARCHICAL_CLOCKS.md) montre que l'équation de
 face de Nishimori--Ohzeki est exactement
@@ -696,22 +696,32 @@ H(Z_1,Z_2,Z_3\mid Z_1Z_2Z_3)=1\ \text{bit},
 et qu'elle se réalise par une course conditionnelle de quatre horloges. Sa
 racine supérieure redonne $`0.835805792367\ldots`$ au niveau d'une face.
 
-Le [fichier 14](14_ANCESTRAL_INFORMATION_LEDGER.md) montre pourquoi le pont
-avec le présent théorème favorable n'est pas automatique. Oublier complètement
-$D$ redonne la postérieure initiale ; conserver $D$ garde les quatre
-$`\Lambda_v^{ab}`$, mais ajoute une information oracle. Le score favorable se
-décompose exactement en corrélation postérieure, fuite de sélection et
-d'environnement, fuite du LCA et fuites ancestrales. Pour chaque coupe fixée,
-une formule de KL pour l'horloge exponentielle censurée et une borne de
-transport $`2\times2`$ contrôlent la contribution des quatre taux. La loi du
-squelette sélectionné reste un terme distinct.
+Le [fichier 14](14_POSTCRITICAL_GROUND_TRUTH_MAJORITY.md) formalise l'avantage
+exact de l'expérience favorable. Conditionnellement à un lien encore fermé
+au temps $t$, les trois catégories « vrai tardif, vrai censuré, faux » ont
+les probabilités
 
-Le contre-audit d'une face quantifie déjà cet écart : au point de Nishimori et
-au temps critique, une fonction grossière du dendrogramme révèle au moins
-$`0.078638140273\ldots`$ bit sur la classe relative complète et
-$`0.042759377412\ldots`$ bit sur une parité de paire fixée, tandis que
-l'entropie résiduelle de la classe sous la loi de Palm favorable vaut
-$`0.251560120699\ldots`$ bit. Ces nombres vivent sous des lois différentes,
-mais interdisent d'identifier la condition de face à l'oracle critique. Une
-borne de weak recovery exige donc le bilan ancestral sur une même loi, puis
-HF ; la racine de face n'est pas une borne déjà démontrée.
+```math
+\left(
+h_p(t),
+\frac{1-h_p(t)}2,
+\frac{1-h_p(t)}2
+\right).
+```
+
+Ainsi les vrais censurés et les faux se compensent exactement, et tout le
+biais conforme provient des horloges dans $`(t,1]`$. Ce biais est maximal à
+$`t=\beta_c`$. Cela prouve l'optimalité **par lien et à coupe fixée** du cas
+critique ; cela ne prouve pas HF, car la taille des trois groupes et la loi
+du squelette sont elles-mêmes sélectionnées par la paire.
+
+Le contre-audit numérique est sans ambiguïté : le sous-pool « vrais tardifs
+contre faux » devient déjà majoritaire à
+$`p=(2+q_c)/3=0.782432\ldots`$, avant la baseline
+$`p_{\mathrm{info}}=0.794659\ldots`$. Une meilleure borne ne peut donc pas
+venir du seul signe de cette majorité. Elle doit exploiter, sous une même
+loi, les amplitudes des quatre $`\Lambda_v^{ab}`$, les deux majorités
+groupées par ancêtre et le critère pair contre impair du heat bath, puis HF.
+La convexité des facteurs hiérarchiques prouve que les majorités groupées,
+avec la majorité locale, constituent un certificat suffisant ; le critère
+exact peut être favorable au-delà de ce certificat.

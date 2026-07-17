@@ -524,9 +524,11 @@ lointaine du même arbre, séparation en $`\beta_c`$, puis calcul du message
 formé par tous les ancêtres et preuve de la domination HF. La
 [calibration entropique par horloges](13_NISHIMORI_HIERARCHICAL_CLOCKS.md)
 retrouve exactement l'équation de Nishimori--Ohzeki au niveau d'une face. Le
-[bilan d'information ancestral](14_ANCESTRAL_INFORMATION_LEDGER.md) montre
-ensuite que cette face ne peut pas être identifiée à l'oracle critique : il
-faut calculer, sous une même loi, la fuite du sélecteur géométrique et les
-incréments des horloges censurées associés aux quatre
-$`\Lambda_v^{ab}`$. Le cactus de deux triangles est le premier modèle où ce
-bilan possède un ancêtre strict et reste exactement énumérable.
+[décomposition postcritique](14_POSTCRITICAL_GROUND_TRUTH_MAJORITY.md)
+identifie exactement le signal : les vrais liens censurés après $1$ et les
+liens faux se compensent, et tout l'excès conforme vient des vraies horloges
+dans $`(\beta_c,1]`$. Elle montre aussi pourquoi une majorité scalaire ne
+suffit pas : le test conservateur « vrais tardifs contre faux » a déjà son
+seuil à $`(2+q_c)/3=0.782432\ldots<p_{\mathrm{info}}`$. Le cactus de deux
+triangles doit donc calculer les deux majorités groupées de chaque ancêtre,
+les quatre $`\Lambda_v^{ab}`$, puis le critère de parité exact du heat bath.

@@ -21,8 +21,8 @@ recovery ? La réponse comporte trois niveaux qu'il faut absolument séparer.
    $D$ fixé.
 3. **À prouver.** L'égalité autoduale du premier niveau n'identifie pas, à
    elle seule, le seuil de weak recovery. Il faut contrôler, sous une même
-   loi, la fuite du sélecteur LCA et de chaque horloge ancestrale, puis établir
-   le lemme favorable HF du fichier 12.
+   loi, les trois groupes de liens de chaque ancêtre, les quatre
+   $`\Lambda_v^{ab}`$, puis établir le lemme favorable HF du fichier 12.
 
 Ainsi, la dynamique réobtient exactement la **constante conjecturée au niveau
 face** et fournit un bilan hiérarchique précis à tester. Elle ne donne pas
@@ -400,20 +400,19 @@ $`\Lambda_v^{ab}`$ interviennent, mais l'expérience devient plus informative.
 Il n'existe donc pas de défaut autodual hiérarchique canonique obtenu en
 supprimant simplement les facteurs au-delà d'une profondeur $`K`$.
 
-Le [bilan d'information ancestral](14_ANCESTRAL_INFORMATION_LEDGER.md)
-formalise cette dichotomie. Il décompose exactement le score LCA en
+La [décomposition postcritique](14_POSTCRITICAL_GROUND_TRUTH_MAJORITY.md)
+donne le test hiérarchique concret qui remplace une troncature autoduale :
+calculer les majorités dans les deux groupes affectés de chaque ancêtre, puis
+évaluer exactement
 
 ```math
-\text{corrélation postérieure au carré}
-+
-\text{fuite du sélecteur et de l'environnement}
-+
-\text{fuite du LCA et des ancêtres}.
+q_u^{00}+q_u^{11}
+>
+q_u^{10}+q_u^{01}.
 ```
 
-C'est cette décomposition, et non l'ancienne notation provisoire
-$`\widehat\Psi_K`$, qui doit désormais être calculée sur cactus puis sur
-bandes triangulaires.
+Ce critère, et non l'ancienne notation provisoire $`\widehat\Psi_K`$, doit
+désormais être calculé sur cactus puis sur bandes triangulaires.
 
 ## 5. Audit critique de la constante
 
@@ -431,23 +430,33 @@ La méthode améliorée par amas d'Ohzeki déplace déjà la première approxima
 triangulaire vers $`0.835985\ldots`$. Une hiérarchie complète peut donc corriger
 $`p_{\mathrm N}^{(0)}`$ au lieu de le reproduire à chaque profondeur.
 
-Le fichier 14 fournit en outre un contre-audit directement adapté au cas
-favorable. À $`p=p_{\mathrm N}^{(0)}`$ :
+Le fichier 14 fournit un contre-audit directement adapté au cas favorable.
+Les deux seuils de majorité postcritique sont
 
-- l'entropie de face non conditionnée vaut $`1`$ bit ;
-- à la coupe critique, une fonction grossière du dendrogramme révèle au moins
-  $`0.042759377412\ldots`$ bit sur une parité de paire fixée ;
-- sous la loi de Palm où le second merge a lieu à $`\beta_c`$ et où le
-  dendrogramme non marqué est observé, l'entropie moyenne ne vaut plus que
+```math
+p_{\mathrm{SW}}=0.673648\ldots,
+\qquad
+p_{\mathrm{late}}=0.782432\ldots.
+```
 
-  ```math
-  \frac{1-p}{1-2\sin(\pi/18)}
-  =
-  0.251560120699\ldots\ \text{bit}.
-  ```
+Ils sont tous deux strictement inférieurs à la baseline
+$`p_{\mathrm{info}}=0.794659\ldots`$ et, a fortiori, à
+$`p_{\mathrm N}^{(0)}`$. La condition de majorité est donc déjà très
+fortement satisfaite au point de Nishimori ; elle n'y change ni de signe ni
+de régime. Plus précisément,
 
-Ces quantités sont prises sous des lois différentes. L'écart ne se soustrait
-pas comme une information mutuelle, mais il interdit de les identifier.
+```math
+h_c(p_{\mathrm N}^{(0)})
+=
+0.4968797586\ldots,
+\qquad
+s_c(p_{\mathrm N}^{(0)})
+=
+0.7484398793\ldots.
+```
+
+Réobtenir la constante conjecturée exige donc une identité sur les
+**amplitudes** des quatre poids collapsed, pas un simple vote conforme.
 
 ## 6. Statut et prochain calcul
 
@@ -458,16 +467,16 @@ pas comme une information mutuelle, mais il interdit de les identifier.
 | Course exponentielle à quatre états d'une face collapsed | **Établie** |
 | Identification de cette racine au seuil de weak recovery | **Conjecture** |
 | Troncature autoduale brute des facteurs ancestraux | **Abandonnée : non canonique** |
-| Bilan martingale des fuites oracle | **Établi dans le fichier 14** |
-| Bilan complet sur un cactus de deux triangles | **Prochain calcul** |
+| Décomposition exacte de la majorité postcritique | **Établie dans le fichier 14** |
+| Critère quatre états sur un cactus de deux triangles | **Prochain calcul** |
 
 L'ordre de travail est maintenant :
 
 1. conserver le calcul de face comme calibration exacte ;
-2. calculer sur un cactus de deux triangles la corrélation réelle, la fuite
-   environnementale et le premier incrément ancestral ;
-3. vérifier le bilan à la fois par conditionnements successifs et par
-   énumération directe ;
+2. calculer sur un cactus de deux triangles les trois comptes de chaque
+   ancêtre et les quatre $`\Lambda_v^{ab}`$ ;
+3. comparer le critère pair/impair exact aux majorités scalaire et groupées,
+   puis le contre-auditer par énumération directe ;
 4. seulement ensuite chercher une fermeture autoduale ou une limite de bandes.
 
 Le calcul de face reproductible est dans

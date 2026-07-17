@@ -14,7 +14,7 @@ python3 research/hierarchical-swendsen-wang/computations/ancestral_lambda_estima
 python3 research/hierarchical-swendsen-wang/computations/critical_merger_oracle.py
 python3 research/hierarchical-swendsen-wang/computations/triangle_block_sdpi.py
 python3 research/hierarchical-swendsen-wang/computations/nishimori_hierarchical_entropy.py
-python3 research/hierarchical-swendsen-wang/computations/ancestral_information_ledger.py
+python3 research/hierarchical-swendsen-wang/computations/postcritical_ground_truth_majority.py
 ```
 
 ## Modules et extensions prévues
@@ -30,8 +30,8 @@ python3 research/hierarchical-swendsen-wang/computations/ancestral_information_l
 - `test_triangle_block_sdpi.py` : énumération directe du canal $`4\times8`$, information latérale, défaut de la droite naïve, matrice less-noisy $`3\times3`$ et conditions du candidat $`0.809909\ldots`$ ;
 - `nishimori_hierarchical_entropy.py` : réduction exacte de l'équation (28) de Nishimori--Ohzeki à $`3h_2(p)-h_2((1+(2p-1)^3)/2)=1`$, racine unique, lois de bruit conditionnelles à quatre états et représentation par course exponentielle ;
 - `test_nishimori_hierarchical_entropy.py` : contre-audit indépendant par énumération des huit mots de bruit, comparaison directe à l'équation publiée, monotonie de la balance et identité d'entropie du gagnant ;
-- `ancestral_information_ledger.py` : bilan martingale générique d'une expérience binaire, bornes de logit, KL exacte d'une horloge exponentielle censurée, transport optimal $`2\times2`$ des quatre taux, information du dendrogramme d'une face et loi de Palm de la fusion critique ;
-- `test_ancestral_information_ledger.py` : contre-audits du télescopage, des bornes de KL/transport, de l'énumération à huit états et des densités de Palm ;
+- `postcritical_ground_truth_majority.py` : temps critique non censuré, décomposition exacte vrai tardif/vrai censuré/faux, deux seuils de majorité, vote binomial du bucket, quatre taux groupés, cône de Walsh positif et parité du heat bath ;
+- `test_postcritical_ground_truth_majority.py` : contre-audits par masses directes, énumération de tous les votes binaires, flips arête par arête, borne de Hoeffding et fermeture exhaustive du certificat de Walsh ;
 - `exact_enumeration/` : énumération de toutes les configurations et horloges discrétisées sur petits graphes ;
 - `symbolic/` : simplification des poids $`q_u^{ab}`$, contractions et seuils ;
 - `triangular_grid/` : tores triangulaires, bandes et cactus ;
@@ -58,19 +58,17 @@ python3 research/hierarchical-swendsen-wang/computations/ancestral_information_l
 6 bis. Retrouver $`0.835805792367\ldots`$ comme unique racine supérieure de
 $`H(Z_1,Z_2,Z_3\mid Z_1Z_2Z_3)=1`$ bit, puis vérifier algébriquement qu'il
 s'agit exactement de l'équation (28), sans l'annoncer comme seuil démontré.
-6 ter. Vérifier le bilan $L^2$ et entropique sur toute filtration binaire
-finie, puis contre-auditer la formule
+6 ter. Vérifier indépendamment les quatre masses critiques
 
 ```math
-D_{\mathrm{KL}}(P_{\lambda,\tau}\|P_{\mu,\tau})
-=
-(1-e^{-\lambda\tau})
-\left(\log\frac\lambda\mu+\frac\mu\lambda-1\right)
+\left(q_c,\ 2p-1-q_c,\ 1-p,\ 1-p\right),
 ```
 
-par intégration indépendante. Sur le cactus de deux triangles, enregistrer
-séparément corrélation réelle, fuite du sélecteur, incrément du LCA,
-incrément du premier ancêtre et score terminal.
+les identités $`2s_p(t)-1=h_p(t)`$ et
+$`p_{\mathrm{late}}=(2+q_c)/3`$. Sur le cactus de deux triangles, enregistrer
+séparément les trois comptes de chaque ancêtre, les quatre
+$`\Lambda_v^{ab}`$, les deux majorités groupées et la préférence pair/impair
+exacte.
 7. Pour chaque paire $i\ne j$, vérifier les identités LCA étendues aux racines distinctes
 ```math
     \mathbb E[m_{ij}^{\mathrm{LCA}}]

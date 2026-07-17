@@ -23,9 +23,12 @@ couplage sandwich explicite entre des binomiales de paramètres $`1/2`$ et
 $`s_p(\beta_c)`$. Ce contrôle n'induit toutefois aucun ordre direct sur les
 quatre taux retournés ni sur $`\eta_u`$, car les compléments renversent les
 ordres et le message ancestral peut annuler le LLR local **ponctuellement**.
-Le fichier 14 prouve en revanche que révéler un ancêtre ne diminue jamais en
-moyenne le score d'un préfixe correctement collapsed ; poser $`B_u=0`$ n'est
-pas une marginalisation.
+Le [fichier 14](14_POSTCRITICAL_GROUND_TRUTH_MAJORITY.md) précise le contrôle
+utile : l'excès conforme d'un groupe est exactement porté par les vraies
+horloges de $`(\beta_v,1]`$. Grâce à la convexité des facteurs, la majorité
+locale et les deux majorités groupées de chaque ancêtre forment un certificat
+suffisant de préférence pour la parité conforme. Poser $`B_u=0`$ n'est pas
+une marginalisation.
 
 ## 1. Le problème à deux points
 
@@ -706,12 +709,13 @@ Une seconde amélioration possible est un heat bath **collapsed** qui marginalis
   exactement par l'identité entropique et la course quatre états du fichier
   13**.
 - Identification de cette racine au seuil de weak recovery : **conjecturale**.
-  Le fichier 14 montre exactement qu'il faut contrôler séparément la fuite du
-  sélecteur LCA, celle du squelette et les incréments d'horloge produits par
-  les quatre taux ; une troncature brute des facteurs n'est pas une marginale.
+  Le fichier 14 montre que les seuils de majorité scalaire sont déjà sous la
+  baseline $`0.794659\ldots`$ ; seule l'amplitude quatre états le long du
+  squelette peut encore produire une amélioration.
 
 Le prochain calcul décisif est donc clair : estimer la loi de
 $`(m_{v,0},m_{v,1},m_{v,2},\beta_v)_{v\succ u}`$ sous le biais d'une paire
-lointaine critique, évaluer sur cactus les cinq termes du bilan d'information
-du fichier 14 et $`\Gamma_u(\mathscr D)`$, puis les borner par intervalles sur
-des bandes de largeur croissante, avant toute extrapolation au plan.
+lointaine critique, évaluer sur cactus les quatre $`\Lambda_v^{ab}`$, les
+majorités groupées et $`\Gamma_u(\mathscr D)`$, puis les borner par
+intervalles sur des bandes de largeur croissante, avant toute extrapolation au
+plan.

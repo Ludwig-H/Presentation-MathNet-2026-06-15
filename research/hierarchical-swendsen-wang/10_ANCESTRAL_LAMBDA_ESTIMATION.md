@@ -222,6 +222,22 @@ $`\Lambda_v^{00}`$ ne suffit pas : il faut au minimum le niveau commun
 $`X_{v,0}`$ et les deux déséquilibres retournables
 $`X_{v,1},X_{v,2}`$.
 
+Le [certificat de majorité hiérarchique](14_POSTCRITICAL_GROUND_TRUTH_MAJORITY.md)
+donne une première cible probabiliste fermée. Sous a priori uniforme, si le
+nœud local possède une majorité conforme stricte et si
+
+```math
+X_{v,1}\ge0,
+\qquad
+X_{v,2}\ge0
+```
+
+pour chaque ancêtre, alors le heat bath préfère nécessairement la parité
+conforme. La preuve utilise la convexité de
+$`x\mapsto xe^{(1-\beta_v)x}`$ et la stabilité par produit d'un cône de Walsh
+positif. L'estimation exacte reste plus riche : le critère quatre états peut
+réussir même lorsqu'un de ces déséquilibres est négatif.
+
 ## 3. Course pondérée conditionnelle exacte
 
 ### Hypothèse de canal

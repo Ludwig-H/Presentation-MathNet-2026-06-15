@@ -368,6 +368,19 @@ puis vérifier que $`t_\chi>\beta_c`$ redonne exactement $`p>0.794659\ldots`$. D
 
 Employer la loi multinomiale exacte conditionnellement au squelette non marqué et vérifier le crossover $`m h_p(\beta)^2`$. Sur une fusion choisie par Kruskal, il reste à contrôler la loi du squelette groupé $`(m_{v,0},m_{v,1},m_{v,2},\beta_v)`$, pas à recorriger les marques conditionnelles.
 
+Le fichier 14 fixe trois tests à ne pas confondre :
+
+1. majorité des vrais tardifs contre les faux ;
+2. majorité conforme dans chacun des deux groupes affectés d'un ancêtre ;
+3. préférence quatre états exacte
+   $`q_u^{00}+q_u^{11}>q_u^{10}+q_u^{01}`$.
+
+Le premier test a son seuil à $`0.782432\ldots`$ et ne peut donc pas améliorer
+la baseline. Le théorème du cône de Walsh montre que le test 2, joint à la
+majorité locale, implique le test 3 sous a priori uniforme. La réciproque
+n'est pas nécessaire ; les calculs de cactus et de bandes doivent donc
+enregistrer à la fois le certificat 2 et le critère exact 3.
+
 ### E4. Géométrie biaisée de Kruskal
 
 Décrire la loi du squelette d'une fusion conditionnellement à la filtration passée. Le noyau des marques est maintenant exact après conditionnement ; le verrou est la distribution des tailles de groupes et des temps le long de la chaîne ancestrale.
@@ -413,15 +426,13 @@ Le fichier 13 fournit désormais une seconde calibration exacte : l'équation
 de Nishimori--Ohzeki est une entropie conditionnelle de face égale à un bit et
 se représente par quatre horloges exponentielles. Cela ne modifie pas le
 statut du seuil. Le fichier 14 remplace la troncature autoduale non canonique
-par un bilan martingale sur une expérience jointe spécifiée. Le calcul
-prioritaire consiste à évaluer exactement ce bilan sur le cactus de deux
-triangles : corrélation réelle, fuite de sélection/environnement, incrément du
-LCA, incrément du premier ancêtre calculé avec les quatre
-$`\Lambda_v^{ab}`$, puis score terminal. La divergence fermée des horloges
-censurées et sa borne de transport $`2\times2`$ fournissent le premier contrôle
-quantitatif de cet incrément. Sans contrôle séparé du squelette sélectionné et
-sans HF, ni l'autodualité de face ni le score oracle ne donnent une borne de
-weak recovery.
+par la décomposition exacte des liens postcritiques. Le calcul prioritaire sur
+le cactus de deux triangles doit produire, pour chaque ancêtre, les trois
+comptes conformes, les quatre $`\Lambda_v^{ab}`$, puis le log-rapport de
+parité complet. Une énumération indépendante doit contre-auditer la loi
+conditionnelle de Kruskal et le critère pair/impair. Sans contrôle séparé du
+squelette sélectionné et sans HF, ni l'autodualité de face ni le score oracle
+ne donnent une borne de weak recovery.
 
 ## Bloc F — Mélange et interpolation algorithmique
 
