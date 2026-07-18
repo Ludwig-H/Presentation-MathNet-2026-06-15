@@ -662,8 +662,9 @@ coordonnée $`q`$.
 
 Construire un état fini $`Z_r`$ tel que le transfert d'un bloc dépende de
 $`Z_r`$ et non de toute l'histoire ancestrale. Sur cactus, $`Z_r`$ est fini
-exactement. Sur une bande de largeur fixée, sa taille est exponentielle dans
-la largeur mais reste calculable.
+exactement à bord libre : le fichier 21 montre qu'il se réduit à la parité
+répliquée et calcule le noyau fermé. Sur une bande de largeur fixée, sa taille est
+exponentielle dans la largeur mais reste calculable.
 
 ### G3 — abondance de blocs contractants
 
@@ -672,8 +673,9 @@ interface, soit un message de bord screené. La distance entre $`i`$ et $`j`$
 ne suffit pas : un corridor macroscopique peut contenir des goulots pivotaux
 mais aussi de grandes coupes presque déterministes.
 
-L'ordre recommandé est $`G2`$ sur cactus, puis $`G1`$ sur le même modèle,
-avant toute extrapolation à la grille entière.
+Le cactus résout désormais $`G2`$ et la comparaison favorable sur son propre
+squelette. L'ordre recommandé est $`G2`$ sur une bande de largeur deux, puis
+$`G1`$ sur cette même bande, avant toute extrapolation à la grille entière.
 
 ## 9. Audit et contre-audit
 
@@ -687,6 +689,8 @@ avant toute extrapolation à la grille entière.
 | Le facteur $`(1-q_\triangle)^{m-1}`$ donne une queue Palm | Non démontré | il faut contrôler l'entropie des coupes et le biais de paire |
 | Les parités latentes doivent être indépendantes | Faux | un prior corrélé arbitraire est permis dans le théorème 4.1 |
 | La formule produit (5.1) vaut toujours | Faux | elle exige le prior factorisé et l'absence d'état de bord partagé |
+| Le cas LCA critique est le plus favorable sur un cactus | Établi dans le fichier 21 | aucun transfert automatique à la grille |
+| La persistance cactus tend vers zéro à $`p=0.8`$ | Établi exactement | chaîne d'articulations, pas cycles chevauchants |
 | Une infinité de blocs $`m=2`$ prouve $`p=0.8`$ | Seulement sous (7.1) | abondance et transfert de bord non démontrés sur la grille |
 | La perte collapsed prouve la perte top-down | Pas nécessaire | le bloc collapsed fournit directement un couplage pairwise valide |
 | La constante de Nishimori suit de Blackwell | Faux | Blackwell ordonne les niveaux mais ne contrôle pas l'abondance des blocs |
@@ -696,3 +700,7 @@ pour la preuve d'impossibilité, et le sweep top-down comme dynamique
 séquentielle de comparaison et diagnostic. Les deux utilisent les mêmes
 facteurs hiérarchiques $`\Lambda_v`$ ; le premier marginalise leur feedback
 dans un bloc exact au lieu de le supposer indépendant.
+
+Le [certificat cactus](21_CACTUS_COLLAPSED_CERTIFICATE.md) réalise le premier
+cas non trivial de ce programme et déplace le prochain verrou vers une bande
+triangulaire de largeur deux.

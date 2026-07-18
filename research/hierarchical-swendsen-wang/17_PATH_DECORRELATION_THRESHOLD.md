@@ -1120,8 +1120,9 @@ En général,
 La norme $`\kappa_r`$ voit les états rares de frontière et les dépendances
 avec le futur, tandis que $`\Gamma_m`$ est une fiabilité locale moyenne. Elle
 peut même valoir $`1`$ à cause d'un état déterministe alors que la fiabilité
-moyenne est strictement inférieure à $`1`$. Le résultat décisif à chercher
-sur cactus puis bandes est donc une contraction de bloc
+moyenne est strictement inférieure à $`1`$. Le fichier 21 établit la
+contraction de bloc sur cactus. Le résultat décisif restant sur les bandes
+est une borne
 
 ```math
 \|\mathcal T_{r:r+\ell}\|\le e^{-\mathfrak a_{r,\ell}(p)}

@@ -732,7 +732,12 @@ répliqué. Pour le sweep top-down non collapsed, il faut ajouter une erreur de
 dépendance dynamique ; à défaut, (4.4) fournit une route plus faible par les
 queues d'anti-alignement.
 
-### C3 — contraction critique, statut : ouvert
+Sur une chaîne de cactus triangulaires, le fichier 21 ferme cette comparaison
+sans hypothèse HF-S2 : les coefficients connecté et pivotal décroissent
+explicitement avec le rang de fusion. Ce résultat ne couple pas encore les
+corridors de la grille.
+
+### C3 — contraction critique, établie sur cactus, ouverte sur la grille
 
 Extraire des blocs Palm critiques dont le transfert signé répliqué possède
 un coefficient strictement inférieur à un. Les buckets $`m=2`$ screenés
@@ -740,7 +745,15 @@ donnent le premier candidat avec les constantes (6.1). Le certificat final
 doit porter sur un bloc collapsed complet, pas sur une fiabilité marginale.
 Le fichier 20 donne la formule produit exacte lorsque les parités du corridor
 sont factorisées et isole l'état de bord comme unique obstruction à cette
-factorisation.
+factorisation. Le fichier 21 résout cette obstruction sur le cactus : sous la
+densité Palm fixant le LCA au rang $`q`$,
+
+```math
+A_h^{\rm LCA}(p,q)
+=
+\kappa_{\rm flux}(p,q)\kappa_{\rm conn}(p,q)^{h-1}
+\longrightarrow0.
+```
 
 Sous C0--C3,
 
@@ -754,20 +767,22 @@ $`p=0.8`$ et, par dégradation BSC, pour tout $`p\le0.8`$.
 ## 9. Calcul certifié recommandé
 
 Le prochain objet fini n'est pas une nouvelle simulation de grande taille.
-Il faut construire, sur une chaîne de cactus de triangles, le noyau de bloc
+Le cactus est maintenant calculé exactement dans le fichier 21. Il faut
+construire, sur une bande triangulaire de largeur deux, le noyau de bloc
 
 ```math
 Q_B(x,\epsilon,dy),
 ```
 
-où $`x,y`$ contiennent l'état-frontière et
+où $`x,y`$ contiennent la partition de frontière et
 $`\epsilon\in\{-1,+1\}`$ la parité transmise. Pour chaque bloc critique et
 tardif, deux calculs indépendants sont requis.
 
 1. Énumération directe de toutes les marques et de toutes les sorties des
    heat baths.
 2. Projection collapsed du corridor, recalculée par matrice de transfert et
-   arithmétique d'intervalles à $`p=4/5`$.
+   arithmétique d'intervalles à $`p=4/5`$ ; son rayon spectral doit être
+   certifié strictement inférieur à un.
 
 La domination peut alors être cherchée comme une dégradation du canal de
 parité : conditionnellement à la frontière, la sortie tardive doit s'obtenir
@@ -790,6 +805,8 @@ signes frustrés et le contre-exemple (5.1) détruisent la monotonie globale.
 | Le bucket critique domine le tardif sous sa loi complète | Établi à taille fixée par Blackwell | exige $`B\perp K\mid X`$ ; le sweep réutilise ensuite $`K`$ |
 | Le niveau critique compense tout changement de taille | Faux | contre-certificat cross-size exact dans le fichier 20 |
 | Blackwell se compose sur le corridor collapsed | Établi dans le fichier 20 | même squelette ; la géométrie Palm reste à coupler |
+| Le LCA critique est le cas favorable sur le cactus | Établi dans le fichier 21 | repose sur les articulations |
+| La conformité Nishimori du cactus tend vers $`1/2`$ | Établi dans le fichier 21 | ne prouve pas la grille |
 | Toute violation vient d'un anti-alignement quantifiable | Établi pour un nœud fixé | le sweep demande l'état-frontière dynamique |
 | Les petits tores prouvent HF-S2 | Faux | ils donnent six tests compatibles avec son sens |
 | HF-S2 suffit à $`p=0.8`$ | Faux | il faut aussi faire tendre le second moment critique vers zéro |

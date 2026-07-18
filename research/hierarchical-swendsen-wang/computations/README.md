@@ -31,6 +31,7 @@ Les scripts n'ont pas de dépendance scientifique externe.
 | `favorable_time_comparison.py` | anti-alignement, Blackwell à taille fixe et incomparabilité cross-size certifiée à $`p=4/5`$ |
 | `pair_favorability_diagnostic.py` | comparaison pondérée critique/tardive par classes de paires |
 | `collapsed_corridor_transfer.py` | transfert collapsed exact pour un corridor et un prior corrélé |
+| `cactus_collapsed_certificate.py` | canal répliqué exact d'une chaîne de cactus, LCA Palm et certificat $`p=0.8`$ |
 
 Chaque module actif possède un fichier `test_*.py` associé.
 
@@ -76,6 +77,30 @@ neutral m=2 blocks=40 bound=4.4047181845e-07
 
 Ces nombres valident l'énumération sur un corridor fixé ; ils ne représentent
 pas la loi du tore triangulaire.
+
+## Certificat cactus collapsed
+
+```bash
+python3 \
+  research/hierarchical-swendsen-wang/computations/cactus_collapsed_certificate.py
+```
+
+Le module sépare exactement les fusions directe-première et
+latérale-première d'un triangle, puis calcule les coefficients connecté et
+pivotal. À $`p=0.8`$ et au rang critique, le début de la sortie est :
+
+```text
+p=0.8 q_critical=0.347296355334 beta_critical=0.410716539196
+one block: connection=0.426022047760 direct-first|connected=0.564864236889 connected_reliability=0.886752566857 flux_reliability=0.791530736866
+blocks=20 second_moment=0.0903751613589 conformity=0.545187580679 lca_second=0.0806704381115 lca_conformity=0.540335219056
+blocks=40 second_moment=0.00816766979065 conformity=0.504083834895 lca_second=0.00729060386122 lca_conformity=0.503645301931
+three path-first blocks: direct=0.334328185717 transfer=0.334328185717 gap=0
+```
+
+La preuve fermée, la distinction entre connexion cumulative et densité LCA,
+ainsi que les limites du transfert à la grille sont dans le fichier 21. Les
+tests comparent la formule à une quadrature, une énumération globale des
+spins et marques, un produit local indépendant et des intervalles rationnels.
 
 ## Certificat Blackwell lorsque la taille change
 
@@ -135,13 +160,15 @@ une erreur standard : il ne faut pas surinterpréter les six signes positifs.
 
 ## Prochain module
 
-Le prochain ajout doit être `cactus_collapsed_certificate.py`. Il devra :
+Le prochain ajout doit être `triangular_band_collapsed_certificate.py`. Il
+devra :
 
-1. énumérer un cactus de deux puis trois triangles ;
-2. construire l'état de bord minimal ;
-3. calculer le noyau répliqué collapsed ;
-4. comparer critique et tardif par un programme linéaire fini ;
-5. fournir une seconde implémentation indépendante ;
-6. préparer une certification par arithmétique d'intervalles à $`p=4/5`$.
+1. encoder les partitions de bord d'une bande triangulaire de largeur deux ;
+2. conserver les deux parités répliquées et le statut pivotal ;
+3. calculer le noyau collapsed sans projection scalaire prématurée ;
+4. comparer critique et tardif sur l'état complet ;
+5. fournir une seconde implémentation indépendante sur deux cellules ;
+6. certifier le rayon spectral à $`p=4/5`$ par intervalles.
 
-Aucune nouvelle simulation de grand tore n'est prioritaire avant ce module.
+Aucune nouvelle simulation de grand tore n'est prioritaire avant ce
+certificat de largeur deux.

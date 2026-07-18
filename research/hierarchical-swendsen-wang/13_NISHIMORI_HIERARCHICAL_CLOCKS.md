@@ -416,8 +416,9 @@ q_u^{00}+q_u^{11}
 q_u^{10}+q_u^{01}.
 ```
 
-Ce critère, et non l'ancienne notation provisoire $`\widehat\Psi_K`$, doit
-désormais être calculé sur cactus puis sur bandes triangulaires.
+Ce critère, et non l'ancienne notation provisoire $`\widehat\Psi_K`$, est
+maintenant calculé sur le cactus dans le fichier 21. Il doit ensuite être
+transporté aux bandes triangulaires.
 
 ## 5. Audit critique de la constante
 
@@ -473,16 +474,19 @@ Réobtenir la constante conjecturée exige donc une identité sur les
 | Identification de cette racine au seuil de weak recovery | **Conjecture** |
 | Troncature autoduale brute des facteurs ancestraux | **Abandonnée : non canonique** |
 | Décomposition exacte de la majorité postcritique | **Établie dans le fichier 14** |
-| Critère quatre états sur un cactus de deux triangles | **Prochain calcul** |
+| Canal collapsed sur une chaîne de cactus triangulaires | **Établi exactement dans le fichier 21** |
+| Identification de l'équation de Nishimori par ce canal cactus | **Non obtenue : le coefficient reste strictement contractant pour $`(1+q_\triangle)/2<p<1`$** |
 
 L'ordre de travail est maintenant :
 
 1. conserver le calcul de face comme calibration exacte ;
-2. calculer sur un cactus de deux triangles les trois comptes de chaque
-   ancêtre et les quatre $`\Lambda_v^{ab}`$ ;
-3. comparer le critère pair/impair exact aux majorités scalaire et groupées,
-   puis le contre-auditer par énumération directe ;
-4. seulement ensuite chercher une fermeture autoduale ou une limite de bandes.
+2. utiliser le cactus du fichier 21 comme cas-test exact : il perd toute
+   persistance pour chaque $`(1+q_\triangle)/2<p<1`$ et ne sélectionne donc
+   pas la constante de Nishimori ;
+3. construire le transfert collapsed d'une bande triangulaire de largeur
+   deux, où les cycles se chevauchent ;
+4. chercher seulement ensuite une identité autoduale sur ce transfert ou
+   une limite de bandes.
 
 Le calcul de face reproductible est dans
 [`computations/nishimori_hierarchical_entropy.py`](computations/nishimori_hierarchical_entropy.py),

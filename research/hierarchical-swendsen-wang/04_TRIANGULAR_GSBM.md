@@ -531,6 +531,9 @@ vraies censurées après $1$ et les fausses se compensent, tandis que les
 arêtes internes aux enfants sont exclues. Tout l'excès conforme vient des
 vraies horloges dans $`(\beta_c,1]`$. Il montre aussi pourquoi une majorité
 scalaire ne suffit pas : le diagnostic « vraies tardives contre fausses » a
-déjà son seuil à $`(2+q_c)/3=0.782432\ldots<p_{\mathrm{info}}`$. Le cactus de deux
-triangles doit donc calculer les deux majorités groupées de chaque ancêtre,
-les quatre $`\Lambda_v^{ab}`$, puis le critère de parité exact du heat bath.
+déjà son seuil à $`(2+q_c)/3=0.782432\ldots<p_{\mathrm{info}}`$. Le
+[certificat cactus](21_CACTUS_COLLAPSED_CERTIFICATE.md) calcule désormais le
+critère de parité exact sans réduire les buckets à cette majorité. Il montre
+une perte exponentielle à $`p=0.8`$, mais sa factorisation par articulations
+ne s'étend pas encore à la grille ; le prochain objet est une bande
+triangulaire de largeur deux.

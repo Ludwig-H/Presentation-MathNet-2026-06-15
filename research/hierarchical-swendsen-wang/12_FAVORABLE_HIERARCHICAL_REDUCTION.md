@@ -659,6 +659,12 @@ entière, elle demande des estimations multi-bras pour les trois interfaces
 ancestrales. Ce sont ces objets géométriques, et non un canal de triangle
 isolé, qui déterminent la voie hiérarchique demandée.
 
+Le [fichier 21](21_CACTUS_COLLAPSED_CERTIFICATE.md) réalise maintenant cette
+récurrence sur une chaîne de cactus : le cas critique y est exactement le
+cas postcritique le plus favorable et le second moment décroît
+exponentiellement. Ce résultat ferme le modèle d'articulation, pas l'étape 2
+sur la grille.
+
 ## 9. Contre-audits obligatoires
 
 1. **Conditionnement contre domination.** Conditionner sur

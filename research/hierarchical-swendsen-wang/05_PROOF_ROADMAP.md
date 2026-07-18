@@ -204,7 +204,7 @@ Sous parités indépendantes uniformes,
 **Statut.** Établi dans l'expérience annoncée. Ne pas l'utiliser sur la
 grille sans théorème de compression du bord.
 
-## Bloc G — géométrie Palm, ouvert
+## Bloc G — géométrie Palm, partiellement résolu sur cactus
 
 ### G0. Séparation en coordonnée $`q`$
 
@@ -254,9 +254,25 @@ pas seulement mêmes incidences approximatives.
 
 ### G3. Premier modèle
 
-Commencer par un cactus de triangles : incidence arborescente, état de bord
-fini et énumération exacte. Passer ensuite aux bandes de largeur fixée. La
-grille bidimensionnelle entière vient seulement après ces deux certificats.
+Sur une chaîne de cactus triangulaires à bord libre, l'incidence
+arborescente réduit l'état de bord à la parité répliquée. Le fichier 21
+établit exactement
+
+```math
+A_h^{\rm LCA}(p,q)
+=
+\kappa_{\rm flux}(p,q)\kappa_{\rm conn}(p,q)^{h-1},
+```
+
+contre-audité par énumération globale, transfert local, quadrature et
+intervalles rationnels. Les deux coefficients décroissent avec $`q`$ : le
+rang critique est bien le cas postcritique le plus favorable sur ce modèle.
+
+**Statut.** Établi sur le cactus. La prochaine étape est une bande
+triangulaire de largeur deux ; la grille bidimensionnelle entière vient
+seulement après ce certificat. Ni le cactus ni une bande de largeur fixée ne
+possèdent une géante à $`q_\triangle`$ : ce sont des certificats de canal et
+d'état de bord, pas des substituts à la loi Palm bidimensionnelle.
 
 ## Bloc X — contraction critique à $`p=0.8`$, ouvert
 
@@ -280,7 +296,8 @@ Extraire $`N_L\to\infty`$ blocs dont le coefficient répliqué est uniformément
 inférieur à un. Les blocs peuvent être :
 
 - des coupes $`m=2`$ screenées ;
-- des blocs cactus plus grands avec coefficient certifié ;
+- des blocs cactus, dont le coefficient est maintenant certifié dans le
+  fichier 21 ;
 - des blocs de bande admis par un programme linéaire de dégradation.
 
 **Statut.** Ouvert sur la grille.
@@ -295,21 +312,23 @@ Construire un transfert fini tel que
 \mathbb E[\kappa^{N_L}]+o(1).
 ```
 
-**Statut.** Prochaine cible mathématique.
+**Statut.** Établi sur le cactus par le fichier 21 ; ouvert sur les bandes et
+la grille.
 
 ## Prochain calcul certifié
 
-Sur un cactus de deux puis trois triangles :
+Sur une bande triangulaire de largeur deux :
 
-1. énumérer le squelette non marqué et toutes les marques ;
-2. construire la conditionnelle collapsed des parités du corridor ;
-3. calculer son transfert répliqué par sommation directe ;
-4. le recalculer comme produit matriciel indépendant ;
-5. chercher une dégradation critique/postcritique par programme linéaire ;
-6. certifier les inégalités à $`p=4/5`$ par intervalles.
+1. encoder la partition non marquée des sommets de coupe ;
+2. ajouter les deux parités répliquées et le statut du bloc pivotal ;
+3. construire la matrice de transfert collapsed $`\mathscr U_{p,2}`$ ;
+4. la recalculer par une énumération globale indépendante sur deux cellules ;
+5. certifier $`r(\mathscr U_{0.8,2})<1`$ par intervalles ;
+6. chercher une dégradation critique/postcritique sur l'état complet.
 
 Un résultat n'est accepté que si les deux implémentations donnent les mêmes
-probabilités avant l'arrondi d'intervalle.
+poids avant l'arrondi d'intervalle. Le rayon spectral ne doit jamais être
+calculé après projection prématurée sur une seule majorité.
 
 ## Pistes reléguées
 
@@ -321,7 +340,7 @@ programme principal :
 - calibration Nishimori utilisée comme preuve ;
 - chemin physique marqué de la MSF ;
 - formule PATH-FAC appliquée sans factorisation ;
-- nouveaux diagnostics de grands tores avant le certificat cactus.
+- nouveaux diagnostics de grands tores avant le certificat de largeur deux.
 
 ## Critère de clôture à $`p=0.8`$
 

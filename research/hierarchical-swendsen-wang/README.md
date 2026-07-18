@@ -16,6 +16,12 @@ lointaine par sa composante critique, remplacer son corridor par un heat bath
 conjoint exact, puis montrer que le transfert répliqué perd toute sa
 corrélation**.
 
+Le premier jalon géométrique est maintenant résolu exactement sur une chaîne
+de cactus triangulaires. Même lorsque le LCA de la paire est fixé au seuil de
+percolation — le cas postcritique le plus favorable sur ce modèle — la
+persistance collapsed décroît exponentiellement. Le passage du cactus à la
+grille reste ouvert.
+
 ## 1. L'idée en cinq minutes
 
 ### Le modèle
@@ -129,8 +135,9 @@ flowchart TD
     C0["C0 — racines distinctes"] --> R["Réduction aux paires critiques"]
     C1["C1 — décroissance sous-critique"] --> R
     R --> C2["C2 — domination favorable"]
-    C2 --> C3["C3 — contraction du corridor critique"]
-    C3 --> W["Pas de weak recovery à p=0.8"]
+    C2 --> C3a["C3a — cactus exact"]
+    C3a --> C3b["C3b — bande puis grille"]
+    C3b --> W["Pas de weak recovery à p=0.8"]
 ```
 
 | certificat | contenu | statut |
@@ -142,6 +149,7 @@ flowchart TD
 | C2-tailles | remplacer arbitrairement un bucket tardif par un bucket critique d'une autre taille | faux en général ; contre-certificat rationnel |
 | C2-géométrie | coupler les corridors Palm critique et postcritique | ouvert |
 | C3-bloc | un bucket critique $`m=2`$ screené contracte strictement à $`p=0.8`$ | démontré localement |
+| C3-cactus | LCA fixé à $`q`$, transfert collapsed et comparaison critique/postcritique | démontré exactement sur une chaîne de cactus |
 | C3-global | extraire un nombre divergent de blocs contractants avec erreur totale $`o(1)`$ | ouvert |
 | Globalisation | la disparition du second moment pairwise interdit la weak recovery | démontré |
 
@@ -232,23 +240,62 @@ Dix blocs donnent déjà $`0.025761997386\ldots`$, quarante blocs
 $`4.4047181845\,10^{-7}`$. Le verrou n'est donc plus la constante locale,
 mais l'existence et le découplage de tels blocs sous la loi Palm critique.
 
+### Certificat physique sur un cactus triangulaire
+
+Pour un triangle dont les deux sommets d'articulation sont connectés avant
+le rang $`q`$, le coefficient répliqué exact n'est pas $`s_p(q)`$, car les
+histoires où l'arête directe fusionne en premier révèlent parfaitement la
+relation. Il vaut
+
+```math
+\kappa_{\rm conn}(p,q)
+=
+\frac{1+(2p-1)q-q^2}{1+q-q^2}.
+```
+
+Si le LCA des extrémités d'une chaîne de $`h`$ triangles est fixé au rang
+$`q`$ au sens de Palm, alors
+
+```math
+A_h^{\rm LCA}(p,q)
+=
+\kappa_{\rm flux}(p,q)\kappa_{\rm conn}(p,q)^{h-1},
+\qquad
+\kappa_{\rm flux}(p,q)
+=
+\frac{1+(4p-2)q-3q^2}{1+2q-3q^2}.
+```
+
+Les deux coefficients décroissent strictement avec $`q`$. Le rang critique
+est donc exactement le cas postcritique le plus favorable sur ce cactus. À
+$`p=0.8`$ et $`q=q_\triangle`$,
+$`\kappa_{\rm conn}=0.886752566857\ldots`$ ; pour $`h=40`$, le second moment
+LCA vaut $`0.007290603861\ldots`$ et la conformité Nishimori moyenne
+$`0.503645301931\ldots`$. Ce théorème ne contrôle pas encore les cycles
+chevauchants ni l'état de bord de la grille. En outre, le cactus est
+quasi unidimensionnel : son propre seuil vaut $`1`$ et le conditionnement de
+connexion à $`q_\triangle`$ a la masse rare $`c(q_\triangle)^h`$. Il certifie
+le canal favorable, pas la loi de la composante géante triangulaire.
+
 ## 5. Ce qu'il reste à montrer
 
 Les trois problèmes prioritaires sont, dans cet ordre :
 
-1. **État de bord fini.** Construire sur un cactus de triangles le noyau
-   exact d'un bloc collapsed, puis le contre-auditer par deux énumérations
-   indépendantes.
-2. **Géométrie Palm.** Décrire la loi des tailles
+1. **Bande de largeur deux.** Construire le noyau collapsed exact en gardant
+   la partition de la coupe et les deux parités répliquées ; certifier un
+   rayon spectral strictement inférieur à un à $`p=0.8`$. Cette bande teste
+   l'état de bord, mais reste quasi unidimensionnelle et ne remplace pas la
+   géométrie Palm de la grille.
+2. **Géométrie Palm.** Décrire sur la grille la loi des tailles
    $`(m_r)`$, des niveaux $`(\beta_r)`$ et des incidences du corridor vu
    depuis une paire critique lointaine, puis construire un couplage qui
    préserve les tailles ou respecte leur ordre de Blackwell partiel.
 3. **Abondance contractante.** Montrer qu'un nombre divergent de blocs a une
    petite interface ou un message de bord screené.
 
-Le prochain certificat fini doit porter sur le cactus de deux ou trois
-triangles et calculer le canal répliqué complet, pas seulement une majorité
-ou une fiabilité marginale.
+Le certificat cactus étant acquis, le prochain certificat fini doit porter
+sur une bande triangulaire de largeur deux. C'est le premier modèle où des
+cycles se chevauchent et où l'état de bord à un bit du cactus peut échouer.
 
 ## 6. Ce qui n'est pas une preuve du seuil
 
@@ -286,6 +333,7 @@ ou une fiabilité marginale.
 | 6 | [18_CRITICAL_PALM_REPLICATED_TRANSFER.md](18_CRITICAL_PALM_REPLICATED_TRANSFER.md) | second moment répliqué et globalisation |
 | 7 | [19_FAVORABLE_SWEEP_PROJECTIONS.md](19_FAVORABLE_SWEEP_PROJECTIONS.md) | projections, racines, Blackwell local et cible $`p=0.8`$ |
 | 8 | [20_COLLAPSED_CORRIDOR_BLACKWELL.md](20_COLLAPSED_CORRIDOR_BLACKWELL.md) | dynamique collapsed, tensorisation et nouveaux verrous |
+| 9 | [21_CACTUS_COLLAPSED_CERTIFICATE.md](21_CACTUS_COLLAPSED_CERTIFICATE.md) | canal cactus exact, LCA Palm, cas favorable et perte exponentielle |
 
 ### Compléments utiles
 
@@ -298,7 +346,7 @@ ou une fiabilité marginale.
   [10_ANCESTRAL_LAMBDA_ESTIMATION.md](10_ANCESTRAL_LAMBDA_ESTIMATION.md) et
   [15_CRITICAL_GIANT_PAIR_FLIP.md](15_CRITICAL_GIANT_PAIR_FLIP.md) : calculs
   locaux et contrôle des ancêtres.
-- [12_FAVORABLE_HIERARCHICAL_REDUCTION.md](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : première réduction favorable, désormais renforcée par les fichiers 19--20.
+- [12_FAVORABLE_HIERARCHICAL_REDUCTION.md](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : première réduction favorable, désormais renforcée par les fichiers 19--21.
 
 ### Audits secondaires conservés
 
@@ -341,6 +389,7 @@ python3 -m unittest discover \
   -s research/hierarchical-swendsen-wang/computations \
   -p 'test_*.py'
 python3 research/hierarchical-swendsen-wang/computations/collapsed_corridor_transfer.py
+python3 research/hierarchical-swendsen-wang/computations/cactus_collapsed_certificate.py
 ```
 
 ## Sources internes
