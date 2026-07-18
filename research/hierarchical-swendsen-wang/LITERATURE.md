@@ -1,6 +1,6 @@
 # État de l'art ciblé
 
-Recherche ciblée effectuée jusqu'au 17 juillet 2026. Elle ne constitue pas une preuve exhaustive de nouveauté.
+Recherche ciblée effectuée jusqu'au 18 juillet 2026. Elle ne constitue pas une preuve exhaustive de nouveauté.
 
 ## Positionnement prudent
 
@@ -42,6 +42,9 @@ Des morceaux importants existent séparément. La nouveauté défendable n'est d
 - [Nolin, *Near-critical percolation in two dimensions*](https://arxiv.org/abs/0711.4948), [DOI](https://doi.org/10.1214/EJP.v13-565). Présente les estimées de longueur de corrélation et les relations d'échelle nécessaires pour choisir une fenêtre $`\delta_n`$ autour du seuil.
 - [Damron–Sapozhnikov, *Outlets of 2D invasion percolation and multiple-armed incipient infinite clusters*](https://arxiv.org/abs/0903.4496), [DOI](https://doi.org/10.1007/s00440-010-0274-y). Montre que les goulots d'invasion approchent le seuil tout en conservant une structure d'outlets ; cette distinction avertit que $`\beta_{ij}`$ ne doit pas être supposé concentré exactement en $`\beta_c`$ pour une paire ponctuelle.
 - [Duminil-Copin–Raoufi–Tassion, *Sharp phase transition for the random-cluster and Potts models via decision trees*](https://arxiv.org/abs/1705.03104), [DOI](https://doi.org/10.4007/annals.2019.189.1.2). Donne décroissance exponentielle sous le seuil et densité supercritique sur les graphes transitifs pour le random-cluster $`q\ge1`$. Ces résultats justifient les dichotomies géométriques de référence, mais ne s'appliquent pas directement à la postérieure frustrée conditionnelle.
+- [Aizenman–Barsky, *Sharpness of the Phase Transition in Percolation Models*](https://projecteuclid.org/journals/communications-in-mathematical-physics/volume-108/issue-3/Sharpness-of-the-phase-transition-in-percolation-models/cmp/1104116538.full), [DOI](https://doi.org/10.1007/BF01210689). Fournit la décroissance exponentielle sous-critique utilisée pour localiser le LCA d'une paire conditionnée à être connectée au seuil.
+- [Köhler-Schindler–Tassion, *Crossing probabilities for planar percolation*](https://arxiv.org/abs/2011.04618). Forme robuste de RSW et extensions de volume fini ; combinée à la décroissance sous-critique, elle donne la séparation exponentielle/polynomiale du lemme de localisation critique.
+- [Járai, *Incipient infinite percolation clusters in 2D*](https://projecteuclid.org/journals/annals-of-probability/volume-31/issue-1/Incipient-infinite-percolation-clusters-in-2D/10.1214/aop/1046294317.full), [DOI](https://doi.org/10.1214/aop/1046294317). Identifie plusieurs conditionnements critiques lointains à l'IIC en limite locale. Cette loi est un proxy pour le voisinage d'un endpoint ; elle ne fournit pas la loi Palm à deux points du backbone entier ni les buckets du dendrogramme de Kruskal.
 
 **Contre-audit pour le chemin hiérarchique.** La mesure pivotale, la limite
 d'échelle du MST et les outlets d'invasion ne donnent pas directement la loi

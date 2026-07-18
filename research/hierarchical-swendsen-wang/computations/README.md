@@ -17,6 +17,8 @@ python3 research/hierarchical-swendsen-wang/computations/nishimori_hierarchical_
 python3 research/hierarchical-swendsen-wang/computations/critical_component_boundary.py
 python3 research/hierarchical-swendsen-wang/computations/hierarchical_flip_probabilities.py
 python3 research/hierarchical-swendsen-wang/computations/path_decorrelation_threshold.py
+python3 research/hierarchical-swendsen-wang/computations/critical_pair_path_geometry.py
+python3 research/hierarchical-swendsen-wang/computations/joint_hierarchical_sweep.py
 ```
 
 ## Modules et extensions prévues
@@ -38,6 +40,10 @@ python3 research/hierarchical-swendsen-wang/computations/path_decorrelation_thre
 - `test_hierarchical_flip_probabilities.py` : balance détaillée des deux noyaux mono-site, reconstruction indépendante des quatre poids, spécialisation critique, monotonie des majorités précoces, énumération exhaustive de PATH-FAC et contre-exemple dépendant à sa factorisation ;
 - `path_decorrelation_threshold.py` : atténuation cumulée du chemin, fonction de partition des tailles hétérogènes, inversion de l'exposant géométrique, seuil $`p_{\mathrm{path}}(\alpha)`$ pour interfaces logarithmiques, fenêtre aiguë, déficit à taille fixe lorsque $`p\uparrow1`$ et coefficient géométrique associé à Nishimori ;
 - `test_path_decorrelation_threshold.py` : inversion indépendante du seuil, constantes pair/impair à haute fidélité, limite de la fenêtre logarithmique, échelle des niveaux descendants et contre-audit numérique de la calibration Nishimori ;
+- `critical_pair_path_geometry.py` : hiérarchie critique universelle en coordonnée $`q`$ sur un tore triangulaire, échantillonnage exact de la loi Palm d'une paire connectée et lointaine, tailles de buckets, niveau du LCA et atténuation PATH-FAC évaluée sur une même géométrie pour plusieurs $`p`$ ;
+- `test_critical_pair_path_geometry.py` : nombre exact d'arêtes du tore, distance triangulaire, affectation de toutes les arêtes physiques à la coupe de Kruskal, inversion de l'horloge et réutilisation d'une hiérarchie classée ;
+- `joint_hierarchical_sweep.py` : contre-audit exhaustif sur petits tores du sweep joint top-down ou bottom-up, avec tous les facteurs $`\Lambda_v^{ab}e^{(1-\beta_v)\Lambda_v^{ab}}`$ affectés par chaque flip et estimation sans biais de $`H_S(i,j)^2`$ ;
+- `test_joint_hierarchical_sweep.py` : concordance entre buckets et coupes physiques, comparaison du heat bath local à la densité conditionnelle complète, recoloration équitable des racines, support de l'état planté et estimateur répliqué du second moment ;
 - `exact_enumeration/` : énumération de toutes les configurations et horloges discrétisées sur petits graphes ;
 - `symbolic/` : simplification des poids $`q_u^{ab}`$, contractions et seuils ;
 - `triangular_grid/` : tores triangulaires, bandes et cactus ;

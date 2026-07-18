@@ -134,6 +134,32 @@ Donc
 ```
 car $`\|a\|_2^2=n`$. La marginale de $\sigma'$ est postérieure ; l'identité de Nishimori donne la même probabilité de succès contre $\sigma'$ que contre la vérité.
 
+### Corollaire pairwise $`L^2`$ — statut : établi
+
+Si $`I_n,J_n`$ sont indépendants et uniformes dans $`V_n`$, alors
+
+```math
+\boxed{
+h_n(S)
+\le
+\sqrt{\mathbb E[H_S(I_n,J_n)^2]}.
+}
+```
+
+En effet, point par point,
+
+```math
+\frac{\lambda_{\max}(H_S)}n
+\le
+\frac{\|H_S\|_{\mathrm F}}n,
+```
+
+puis Jensen donne la borne après espérance. Ainsi la disparition en second
+moment de la corrélation d'une paire uniforme suffit à interdire la weak
+recovery. La disparition du seul premier moment signé ne suffit pas. Le
+[transfert répliqué sous Palm critique](18_CRITICAL_PALM_REPLICATED_TRANSFER.md)
+développe cette réduction pour un sweep hiérarchique complet.
+
 ## 3. Swendsen–Wang est exactement le cas racine
 
 Pour une recoloration **globale, uniforme et indépendante** des composantes $C$ de $`\Pi_1`$,

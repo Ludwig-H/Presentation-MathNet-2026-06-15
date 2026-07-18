@@ -259,6 +259,22 @@ $`\alpha<13.521628164595\ldots`$ dans cet oracle. Pour la vraie dynamique
 jointe, une borne par les normes des opérateurs de transfert tordus remplace
 rigoureusement la factorisation.
 
+Pour convertir cette corrélation de chemin en obstruction globale, le bon
+objet est désormais identifié : le **second moment** du transfert tordu sous
+la loi de Palm critique. Une annulation du premier moment annealed peut venir
+de compensations entre environnements encore parfaitement informatifs. Le
+fichier 18 établit la borne
+
+```math
+\mathbb E\left[\frac{\lambda_{\max}(H_S)}n\right]
+\le
+\sqrt{\mathbb E[H_S(I_n,J_n)^2]},
+```
+
+puis représente le membre de droite par deux copies du sweep partageant le
+même environnement. Le premier jalon recommandé est un certificat à
+$`p=4/5`$, qui améliorerait strictement information-percolation.
+
 Les niveaux descendants changent fortement cette calibration. Dans l'oracle
 régulier $`t=\theta\beta_c`$ avec le coefficient $`\alpha`$ ajusté à
 Nishimori au niveau critique, les seuils valent respectivement
@@ -271,7 +287,7 @@ nœuds descendants tombent dans cette bande.
 ## Socle de départ
 
 Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées.
-Les points 3, 4 et 6 à 16 rassemblent des résultats finis ou des audits
+Les points 3, 4 et 6 à 17 rassemblent des résultats finis ou des audits
 conditionnels dont l'algèbre a été vérifiée et dont le statut précis est donné
 dans le dossier ; les résultats qui utilisent la mesure jointe restent à
 intégrer dans une rédaction formelle complète avec A1.
@@ -357,6 +373,16 @@ intégrer dans une rédaction formelle complète avec A1.
     $`p_{\mathrm{path}}(\alpha)`$ est explicite, avec une fenêtre aiguë
     d'ordre $`\log\log H_L`$. Dans la dynamique jointe, la sommabilité des
     contractions $L^2$ des opérateurs tordus est un critère suffisant exact.
+17. Pour un sweep complet, la probabilité annealed de conserver la relation
+    ne suffit pas à interdire la weak recovery. Le critère pairwise exact est
+    $`\mathbb E[H_S(I_n,J_n)^2]\to0`$, qui contrôle la matrice globale par la
+    norme de Frobenius. Son calcul est un transfert tordu répliqué : même
+    hiérarchie et mêmes observations dans les deux copies, aléas de heat bath
+    indépendants. La domination favorable HF du seul LCA doit être remplacée
+    par HF-S2 pour le sweep. Le diagnostic Palm observe une croissance des
+    buckets $`m=2`$ et une perte rapide dans PATH-FAC, mais le sweep joint
+    exact reste très corrélé sur les petits tores ; aucune nouvelle borne
+    numérique n'est donc encore annoncée.
 
 ## Carte du dossier
 
@@ -377,9 +403,10 @@ intégrer dans une rédaction formelle complète avec A1.
 - [15_CRITICAL_GIANT_PAIR_FLIP.md](15_CRITICAL_GIANT_PAIR_FLIP.md) : loi résiduelle des arêtes internes sous conditionnement de géante, probabilité exacte des états pairs au LCA critique, exposant de grande coupe, hypothèses CUT et ANC et contre-audits du passage distance--interface.
 - [16_FLIP_PROBABILITIES_DESCENDANT_PATH.md](16_FLIP_PROBABILITIES_DESCENDANT_PATH.md) : probabilités explicites aux racines, feuilles et nœuds internes, paramétrisation quatre états, buckets à niveau arbitraire, identité de chemin descendant, oracle PATH-FAC, distinction MSF marquée/non marquée et obstruction des messages de frontière.
 - [17_PATH_DECORRELATION_THRESHOLD.md](17_PATH_DECORRELATION_THRESHOLD.md) : atténuation exacte du chemin, perte pour petites interfaces, spectre de tailles hétérogène, longueur de corrélation, seuil conditionnel $`p_{\mathrm{path}}(\alpha)`$ pour coupes logarithmiques, fenêtre $`p\uparrow1`$ à taille fixe, calibration Nishimori et critère de contraction pour le transfert joint.
+- [18_CRITICAL_PALM_REPLICATED_TRANSFER.md](18_CRITICAL_PALM_REPLICATED_TRANSFER.md) : localisation du LCA sous conditionnement critique, globalisation spectrale en second moment, transfert tordu répliqué, hypothèse HF-S2, cible $`p=4/5`$ et diagnostics comparés PATH-FAC/sweep joint.
 - [LITERATURE.md](LITERATURE.md) : état de l'art primaire, voisins conceptuels et positionnement prudent de la nouveauté.
 - [references.bib](references.bib) : bibliographie ciblée et autonome.
-- [computations/README.md](computations/README.md) : cahier des charges des calculs exacts et simulations à ajouter.
+- [computations/README.md](computations/README.md) : calculs exacts, diagnostics de tores et protocole reproductible.
 
 ## Convention de statut
 
@@ -392,8 +419,9 @@ Chaque affirmation nouvelle doit porter l'un des statuts suivants :
 
 ## Premier objectif publiable
 
-Rédiger d'abord le théorème fini LCA et le théorème de réduction favorable du
-fichier 12. Le premier calcul nouveau doit porter sur la loi de
+Rédiger d'abord le théorème fini LCA, puis la version sweep HF-S2 de la
+réduction favorable du fichier 18. Le premier calcul nouveau doit porter sur
+la loi de
 $`(m_{v,0},m_{v,1},m_{v,2},\beta_v)_{v\succ u}`$ vue depuis une paire
 lointaine d'une même composante critique macroscopique, sous le biais de Palm
 exact : exactement sur cactus, puis par matrices de transfert certifiées sur
@@ -415,8 +443,9 @@ de frontière « vraies tardives contre fausses ». Une seconde implémentation
 par énumération directe doit contre-auditer chaque probabilité. Ce calcul dira si
 les amplitudes hiérarchiques peuvent dépasser la borne
 $`0.794659\ldots`$, alors que la seule majorité ne le peut pas.
-Le fichier 11 est conservé comme audit auxiliaire, sans priorité sur la chaîne
-hiérarchique.
+Il doit ensuite être doublé pour calculer le second moment du transfert et
+viser d'abord le certificat $`p=4/5`$. Le fichier 11 est conservé comme audit
+auxiliaire, sans priorité sur la chaîne hiérarchique.
 
 ## Sources internes
 

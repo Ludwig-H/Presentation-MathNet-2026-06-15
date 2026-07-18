@@ -1206,3 +1206,21 @@ par une **atténuation cumulée**. Un seuil explicite en $`p`$ apparaît une foi
 fixée la croissance géométrique des interfaces ; sans cette donnée, parler
 d'un seuil universel en $`p`$ confond le bruit du canal et la géométrie du
 chemin.
+
+## 10. Passage au critère global : correction de second moment
+
+Pour une probabilité de relation d'une paire, le premier moment signé du
+transfert est le bon objet. Pour interdire la weak recovery, il faut cependant
+contrôler
+
+```math
+\mathbb E[H_S(I_n,J_n)^2],
+```
+
+et non seulement $`\mathbb E H_S(I_n,J_n)`$. Deux environnements portant des
+corrélations $`+1`$ et $`-1`$ peuvent annuler le premier moment tout en
+restant parfaitement informatifs. Le
+[transfert répliqué sous Palm critique](18_CRITICAL_PALM_REPLICATED_TRANSFER.md)
+établit la globalisation spectrale, définit le noyau répliqué partageant le
+même environnement et formule la domination HF-S2 requise pour un sweep
+complet.
