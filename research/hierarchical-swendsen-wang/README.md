@@ -287,7 +287,7 @@ nœuds descendants tombent dans cette bande.
 ## Socle de départ
 
 Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées.
-Les points 3, 4 et 6 à 17 rassemblent des résultats finis ou des audits
+Les points 3, 4 et 6 à 18 rassemblent des résultats finis ou des audits
 conditionnels dont l'algèbre a été vérifiée et dont le statut précis est donné
 dans le dossier ; les résultats qui utilisent la mesure jointe restent à
 intégrer dans une rédaction formelle complète avec A1.
@@ -383,6 +383,19 @@ intégrer dans une rédaction formelle complète avec A1.
     buckets $`m=2`$ et une perte rapide dans PATH-FAC, mais le sweep joint
     exact reste très corrélé sur les petits tores ; aucune nouvelle borne
     numérique n'est donc encore annoncée.
+18. À dendrogramme fixé, les heat baths sont des projections orthogonales et
+    le second moment du sweep vaut exactement $`\|K_Sf_{ij}\|_2^2`$, soit
+    l'autocorrélation d'un sweep palindromique. Le heat bath des racines
+    finales annule exactement les paires non connectées à $`t=1`$ dans les
+    sweeps top-down et bottom-up. La comparaison d'un nœud
+    critique à un nœud tardif est vraie hors d'un événement d'anti-alignement
+    ancestral explicite ; une monotonie point par point est réfutée à
+    $`p=0.8`$. Les diagnostics pondérés sur petits tores placent néanmoins le
+    second moment critique au-dessus du tardif pour les deux ordres de sweep.
+    Plus fortement, à taille de bucket fixée, l'expérience complète au niveau
+    critique domine exactement toute expérience postcritique au sens de
+    Blackwell ; le verrou est désormais le transport de cette domination à
+    travers la géométrie et les dépendances du sweep.
 
 ## Carte du dossier
 
@@ -404,6 +417,7 @@ intégrer dans une rédaction formelle complète avec A1.
 - [16_FLIP_PROBABILITIES_DESCENDANT_PATH.md](16_FLIP_PROBABILITIES_DESCENDANT_PATH.md) : probabilités explicites aux racines, feuilles et nœuds internes, paramétrisation quatre états, buckets à niveau arbitraire, identité de chemin descendant, oracle PATH-FAC, distinction MSF marquée/non marquée et obstruction des messages de frontière.
 - [17_PATH_DECORRELATION_THRESHOLD.md](17_PATH_DECORRELATION_THRESHOLD.md) : atténuation exacte du chemin, perte pour petites interfaces, spectre de tailles hétérogène, longueur de corrélation, seuil conditionnel $`p_{\mathrm{path}}(\alpha)`$ pour coupes logarithmiques, fenêtre $`p\uparrow1`$ à taille fixe, calibration Nishimori et critère de contraction pour le transfert joint.
 - [18_CRITICAL_PALM_REPLICATED_TRANSFER.md](18_CRITICAL_PALM_REPLICATED_TRANSFER.md) : localisation du LCA sous conditionnement critique, globalisation spectrale en second moment, transfert tordu répliqué, hypothèse HF-S2, cible $`p=4/5`$ et diagnostics comparés PATH-FAC/sweep joint.
+- [19_FAVORABLE_SWEEP_PROJECTIONS.md](19_FAVORABLE_SWEEP_PROJECTIONS.md) : produit de projections des heat baths, identité palindromique du second moment, annulation exacte des racines distinctes, critère d'anti-alignement, contre-exemple pathwise à $`p=0.8`$ et arbre de certificats C0--C3.
 - [LITERATURE.md](LITERATURE.md) : état de l'art primaire, voisins conceptuels et positionnement prudent de la nouveauté.
 - [references.bib](references.bib) : bibliographie ciblée et autonome.
 - [computations/README.md](computations/README.md) : calculs exacts, diagnostics de tores et protocole reproductible.
@@ -419,9 +433,12 @@ Chaque affirmation nouvelle doit porter l'un des statuts suivants :
 
 ## Premier objectif publiable
 
-Rédiger d'abord le théorème fini LCA, puis la version sweep HF-S2 de la
-réduction favorable du fichier 18. Le premier calcul nouveau doit porter sur
-la loi de
+Le théorème fini LCA et la version sweep de la réduction favorable sont
+maintenant formulés dans les fichiers 18--19. Le prochain objectif est de
+fermer séparément les certificats C2 et C3 du fichier 19 : domination du
+second moment postcritique par le second moment critique, puis contraction
+du transfert répliqué dans la fenêtre critique. Le premier calcul certifié
+doit porter sur la loi de
 $`(m_{v,0},m_{v,1},m_{v,2},\beta_v)_{v\succ u}`$ vue depuis une paire
 lointaine d'une même composante critique macroscopique, sous le biais de Palm
 exact : exactement sur cactus, puis par matrices de transfert certifiées sur
@@ -444,8 +461,10 @@ par énumération directe doit contre-auditer chaque probabilité. Ce calcul dir
 les amplitudes hiérarchiques peuvent dépasser la borne
 $`0.794659\ldots`$, alors que la seule majorité ne le peut pas.
 Il doit ensuite être doublé pour calculer le second moment du transfert et
-viser d'abord le certificat $`p=4/5`$. Le fichier 11 est conservé comme audit
-auxiliaire, sans priorité sur la chaîne hiérarchique.
+tester comme programme linéaire fini une dégradation BSC du bloc tardif par
+le bloc critique, puis viser d'abord le certificat $`p=4/5`$. Le fichier 11
+est conservé comme audit auxiliaire, sans priorité sur la chaîne
+hiérarchique.
 
 ## Sources internes
 

@@ -19,6 +19,8 @@ python3 research/hierarchical-swendsen-wang/computations/hierarchical_flip_proba
 python3 research/hierarchical-swendsen-wang/computations/path_decorrelation_threshold.py
 python3 research/hierarchical-swendsen-wang/computations/critical_pair_path_geometry.py
 python3 research/hierarchical-swendsen-wang/computations/joint_hierarchical_sweep.py
+python3 research/hierarchical-swendsen-wang/computations/favorable_time_comparison.py
+python3 research/hierarchical-swendsen-wang/computations/pair_favorability_diagnostic.py
 ```
 
 ## Modules et extensions prévues
@@ -44,11 +46,32 @@ python3 research/hierarchical-swendsen-wang/computations/joint_hierarchical_swee
 - `test_critical_pair_path_geometry.py` : nombre exact d'arêtes du tore, distance triangulaire, affectation de toutes les arêtes physiques à la coupe de Kruskal, inversion de l'horloge et réutilisation d'une hiérarchie classée ;
 - `joint_hierarchical_sweep.py` : contre-audit exhaustif sur petits tores du sweep joint top-down ou bottom-up, avec tous les facteurs $`\Lambda_v^{ab}e^{(1-\beta_v)\Lambda_v^{ab}}`$ affectés par chaque flip et estimation sans biais de $`H_S(i,j)^2`$ ;
 - `test_joint_hierarchical_sweep.py` : concordance entre buckets et coupes physiques, comparaison du heat bath local à la densité conditionnelle complète, recoloration équitable des racines, support de l'état planté et estimateur répliqué du second moment ;
+- `favorable_time_comparison.py` : comparaison exacte d'un bucket critique et tardif avec message ancestral, événement d'anti-alignement nécessaire et suffisant, ordre de Blackwell des expériences de compte, coefficient des buckets $`m=2`$ screenés et contre-exemple admissible à $`p=4/5`$ ;
+- `pair_favorability_diagnostic.py` : partition exacte des paires lointaines en classes précoce, critique, tardive et racines distinctes, pondération par leur multiplicité, contraste jackknife apparié et comparaison HF-S2 des sweeps top-down/bottom-up ;
+- `test_favorable_comparison.py` : équivalence algébrique du critère d'anti-alignement, borne de transport, audit par convexité de la domination de Blackwell, contre-exemple à $`p=4/5`$, constantes de screening, partition des paires et pondération Palm finie ;
 - `exact_enumeration/` : énumération de toutes les configurations et horloges discrétisées sur petits graphes ;
 - `symbolic/` : simplification des poids $`q_u^{ab}`$, contractions et seuils ;
 - `triangular_grid/` : tores triangulaires, bandes et cactus ;
 - `mixing/` : comparaison des programmes de nœuds ;
 - `results/` : sorties brutes machine-readable, jamais uniquement des figures.
+
+Le tableau fini à $`p=4/5`$ du fichier 19 est reproduit par :
+
+```bash
+python3 research/hierarchical-swendsen-wang/computations/pair_favorability_diagnostic.py \
+  --side 4 --repetitions 200 --sweeps 200 --p-values 0.8 \
+  --distance-fraction 0.25 --critical-window 0.05 --seed 20260719
+python3 research/hierarchical-swendsen-wang/computations/pair_favorability_diagnostic.py \
+  --side 6 --repetitions 120 --sweeps 160 --p-values 0.8 \
+  --distance-fraction 0.25 --critical-window 0.05 --seed 20260719
+python3 research/hierarchical-swendsen-wang/computations/pair_favorability_diagnostic.py \
+  --side 8 --repetitions 60 --sweeps 120 --p-values 0.8 \
+  --distance-fraction 0.25 --critical-window 0.05 --seed 20260719
+```
+
+La sortie JSON contient les masses de classes, le nombre d'environnements
+contributeurs, les deux ordres de sweep et les erreurs jackknife. Elle est un
+diagnostic fini et ne doit pas être citée comme preuve asymptotique.
 
 ## Premiers tests unitaires
 
