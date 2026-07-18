@@ -1,5 +1,10 @@
 # Conjecture de Nishimori et horloges hiérarchiques
 
+> **Statut dans le programme.** Cette note est une calibration entropique
+> auxiliaire. Elle fournit une identité exacte de face, mais n'est pas une
+> route autonome vers la weak recovery. La preuve prioritaire passe par le
+> [corridor collapsed](20_COLLAPSED_CORRIDOR_BLACKWELL.md).
+
 Ce fichier répond à une question précise : la dynamique hiérarchique peut-elle
 retrouver le nombre triangulaire
 

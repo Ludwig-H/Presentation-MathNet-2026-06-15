@@ -1,5 +1,10 @@
 # Seuil de décorrélation le long du chemin hiérarchique
 
+> **Statut dans le programme.** Les résultats PATH-FAC de cette note sont un
+> benchmark factorisé. Leur interprétation exacte est désormais le corridor
+> collapsed sous prior de parités indépendant ; le fichier 20 traite la
+> tensorisation avec prior corrélé et isole l'état de bord restant.
+
 Cette note cherche précisément quand, en fonction de $`p`$, deux sommets
 lointains perdent leur corrélation sous la dynamique descendante. Elle part de
 l'oracle PATH-FAC du fichier 16, puis isole un critère suffisant qui reste

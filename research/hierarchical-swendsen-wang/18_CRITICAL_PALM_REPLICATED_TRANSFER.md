@@ -730,6 +730,12 @@ donne ensuite une identité $`L^2`$ exacte, prouve l'annulation des racines
 distinctes et prouve l'ordre de Blackwell critique/postcritique à taille de
 bucket fixée. Le transport à la géométrie et à l'état-frontière reste ouvert.
 
+Le [corridor collapsed](20_COLLAPSED_CORRIDOR_BLACKWELL.md) renforce cette
+étape : il est $`L^2`$-optimal parmi les sweeps des mêmes nœuds et tensorise
+Blackwell sur tout corridor fixé, même avec un prior corrélé des parités.
+La priorité passe ainsi du feedback d'un sweep arbitraire au transfert fini
+de l'état de bord sous la loi Palm critique.
+
 Les références primaires utilisées pour la localisation critique, les lois
 Palm/IIC et le positionnement par rapport à la synchronisation sur grille
 sont recensées dans [l'état de l'art](LITERATURE.md).

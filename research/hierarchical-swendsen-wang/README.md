@@ -1,470 +1,347 @@
-# Swendsen–Wang hiérarchique — dossier de recherche
+# Swendsen–Wang hiérarchique et weak recovery
 
-Ce dossier rassemble le programme théorique ouvert par la dynamique fondée sur les horloges exponentielles et le dendrogramme de Kruskal. L'objectif prioritaire est de remplacer la seule obstruction de percolation du chapitre 11 par une quantité qui mesure la transmission d'information à toutes les échelles, puis d'obtenir des conditions nécessaires et suffisantes de weak recovery.
+Ce dossier étudie un couplage hiérarchique de répliques postérieures construit
+avec des horloges exponentielles. L'objectif est de prouver des bornes
+d'impossibilité de weak recovery plus fortes que la seule obstruction de
+percolation du chapitre 11, d'abord au point cible
 
-## Question centrale
-
-Pour $K=2$, quand l'observation $`(X_n,W_n)`$ contient-elle une information macroscopique sur $`\Sigma_n`$, c'est-à-dire quand existe-t-il un algorithme $`\tau_n`$ tel que
 ```math
-\mathbb P\left[
-\left|\frac1n\sum_{i=1}^n \Sigma_{n,i}\tau_{n,i}\right|\ge \varepsilon
-\right]
+p=\frac45=0.8
 ```
-reste strictement positive pour un $\varepsilon>0$ ? Avec l'a priori i.i.d. uniforme, cela équivaut à battre le random guess dans la définition du manuscrit.
 
-La dynamique hiérarchique doit servir de **couplage invariant de deux répliques postérieures**. La taille des composantes à la coupe $t=1$ n'est alors que le premier cas d'une observable plus riche : la persistance de l'information sous des heat baths effectués à différents nœuds du dendrogramme.
+sur le GSBM triangulaire.
 
-La voie actuellement prioritaire suit chaque paire jusqu'à son nœud de coalescence
+La voie privilégiée est désormais précise : **conditionner une paire
+lointaine par sa composante critique, remplacer son corridor par un heat bath
+conjoint exact, puis montrer que le transfert répliqué perd toute sa
+corrélation**.
+
+## 1. L'idée en cinq minutes
+
+### Le modèle
+
+Les spins inconnus sont $`\sigma_i\in\{-1,+1\}`$. Une arête observée est
+conforme à la vérité avec probabilité $`p>1/2`$. Si son poids est $`u_p`$,
+une arête satisfaite par la configuration courante reçoit une horloge
+
 ```math
-u_{ij}=\mathrm{LCA}_D(i,j).
+\xi_e\sim\mathrm{Exp}(u_p),
 ```
-À ce nœud, la parité des quatre flips contrôle exactement la survie de $`\sigma_i\sigma_j`$. Cela donne un score de fusion $`\eta_u=\tanh^2(L_u/2)`$, puis une borne sommable en temps linéaire dans le nombre de nœuds :
+
+tandis qu'une arête non satisfaite reçoit $`+\infty`$.
+
+### La hiérarchie
+
+À chaque temps $`t`$, on ouvre les arêtes $`\xi_e\le t`$. Kruskal construit
+ainsi un dendrogramme de composantes. Un nœud
+
 ```math
-Q_n
-\le
-H_n^{\mathrm{LCA}}
+u:C_1\mathbin{\dot\cup}C_2=C
+```
+
+enregistre la fusion de deux clusters au niveau $`\beta_u`$. Pour calculer
+les probabilités de flip, on utilise toutes les arêtes de la coupe
+$`E_u=C_1\times C_2`$ présentes dans le graphe, pas seulement l'arête
+gagnante de Kruskal.
+
+### La dynamique
+
+Au nœud $`u`$, les deux enfants peuvent être conservés ou retournés. Les
+quatre poids exacts sont
+
+```math
+q_u^{ab}
 =
-\frac1{n^2}\mathbb E\left[
-n+2\sum_u|C_{u,1}||C_{u,2}|\eta_u
-\right]
-\le
-\frac1{n^2}\mathbb E\sum_{R\text{ racine}}|R|^2.
+\mu_0(\sigma^{ab})
+\prod_{v\succeq u}
+\Lambda_v(\sigma^{ab})
+e^{(1-\beta_v)\Lambda_v(\sigma^{ab})},
+\qquad a,b\in\{0,1\}.
 ```
 
-La dernière quantité est la borne percolative de Swendsen--Wang : le nouveau score en est donc un raffinement exact, fusion par fusion.
+La difficulté centrale des slides est bien visible : un flip à $`u`$ change
+les taux $`\Lambda_v`$ de **tous les ancêtres** $`v\succ u`$.
 
-La nouvelle réduction à la bande critique fixe maintenant le rôle du seuil $\beta$. Si
+Aux deux extrémités :
+
+- une racine finale possède un flip global équitable sous a priori uniforme ;
+- une feuille donne le heat bath mono-site de Glauber ;
+- un nœud interne est un heat bath exact à quatre états.
+
+### La paire lointaine
+
+Pour $`f_{ij}(\sigma)=\sigma_i\sigma_j`$, un sweep $`S`$ définit une
+persistance conditionnelle $`H_S(i,j)`$. Le critère utile n'est pas son seul
+premier moment, mais
 
 ```math
-S_n(\beta)
+\mathbb E[H_S(I_L,J_L)^2].
+```
+
+Si cette quantité tend vers zéro pour une paire uniforme lointaine, la weak
+recovery est impossible.
+
+### Pourquoi le seuil critique est favorable
+
+Une paire qui n'est pas connectée à $`t=1`$ est effacée exactement par les
+recolorations indépendantes des racines. Une paire fusionnant bien avant la
+percolation a une probabilité sous-critique négligeable d'être lointaine. Il
+reste donc à comparer :
+
+1. une paire fusionnant dans la fenêtre gauche de $`\beta_c`$ ;
+2. une paire fusionnant après $`\beta_c`$.
+
+À taille de bucket fixée, l'expérience complète au seuil critique domine
+toute expérience postcritique au sens de Blackwell. Cette domination se
+tensorise sur un corridor fixé, même si ses parités latentes sont corrélées.
+Elle ne survit pas à tout changement de taille : à $`p=t=4/5`$, le bucket
+critique $`m=4`$ et le bucket tardif $`m=2`$ sont rigoureusement
+incomparables. La réduction favorable doit donc coupler la géométrie, pas
+seulement avancer les niveaux.
+
+## 2. La dynamique privilégiée
+
+Deux dynamiques sont conservées, avec des rôles différents.
+
+| dynamique | rôle | statut |
+|---|---|---|
+| Sweep top-down | dynamique séquentielle naturelle ; diagnostic du feedback ancestral | exacte, mais sa comparaison globale reste ouverte |
+| Corridor collapsed | heat bath conjoint des orientations sur les deux bras de la paire | exacte et $`L^2`$-optimale parmi les sweeps des mêmes nœuds |
+
+Si $`P_{\mathcal C}`$ est la projection collapsed et
+$`K=P_{u_1}\cdots P_{u_M}`$ un sweep du même corridor, alors
+
+```math
+\|Kg\|_2^2
 =
-\frac1{n^2}\mathbb E\sum_{C\in\Pi_\beta}|C|^2
-\longrightarrow0,
+\|P_{\mathcal C}g\|_2^2
++\|K(I-P_{\mathcal C})g\|_2^2.
 ```
 
-alors
+Le corridor collapsed est donc la meilleure dynamique hiérarchique actuelle
+pour obtenir une obstruction pairwise calculable. Le sweep top-down reste le
+contre-audit algorithmique principal.
 
-```math
-Q_n
-\le
-S_n(\beta)
-+
-\mathcal M_n((\beta,1]),
+## 3. Arbre de preuve actuel
+
+```mermaid
+flowchart TD
+    C0["C0 — racines distinctes"] --> R["Réduction aux paires critiques"]
+    C1["C1 — décroissance sous-critique"] --> R
+    R --> C2["C2 — domination favorable"]
+    C2 --> C3["C3 — contraction du corridor critique"]
+    C3 --> W["Pas de weak recovery à p=0.8"]
 ```
 
-où $`\mathcal M_n`$ somme les fusions au-dessus de $\beta$, pondérées par $`\eta_u`$. La weak recovery exige donc une masse macroscopique de **connexions informatives** nées dans la bande. La connectivité seule n'est pas suffisante : le critère exact se factorise en connexion quotient, fiabilité locale et cohérence signée après marginalisation de $D$.
+| certificat | contenu | statut |
+|---|---|---|
+| C0 | $`\beta_{ij}>1\Rightarrow H(i,j)=0`$ pour top-down et bottom-up | démontré |
+| C1 | une paire lointaine ne fusionne pas à distance fixe sous $`q_c-\delta`$ | démontré à fenêtre fixe |
+| C2-local | le bucket critique Blackwell-domine tout bucket tardif de même taille | démontré |
+| C2-corridor | la domination se tensorise sur un corridor fixé, pour tout prior corrélé des parités | démontré pour le bloc collapsed |
+| C2-tailles | remplacer arbitrairement un bucket tardif par un bucket critique d'une autre taille | faux en général ; contre-certificat rationnel |
+| C2-géométrie | coupler les corridors Palm critique et postcritique | ouvert |
+| C3-bloc | un bucket critique $`m=2`$ screené contracte strictement à $`p=0.8`$ | démontré localement |
+| C3-global | extraire un nombre divergent de blocs contractants avec erreur totale $`o(1)`$ | ouvert |
+| Globalisation | la disparition du second moment pairwise interdit la weak recovery | démontré |
 
-La réduction favorable hiérarchique fixe désormais le bon oracle pour une
-borne d'impossibilité : $`i,j`$ sont lointains, appartiennent à une même
-composante critique macroscopique et leur LCA fusionne dans la fenêtre gauche
-$`[\beta_c-\varepsilon,\beta_c]`$. La condition de composante implique
-déterministiquement $`\beta_{ij}\le\beta_c`$ ; les estimations RSW et la
-décroissance sous-critique localisent une paire macroscopique vers le seuil
-par la gauche. Les paires proches sont négligeables et les racines distinctes
-ont un score LCA nul. Si l'on prouve en plus que cet oracle critique domine
-les paires qui fusionnent plus tard, alors
+## 4. Résultats exacts à retenir
+
+### Projection du sweep
+
+À dendrogramme fixé, chaque heat bath est une projection orthogonale et
 
 ```math
-Q_L
-\le
-b_L+S_L(\beta_c-\varepsilon)
-+\Gamma_{L,\varepsilon}^{\mathrm{fav}}
-+\text{erreur de domination}.
+\mathbb E[H_S(i,j)^2\mid O,D]
+=
+\|K_Sf_{ij}\|_2^2
+=
+\langle f_{ij},K_S^*K_Sf_{ij}\rangle.
 ```
 
-La composante sélectionnée n'est pas une géante de densité positive au seuil :
-c'est une composante de diamètre macroscopique sous une loi de Palm pondérée
-par son nombre de paires lointaines. Cette réduction remplace l'expérience
-quatre états des paires plus tardives par une expérience critique
-conditionnelle. Le lemme de domination correspondant, nommé HF, est formulé
-dans le fichier 12 ; le conditionnement seul ne donne aucun ordre global.
+### Loi d'un bucket
 
-Le calcul d'une fusion exactement critique n'est résolu au seul niveau local
-que lorsque $`B_u=0`$. Si le bucket critique contient $`m`$ arêtes, sa
-fiabilité $`\Gamma_m^c`$ vérifie
+Avec $`s=s_p(t)`$ et une taille $`m`$,
 
 ```math
-\Gamma_m^c(p_{\mathrm{SW}})=\frac1m,
+K\mid X=+1\ \overset{\mathrm d}=\ 1+\mathrm{Bin}(m-1,s),
 \qquad
-\Gamma_m^c(p)\longrightarrow1
-\quad\text{pour tout }p>p_{\mathrm{SW}}.
+K\mid X=-1\ \overset{\mathrm d}=\ \mathrm{Bin}(m-1,1-s).
 ```
 
-Sa fenêtre exacte est $`p-p_{\mathrm{SW}}\asymp m^{-1/2}`$. Ce calcul local
-est seulement un contre-audit. Les slides 31--33 montrent que le vrai heat
-bath contient le produit de tous les facteurs ancestraux. La priorité est donc
-d'estimer les quatre $`\Lambda_v(\sigma^{ab})`$ pour chaque $`v\succ u`$ sous
-la loi du squelette vu depuis une paire lointaine critique, puis de prouver la
-domination HF. Le fichier 10 donne le noyau exact des marques et un certificat
-de queue ; le fichier 12 transporte cette erreur jusqu'à la fiabilité
-$`\tanh^2(L_u/2)`$.
+Comme $`s_p(t)`$ décroît avec $`t`$, le canal critique est une expérience plus
+informative que le canal tardif. Une monotonie réalisation par réalisation
+est pourtant fausse : un message ancestral opposé peut annuler presque
+exactement le message critique. L'ordre correct est bayésien, pas pointwise.
+Il est établi ici à taille fixée ; pour deux tailles différentes, l'ordre de
+Blackwell est seulement partiel.
 
-Le canal d'un triangle physique étudié dans le fichier 11 reste un calcul
-auxiliaire. Il ne remplace ni la chaîne hiérarchique des $`\Lambda_v`$, ni le
-biais de la paire critique, ni HF. Sa constante conditionnelle ne constitue
-donc pas l'objectif prioritaire de ce dossier.
+### Séparation critique de la géométrie et du canal
 
-Le fichier 13 donne une calibration exacte directement liée aux horloges.
-L'équation triangulaire de Nishimori--Ohzeki est identiquement
+Avec
 
 ```math
-H(Z_1,Z_2,Z_3\mid Z_1Z_2Z_3)=1\ \text{bit},
+q_p(t)=p(1-e^{-u_pt}),
 ```
 
-et sa racine supérieure unique est
-$`p_{\mathrm N}^{(0)}=0.835805792367\ldots`$. Cette entropie conditionnelle à
-quatre états est l'espérance de la surprise du gagnant d'une course
-exponentielle. Au LCA, les quatre poids $`q_u^{ab}`$ dépendent de tous les
-$`\Lambda_v^{ab}`$ ancestraux. L'identité retrouve donc exactement la
-constante de la conjecture au niveau d'une face, mais ne prouve pas qu'elle
-est le seuil de weak recovery.
-
-Le fichier 14 formalise maintenant l'objet exact des slides : seules les
-arêtes de la coupe courante $`E_v`$ entrent dans $`\Lambda_v`$. Les arêtes
-fausses internes à un enfant s'annulent sous le flip global et ne reçoivent
-jamais la loi résiduelle de frontière. Conditionnellement à la partition
-complète au temps $t$, les arêtes entre blocs restent indépendantes ; sur
-cette frontière, les vraies censurées après $1$ et les fausses ont exactement
-la même masse. L'excès conforme est la masse des vraies horloges dans
-$`(t,1]`$ :
+le rang transformé d'une arête a une densité uniforme en coordonnée $`q`$
+jusqu'à la censure. À $`q=q_\triangle`$, la forêt non marquée sous le seuil
+est donc celle d'une percolation critique et ne dépend pas de $`p`$ sous la
+loi jointe annealed. En revanche, la qualité d'une arête encore fermée vaut
 
 ```math
-2s_p(t)-1
-=
-\tanh\left(\frac{u_p(1-t)}2\right).
+s_c(p)=\frac{p-q_\triangle}{1-q_\triangle}.
 ```
 
-Ce biais est maximal à $`t=\beta_c`$ parmi les fusions postcritiques, à coupe
-fixée. Au seuil, le diagnostic conservateur de **frontière** « fausses contre
-vraies tardives » devient favorable à
-$`p_{\partial,\mathrm{late}}=(2+q_c)/3`$, tandis que la frontière complète est
-majoritaire dès $`p>p_{\mathrm{SW}}`$. Ces deux seuils sont strictement sous
-la baseline $`p_{\mathrm{info}}=0.794659\ldots`$ : une majorité scalaire ne
-peut donc pas, à elle seule, améliorer la borne connue.
+Cette séparation permet d'étudier une seule géométrie Palm critique, puis de
+faire varier $`p`$ dans le canal. Elle ne couvre pas les ancêtres
+postcritiques du corridor.
 
-Le gain potentiel est nécessairement hiérarchique. Chaque ancêtre exige deux
-majorités groupées, une pour chacun des fils du LCA touchés par les flips,
-puis le critère quatre états exact
+### Tensorisation sur le corridor
+
+Sur un squelette fixé, conditionnellement au vecteur des parités, les comptes
+de buckets sont indépendants. Les noyaux de dégradation se tensorisent donc.
+Pour toute cible $`F`$ et tout prior corrélé $`\rho`$,
 
 ```math
-q_u^{00}+q_u^{11}>q_u^{10}+q_u^{01}.
-```
-
-La croissance et la convexité de $`F_v(x)=xe^{(1-\beta_v)x}`$ donnent ici un
-résultat exact : sous a priori uniforme, une majorité locale stricte à $u$ et
-deux majorités non négatives dans chaque ancêtre suffisent à l'inégalité
-précédente. La preuve passe par un cône de coefficients de Walsh positifs,
-stable par produit. Le critère quatre états peut toutefois réussir même si ce
-certificat suffisant échoue.
-
-Les ancêtres ont seulement $`\beta_v>\beta_u`$ : certains peuvent encore
-être dans la fenêtre gauche, les suivants sont postcritiques. La loi des
-trois tailles de groupe et des temps sous le biais exact d'une paire critique,
-puis HF, restent les deux verrous globaux.
-
-Le fichier 15 sépare désormais la probabilité de parité paire de sa seule
-fiabilité carrée. Pour une coupe critique locale de taille $`m`$ et sans
-message ancestral,
-
-```math
-\overline P_m^c(p)
-=
-\mathbb P\bigl((a,b)\in\{(0,0),(1,1)\}\bigr)
-=
-\frac{1+\Gamma_m^c(p)}2.
-```
-
-Au bord $`p_{\mathrm{SW}}`$, cette probabilité vaut exactement
-$`1/2+1/(2m)`$. Pour $`p>p_{\mathrm{SW}}`$ fixé, elle tend vers $`1`$ lorsque
-$`m\to\infty`$, avec l'équivalent
-
-```math
-1-\overline P_m^c(p)
-\sim
-\frac{C_{m\bmod2}(p)}{\sqrt m}e^{-mI_c(p)},
-```
-
-où le préfacteur pair/impair $`C_r(p)`$ est une série explicite et
-
-```math
-I_c(p)
-=
--\frac12\log(1-h_c(p)^2).
-```
-
-Le passage d'une paire lointaine à cette grande-coupe limite exige deux
-lemmes qui restent ouverts sur la grille : la croissance de la coupe du LCA
-critique (CUT) et la sous-linéarité du message ancestral devant cette coupe
-(ANC). La distance seule n'implique pas CUT : deux amas macroscopiques peuvent
-être reliés par une unique arête pivotale. Le même fichier établit aussi la
-loi des marques internes à temps fixé : le conditionnement de géante ne
-change pas la répartition fausse/vraie-tardive parmi les arêtes encore
-fermées, mais il change leur masse parmi toutes les arêtes internes via la
-densité déjà ouverte.
-
-Le fichier 16 donne maintenant un calcul unifié des probabilités de flip à
-tous les niveaux. Une racine finale a une orientation uniforme sous a priori
-uniforme ; une feuille suit le heat bath mono-site de Glauber, tandis que
-Metropolis--Hastings est une substitution distincte de même cible. À un nœud
-interne, les quatre probabilités et leurs marginales sont explicites en trois
-coefficients $`(h_1,h_2,J)`$. Sans message extérieur, leurs moyennes valent
-$`(1+\Gamma_m)/4`$ pour chacun des états $`00,11`$ et
-$`(1-\Gamma_m)/4`$ pour chacun des états $`01,10`$. Le même fichier
-formalise la voie descendante :
-la relation après un balayage est exactement un produit de signes sur les
-deux bras $`i\leadsto\mathrm{LCA}(i,j)`$ et
-$`j\leadsto\mathrm{LCA}(i,j)`$. L'espérance de ce produit ne factorise
-toutefois pas dans la dynamique complète. Un oracle PATH-FAC est isolé pour
-quantifier précisément l'approximation, et le chemin physique marqué de la
-MSF est identifié comme un oracle différent, trop informatif. Une récursion
-de transfert tordue donne en parallèle le calcul exact dès qu'un état de
-frontière fini peut être conservé.
-
-Le fichier 17 identifie le seuil de décorrélation de cette voie. Dans
-PATH-FAC, la quantité exacte est l'atténuation
-
-```math
-A_L(p)=-\sum_{w\in\mathcal P_L}\log\Gamma_{m_w}(t_w;p),
-```
-
-et la probabilité de conserver la relation vaut
-$`(1+e^{-A_L})/2`$. Un nombre divergent de buckets non triviaux de taille
-bornée force donc la limite $`1/2`$ pour tout $`p<1`$ fixé. Un seuil non
-trivial apparaît seulement après une hypothèse géométrique. Pour des coupes
-critiques régulières $`m_L\sim\alpha\log H_L`$, il est
-
-```math
-p_{\mathrm{path}}(\alpha)
-=
-\frac{1+q_\triangle+(1-q_\triangle)\sqrt{1-e^{-2/\alpha}}}{2}.
-```
-
-Pour des tailles hétérogènes qui s'échappent vers l'infini, la taille moyenne
-est remplacée par la fonction de partition
-
-```math
-\Phi_L(I_c(p))
-=
-\sum_{w\in\mathcal P_L}m_w^{-1/2}e^{-I_c(p)m_w}.
-```
-
-Sa divergence donne la limite $`1/2`$ et sa convergence vers zéro la
-conservation dans PATH-FAC ; les plus petites interfaces dominent donc le
-seuil.
-
-La valeur de Nishimori correspondrait à
-$`\alpha=7.053596192884\ldots`$, ce qui est une cible géométrique et non une
-preuve. Dépasser la baseline $`0.794659\ldots`$ exige déjà
-$`\alpha<13.521628164595\ldots`$ dans cet oracle. Pour la vraie dynamique
-jointe, une borne par les normes des opérateurs de transfert tordus remplace
-rigoureusement la factorisation.
-
-Pour convertir cette corrélation de chemin en obstruction globale, le bon
-objet est désormais identifié : le **second moment** du transfert tordu sous
-la loi de Palm critique. Une annulation du premier moment annealed peut venir
-de compensations entre environnements encore parfaitement informatifs. Le
-fichier 18 établit la borne
-
-```math
-\mathbb E\left[\frac{\lambda_{\max}(H_S)}n\right]
+\mathbb E[
+\mathbb E(F\mid K^{\mathrm{late}})^2
+]
 \le
-\sqrt{\mathbb E[H_S(I_n,J_n)^2]},
+\mathbb E[
+\mathbb E(F\mid K^{\mathrm{crit}})^2
+].
 ```
 
-puis représente le membre de droite par deux copies du sweep partageant le
-même environnement. Le premier jalon recommandé est un certificat à
-$`p=4/5`$, qui améliorerait strictement information-percolation.
+### Premier certificat à $`p=0.8`$
 
-Les niveaux descendants changent fortement cette calibration. Dans l'oracle
-régulier $`t=\theta\beta_c`$ avec le coefficient $`\alpha`$ ajusté à
-Nishimori au niveau critique, les seuils valent respectivement
-$`0.7484399`$, $`0.7983165`$ et $`0.8358058`$ pour
-$`\theta=0,1/2,1`$. À grande interface, seuls les buckets situés dans la
-bande $`\beta_c-t=O(1/m)`$ ont le même poids exponentiel qu'un bucket
-critique. Le LCA critique ne suffit donc pas : il faut mesurer combien de
-nœuds descendants tombent dans cette bande.
+Au seuil critique triangulaire,
 
-## Socle de départ
-
-Les points 1, 2 et 5 ci-dessous sont établis sous les hypothèses indiquées.
-Les points 3, 4 et 6 à 18 rassemblent des résultats finis ou des audits
-conditionnels dont l'algèbre a été vérifiée et dont le statut précis est donné
-dans le dossier ; les résultats qui utilisent la mesure jointe restent à
-intégrer dans une rédaction formelle complète avec A1.
-
-1. La coupe $t=1$ des horloges redonne exactement les liens de Swendsen–Wang.
-2. Les heat baths des orientations globales des arbres redonnent la recoloration de Swendsen–Wang lorsque l'a priori est uniforme. Aux feuilles, on obtient le heat bath mono-site de Glauber ; un noyau de Metropolis–Hastings mono-site ciblant la même conditionnelle est une variante valide.
-3. Pour deux répliques postérieures indépendantes $\sigma^{(1)},\sigma^{(2)}$, la non-disparition de
 ```math
-   Q_n=\mathbb E\left\langle
-   \left(\frac1n\sum_i\sigma_i^{(1)}\sigma_i^{(2)}\right)^2
-   \right\rangle
+s_c(0.8)=0.693582222752\ldots.
 ```
-   caractérise exactement la weak recovery au sens « avantage avec probabilité positive » dans le cas binaire symétrique.
-4. Tout parcours hiérarchique invariant fournit une matrice de persistance $`H_S`$. Si $`\mathbb E[\lambda_{\max}(H_S)/n]\to0`$ pour un parcours $S$, la weak recovery est impossible. Pour Swendsen–Wang aux racines, $`H_S(i,j)=\mathbf 1_{\{i,j\text{ dans la même composante}\}}`$ : on retrouve l'obstruction du chapitre 11.
-5. Sur la grille triangulaire homogène, la borne d'information-percolation déjà connue donne l'impossibilité pour
+
+Pour un bloc $`m=2`$ sans message extérieur, la fiabilité vaut exactement
+$`s_c`$. Pour $`N`$ blocs factorisés,
+
 ```math
-   p<\frac{1+\sqrt{2\sin(\pi/18)}}2=0.794659\ldots,
+s_c^N=\exp(-0.365885484247\ldots N).
 ```
 
-   ce qui est plus fort que les bornes Swendsen–Wang $0.673648\ldots$ et triangulaire d'ordre supérieur $0.719224\ldots$. Toute nouvelle borne hiérarchique doit donc être comparée à $0.794659\ldots$, pas seulement à la borne du chapitre 11.
-6. Pour une paire fixée, le noyau qui rafraîchit $D$ puis met à jour son LCA est positif et réversible. Ses autocorrélations $`A_{ij}^{(m)}`$ décroissent vers $`c_{ij}(O)^2`$ sous ergodicité. Le score à un pas est ainsi le premier terme d'une suite allant vers le critère exact à deux répliques.
-7. À toute coupe $\beta$ telle que $`S_n(\beta)\to0`$, la weak recovery se réduit au score signé des paires dont le LCA naît dans $`(\beta,1]`$. Sur la grille triangulaire, l'information-percolation se réécrit $`t_\chi(p)>\beta_c(p)`$, avec $`q_p(t_\chi)=(2p-1)^2`$.
-8. Pour un nœud de fusion $u$, tous les taux $`\Lambda_v(\sigma^{ab})`$ de ses ancêtres se calculent exactement à partir de trois groupes par bucket. Conditionnellement au squelette de Kruskal non marqué, leur loi pondérée, leurs moments et leur covariance sont explicites. Le verrou asymptotique restant est la loi géométrique de ces groupes le long de la chaîne ancestrale biaisée par la paire critique.
-9. Pour une fusion locale au temps critique et sans message ancestral, les paramètres se simplifient en
-```math
-   h_c(p)=\frac{2(p-p_{\mathrm{SW}})}{1-q_c},
-   \qquad
-   a_c(p)=2\,\mathrm{artanh}(h_c(p)).
+Dix blocs donnent déjà $`0.025761997386\ldots`$, quarante blocs
+$`4.4047181845\,10^{-7}`$. Le verrou n'est donc plus la constante locale,
+mais l'existence et le découplage de tels blocs sous la loi Palm critique.
+
+## 5. Ce qu'il reste à montrer
+
+Les trois problèmes prioritaires sont, dans cet ordre :
+
+1. **État de bord fini.** Construire sur un cactus de triangles le noyau
+   exact d'un bloc collapsed, puis le contre-auditer par deux énumérations
+   indépendantes.
+2. **Géométrie Palm.** Décrire la loi des tailles
+   $`(m_r)`$, des niveaux $`(\beta_r)`$ et des incidences du corridor vu
+   depuis une paire critique lointaine, puis construire un couplage qui
+   préserve les tailles ou respecte leur ordre de Blackwell partiel.
+3. **Abondance contractante.** Montrer qu'un nombre divergent de blocs a une
+   petite interface ou un message de bord screené.
+
+Le prochain certificat fini doit porter sur le cactus de deux ou trois
+triangles et calculer le canal répliqué complet, pas seulement une majorité
+ou une fiabilité marginale.
+
+## 6. Ce qui n'est pas une preuve du seuil
+
+- La connectivité à $`\beta_c`$ seule ne contrôle pas la weak recovery.
+- Une majorité stricte de liens conformes est seulement un certificat
+  suffisant d'un heat bath quatre états.
+- PATH-FAC est exact uniquement dans son expérience factorisée.
+- La constante $`0.809909\ldots`$ du canal de triangle est auxiliaire.
+- L'identité entropique de Nishimori à
+  $`0.835805792367\ldots`$ est une calibration de face, pas un seuil démontré.
+- Les diagnostics sur petits tores ne prouvent aucune limite asymptotique.
+- Aucune impossibilité nouvelle à $`p=0.8`$ n'est encore annoncée.
+
+## 7. Seuils de référence sur la grille triangulaire
+
+| seuil | valeur | rôle |
+|---|---:|---|
+| Swendsen–Wang/percolation | $`0.673648\ldots`$ | obstruction par taille des composantes |
+| borne triangulaire antérieure | $`0.719224\ldots`$ | amélioration locale antérieure |
+| information-percolation | $`0.794659\ldots`$ | meilleure impossibilité rigoureuse de référence |
+| cible intermédiaire | $`0.8`$ | premier gain strict visé ici |
+| Nishimori–Ohzeki | $`0.835805792367\ldots`$ | conjecture multicritique |
+
+## 8. Parcours de lecture
+
+### Socle principal
+
+| ordre | fichier | contenu |
+|---:|---|---|
+| 1 | [01_MATHEMATICAL_FRAMEWORK.md](01_MATHEMATICAL_FRAMEWORK.md) | mesure jointe, dendrogramme non marqué et heat baths exacts |
+| 2 | [03_HIERARCHICAL_WEAK_RECOVERY.md](03_HIERARCHICAL_WEAK_RECOVERY.md) | couplage, critère pairwise et lien avec la weak recovery |
+| 3 | [08_ANCESTRAL_LAMBDA_CHAIN.md](08_ANCESTRAL_LAMBDA_CHAIN.md) | calcul des quatre $`\Lambda_v^{ab}`$ au-dessus du LCA |
+| 4 | [14_CRITICAL_COMPONENT_BOUNDARY.md](14_CRITICAL_COMPONENT_BOUNDARY.md) | loi correcte des marques de frontière et biais Palm |
+| 5 | [16_FLIP_PROBABILITIES_DESCENDANT_PATH.md](16_FLIP_PROBABILITIES_DESCENDANT_PATH.md) | probabilités racine/feuille/nœud et transfert descendant |
+| 6 | [18_CRITICAL_PALM_REPLICATED_TRANSFER.md](18_CRITICAL_PALM_REPLICATED_TRANSFER.md) | second moment répliqué et globalisation |
+| 7 | [19_FAVORABLE_SWEEP_PROJECTIONS.md](19_FAVORABLE_SWEEP_PROJECTIONS.md) | projections, racines, Blackwell local et cible $`p=0.8`$ |
+| 8 | [20_COLLAPSED_CORRIDOR_BLACKWELL.md](20_COLLAPSED_CORRIDOR_BLACKWELL.md) | dynamique collapsed, tensorisation et nouveaux verrous |
+
+### Compléments utiles
+
+- [02_CHAPTER_11_BASELINE.md](02_CHAPTER_11_BASELINE.md) : théorème du
+  manuscrit et baseline.
+- [06_LCA_SPIN_CORRELATION.md](06_LCA_SPIN_CORRELATION.md) et
+  [07_CRITICAL_BAND_CRITERION.md](07_CRITICAL_BAND_CRITERION.md) : borne LCA
+  et réduction à la bande.
+- [09_CRITICAL_MERGER_ORACLE.md](09_CRITICAL_MERGER_ORACLE.md),
+  [10_ANCESTRAL_LAMBDA_ESTIMATION.md](10_ANCESTRAL_LAMBDA_ESTIMATION.md) et
+  [15_CRITICAL_GIANT_PAIR_FLIP.md](15_CRITICAL_GIANT_PAIR_FLIP.md) : calculs
+  locaux et contrôle des ancêtres.
+- [12_FAVORABLE_HIERARCHICAL_REDUCTION.md](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : première réduction favorable, désormais renforcée par les fichiers 19--20.
+
+### Audits secondaires conservés
+
+- [11_TRIANGLE_BLOCK_SDPI.md](11_TRIANGLE_BLOCK_SDPI.md) : canal de triangle
+  physique, sans priorité sur le corridor.
+- [13_NISHIMORI_HIERARCHICAL_CLOCKS.md](13_NISHIMORI_HIERARCHICAL_CLOCKS.md) :
+  calibration entropique exacte.
+- [17_PATH_DECORRELATION_THRESHOLD.md](17_PATH_DECORRELATION_THRESHOLD.md) :
+  oracle factorisé et seuils conditionnels ; utile comme benchmark seulement.
+
+Ces fichiers restent dans le dépôt parce qu'ils fournissent des
+contre-audits reproductibles. Ils ne déterminent plus l'ordre de recherche.
+
+## 9. Statuts et règles de rédaction
+
+Chaque résultat doit être étiqueté parmi :
+
+- **établi** : preuve complète dans les hypothèses annoncées ;
+- **conditionnel** : implication prouvée sous un lemme explicitement nommé ;
+- **diagnostic** : calcul fini ou simulation, jamais utilisé comme preuve ;
+- **conjecture** : cible non utilisée en aval comme un fait.
+
+Les trois distinctions suivantes sont obligatoires :
+
+1. dendrogramme non marqué contre MSF enrichie de l'arête gagnante ;
+2. coupe de frontière contre arêtes internes aux clusters ;
+3. premier moment signé contre second moment répliqué.
+
+La bibliographie primaire et les limites de transfert sont dans
+[LITERATURE.md](LITERATURE.md). Les calculs sont documentés dans
+[computations/README.md](computations/README.md).
+
+## 10. Validation rapide
+
+Depuis la racine du dépôt :
+
+```bash
+python3 .agents/check_math.py
+python3 -m unittest discover \
+  -s research/hierarchical-swendsen-wang/computations \
+  -p 'test_*.py'
+python3 research/hierarchical-swendsen-wang/computations/collapsed_corridor_transfer.py
 ```
-   Le bord de la grande coupe informative est exactement $`p_{\mathrm{SW}}`$,
-   avec une limite gaussienne explicite dans la fenêtre $`m^{-1/2}`$. Ce bord
-   est oracle et ne remplace ni la masse des paires ni la contraction non
-   oracle.
-10. Pour un triangle observé, le profil de contraction sous un a priori de
-    masse $t$ est la fonction rationnelle exacte $`c_q(t)`$ du fichier 11. La
-    SDPI globale est $`2q^2/(1+q^2)`$, ce qui réfute la borne scalaire naïve
-    $`0.829491\ldots`$. Le candidat multi-état
-    $`0.809909\ldots`$ est explicitement étiqueté conditionnel : il dépend
-    encore de la positivité d'une matrice rationnelle $`3\times3`$ dans le
-    secteur polarisé.
-11. Pour une paire lointaine, la réduction favorable du fichier 12 donne une
-    implication globale exacte sous HF. Le message tronqué aux $`K`$ premiers
-    ancêtres approche la fiabilité complète avec l'erreur certifiée
-
-    ```math
-    \min\left(1,\frac{2\mathcal R_u^{(>K)}}{3\sqrt3}\right).
-    ```
-
-    Une nouvelle borne triangulaire exige donc la convergence du squelette
-    critique, la sommabilité de cette queue et la domination HF.
-12. L'équation (28) de Nishimori--Ohzeki se réduit exactement à
-    $`3h_2(p)-h_2((1+(2p-1)^3)/2)=1`$. Une course conditionnelle de quatre
-    horloges redonne cette entropie sans répliques. Son unique racine
-    supérieure est $`0.835805792367\ldots`$ ; c'est une calibration exacte de
-    face, pas un seuil de weak recovery démontré.
-13. Au temps critique, les quatre masses exactes par arête sont $`q_c`$ pour
-    les vraies précoces, $`2p-1-q_c`$ pour les vraies tardives, et $`1-p`$
-    pour chacune des vraies censurées et des fausses. La loi résiduelle ne
-    s'applique qu'aux arêtes de frontière après conditionnement par la
-    partition complète. Conditionnellement à une coupe de Kruskal non
-    marquée, son vote est $`1+\mathrm{Bin}(m-1,s_c(p))`$ au temps critique.
-    Aux ancêtres, cette loi s'applique séparément aux trois groupes qui
-    donnent les quatre $`\Lambda_v^{ab}`$ ; une majorité globale de la coupe
-    ne suffit pas.
-14. Pour l'oracle local critique, la probabilité moyenne de parité paire est
-    exactement $`(1+\Gamma_m^c(p))/2`$. Sa limite de grande coupe vaut $`1`$
-    pour $`p>p_{\mathrm{SW}}`$ et son déficit admet un équivalent précis avec
-    préfacteurs pair/impair explicites. Son transport à une paire lointaine de
-    la grille est conditionnel à CUT et ANC. Aucun équivalent fonction de
-    $`p`$ seul n'est annoncé pour le heat bath hiérarchique complet.
-15. Les probabilités de flip se ferment exactement aux trois niveaux : deux
-    états à une racine finale, deux états à une feuille, quatre états à un
-    nœud interne. Pour un bucket homogène arbitraire de niveau $`t`$, la loi
-    locale est $`1+\mathrm{Bin}(m-1,s_p(t))`$ et l'exposant de grande coupe
-    vaut $`D(1/2\|s_p(t))`$. Les descendants s'annulent dans un heat bath
-    unique, mais un balayage le long des deux bras d'une paire possède une
-    identité de parité exacte. Sa factorisation reste un oracle, pas un
-    théorème sur la dynamique complète.
-16. Dans PATH-FAC, la décorrélation est équivalente à
-    $`A_L=-\sum_w\log\Gamma_w\to\infty`$. Pour tout $`p<1`$ fixé, un nombre
-    divergent de coupes $`2\le m_w\le M`$ suffit. Sous l'ansatz régulier
-    $`m_L\sim\alpha\log H_L`$, le seuil conditionnel
-    $`p_{\mathrm{path}}(\alpha)`$ est explicite, avec une fenêtre aiguë
-    d'ordre $`\log\log H_L`$. Dans la dynamique jointe, la sommabilité des
-    contractions $L^2$ des opérateurs tordus est un critère suffisant exact.
-17. Pour un sweep complet, la probabilité annealed de conserver la relation
-    ne suffit pas à interdire la weak recovery. Le critère pairwise exact est
-    $`\mathbb E[H_S(I_n,J_n)^2]\to0`$, qui contrôle la matrice globale par la
-    norme de Frobenius. Son calcul est un transfert tordu répliqué : même
-    hiérarchie et mêmes observations dans les deux copies, aléas de heat bath
-    indépendants. La domination favorable HF du seul LCA doit être remplacée
-    par HF-S2 pour le sweep. Le diagnostic Palm observe une croissance des
-    buckets $`m=2`$ et une perte rapide dans PATH-FAC, mais le sweep joint
-    exact reste très corrélé sur les petits tores ; aucune nouvelle borne
-    numérique n'est donc encore annoncée.
-18. À dendrogramme fixé, les heat baths sont des projections orthogonales et
-    le second moment du sweep vaut exactement $`\|K_Sf_{ij}\|_2^2`$, soit
-    l'autocorrélation d'un sweep palindromique. Le heat bath des racines
-    finales annule exactement les paires non connectées à $`t=1`$ dans les
-    sweeps top-down et bottom-up. La comparaison d'un nœud
-    critique à un nœud tardif est vraie hors d'un événement d'anti-alignement
-    ancestral explicite ; une monotonie point par point est réfutée à
-    $`p=0.8`$. Les diagnostics pondérés sur petits tores placent néanmoins le
-    second moment critique au-dessus du tardif pour les deux ordres de sweep.
-    Plus fortement, à taille de bucket fixée, l'expérience complète au niveau
-    critique domine exactement toute expérience postcritique au sens de
-    Blackwell ; le verrou est désormais le transport de cette domination à
-    travers la géométrie et les dépendances du sweep.
-
-## Carte du dossier
-
-- [01_MATHEMATICAL_FRAMEWORK.md](01_MATHEMATICAL_FRAMEWORK.md) : définition exacte de $D$, loi jointe de type Edwards–Sokal, règles de mise à jour et hypothèses.
-- [02_CHAPTER_11_BASELINE.md](02_CHAPTER_11_BASELINE.md) : théorème $\theta^{\max}$ corrigé, portée réelle et baseline d'information-percolation.
-- [03_HIERARCHICAL_WEAK_RECOVERY.md](03_HIERARCHICAL_WEAK_RECOVERY.md) : critère à deux répliques, obstruction $`H_S`$, capacité hiérarchique et conjectures.
-- [04_TRIANGULAR_GSBM.md](04_TRIANGULAR_GSBM.md) : calculs explicites sur la grille triangulaire et objectifs numériques/théoriques.
-- [05_PROOF_ROADMAP.md](05_PROOF_ROADMAP.md) : lemmes à démontrer, dépendances, cas tests et critères de succès.
-- [06_LCA_SPIN_CORRELATION.md](06_LCA_SPIN_CORRELATION.md) : quatre événements de flip, formule exacte faisant intervenir $`\beta_u=\xi_{e_u}`$, borne LCA, chaîne pair-spécifique et programme triangulaire.
-- [07_CRITICAL_BAND_CRITERION.md](07_CRITICAL_BAND_CRITERION.md) : réduction à la bande critique, distinction bande pure/quotient, temps informationnel $`t_\chi`$, flux pivotal et capacité de blocs.
-- [08_ANCESTRAL_LAMBDA_CHAIN.md](08_ANCESTRAL_LAMBDA_CHAIN.md) : formule exacte des quatre $`\Lambda_v`$ au-dessus du LCA, réduction à $`(h_1,h_2,J)`$, loi conditionnelle de Kruskal et méthodes de calcul certifiées.
-- [09_CRITICAL_MERGER_ORACLE.md](09_CRITICAL_MERGER_ORACLE.md) : résolution exacte de la fusion critique locale, fenêtre $`m^{-1/2}`$, sandwich des taux ancestraux et contre-audit de la masse des paires.
-- [10_ANCESTRAL_LAMBDA_ESTIMATION.md](10_ANCESTRAL_LAMBDA_ESTIMATION.md) : problème central des slides 31--33, course pondérée exacte, moments des quatre taux, concentration, certificat de queue et formulation du verrou géométrique sous le biais d'une paire critique.
-- [11_TRIANGLE_BLOCK_SDPI.md](11_TRIANGLE_BLOCK_SDPI.md) : profil SDPI exact du canal de triangle, échec du regroupement scalaire, canal d'effacement multi-état et candidat conditionnel $`0.809909\ldots`$ avec son lemme manquant explicite.
-- [12_FAVORABLE_HIERARCHICAL_REDUCTION.md](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : réduction exacte aux paires lointaines, oracle de composante critique avec LCA dans la fenêtre gauche, lemme de domination HF et transport certifié de la queue ancestrale vers la weak recovery.
-- [13_NISHIMORI_HIERARCHICAL_CLOCKS.md](13_NISHIMORI_HIERARCHICAL_CLOCKS.md) : réduction exacte de la conjecture triangulaire à une entropie de face et représentation par une course exponentielle, avec séparation stricte entre calibration de face et seuil global.
-- [14_CRITICAL_COMPONENT_BOUNDARY.md](14_CRITICAL_COMPONENT_BOUNDARY.md) : annulation exacte des arêtes internes, loi des marques de frontière, composante critique sous biais de paire, LCA localisé par la gauche, majorités groupées ancestrales et critère quatre états du heat bath.
-- [15_CRITICAL_GIANT_PAIR_FLIP.md](15_CRITICAL_GIANT_PAIR_FLIP.md) : loi résiduelle des arêtes internes sous conditionnement de géante, probabilité exacte des états pairs au LCA critique, exposant de grande coupe, hypothèses CUT et ANC et contre-audits du passage distance--interface.
-- [16_FLIP_PROBABILITIES_DESCENDANT_PATH.md](16_FLIP_PROBABILITIES_DESCENDANT_PATH.md) : probabilités explicites aux racines, feuilles et nœuds internes, paramétrisation quatre états, buckets à niveau arbitraire, identité de chemin descendant, oracle PATH-FAC, distinction MSF marquée/non marquée et obstruction des messages de frontière.
-- [17_PATH_DECORRELATION_THRESHOLD.md](17_PATH_DECORRELATION_THRESHOLD.md) : atténuation exacte du chemin, perte pour petites interfaces, spectre de tailles hétérogène, longueur de corrélation, seuil conditionnel $`p_{\mathrm{path}}(\alpha)`$ pour coupes logarithmiques, fenêtre $`p\uparrow1`$ à taille fixe, calibration Nishimori et critère de contraction pour le transfert joint.
-- [18_CRITICAL_PALM_REPLICATED_TRANSFER.md](18_CRITICAL_PALM_REPLICATED_TRANSFER.md) : localisation du LCA sous conditionnement critique, globalisation spectrale en second moment, transfert tordu répliqué, hypothèse HF-S2, cible $`p=4/5`$ et diagnostics comparés PATH-FAC/sweep joint.
-- [19_FAVORABLE_SWEEP_PROJECTIONS.md](19_FAVORABLE_SWEEP_PROJECTIONS.md) : produit de projections des heat baths, identité palindromique du second moment, annulation exacte des racines distinctes, critère d'anti-alignement, contre-exemple pathwise à $`p=0.8`$ et arbre de certificats C0--C3.
-- [LITERATURE.md](LITERATURE.md) : état de l'art primaire, voisins conceptuels et positionnement prudent de la nouveauté.
-- [references.bib](references.bib) : bibliographie ciblée et autonome.
-- [computations/README.md](computations/README.md) : calculs exacts, diagnostics de tores et protocole reproductible.
-
-## Convention de statut
-
-Chaque affirmation nouvelle doit porter l'un des statuts suivants :
-
-- **Établi** : preuve complète disponible ou résultat primaire cité avec ses hypothèses.
-- **Immédiat à formaliser** : conséquence courte des identités du dossier, mais rédaction détaillée encore absente.
-- **À prouver** : énoncé précis et plausible avec une stratégie identifiée.
-- **Conjecture** : cible de recherche ; aucune utilisation en aval comme si elle était démontrée.
-
-## Premier objectif publiable
-
-Le théorème fini LCA et la version sweep de la réduction favorable sont
-maintenant formulés dans les fichiers 18--19. Le prochain objectif est de
-fermer séparément les certificats C2 et C3 du fichier 19 : domination du
-second moment postcritique par le second moment critique, puis contraction
-du transfert répliqué dans la fenêtre critique. Le premier calcul certifié
-doit porter sur la loi de
-$`(m_{v,0},m_{v,1},m_{v,2},\beta_v)_{v\succ u}`$ vue depuis une paire
-lointaine d'une même composante critique macroscopique, sous le biais de Palm
-exact : exactement sur cactus, puis par matrices de transfert certifiées sur
-bandes triangulaires. Cette loi
-alimente le noyau conditionnel exact du fichier 10. Il faut alors fermer, dans
-cet ordre, la convergence des premiers ancêtres, la sommabilité du certificat
-$`\mathcal R_u`$, le contrôle des coins nuls et la domination HF entre les
-expériences postcritique et critique. Sur la grille homogène, l'objectif reste
-une zone rigoureuse de non-recouvrement dépassant $p=0.794659\ldots$ ; aucune
-nouvelle constante n'est annoncée avant ces quatre preuves. Le point
-multicritique de Nishimori conjecturé $p\simeq0.8358058$ est retrouvé
-exactement comme zéro de l'entropie de face. Le premier test nouveau doit
-calculer, sur le cactus de deux triangles et sous **une même loi jointe**, la
-chaîne complète des triplets $`(m_{v,r},K_{v,r})`$, les quatre
-$`\Lambda_v^{ab}`$ et le critère de parité
-$`q_u^{00}+q_u^{11}>q_u^{10}+q_u^{01}`$. Il faut comparer exactement ce
-critère à la majorité globale, aux deux majorités groupées et au diagnostic
-de frontière « vraies tardives contre fausses ». Une seconde implémentation
-par énumération directe doit contre-auditer chaque probabilité. Ce calcul dira si
-les amplitudes hiérarchiques peuvent dépasser la borne
-$`0.794659\ldots`$, alors que la seule majorité ne le peut pas.
-Il doit ensuite être doublé pour calculer le second moment du transfert et
-tester comme programme linéaire fini une dégradation BSC du bloc tardif par
-le bloc critique, puis viser d'abord le certificat $`p=4/5`$. Le fichier 11
-est conservé comme audit auxiliaire, sans priorité sur la chaîne
-hiérarchique.
 
 ## Sources internes
 
@@ -472,4 +349,5 @@ hiérarchique.
 - [Audit mathématique canonique](https://github.com/Ludwig-H/Manuscrit-de-th-se/blob/e5a2f06b77a6f3ac5f2865b41ea65a3d0f7834f0/AUDIT_MATHEMATIQUE.md).
 - [Présentation du 16 juillet 2026](../../beamer-presentation-reunion-2026-07-16/).
 
-Ce dossier ne modifie ni les slides ni le manuscrit. Il isole les calculs et les conjectures avant toute réintégration dans un texte principal.
+Le dossier de recherche ne modifie ni les slides ni le manuscrit. Les
+résultats sont d'abord isolés, audités et contre-audités ici.

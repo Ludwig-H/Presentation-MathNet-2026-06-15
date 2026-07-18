@@ -484,6 +484,11 @@ Kruskal différentes et ne suffit pas à composer le sweep : après l'update,
 les descendants utilisent le bucket courant dans leurs propres messages
 ancestraux.
 
+La restriction à taille fixée est essentielle : le contre-lemme 4.2 du
+fichier 20 certifie qu'à $`p=t=4/5`$ un bucket critique $`m=4`$ et un bucket
+tardif $`m=2`$ sont incomparables au sens de Blackwell. « Avancer le temps »
+ne permet donc pas de remplacer librement la géométrie de l'interface.
+
 Le script `favorable_time_comparison.py` contre-audite (4.10) par le critère
 équivalent de convexité des croyances postérieures, sans solveur externe.
 
@@ -709,31 +714,33 @@ $`\delta_q\downarrow0`$ dans l'ordre annoncé.
 
 ### C2 — domination HF-S2, statut : ouvert mais réduit
 
-La route prioritaire est top-down. Le théorème 4.2 donne exactement la
-domination locale lorsque la taille du bucket et l'information latérale sont
-couplées. Il reste à construire un couplage critique/tardif des squelettes
-tronqués et à montrer que la somme des coûts suivants tend vers zéro :
+Le sweep top-down est la route séquentielle la plus propre. Pour la preuve
+d'impossibilité, le [corridor collapsed](20_COLLAPSED_CORRIDOR_BLACKWELL.md)
+est désormais prioritaire : il tensorise exactement le théorème 4.2 à
+squelette fixé et marginalise le feedback des descendants. Il reste à
+construire un couplage critique/tardif des corridors et à montrer que
 
 ```math
 \varepsilon_{L}^{\mathrm{geom}}
-+\varepsilon_L^{\mathrm{dépendance}}
 +\varepsilon_L^{\mathrm{frontière}}.
 \tag{8.1}
 ```
 
-Le premier terme compare les géométries et les tailles de groupes ; le
-second mesure la réutilisation du bucket par les updates descendants ; le
-dernier transporte les deux états-frontières du transfert répliqué. À défaut
-de préserver l'indépendance conditionnelle requise par Blackwell, (4.4)
-fournit une seconde route, plus faible, par la somme des queues
-d'anti-alignement.
+tend vers zéro. Le premier terme compare les géométries et les tailles de
+groupes ; le second compresse et transporte l'état-frontière du transfert
+répliqué. Pour le sweep top-down non collapsed, il faut ajouter une erreur de
+dépendance dynamique ; à défaut, (4.4) fournit une route plus faible par les
+queues d'anti-alignement.
 
 ### C3 — contraction critique, statut : ouvert
 
 Extraire des blocs Palm critiques dont le transfert signé répliqué possède
 un coefficient strictement inférieur à un. Les buckets $`m=2`$ screenés
 donnent le premier candidat avec les constantes (6.1). Le certificat final
-doit porter sur un bloc complet, pas sur une fiabilité marginale.
+doit porter sur un bloc collapsed complet, pas sur une fiabilité marginale.
+Le fichier 20 donne la formule produit exacte lorsque les parités du corridor
+sont factorisées et isole l'état de bord comme unique obstruction à cette
+factorisation.
 
 Sous C0--C3,
 
@@ -759,8 +766,8 @@ tardif, deux calculs indépendants sont requis.
 
 1. Énumération directe de toutes les marques et de toutes les sorties des
    heat baths.
-2. Produit des projections de (1.1), avec arithmétique d'intervalles à
-   $`p=4/5`$.
+2. Projection collapsed du corridor, recalculée par matrice de transfert et
+   arithmétique d'intervalles à $`p=4/5`$.
 
 La domination peut alors être cherchée comme une dégradation du canal de
 parité : conditionnellement à la frontière, la sortie tardive doit s'obtenir
@@ -781,6 +788,8 @@ signes frustrés et le contre-exemple (5.1) détruisent la monotonie globale.
 | Le transfert répliqué exige toujours une matrice tensorielle | Faux | après moyenne stationnaire en $`\sigma`$, il vaut $`\|Kf\|_2^2`$ |
 | Le niveau critique est meilleur que tout niveau tardif à coupe fixée | Vrai sans message opposé | faux point par point avec ancêtres |
 | Le bucket critique domine le tardif sous sa loi complète | Établi à taille fixée par Blackwell | exige $`B\perp K\mid X`$ ; le sweep réutilise ensuite $`K`$ |
+| Le niveau critique compense tout changement de taille | Faux | contre-certificat cross-size exact dans le fichier 20 |
+| Blackwell se compose sur le corridor collapsed | Établi dans le fichier 20 | même squelette ; la géométrie Palm reste à coupler |
 | Toute violation vient d'un anti-alignement quantifiable | Établi pour un nœud fixé | le sweep demande l'état-frontière dynamique |
 | Les petits tores prouvent HF-S2 | Faux | ils donnent six tests compatibles avec son sens |
 | HF-S2 suffit à $`p=0.8`$ | Faux | il faut aussi faire tendre le second moment critique vers zéro |

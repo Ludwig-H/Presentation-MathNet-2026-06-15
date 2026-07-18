@@ -15,6 +15,7 @@ one-node bound, and a valid counterexample at ``p=4/5``.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from fractions import Fraction
 from math import comb, fsum, inf, log, pi, sin, tanh
 
 from ancestral_lambda_chain import (
@@ -183,11 +184,27 @@ def bucket_blackwell_minimum_call_gap(
         raise ValueError("require 0 <= early_level <= late_level <= 1")
     early = bucket_binary_experiment(p, size, early_level)
     late = bucket_binary_experiment(p, size, late_level)
+    return binary_experiment_blackwell_minimum_call_gap(early, late)
+
+
+def binary_experiment_blackwell_minimum_call_gap(
+    dominant: tuple[tuple[float, ...], tuple[float, ...]],
+    degraded: tuple[tuple[float, ...], tuple[float, ...]],
+) -> float:
+    """Return the convex-order gap for two finite binary experiments."""
 
     def posterior_law(
         experiment: tuple[tuple[float, ...], tuple[float, ...]],
     ) -> tuple[tuple[float, float], ...]:
         plus, minus = experiment
+        if len(plus) != len(minus) or not plus:
+            raise ValueError("each experiment needs two rows on one support")
+        if min((*plus, *minus)) < 0.0:
+            raise ValueError("experiment masses must be nonnegative")
+        if abs(fsum(plus) - 1.0) > 1e-12:
+            raise ValueError("the plus row must sum to one")
+        if abs(fsum(minus) - 1.0) > 1e-12:
+            raise ValueError("the minus row must sum to one")
         law = []
         for plus_mass, minus_mass in zip(plus, minus, strict=True):
             total = plus_mass + minus_mass
@@ -195,8 +212,8 @@ def bucket_blackwell_minimum_call_gap(
                 law.append((plus_mass / total, 0.5 * total))
         return tuple(law)
 
-    early_law = posterior_law(early)
-    late_law = posterior_law(late)
+    early_law = posterior_law(dominant)
+    late_law = posterior_law(degraded)
     strikes = {0.0, 1.0}
     strikes.update(belief for belief, _ in early_law)
     strikes.update(belief for belief, _ in late_law)
@@ -204,6 +221,196 @@ def bucket_blackwell_minimum_call_gap(
         fsum(mass * max(belief - strike, 0.0) for belief, mass in early_law)
         - fsum(mass * max(belief - strike, 0.0) for belief, mass in late_law)
         for strike in strikes
+    )
+
+
+def cross_size_bucket_blackwell_minimum_call_gap(
+    p: float,
+    dominant_size: int,
+    dominant_level: float,
+    degraded_size: int,
+    degraded_level: float,
+) -> float:
+    """Test Blackwell dominance when both bucket size and level may change."""
+
+    dominant = bucket_binary_experiment(p, dominant_size, dominant_level)
+    degraded = bucket_binary_experiment(p, degraded_size, degraded_level)
+    return binary_experiment_blackwell_minimum_call_gap(dominant, degraded)
+
+
+RationalInterval = tuple[Fraction, Fraction]
+
+
+def _interval_constant(value: Fraction | int) -> RationalInterval:
+    value = Fraction(value)
+    return value, value
+
+
+def _interval_add(
+    first: RationalInterval, second: RationalInterval
+) -> RationalInterval:
+    return first[0] + second[0], first[1] + second[1]
+
+
+def _interval_subtract(
+    first: RationalInterval, second: RationalInterval
+) -> RationalInterval:
+    return first[0] - second[1], first[1] - second[0]
+
+
+def _interval_multiply(
+    first: RationalInterval, second: RationalInterval
+) -> RationalInterval:
+    products = tuple(
+        first[index] * second[other]
+        for index in (0, 1)
+        for other in (0, 1)
+    )
+    return min(products), max(products)
+
+
+def _interval_divide(
+    numerator: RationalInterval, denominator: RationalInterval
+) -> RationalInterval:
+    if denominator[0] <= 0 <= denominator[1]:
+        raise ZeroDivisionError("an interval denominator contains zero")
+    reciprocal = Fraction(1, denominator[1]), Fraction(1, denominator[0])
+    return _interval_multiply(numerator, reciprocal)
+
+
+def _interval_power(value: RationalInterval, exponent: int) -> RationalInterval:
+    if exponent < 0:
+        raise ValueError("the interval exponent must be nonnegative")
+    result = _interval_constant(1)
+    for _ in range(exponent):
+        result = _interval_multiply(result, value)
+    return result
+
+
+@dataclass(frozen=True)
+class PEightCrossSizeCertificate:
+    """Exact rational enclosures proving two experiments incomparable."""
+
+    critical_satisfaction: RationalInterval
+    late_satisfaction: RationalInterval
+    forward_strike: RationalInterval
+    critical_four_vs_late_two_gap: RationalInterval
+    late_two_vs_critical_four_gap: RationalInterval
+
+
+def p_eight_cross_size_incomparability_certificate(
+) -> PEightCrossSizeCertificate:
+    """Certify a cross-size Blackwell obstruction at ``p=t=4/5``.
+
+    The critical experiment has size four.  The late experiment has size two
+    and level ``t=4/5``.  A negative call-function gap in each direction
+    proves that neither binary experiment Blackwell-dominates the other.
+
+    Every operation below is on ``Fraction`` intervals.  The critical bond
+    threshold ``q`` is enclosed via ``q^3-3q+1=0``; ``y=4^(-1/5)`` is
+    enclosed via ``y^5=1/4``.  The displayed decimal endpoints are therefore
+    input rational numbers, not floating-point approximations used in the
+    proof.
+    """
+
+    scale = 10**15
+    q_lower = Fraction(347296355333860, scale)
+    q_upper = Fraction(347296355333861, scale)
+    q_polynomial = lambda value: value**3 - 3 * value + 1
+    if not 0 < q_lower < q_upper < 1:
+        raise AssertionError("the q_triangle interval must lie in (0, 1)")
+    if not q_polynomial(q_lower) > 0 > q_polynomial(q_upper):
+        raise AssertionError("the rational interval does not enclose q_triangle")
+
+    y_lower = Fraction(757858283255199, scale)
+    y_upper = Fraction(757858283255200, scale)
+    if not y_lower**5 < Fraction(1, 4) < y_upper**5:
+        raise AssertionError("the rational interval does not enclose 4^(-1/5)")
+
+    one = _interval_constant(1)
+    half = _interval_constant(Fraction(1, 2))
+    q_interval = q_lower, q_upper
+    y_interval = y_lower, y_upper
+
+    critical_satisfaction = _interval_divide(
+        _interval_subtract(_interval_constant(Fraction(4, 5)), q_interval),
+        _interval_subtract(one, q_interval),
+    )
+    y_fourth = _interval_power(y_interval, 4)
+    late_satisfaction = _interval_divide(
+        _interval_multiply(_interval_constant(4), y_fourth),
+        _interval_add(
+            one, _interval_multiply(_interval_constant(4), y_fourth)
+        ),
+    )
+
+    # Posterior law of the critical size-four experiment.  Its beliefs are
+    # 0, z, 1/2, 1-z, 1 with symmetric masses a0, a1, a2, a1, a0.
+    residual = _interval_subtract(one, critical_satisfaction)
+    residual_square = _interval_power(residual, 2)
+    satisfaction_square = _interval_power(critical_satisfaction, 2)
+    posterior_denominator = _interval_add(
+        residual_square,
+        _interval_multiply(_interval_constant(3), satisfaction_square),
+    )
+    strike = _interval_divide(residual_square, posterior_denominator)
+    if not 0 < strike[0] <= strike[1] < Fraction(1, 2):
+        raise AssertionError("the call-function branch assumptions failed")
+    mass_a0 = _interval_multiply(
+        half, _interval_power(critical_satisfaction, 3)
+    )
+    mass_a1 = _interval_multiply(
+        half, _interval_multiply(residual, posterior_denominator)
+    )
+    mass_a2 = _interval_multiply(
+        _interval_constant(3),
+        _interval_multiply(critical_satisfaction, residual_square),
+    )
+
+    # The late size-two posterior law has beliefs 0, 1/2, 1 with masses
+    # b0, b1, b0.
+    mass_b0 = _interval_multiply(half, late_satisfaction)
+    mass_b1 = _interval_subtract(one, late_satisfaction)
+
+    critical_call_at_strike = _interval_add(
+        _interval_add(
+            _interval_multiply(
+                mass_a2, _interval_subtract(half, strike)
+            ),
+            _interval_multiply(
+                mass_a1,
+                _interval_subtract(
+                    one, _interval_multiply(_interval_constant(2), strike)
+                ),
+            ),
+        ),
+        _interval_multiply(mass_a0, _interval_subtract(one, strike)),
+    )
+    late_call_at_strike = _interval_add(
+        _interval_multiply(mass_b1, _interval_subtract(half, strike)),
+        _interval_multiply(mass_b0, _interval_subtract(one, strike)),
+    )
+    forward_gap = _interval_subtract(
+        critical_call_at_strike, late_call_at_strike
+    )
+
+    late_call_at_half = _interval_multiply(mass_b0, half)
+    critical_call_at_half = _interval_add(
+        _interval_multiply(mass_a1, _interval_subtract(half, strike)),
+        _interval_multiply(mass_a0, half),
+    )
+    reverse_gap = _interval_subtract(
+        late_call_at_half, critical_call_at_half
+    )
+
+    if not (forward_gap[1] < 0 and reverse_gap[1] < 0):
+        raise AssertionError("the rational intervals do not prove incomparability")
+    return PEightCrossSizeCertificate(
+        critical_satisfaction=critical_satisfaction,
+        late_satisfaction=late_satisfaction,
+        forward_strike=strike,
+        critical_four_vs_late_two_gap=forward_gap,
+        late_two_vs_critical_four_gap=reverse_gap,
     )
 
 
@@ -274,6 +481,17 @@ def main() -> None:
             p, example.critical_level, bound
         )
         print(f"message_bound={bound:.1f} contraction={contraction:.12f}")
+    certificate = p_eight_cross_size_incomparability_certificate()
+    print(
+        "critical m=4 vs late m=2 call gap in "
+        f"[{float(certificate.critical_four_vs_late_two_gap[0]):.12g}, "
+        f"{float(certificate.critical_four_vs_late_two_gap[1]):.12g}]"
+    )
+    print(
+        "late m=2 vs critical m=4 call gap in "
+        f"[{float(certificate.late_two_vs_critical_four_gap[0]):.12g}, "
+        f"{float(certificate.late_two_vs_critical_four_gap[1]):.12g}]"
+    )
 
 
 if __name__ == "__main__":

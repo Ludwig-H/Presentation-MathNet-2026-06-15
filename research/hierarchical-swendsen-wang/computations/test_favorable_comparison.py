@@ -12,10 +12,12 @@ from favorable_time_comparison import (
     anti_alignment_violation,
     bucket_binary_experiment,
     bucket_blackwell_minimum_call_gap,
+    cross_size_bucket_blackwell_minimum_call_gap,
     critical_beta,
     local_comparison_error_bound,
     local_parity_log_odds,
     local_persistence,
+    p_eight_cross_size_incomparability_certificate,
     p_eight_counterexample,
     screened_two_edge_contraction,
     two_edge_blackwell_erasure_probability,
@@ -211,6 +213,46 @@ class FavorableTimeComparisonTests(unittest.TestCase):
             for actual, expected in zip(degraded, target, strict=True):
                 self.assertAlmostEqual(actual, expected)
         self.assertAlmostEqual(erasure, 0.2791049372404585)
+
+    def test_cross_size_blackwell_comparison_detects_incomparability(
+        self,
+    ) -> None:
+        p = 0.8
+        critical = critical_beta(p)
+        self.assertGreaterEqual(
+            cross_size_bucket_blackwell_minimum_call_gap(
+                p, 2, critical, 4, 0.8
+            ),
+            -2e-15,
+        )
+        self.assertLess(
+            cross_size_bucket_blackwell_minimum_call_gap(
+                p, 4, critical, 2, 0.8
+            ),
+            -1e-3,
+        )
+        self.assertLess(
+            cross_size_bucket_blackwell_minimum_call_gap(
+                p, 2, 0.8, 4, critical
+            ),
+            -1e-3,
+        )
+
+    def test_p_eight_cross_size_certificate_is_rigorous(self) -> None:
+        certificate = p_eight_cross_size_incomparability_certificate()
+        self.assertLess(
+            certificate.critical_four_vs_late_two_gap[1], 0
+        )
+        self.assertLess(
+            certificate.late_two_vs_critical_four_gap[1], 0
+        )
+        self.assertLess(
+            certificate.forward_strike[0], certificate.forward_strike[1]
+        )
+        self.assertLess(
+            certificate.critical_satisfaction[0],
+            certificate.critical_satisfaction[1],
+        )
 
 
 class PairFavorabilityDiagnosticTests(unittest.TestCase):

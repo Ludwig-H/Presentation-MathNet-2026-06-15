@@ -1380,9 +1380,11 @@ LCA. C'est la version rigoureuse de l'idée « regarder le chemin », mais son
 | Ce chemin marqué prouve la weak recovery. | Faux | oracle dépendant de la réplique et variable auxiliaire différente |
 | Les poids homogènes donnent un message descendant scalaire. | Faux en général | la frontière géométrique reste de dimension croissante |
 
-## 12. Programme de calcul prioritaire
+## 12. Programme historique de la voie descendante
 
-La voie descendante peut maintenant être testée sans ambiguïté.
+La voie descendante peut être testée sans ambiguïté. Depuis le fichier 20,
+le corridor collapsed est prioritaire pour la preuve ; le programme
+ci-dessous reste le contre-audit du sweep séquentiel.
 
 1. Sur cactus triangulaires, calculer exactement le message de frontière et
    comparer le véritable balayage au produit PATH-FAC.

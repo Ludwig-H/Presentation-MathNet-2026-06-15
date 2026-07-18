@@ -2,9 +2,9 @@
 
 > **Statut dans le programme.** Ce fichier est un audit auxiliaire d'un canal
 > physique. Il ne remplace pas la dynamique hiérarchique des slides 31--33.
-> La voie prioritaire est le [cas favorable critique](12_FAVORABLE_HIERARCHICAL_REDUCTION.md),
-> où l'on estime tous les $`\Lambda_v^{ab}`$ au-dessus du LCA d'une paire
-> lointaine du même arbre.
+> La voie prioritaire est maintenant le
+> [corridor collapsed critique](20_COLLAPSED_CORRIDOR_BLACKWELL.md), qui
+> conserve tous les $`\Lambda_v^{ab}`$ au-dessus du LCA d'une paire lointaine.
 
 Ce fichier répond à la question quantitative suivante : peut-on dépasser la
 borne d'impossibilité

@@ -1,6 +1,14 @@
 # Réduction hiérarchique au cas favorable critique
 
-Ce fichier formalise la voie prioritaire pour la weak recovery. On suit deux
+> **Position actuelle.** Ce fichier contient la première réduction favorable
+> au niveau du LCA. Les fichiers
+> [19](19_FAVORABLE_SWEEP_PROJECTIONS.md) et
+> [20](20_COLLAPSED_CORRIDOR_BLACKWELL.md) la renforcent respectivement par
+> l'ordre de Blackwell des buckets et sa tensorisation sur un corridor
+> collapsed. La géométrie Palm formulée ici reste nécessaire ; HF n'est plus
+> utilisé comme une boîte noire lorsque le squelette est fixé.
+
+Ce fichier formalise la première étape de la voie prioritaire. On suit deux
 sommets lointains $`i,j`$ dans le dendrogramme d'horloges exponentielles. Le
 cas géométriquement favorable étudié est celui où ils appartiennent à une
 même composante critique macroscopique et où leur LCA $u$ est une fusion de

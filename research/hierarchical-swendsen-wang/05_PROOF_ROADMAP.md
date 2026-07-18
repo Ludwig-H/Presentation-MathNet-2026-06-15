@@ -1,602 +1,340 @@
 # Feuille de route des preuves
 
-## Bloc A — Stabiliser les identités finies
+Cette feuille de route remplace l'ancien inventaire chronologique. Elle ne
+contient que les dépendances nécessaires à la voie privilégiée : corridor
+collapsed, comparaison favorable et contraction critique à $`p=4/5`$.
 
-### A1. Mesure jointe
+## Théorème cible intermédiaire
 
-**But.** Rédiger une preuve autonome de la loi de $(\sigma,D)$, y compris les arêtes satisfaites qui ne fusionnent jamais avant $1$, les égalités d'horloges et les composantes déjà reliées.
+Pour le GSBM binaire homogène sur les tores triangulaires, montrer qu'à
 
-**Livrable.** Un théorème fini : marginale en $\sigma$, conditionnelle $D\mid\sigma$, conditionnelle $\sigma\mid D$.
-
-### A2. Balance des heat baths
-
-**But.** Montrer état par état que les quatre poids $`q_u^{ab}`$ donnent la conditionnelle exacte. Vérifier que des mises à jour successives, avec répétition des nœuds, préservent $\nu(\cdot\mid D)$.
-
-**Livrable.** Un lemme de composition couvrant random scan, parcours déterministe et choix adaptatif dépendant de $D$, avec les restrictions nécessaires.
-
-### A3. Extrémités
-
-**But.** Isoler précisément les hypothèses sous lesquelles :
-
-- racines = Swendsen–Wang ;
-- feuilles = heat bath de Glauber ;
-- feuilles + acceptation appropriée = Metropolis–Hastings.
-
-**Critère de clôture.** Aucun « égal à » sans noyau et mesure cible explicités.
-
-## Bloc B — Formaliser le critère informationnel
-
-### B1. Deux répliques
-
-Rédiger le théorème
 ```math
-\text{weak recovery à probabilité positive}
-\quad\Longleftrightarrow\quad
-\liminf Q_n>0
-```
-dans les conventions exactes du chapitre 11.
-
-Points à traiter :
-
-- algorithmes randomisés ;
-- distinction $\liminf/\limsup$ ;
-- passage de la corrélation à $`\mathrm{ov}_n`$ ;
-- version succès avec probabilité $1-o(1)$ ;
-- extension à $K>2$.
-
-### B2. Projection au LCA
-
-Pour chaque paire $i\ne j$, formaliser le noyau qui conserve $D$ et rééchantillonne les deux orientations au nœud $`u_{ij}`$ lorsqu'il existe, ou les deux racines distinctes sinon. Le livrable central est
-```math
-\langle\sigma_i\sigma_j\rangle_O^2
-\le
-\mathbb E_{\nu_O}\left[
-\mathbf1_{\{i,j\text{ dans le même arbre}\}}\eta_{u_{ij}}
-\right],
-\qquad
-\eta_u=\tanh^2(L_u/2),
-```
-avec la convention de recoloration des racines distinctes sous a priori uniforme.
-
-La preuve doit contenir explicitement :
-
-1. les quatre événements $00,01,10,11$ ;
-2. sur l'événement de connexion, l'identité $`m_u=f_{ij}\,\mathbb E[f_{ij}\mid\mathcal G_u]`$ ;
-3. pour la quantité étendue, $`\mathbb E[m_{ij}^{\mathrm{LCA}}\mid\mathcal G_{ij}]=\eta_{ij}^{\mathrm{LCA}}`$, avec valeur nulle pour les racines distinctes ;
-4. la différence entre survie depuis la vérité et accord avec une réplique indépendante.
-
-### B3. Somme globale LCA
-
-Après finalisation de A1, mettre sous forme de théorème autonome l'identité déjà dérivée
-```math
-Q_n
-\le
-H_n^{\mathrm{LCA}}
-=
-\frac1{n^2}\mathbb E\left[
-n+2\sum_u|C_{u,1}||C_{u,2}|\eta_u
-\right]
-\le
-\frac1{n^2}\mathbb E\sum_R|R|^2.
-```
-Le second membre doit être identifié exactement à la version second-moment de la borne Swendsen--Wang, et non seulement comparé qualitativement.
-
-### B4. Chaîne LCA pair-spécifique
-
-Formaliser le noyau marginal déjà identifié
-```math
-K_{ij}^{\mathrm{LCA}}=A^*\mathsf H_{ij}A
-```
-et sa factorisation comme opérateur auto-adjoint, positif et contractant. Pour
-```math
-A_{ij}^{(m)}=\langle f_{ij},(K_{ij}^{\mathrm{LCA}})^m f_{ij}\rangle,
-```
-établir la décroissance spectrale et identifier les conditions exactes sous lesquelles
-```math
-A_{ij}^{(m)}\downarrow c_{ij}^2.
+p_0=\frac45
 ```
 
-Le verrou asymptotique est un contrôle uniforme permettant de choisir $`m=m_n`$. Le verrou algorithmique distinct est que le noyau dépend de la paire.
+la weak recovery est impossible. Par dégradation BSC des observations, le
+même résultat vaudrait alors pour tout $`p\le p_0`$.
 
-### B5. Réduction à la bande critique
-
-Pour une coupe déterministe $\beta$, formaliser
+Le critère à établir est
 
 ```math
-S_n(\beta)
-=
-\frac1{n^2}\mathbb E\sum_{C\in\Pi_\beta}|C|^2,
+\mathbb E[H_{\mathcal C}(I_L,J_L)^2]\longrightarrow0,
+\tag{T}
 ```
 
-```math
-\mathcal M_n((\beta,1])
-=
-\frac2{n^2}
-\mathbb E\sum_{u:\,\beta<\beta_u\le1}
-|C_{u,1}||C_{u,2}|\eta_u,
+où $`P_{\mathcal C}`$ est le heat bath collapsed du corridor pair-spécifique.
+Le théorème 2.2 du fichier 20 transforme (T) en impossibilité de weak
+recovery par Jensen paire par paire.
+
+## Graphe de dépendances
+
+```mermaid
+flowchart TD
+    F["F — mesure jointe et projections"] --> P["P — critère pairwise L²"]
+    P --> R["R — réduction aux paires critiques"]
+    B["B — Blackwell sur buckets"] --> C["C — tensorisation corridor fixé"]
+    R --> G["G — couplage des géométries"]
+    C --> G
+    G --> X["X — contraction Palm critique"]
+    X --> T["T — impossibilité à p=0.8"]
 ```
 
-et démontrer comme théorème autonome
+## Bloc F — fondations finies
+
+### F1. Loi jointe
+
+**Énoncé.** Pour le dendrogramme non marqué,
 
 ```math
-Q_n\le S_n(\beta)+\mathcal M_n((\beta,1]).
-```
-
-Le résultat doit inclure :
-
-1. la distinction entre bande pure, naissance de connexion et sprinkling sur le quotient ;
-2. la réduction nécessaire et suffisante au score signé de bande lorsque $`S_n(\beta)\to0`$ ;
-3. la factorisation connexion $\times$ fiabilité $\times$ cohérence ;
-4. les bons quantificateurs pour une paire macroscopique.
-
-### B5 bis. Oracle de fusion critique — calcul local fermé
-
-Le [fichier 09](09_CRITICAL_MERGER_ORACLE.md) établit, pour un bucket critique
-homogène et $`B_u=0`$,
-
-```math
-\Gamma_m^c(p_{\mathrm{SW}})=\frac1m,
-\qquad
-\Gamma_m^c(p)\longrightarrow1
-\quad(p>p_{\mathrm{SW}}),
-```
-
-avec une borne exponentielle et la limite exacte dans la fenêtre
-$`p-p_{\mathrm{SW}}\asymp m^{-1/2}`$. Il établit aussi le contre-audit
-
-```math
-\mathcal C_{n,\delta}^c
-\le
-S_n(\beta_c+\delta)-S_n(\beta_c).
-```
-
-Ce bloc local est clos. Il ne doit pas être promu en seuil global : le travail
-restant consiste à contrôler simultanément la masse des fusions, le message
-ancestral, la contraction après marginalisation de $D$ et la cohérence signée.
-
-### B5 ter. Probabilité paire critique — du bucket à la paire lointaine
-
-Le [fichier 15](15_CRITICAL_GIANT_PAIR_FLIP.md) établit pour le bucket local
-
-```math
-\overline P_m^c(p)
-=
-\frac{1+\Gamma_m^c(p)}2,
-```
-
-ainsi que
-
-```math
-\overline P_m^c(p_{\mathrm{SW}})
-=
-\frac12+\frac1{2m},
-```
-
-et, pour $`p>p_{\mathrm{SW}}`$ fixé,
-
-```math
-1-\overline P_m^c(p)
-\sim
-\frac{C_{m\bmod2}(p)}{\sqrt m}e^{-mI_c(p)},
-\qquad
-I_c(p)=-\frac12\log(1-h_c(p)^2).
-```
-
-Les deux constantes $`C_0(p),C_1(p)`$ sont des séries absolument
-convergentes données explicitement dans le fichier 15 ; distinguer la parité
-est nécessaire pour avoir un véritable équivalent.
-
-Deux lemmes distincts sont nécessaires pour transporter cette calibration à
-une paire lointaine de la grille.
-
-1. **CUT.** La taille $`M_L=|E_{u_{I_LJ_L}}|`$ de la coupe critique tend vers
-   l'infini sous le biais de Palm retenu, ou sa loi limite est calculée
-   explicitement si elle reste tendue.
-2. **ANC.** Le message ancestral vérifie $`B_L/M_L\to0`$, ou plus
-   généralement possède une limite jointe avec $`M_L`$ permettant de décider
-   le signe de $`a_ch_c+B_L/M_L`$.
-
-Sous CUT et ANC, la probabilité paire complète tend vers $`1`$. Ces hypothèses
-sont **à prouver**. La distance des sommets et leur appartenance à la plus
-grande composante ne suffisent pas : une interface critique peut être réduite
-à une arête pivotale. Un exposant pour la moyenne exige en plus une grande
-déviation jointe de $`(K_L,B_L,M_L)`$.
-
-### B5 quater. Probabilités de flip et chemin descendant
-
-Le [fichier 16](16_FLIP_PROBABILITIES_DESCENDANT_PATH.md) ferme les
-probabilités élémentaires : racine à deux états, feuille à deux états et
-nœud interne à quatre états. Il donne aussi, à tout niveau $`t`$,
-
-```math
-K\stackrel d=1+\mathrm{Bin}(m-1,s_p(t)),
-```
-
-```math
-\ell_{m,k}(t;p)
-=
-\log\frac{k}{m-k}
-+u_p(1-t)(2k-m).
-```
-
-Pour un balayage de clusters, la relation d'une paire est exactement le
-produit des signes de flip sur les deux bras vers son LCA. Le programme
-descendant se sépare alors en trois étapes.
-
-1. **PATH-JOINT.** Estimer la corrélation jointe des décisions de heat bath,
-   sans remplacer son espérance par un produit de marginales.
-2. **SIDE-MSG.** Marginaliser les branches latérales par des messages de
-   frontière, exactement sur cactus puis sur bandes.
-3. **PATH-COMP.** Comparer le vrai canal de chemin à l'oracle factorisé
-   PATH-FAC. Aucun ordre stochastique n'est actuellement établi.
-
-Une récursion tordue sur un état de frontière calcule déjà exactement cette
-corrélation sur cactus et séparateurs bornés. Dans l'oracle factorisé, la
-condition $`m_{\min}\ge(c_c(p)^{-1}+\varepsilon)\log H`$ suffit à
-préserver la relation le long d'un chemin critique de longueur $`H`$ ; elle
-n'est pas encore transférée à la grille complète.
-
-Le chemin de la MSF avec gagnants marqués est exclu de cette comparaison : il
-révèle exactement la relation de la réplique génératrice et définit une
-variable auxiliaire différente.
-
-### B5 quinquies. Seuil de décorrélation du chemin
-
-Le [fichier 17](17_PATH_DECORRELATION_THRESHOLD.md) remplace la question
-qualitative par l'atténuation exacte
-
-```math
-A_L(p)=-\sum_{w\in\mathcal P_L}\log\Gamma_{m_w}(t_w;p).
-```
-
-Les sous-objectifs géométriques sont désormais ordonnés.
-
-1. Montrer ou réfuter que, pour un $`M`$ fixé,
-   $`N_{L,M}=\#\{w:2\le m_w\le M\}`$ diverge sous la loi de paire critique.
-   Une réponse positive force déjà PATH-FAC vers $`1/2`$ pour tout
-   $`p<1`$ fixé.
-2. Si les petites coupes sont rares, mesurer d'abord la fonction de partition
-   $`\Phi_L(I)=\sum_w m_w^{-1/2}e^{-Im_w}`$. Son abscisse de transition est le
-   seuil géométrique général. Dans le sous-cas
-   $`m_L\sim\alpha\log H_L`$, l'oracle régulier possède le seuil explicite
-
-   ```math
-   p_{\mathrm{path}}(\alpha)
-   =
-   \frac{1+q_\triangle+(1-q_\triangle)\sqrt{1-e^{-2/\alpha}}}{2}.
-   ```
-
-   Pour le vrai chemin descendant, remplacer cette somme par
-   $`\sum_w m_w^{-1/2}e^{-m_wI(t_w;p)}`$ et mesurer le nombre de niveaux dans
-   la fenêtre $`\beta_c-t_w=O(m_w^{-1})`$ ; hors de cette fenêtre, leur poids
-   relatif est exponentiellement plus petit.
-
-3. Sur cactus puis bandes, calculer les normes $`\kappa_r`$ des opérateurs
-   tordus et prouver une contraction de bloc sommable. C'est la version jointe
-   rigoureuse du critère $`A_L\to\infty`$.
-
-La constante de Nishimori correspond formellement à
-$`\alpha=7.053596192884\ldots`$. Cette égalité est seulement une cible à
-contre-auditer par la géométrie ; elle ne doit pas être utilisée comme entrée
-du raisonnement.
-
-### B6. Matrice de persistance
-
-Rédiger le théorème
-
-```math
-h_n(S)\to0
-\quad\Longrightarrow\quad
-\text{impossibilité}.
-```
-
-Vérifier explicitement le cas racine
-
-```math
-H_S(i,j)=\mathbf1_{\{i\leftrightarrow j\text{ dans }\Pi_1\}}.
-```
-
-### B7. Comparaison avec $\theta^{\max}$
-
-Déterminer une version quantitative de $`H_S`$ qui retrouve non seulement la taille de la plus grande composante, mais la borne sur la fraction récupérable. Candidats :
-
-```math
-\frac1{n^2}\mathrm{tr}(H_S^2),
-\qquad
-\frac1n\lambda_{\max}(H_S),
-\qquad
-\text{profil des valeurs propres de }H_S.
-```
-## Bloc C — Passer des nœuds à une capacité globale
-
-### C1. Canal exact d'une fusion
-
-Pour chaque $u$, calculer le noyau à quatre états et sa contraction sur l'orientation relative :
-
-- contraction $\chi^2$ ;
-- corrélation maximale ;
-- coefficient de Dobrushin ;
-- second coefficient singulier.
-
-Comparer ces choix sur les petits graphes.
-
-### C2. Ancêtres
-
-L'obstacle central est
-```math
-q_u^{ab}
+\nu_O(\sigma\mid D)
 \propto
-\prod_{v\succeq u}
-\Lambda_v(\sigma^{ab})
-e^{(1-\beta_v)\Lambda_v(\sigma^{ab})}.
-```
-Trois voies sont à tester :
-
-1. **SDPI conditionnelle directe**, sans factorisation ;
-2. **domination** par un canal symétrique indépendant plus informatif ;
-3. **élargissement de l'état** du nœud pour rendre le processus markovien sur l'arbre.
-
-La voie prioritaire est maintenant le lemme HF du
-[fichier 12](12_FAVORABLE_HIERARCHICAL_REDUCTION.md). Pour une paire lointaine
-du même arbre, il demande de coupler le log-rapport postcritique complet avec
-celui de l'oracle où la séparation a lieu en $`\beta_c`$, de sorte que
-
-```math
-|L^{\mathrm{post}}|
-\le
-|L^{\mathrm c}|+o(1)
+\mu_0(\sigma)
+\prod_{u\in D}
+\Lambda_u(\sigma)e^{(1-\beta_u)\Lambda_u(\sigma)}.
 ```
 
-avec probabilité $`1-o(1)`$. Sous ce lemme, l'annulation de la fiabilité de
-l'oracle critique interdit la weak recovery sans supposer que les temps LCA
-réels se concentrent au seuil.
+**Statut.** Dérivé dans le fichier 01 et vérifié sur les petits graphes. Une
+rédaction autonome avec toutes les masses censurées doit rester attachée à
+tout théorème final.
 
-La décomposition de départ est additive :
+### F2. Heat baths
+
+**Énoncé.** Les quatre poids d'un nœud sont sa conditionnelle exacte ; les
+updates à $`D`$ fixé sont des projections orthogonales de $`L^2(\pi_D)`$.
+
+**Statut.** Établi en volume fini.
+
+### F3. Bloc collapsed
+
+**Énoncé.** Pour le corridor $`\mathcal C`$,
+
 ```math
-L_u
+\|K g\|_2^2
 =
-B_u
-+\log\frac{\Lambda_u}{T_u-\Lambda_u}
-+(1-\beta_u)(2\Lambda_u-T_u).
-```
-La décomposition en trois groupes du
-[fichier 08](08_ANCESTRAL_LAMBDA_CHAIN.md) donne exactement les quatre
-$`\Lambda_v(\sigma^{ab})`$ pour une réalisation fixée. Le
-[fichier 10](10_ANCESTRAL_LAMBDA_ESTIMATION.md) donne en plus, conditionnellement
-au squelette non marqué, la course pondérée exacte, les moments des quatre
-taux, leur concentration et la fonctionnelle $`\mathcal R_u`$ qui contrôle la
-queue du message ancestral. Le verrou n'est donc plus le canal des marques,
-mais la loi du squelette
-$`(m_{v,0},m_{v,1},m_{v,2},\beta_v)_{v\succ u}`$ sous le biais du LCA d'une
-paire lointaine critique.
-
-Sur cactus, il faut propager cette loi exacte ; sur bandes, construire une
-matrice de transfert certifiée ; sur la grille, établir la convergence des
-premiers ancêtres, la sommabilité de $`\mathcal R_u`$ et le contrôle des quatre
-coins proches de zéro. La borne
-
-```math
-|\eta_u-\eta_u^{(K)}|
-\le
-\min\left(1,\frac{2\mathcal R_u^{(>K)}}{3\sqrt3}\right)
+\|P_{\mathcal C}g\|_2^2
++\|K(I-P_{\mathcal C})g\|_2^2.
 ```
 
-transporte ensuite directement ces résultats vers la quantité de weak
-recovery.
+**Statut.** Établi dans le fichier 20.
 
-Lorsque $`\beta_u\simeq\beta_c`$, le fichier 09 fournit en plus le sandwich
-stochastique $`1/2\le s_p(\beta_v)<s_p(\beta_c)`$ pour tous les comptes
-ancestraux. Ce sandwich doit être transporté séparément dans chacun des quatre
-états : complémenter un groupe renverse ses bornes, et aucune monotonie de
-$`\eta_u`$ ne peut être supposée.
+## Bloc P — critère informationnel
 
-### C3. Cycles et multi-terminal
+### P1. Second moment pairwise
 
-Une fusion voit tous les liens entre $`C_1`$ et $`C_2`$. Employer une SDPI multi-terminale pour éviter la multiplication naïve des contractions des arêtes. Le [fichier 11](11_TRIANGLE_BLOCK_SDPI.md) ferme le premier audit :
+**Énoncé.** Si $`I_L,J_L`$ sont uniformes,
 
-- la contraction uniforme d'un triangle est $`\eta_\triangle`$ ;
-- sa SDPI globale est $`\gamma_2=2q^2/(1+q^2)`$, donc le facteur scalaire est
-  moins bon que la baseline par arêtes ;
-- le canal d'effacement multi-état satisfait l'inégalité $`\chi^2`$ voulue
-  pour tout a priori $\mu$ tel que $`\max_x\mu_x\le1/2`$ ;
-- le cas d'un atome dominant est le lemme $`P_\star`$ encore à prouver.
-
-Ce calcul reste un audit auxiliaire. La prochaine étape de la voie
-hiérarchique n'est pas de recalculer $`\eta_\triangle`$ ni de fermer d'abord
-$`P_\star`$, mais de contrôler la chaîne des $`\Lambda_v`$ sous le biais de la
-paire critique et de prouver HF.
-
-### C4. Matrice dominante
-
-Construire $`K_D^{\mathrm{info}}`$ telle que
 ```math
-H_S\preceq K_D^{\mathrm{info}}.
+\mathbb E[H(I_L,J_L)^2]\to0
+\quad\Longrightarrow\quad
+\text{pas de weak recovery}.
 ```
 
-**Critère de succès minimal.** Pour une recoloration aux racines, retrouver exactement les blocs de composantes. Pour un canal arête par arête, retrouver au moins la borne d'information-percolation.
+**Statut.** Établi dans les fichiers 03 et 18. Le couplage peut être choisi
+séparément pour chaque paire dans le cas collapsed par le théorème 2.2 du
+fichier 20 ; cette extension utilise Jensen paire par paire, et non la matrice
+de Gram d'un sweep commun.
 
-### C5. Capacité du quotient critique
+### P2. Transfert répliqué
 
-Contracter $`\Pi_{\beta_c}`$, puis remplacer chaque bundle entre deux blocs par sa contraction **après marginalisation du dendrogramme**. Les calibrations obligatoires sont
+**Énoncé.** Le second moment partage le même $`(O,D,\sigma)`$ entre deux
+copies et seulement les aléas de heat bath sont indépendants.
+
+**Statut.** Établi. Deux hiérarchies indépendantes calculeraient une autre
+quantité.
+
+## Bloc R — réduction favorable
+
+### R0. Racines distinctes
 
 ```math
-\gamma_1=(2p-1)^2
+\beta_{ij}>1
+\quad\Longrightarrow\quad
+H_{\rm TD}(i,j)=H_{\rm BU}(i,j)=0.
 ```
 
-pour une arête et, pour $m$ observations BSC indépendantes,
+**Statut.** Établi exactement.
+
+### R1. Paires précoces
+
+Pour tout $`\delta>0`$ fixé, une paire à distance macroscopique est connectée
+sous $`q_c-\delta`$ avec probabilité tendant vers zéro.
+
+**Statut.** Établi par décroissance sous-critique ; l'ordre des limites est
+d'abord $`L\to\infty`$, puis $`\delta\downarrow0`$.
+
+### R2. Décomposition
+
+Les paires se partagent en : précoce, fenêtre critique gauche, postcritique
+et racines distinctes. Après R0--R1, il reste à dominer la classe
+postcritique par l'expérience critique favorable.
+
+**Statut.** Décomposition établie ; domination géométrique ouverte.
+
+## Bloc B — ordre favorable local
+
+### B1. Canal d'un bucket
+
+Pour $`s=s_p(t)`$,
 
 ```math
-\gamma_m^{\mathrm{BSC}}
-=
-\sum_{k=0}^m
-\binom mk p^k(1-p)^{m-k}
-\tanh^2\left(\frac{u_p}{2}(2k-m)\right).
-```
-
-Employer directement $`\eta_u`$ conditionnellement à $D$ est interdit pour une conclusion suffisante : sur une coupe à une arête, cette quantité vaut $1$ conditionnellement à la fusion et surestime la contraction réelle.
-
-## Bloc D — Condition suffisante
-
-Une quantité oracle dépendant de $D$ ne suffit pas. Il faut un estimateur fonction de $O=(X,W)$.
-
-Options :
-
-1. belief propagation sur une approximation locale du dendrogramme ;
-2. échantillonnage postérieur puis agrégation de plusieurs répliques ;
-3. méthode spectrale appliquée à une estimation de $`C_O`$ ;
-4. estimateur multiscale sur blocs géométriques, inspiré de la synchronisation sur grilles.
-
-La preuve doit séparer :
-
-- existence informationnelle de l'estimateur ;
-- calcul effectif de l'estimateur ;
-- temps de mélange de la dynamique proposée.
-
-## Bloc E — Grille triangulaire
-
-### E1. Baselines
-
-Reproduire rigoureusement :
-```math
-p_c^{\mathrm{edge}}=0.673648\ldots,
-\quad
-p_c^\triangle=0.719224\ldots,
-\quad
-p_c^{\mathrm{info}}=0.794659\ldots
-```
-avec les hypothèses et conditions de bord.
-
-### E2. Coupes déterministes
-
-Calculer les contractions pour $m=1,2,3,\ldots$ liens transverses, conditionnellement à $k$ liens satisfaits et à $\beta$.
-
-Inclure le contrôle exact au temps de fusion
-```math
-k\mid(m,\beta=t)
-\stackrel d=
-1+\mathrm{Bin}\left(m-1,
-\mathrm{logistic}(u_p(1-t))\right)
-```
-
-conditionnellement au squelette non marqué. Le choix de Kruskal biaise encore la géométrie $`(E_u,m,\beta)`$, mais ne biaise plus les marques résiduelles une fois ce squelette fixé.
-
-### E3. Bande critique et flux pivotal
-
-Établir dans les conventions triangulaires
-
-```math
-\beta_c=q_p^{-1}(q_c),
+K\mid X=+1\sim1+\mathrm{Bin}(m-1,s),
 \qquad
-t_\chi=q_p^{-1}((2p-1)^2),
+K\mid X=-1\sim\mathrm{Bin}(m-1,1-s).
 ```
 
-puis vérifier que $`t_\chi>\beta_c`$ redonne exactement $`p>0.794659\ldots`$. Désintégrer la mesure des fusions avec la formule de Russo et pondérer les pivots par la fiabilité conditionnelle.
+### B2. Blackwell
 
-Employer la loi multinomiale exacte conditionnellement au squelette non marqué et vérifier le crossover $`m h_p(\beta)^2`$. Sur une fusion choisie par Kruskal, il reste à contrôler la loi du squelette groupé $`(m_{v,0},m_{v,1},m_{v,2},\beta_v)`$, pas à recorriger les marques conditionnelles.
-
-Le fichier 14 fixe trois tests à ne pas confondre :
-
-1. majorité des vrais tardifs contre les faux ;
-2. majorité conforme dans chacun des deux groupes affectés d'un ancêtre ;
-3. préférence quatre états exacte
-   $`q_u^{00}+q_u^{11}>q_u^{10}+q_u^{01}`$.
-
-Le premier test a son seuil à $`0.782432\ldots`$ et ne peut donc pas améliorer
-la baseline. Le théorème du cône de Walsh montre que le test 2, joint à la
-majorité locale, implique le test 3 sous a priori uniforme. La réciproque
-n'est pas nécessaire ; les calculs de cactus et de bandes doivent donc
-enregistrer à la fois le certificat 2 et le critère exact 3.
-
-### E4. Géométrie biaisée de Kruskal
-
-Décrire la loi du squelette d'une fusion conditionnellement à la filtration passée. Le noyau des marques est maintenant exact après conditionnement ; le verrou est la distribution des tailles de groupes et des temps le long de la chaîne ancestrale.
-
-### E5. Cas intermédiaires
-
-Prouver d'abord le critère sur :
-
-- arbres ;
-- cactus triangulaires ;
-- bandes de largeur fixe.
-
-Utiliser ces cas pour choisir la bonne définition de capacité avant d'attaquer le plan.
-
-Calibrations obligatoires :
-
-- chemin : $`A_1=(2p-1)^\ell`$ contre $c^2=(2p-1)^{2\ell}$ ;
-- triangle : calcul exact de $`A_m`$ et de $`\eta_\triangle`$ ;
-- cactus de triangles : factorisation de la valeur exacte et convergence de la chaîne LCA.
-
-### E6. Objectif
-
-Obtenir une borne rigoureuse
+À taille $`m`$ fixée, si $`t_1\le t_2`$, alors
 
 ```math
-p_\star>0.794659\ldots.
+\mathcal E_{m,s_p(t_1)}
+\succeq_{\rm Blackwell}
+\mathcal E_{m,s_p(t_2)}.
 ```
-Le calcul auxiliaire du fichier 11 produit le candidat conditionnel
+
+**Statut.** Établi dans le fichier 19 par domination des courbes ROC.
+
+### B3. Contre-audit pointwise
+
+La fiabilité à $`K,B`$ fixés n'est pas monotone : un ancêtre opposé peut
+rendre la fusion tardive plus persistante. Ce contre-exemple interdit les
+preuves par comparaison réalisation par réalisation, mais pas l'ordre de
+Blackwell sous la loi complète.
+
+### B4. Contre-audit des tailles
+
+L'ordre du bloc B2 n'est pas total lorsque $`m`$ change. À $`p=4/5`$, le
+bucket critique $`m=4`$ et le bucket tardif $`m=2,t=4/5`$ sont incomparables
+au sens de Blackwell. Deux écarts de fonctions call strictement négatifs sont
+certifiés par intervalles rationnels dans le fichier 20.
+
+**Conséquence.** Un couplage favorable doit préserver la taille des buckets,
+ou vérifier explicitement la domination entre les deux expériences de
+tailles différentes. Comparer seulement leurs niveaux est insuffisant.
+
+## Bloc C — corridor fixé
+
+### C1. Tensorisation
+
+À squelette et tailles fixés, les dégradations de buckets se tensorisent.
+Pour tout prior corrélé des parités et toute cible $`F`$,
 
 ```math
-p_\star^{\mathrm{cond}}=0.8099092892\ldots,
+\mathbb E[
+\mathbb E(F\mid K^{\rm late})^2
+]
+\le
+\mathbb E[
+\mathbb E(F\mid K^{\rm crit})^2
+].
 ```
 
-racine de son enveloppe affine multi-état. Il reste conditionnel au lemme
-$`P_\star`$ et ne doit pas être cité comme résultat établi ni comme sortie de
-la dynamique hiérarchique. La cible prioritaire est la valeur obtenue, ou
-l'absence d'amélioration constatée, après calcul de
-$`\Gamma_{L,\varepsilon}^{\mathrm{fav}}`$ avec tous les ancêtres. Le point
-$0.8358058\ldots$ reste un repère conjectural, non une cible à annoncer comme
-acquise.
+**Statut.** Établi dans le fichier 20.
 
-Le fichier 13 fournit désormais une seconde calibration exacte : l'équation
-de Nishimori--Ohzeki est une entropie conditionnelle de face égale à un bit et
-se représente par quatre horloges exponentielles. Cela ne modifie pas le
-statut du seuil. Le fichier 14 remplace la troncature autoduale non canonique
-par la décomposition exacte des liens postcritiques. Le calcul prioritaire sur
-le cactus de deux triangles doit produire, pour chaque ancêtre, les trois
-comptes conformes, les quatre $`\Lambda_v^{ab}`$, puis le log-rapport de
-parité complet. Une énumération indépendante doit contre-auditer la loi
-conditionnelle de Kruskal et le critère pair/impair. Sans contrôle séparé du
-squelette sélectionné et sans HF, ni l'autodualité de face ni le score oracle
-ne donnent une borne de weak recovery.
+### C2. Corridor factorisé
 
-## Bloc F — Mélange et interpolation algorithmique
+Sous parités indépendantes uniformes,
 
-Pour un nombre $m$ de mises à jour, comparer :
-
-- racines seulement ;
-- feuilles seulement ;
-- random scan uniforme ;
-- random scan pondéré par $`|C_u|`$, $`\rho_u`$ ou $`\beta_u`$ ;
-- parcours bas-haut et haut-bas.
-
-Mesurer et, si possible, borner
 ```math
-h_n(S_m)-h_{n,\infty}.
+\mathscr R
+=
+\prod_r\Gamma_{m_r}(t_r;p).
 ```
-Cette partie répond à une question algorithmique distincte du seuil de weak recovery : quel parcours fait perdre l'information le plus vite tout en conservant Gibbs ?
 
-## Garde-fous
+**Statut.** Établi dans l'expérience annoncée. Ne pas l'utiliser sur la
+grille sans théorème de compression du bord.
 
-1. Une composante géante FK n'est pas une condition suffisante d'ordre magnétique en présence de frustration.
-2. Une capacité calculée avec $D$ révélé ne donne directement qu'une borne oracle.
-3. Une valeur issue de dualité/répliques non rigoureuse reste étiquetée conjecture.
-4. Toute affirmation asymptotique doit préciser l'exhaustion, les conditions de bord et l'ordre des limites.
-5. Les égalités exactes sont d'abord vérifiées sur un graphe fini par énumération.
-6. Une mise à jour LCA pair-spécifique ne définit pas un seul parcours commun à toutes les paires ; ne pas lui attribuer automatiquement une matrice PSD échantillon par échantillon.
-7. Une probabilité de survie depuis $\Sigma$ sous le couplage de Nishimori est une autocorrélation Markovienne, pas la précision d'une nouvelle réplique indépendante.
+## Bloc G — géométrie Palm, ouvert
 
-## Ordre conseillé des premiers travaux
+### G0. Séparation en coordonnée $`q`$
 
-1. Finaliser A1 puis écrire B1--B3 comme premier paquet de résultats réutilisables.
-2. Vérifier A1--A3 et le théorème LCA sur tous les graphes à au plus quatre sommets.
-3. Prouver B4 et calculer $`A_m`$ sur un chemin et un triangle.
-4. Calculer C1 et le message $`B_u`$ sur un cactus de triangles.
-5. Fermer B5 puis retrouver information-percolation par $`t_\chi>\beta_c`$.
-6. Calculer C5 sur des bundles déterministes, puis sur un cactus.
-7. Comparer quantitativement $`H_n^{\mathrm{LCA}}`$ à l'information-percolation.
-8. Traiter les bandes triangulaires avant de viser une nouvelle constante sur la grille entière.
-9. Prouver HF sur cactus puis sur bandes en couplant les vecteurs quatre états
-   de la chaîne ancestrale critique et postcritique.
-10. Conserver le lemme $`P_\star`$ comme piste auxiliaire indépendante ; ne
-    pas substituer sa constante conditionnelle au résultat hiérarchique.
+Sous la loi jointe annealed, les rangs
+
+```math
+q_p(T_e)=p(1-e^{-u_pT_e})
+```
+
+ont une densité uniforme jusqu'à la censure. La forêt non marquée sous
+$`q_\triangle`$ et tout conditionnement de paire mesurable à ce niveau ne
+dépendent donc pas de $`p`$. Le canal résiduel dépend de
+$`p`$ par $`s_c(p)=(p-q_\triangle)/(1-q_\triangle)`$.
+
+**Statut.** Établi dans le fichier 20. Cette réduction ne traite ni les
+ancêtres postcritiques, ni l'état de bord du transfert.
+
+### G1. Variable à faire converger
+
+Sous le biais d'une paire lointaine critique, étudier la loi de
+
+```math
+\left(
+m_r,\beta_r,
+m_{r,0},m_{r,1},m_{r,2},
+Z_r
+\right)_{r\in\mathcal C_{I_LJ_L}},
+```
+
+où $`Z_r`$ est l'état de bord minimal du transfert collapsed.
+
+### G2. Couplage critique/postcritique
+
+Construire un couplage qui aligne un corridor postcritique sur un corridor
+critique plus informatif, puis payer explicitement :
+
+```math
+\varepsilon_L^{\rm géom}
++\varepsilon_L^{\rm bord}
++\varepsilon_L^{\rm Palm}.
+```
+
+La somme doit tendre vers zéro. Blackwell traite les marques une fois les
+squelettes alignés ; il ne fournit pas ce couplage. En raison de B4,
+« aligné » signifie ici mêmes tailles ou domination cross-size certifiée,
+pas seulement mêmes incidences approximatives.
+
+### G3. Premier modèle
+
+Commencer par un cactus de triangles : incidence arborescente, état de bord
+fini et énumération exacte. Passer ensuite aux bandes de largeur fixée. La
+grille bidimensionnelle entière vient seulement après ces deux certificats.
+
+## Bloc X — contraction critique à $`p=0.8`$, ouvert
+
+### X1. Bloc élémentaire
+
+Pour $`m=2`$ et message $`|B|\le b`$,
+
+```math
+\kappa_2(b)
+=
+s_c+(1-s_c)\tanh^2(b/2)<1,
+\qquad
+s_c=0.693582222752\ldots.
+```
+
+**Statut.** Établi.
+
+### X2. Abondance
+
+Extraire $`N_L\to\infty`$ blocs dont le coefficient répliqué est uniformément
+inférieur à un. Les blocs peuvent être :
+
+- des coupes $`m=2`$ screenées ;
+- des blocs cactus plus grands avec coefficient certifié ;
+- des blocs de bande admis par un programme linéaire de dégradation.
+
+**Statut.** Ouvert sur la grille.
+
+### X3. Composition
+
+Construire un transfert fini tel que
+
+```math
+\mathbb E[H_{\mathcal C}(I_L,J_L)^2\mid\mathrm{Palm\ critique}]
+\le
+\mathbb E[\kappa^{N_L}]+o(1).
+```
+
+**Statut.** Prochaine cible mathématique.
+
+## Prochain calcul certifié
+
+Sur un cactus de deux puis trois triangles :
+
+1. énumérer le squelette non marqué et toutes les marques ;
+2. construire la conditionnelle collapsed des parités du corridor ;
+3. calculer son transfert répliqué par sommation directe ;
+4. le recalculer comme produit matriciel indépendant ;
+5. chercher une dégradation critique/postcritique par programme linéaire ;
+6. certifier les inégalités à $`p=4/5`$ par intervalles.
+
+Un résultat n'est accepté que si les deux implémentations donnent les mêmes
+probabilités avant l'arrondi d'intervalle.
+
+## Pistes reléguées
+
+Les pistes suivantes restent des audits, mais ne doivent plus détourner le
+programme principal :
+
+- majorité scalaire globale d'une coupe ;
+- seuil du canal de triangle isolé ;
+- calibration Nishimori utilisée comme preuve ;
+- chemin physique marqué de la MSF ;
+- formule PATH-FAC appliquée sans factorisation ;
+- nouveaux diagnostics de grands tores avant le certificat cactus.
+
+## Critère de clôture à $`p=0.8`$
+
+Le jalon est atteint seulement lorsque les quatre lignes suivantes sont
+simultanément prouvées :
+
+```math
+\begin{aligned}
+\text{précoce}_L&=o(1),\\
+\text{racines distinctes}_L&=0,\\
+A_L^{\rm late}&\le A_L^{\rm crit}+o(1),\\
+A_L^{\rm crit}&=o(1).
+\end{aligned}
+```
+
+Avant cela, $`p=0.8`$ reste une cible et non une nouvelle borne annoncée.

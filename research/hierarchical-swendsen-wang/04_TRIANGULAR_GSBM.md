@@ -519,10 +519,10 @@ n'est donc pas encore une borne rigoureuse. La fonction exacte $`c_q(t)`$ de
 ce fichier isole un problème de polarisation pour un facteur physique, mais ne
 transforme pas la difficulté des $`\Lambda_v`$ ancestraux. La voie
 hiérarchique prioritaire est le
-[cas favorable critique](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : paire
+[corridor collapsed critique](20_COLLAPSED_CORRIDOR_BLACKWELL.md) : paire
 lointaine dans une même composante critique macroscopique, LCA dans la
 fenêtre gauche du seuil, puis calcul du message formé par tous les ancêtres et
-preuve de la domination HF. La
+tensorisation de la domination de Blackwell à squelette fixé. La
 [calibration entropique par horloges](13_NISHIMORI_HIERARCHICAL_CLOCKS.md)
 retrouve exactement l'équation de Nishimori--Ohzeki au niveau d'une face. Le
 [calcul des frontières critiques](14_CRITICAL_COMPONENT_BOUNDARY.md)
