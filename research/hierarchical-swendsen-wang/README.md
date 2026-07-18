@@ -11,10 +11,12 @@ p=\frac45=0.8
 
 sur le GSBM triangulaire.
 
-La voie privilégiée est désormais précise : **conditionner une paire
-lointaine par sa composante critique, remplacer son corridor par un heat bath
-conjoint exact, puis montrer que le transfert répliqué perd toute sa
-corrélation**.
+La voie privilégiée est désormais précise : **majorer chaque canal tardif
+par sa version critique sur le même squelette, remplacer le corridor de la
+paire par un heat bath conjoint exact, puis accumuler des contractions sur
+des blocs annulaires screenés**. Le conditionnement par une composante
+critique reste l'expérience géométrique favorable à étudier, mais sa
+domination des autres géométries n'est pas supposée sans preuve.
 
 Le premier jalon géométrique est maintenant résolu exactement sur une chaîne
 de cactus triangulaires. Même lorsque le LCA de la paire est fixé au seuil de
@@ -150,8 +152,9 @@ flowchart TD
     C1["C1 — décroissance sous-critique"] --> R
     R --> C2["C2 — domination favorable"]
     C2 --> C3a["C3a — cactus exact"]
-    C3a --> C3b["C3b — bande puis grille"]
-    C3b --> W["Pas de weak recovery à p=0.8"]
+    C3a --> C3b["C3b — transfert de bande"]
+    C3b --> C3c["C3c — abondance annulaire"]
+    C3c --> W["Pas de weak recovery à p=0.8"]
 ```
 
 | certificat | contenu | statut |
@@ -164,7 +167,9 @@ flowchart TD
 | C2-géométrie | coupler les corridors Palm critique et postcritique | ouvert |
 | C3-bloc | un bucket critique $`m=2`$ screené contracte strictement à $`p=0.8`$ | démontré localement |
 | C3-cactus | LCA fixé à $`q`$, LCA seul contre corridor complet et comparaison critique/postcritique | démontré exactement sur une chaîne de cactus |
-| C3-global | extraire un nombre divergent de blocs contractants avec erreur totale $`o(1)`$ | ouvert |
+| C3-bande | état de bord fini et rayon spectral du transfert répliqué de largeur deux | ouvert |
+| C3-annuli | extraire sous Palm un nombre logarithmique de blobs screenés et contractants | ouvert |
+| C3-global | composer les blocs uniformément sur les corridors critiques et postcritiques | ouvert |
 | Globalisation | la disparition du second moment pairwise interdit la weak recovery | démontré |
 
 ## 4. Résultats exacts à retenir
@@ -311,12 +316,14 @@ Les trois problèmes prioritaires sont, dans cet ordre :
    répliquées ; certifier un rayon spectral strictement inférieur à un à
    $`p=0.8`$. Cette bande teste l'état de bord, mais reste quasi
    unidimensionnelle et ne remplace pas la géométrie Palm de la grille.
-2. **Géométrie Palm.** Décrire sur la grille la loi des tailles
-   $`(m_r)`$, des niveaux $`(\beta_r)`$ et des incidences du corridor vu
-   depuis une paire critique lointaine, puis construire un couplage qui
-   préserve les tailles ou respecte leur ordre de Blackwell partiel.
-3. **Abondance contractante.** Montrer qu'un nombre divergent de blocs a une
-   petite interface ou un message de bord screené.
+2. **Motif annulaire.** Extraire du transfert de bande une liste finie de
+   partitions de ports qui donnent une contraction uniforme, y compris avec
+   les deux répliques et tous les messages ancestraux.
+3. **Géométrie Palm.** Montrer par RSW, séparation d'interfaces et
+   quasi-multiplicativité qu'un nombre logarithmique de ces motifs apparaît
+   sous le biais d'une paire lointaine. La preuve doit être uniforme
+   postcritique après criticalisation à squelette fixé, ou être complétée par
+   un couplage géométrique favorable.
 
 Le certificat cactus étant acquis, le prochain certificat fini doit porter
 sur une bande triangulaire de largeur deux. C'est le premier modèle où des
@@ -360,6 +367,7 @@ cycles se chevauchent et où l'état de bord à un bit du cactus peut échouer.
 | 8 | [20_COLLAPSED_CORRIDOR_BLACKWELL.md](20_COLLAPSED_CORRIDOR_BLACKWELL.md) | dynamique collapsed, tensorisation et nouveaux verrous |
 | 9 | [21_CACTUS_COLLAPSED_CERTIFICATE.md](21_CACTUS_COLLAPSED_CERTIFICATE.md) | canal cactus exact, LCA Palm, cas favorable et perte exponentielle |
 | 10 | [22_LCA_VS_FULL_HIERARCHY.md](22_LCA_VS_FULL_HIERARCHY.md) | LCA seul, profondeur optimale, bottom-up et corridor complet |
+| 11 | [23_OPTIMAL_WEAK_RECOVERY_OBSTRUCTION.md](23_OPTIMAL_WEAK_RECOVERY_OBSTRUCTION.md) | stratégie maître : oracle critique à squelette fixé, blocs annulaires et théorème conditionnel |
 
 ### Compléments utiles
 
@@ -372,7 +380,7 @@ cycles se chevauchent et où l'état de bord à un bit du cactus peut échouer.
   [10_ANCESTRAL_LAMBDA_ESTIMATION.md](10_ANCESTRAL_LAMBDA_ESTIMATION.md) et
   [15_CRITICAL_GIANT_PAIR_FLIP.md](15_CRITICAL_GIANT_PAIR_FLIP.md) : calculs
   locaux et contrôle des ancêtres.
-- [12_FAVORABLE_HIERARCHICAL_REDUCTION.md](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : première réduction favorable, désormais renforcée par les fichiers 19--22.
+- [12_FAVORABLE_HIERARCHICAL_REDUCTION.md](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : première réduction favorable, désormais renforcée et auditée par les fichiers 19--23.
 
 ### Audits secondaires conservés
 

@@ -552,3 +552,8 @@ recovery :
 Le LCA critique est le meilleur **point de départ**. Il n'est pas une
 dynamique suffisante : la distance ne devient exploitable qu'en utilisant
 toute la hiérarchie descendante.
+
+Le [fichier 23](23_OPTIMAL_WEAK_RECOVERY_OBSTRUCTION.md) transforme cette
+conclusion en stratégie de preuve : criticalisation de chaque canal tardif à
+squelette fixé, transfert répliqué sur des blobs annulaires screenés, puis
+abondance sous la loi Palm à deux points.

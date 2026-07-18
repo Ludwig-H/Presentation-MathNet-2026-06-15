@@ -2,7 +2,8 @@
 
 Cette feuille de route remplace l'ancien inventaire chronologique. Elle ne
 contient que les dépendances nécessaires à la voie privilégiée : corridor
-collapsed, comparaison favorable et contraction critique à $`p=4/5`$.
+collapsed, criticalisation à squelette fixé et contraction multiscale à
+$`p=4/5`$. La synthèse et le théorème conditionnel sont dans le fichier 23.
 
 ## Théorème cible intermédiaire
 
@@ -33,9 +34,9 @@ flowchart TD
     F["F — mesure jointe et projections"] --> P["P — critère pairwise L²"]
     P --> R["R — réduction aux paires critiques"]
     B["B — Blackwell sur buckets"] --> C["C — tensorisation corridor fixé"]
-    R --> G["G — couplage des géométries"]
-    C --> G
-    G --> X["X — contraction Palm critique"]
+    R --> G["G — géométrie Palm"]
+    C --> X["X — transfert annulaire"]
+    G --> X
     X --> T["T — impossibilité à p=0.8"]
 ```
 
@@ -252,10 +253,18 @@ Z_r
 
 où $`Z_r`$ est l'état de bord minimal du transfert collapsed.
 
-### G2. Couplage critique/postcritique
+### G2. Porte critique/postcritique
 
-Construire un couplage qui aligne un corridor postcritique sur un corridor
-critique plus informatif, puis payer explicitement :
+La première opération est déjà rigoureuse : sur chaque squelette réel,
+remplacer tout niveau $`t_r>\beta_c`$ par $`\beta_c`$ sans changer sa taille.
+La tensorisation du bloc C fournit alors un oracle plus informatif.
+
+Il reste deux options, par ordre de robustesse :
+
+1. prouver l'abondance et la contraction directement, uniformément sur les
+   corridors Palm de rang $`q\ge q_c`$ après cette criticalisation ;
+2. construire un couplage qui aligne un corridor postcritique sur un corridor
+   véritablement critique plus informatif, puis payer explicitement :
 
 ```math
 \varepsilon_L^{\rm géom}
@@ -263,10 +272,11 @@ critique plus informatif, puis payer explicitement :
 +\varepsilon_L^{\rm Palm}.
 ```
 
-La somme doit tendre vers zéro. Blackwell traite les marques une fois les
-squelettes alignés ; il ne fournit pas ce couplage. En raison de B4,
-« aligné » signifie ici mêmes tailles ou domination cross-size certifiée,
-pas seulement mêmes incidences approximatives.
+La somme doit tendre vers zéro. Blackwell traite les marques à squelette
+fixé ; il ne fournit pas le second couplage. En raison de B4, « aligné »
+signifie ici mêmes tailles ou domination cross-size certifiée, pas seulement
+mêmes incidences approximatives. La première option évite ce verrou et doit
+être tentée d'abord.
 
 ### G3. Premier modèle
 
@@ -308,7 +318,23 @@ s_c=0.693582222752\ldots.
 
 **Statut.** Établi.
 
-### X2. Abondance
+### X2. Bon bloc annulaire
+
+Un bloc doit avoir un nombre borné de ports, un screening latéral, au moins
+deux routes ou arêtes candidates dans une coupe pertinente, et un transfert
+répliqué exact dont le coefficient sur le secteur impair vérifie
+
+```math
+\eta_{\chi^2}(\mathscr U_{p,k}\mid Z_k)\le\kappa(p)<1
+```
+
+pour tout état de bord admis. Une arête pivotale isolée, donc un bucket
+$`m=1`$, est un canal parfait et ne compte pas comme bloc contractant.
+
+**Statut.** Ouvert sur la bande et la grille ; le cactus donne le premier
+exemple physique exact.
+
+### X3. Abondance
 
 Extraire $`N_L\to\infty`$ blocs dont le coefficient répliqué est uniformément
 inférieur à un. Les blocs peuvent être :
@@ -318,9 +344,18 @@ inférieur à un. Les blocs peuvent être :
   fichier 21 ;
 - des blocs de bande admis par un programme linéaire de dégradation.
 
+La cible forte, sur des annuli séparés, est
+
+```math
+\mathbb P(G_k\mid\mathcal F_{k-1},\mathrm{Palm})\ge a(p)>0.
+```
+
+Elle doit être obtenue sous la loi Palm à deux points, et non par une simple
+application de RSW non conditionnée.
+
 **Statut.** Ouvert sur la grille.
 
-### X3. Composition
+### X4. Composition
 
 Construire un transfert fini tel que
 
@@ -333,6 +368,15 @@ Construire un transfert fini tel que
 **Statut.** Établi sur le cactus par le fichier 21 ; ouvert sur les bandes et
 la grille.
 
+Sous une minoration conditionnelle uniforme de probabilité $`a(p)`$ sur
+$`K_L\asymp\log L`$ annuli, la borne quantitative devient
+
+```math
+\mathbb E[H_{\mathcal C}^2]
+\le
+\bigl(1-a(p)(1-\kappa(p))\bigr)^{K_L}+o(1).
+```
+
 ## Prochain calcul certifié
 
 Sur une bande triangulaire de largeur deux :
@@ -343,7 +387,10 @@ Sur une bande triangulaire de largeur deux :
 3. construire la matrice de transfert collapsed $`\mathscr U_{p,2}`$ ;
 4. la recalculer par une énumération globale indépendante sur deux cellules ;
 5. certifier $`r(\mathscr U_{0.8,2})<1`$ par intervalles ;
-6. chercher une dégradation critique/postcritique sur l'état complet.
+6. extraire les configurations finies de ports qui réalisent cette
+   contraction ;
+7. chercher d'abord une borne uniforme postcritique sur le même squelette,
+   puis seulement une comparaison entre géométries si elle est nécessaire.
 
 Un résultat n'est accepté que si les deux implémentations donnent les mêmes
 poids avant l'arrondi d'intervalle. Le rayon spectral ne doit jamais être
@@ -360,6 +407,11 @@ programme principal :
 - chemin physique marqué de la MSF ;
 - formule PATH-FAC appliquée sans factorisation ;
 - nouveaux diagnostics de grands tores avant le certificat de largeur deux.
+
+Les exposants exacts de la percolation de sites sur le réseau triangulaire ne
+doivent pas être transférés sans preuve à la percolation par arêtes utilisée
+ici. La première version du lemme annulaire doit s'appuyer seulement sur les
+outils planaires robustes réellement disponibles pour le modèle considéré.
 
 ## Critère de clôture à $`p=0.8`$
 

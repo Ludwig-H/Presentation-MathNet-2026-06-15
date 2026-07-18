@@ -39,6 +39,7 @@ Des morceaux importants existent séparément. La nouveauté défendable n'est d
 
 - [Garban–Pete–Schramm, *The scaling limits of near-critical and dynamical percolation*](https://arxiv.org/abs/1305.5526), [DOI](https://doi.org/10.4171/JEMS/786). Construit la fenêtre proche-critique à partir des mesures pivotales ; c'est le cadre naturel pour la géométrie macroscopique des fusions autour de $`\beta_c`$.
 - [Garban–Pete–Schramm, *Pivotal, cluster, and interface measures for critical planar percolation*](https://arxiv.org/abs/1008.1378), [DOI](https://doi.org/10.1090/S0894-0347-2013-00772-9). Fournit la mesure limite des pivots qui motive le flux pivotal pondéré du nouveau critère.
+- [Smirnov–Werner, *Critical exponents for two-dimensional percolation*](https://arxiv.org/abs/math/0109120). Calcule les exposants d'arms pour la percolation critique de sites sur le réseau triangulaire. Ces exposants ne sont pas transférés automatiquement à la percolation par arêtes triangulaire du présent dossier ; le programme annulaire du fichier 23 vise d'abord RSW et quasi-multiplicativité sans invoquer cette universalité.
 - [Nolin, *Near-critical percolation in two dimensions*](https://arxiv.org/abs/0711.4948), [DOI](https://doi.org/10.1214/EJP.v13-565). Présente les estimées de longueur de corrélation et les relations d'échelle nécessaires pour choisir une fenêtre $`\delta_n`$ autour du seuil.
 - [Damron–Sapozhnikov, *Outlets of 2D invasion percolation and multiple-armed incipient infinite clusters*](https://arxiv.org/abs/0903.4496), [DOI](https://doi.org/10.1007/s00440-010-0274-y). Montre que les goulots d'invasion approchent le seuil tout en conservant une structure d'outlets ; cette distinction avertit que $`\beta_{ij}`$ ne doit pas être supposé concentré exactement en $`\beta_c`$ pour une paire ponctuelle.
 - [Duminil-Copin–Raoufi–Tassion, *Sharp phase transition for the random-cluster and Potts models via decision trees*](https://arxiv.org/abs/1705.03104), [DOI](https://doi.org/10.4007/annals.2019.189.1.2). Donne décroissance exponentielle sous le seuil et densité supercritique sur les graphes transitifs pour le random-cluster $`q\ge1`$. Ces résultats justifient les dichotomies géométriques de référence, mais ne s'appliquent pas directement à la postérieure frustrée conditionnelle.
@@ -122,6 +123,8 @@ Ordre recommandé :
 6. Chayes–Lei, Nishimori–Ohzeki puis Ohzeki pour le cas triangulaire et les corrections de blocs.
 
 La synthèse mathématique et les implications exactes pour la weak recovery sont centralisées dans [Bande critique et transmission de l'information](07_CRITICAL_BAND_CRITERION.md).
+La stratégie de clôture actuellement privilégiée est détaillée dans
+[Stratégie optimale pour une obstruction de weak recovery](23_OPTIMAL_WEAK_RECOVERY_OBSTRUCTION.md).
 
 ## Critère de nouveauté à viser
 
