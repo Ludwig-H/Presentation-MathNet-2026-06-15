@@ -112,6 +112,7 @@ Deux dynamiques sont conservées, avec des rôles différents.
 | dynamique | rôle | statut |
 |---|---|---|
 | Sweep top-down | dynamique séquentielle naturelle ; diagnostic du feedback ancestral | exacte, mais sa comparaison globale reste ouverte |
+| Sweep bottom-up | parcours séquentiel terminant au LCA ; comparaison directe au LCA seul | exact et au plus persistant que le LCA seul en $`L^2`$ |
 | Corridor collapsed | heat bath conjoint des orientations sur les deux bras de la paire | exacte et $`L^2`$-optimale parmi les sweeps des mêmes nœuds |
 
 Si $`P_{\mathcal C}`$ est la projection collapsed et
@@ -127,6 +128,19 @@ $`K=P_{u_1}\cdots P_{u_M}`$ un sweep du même corridor, alors
 Le corridor collapsed est donc la meilleure dynamique hiérarchique actuelle
 pour obtenir une obstruction pairwise calculable. Le sweep top-down reste le
 contre-audit algorithmique principal.
+
+Si $`P_u`$ ne met à jour que le LCA et $`P_{\downarrow}`$ tout le corridor
+jusqu'aux feuilles, les tribus sont imbriquées et
+
+```math
+\|P_uf_{ij}\|_2^2
+=
+\|P_{\downarrow}f_{ij}\|_2^2
++\|(P_u-P_{\downarrow})f_{ij}\|_2^2.
+```
+
+Le LCA critique est donc le cas le plus favorable à la conservation, mais le
+corridor complet est la dynamique la plus utile pour l'impossibilité.
 
 ## 3. Arbre de preuve actuel
 
@@ -149,7 +163,7 @@ flowchart TD
 | C2-tailles | remplacer arbitrairement un bucket tardif par un bucket critique d'une autre taille | faux en général ; contre-certificat rationnel |
 | C2-géométrie | coupler les corridors Palm critique et postcritique | ouvert |
 | C3-bloc | un bucket critique $`m=2`$ screené contracte strictement à $`p=0.8`$ | démontré localement |
-| C3-cactus | LCA fixé à $`q`$, transfert collapsed et comparaison critique/postcritique | démontré exactement sur une chaîne de cactus |
+| C3-cactus | LCA fixé à $`q`$, LCA seul contre corridor complet et comparaison critique/postcritique | démontré exactement sur une chaîne de cactus |
 | C3-global | extraire un nombre divergent de blocs contractants avec erreur totale $`o(1)`$ | ouvert |
 | Globalisation | la disparition du second moment pairwise interdit la weak recovery | démontré |
 
@@ -266,6 +280,17 @@ A_h^{\rm LCA}(p,q)
 \frac{1+(4p-2)q-3q^2}{1+2q-3q^2}.
 ```
 
+Le LCA seul donnerait seulement
+
+```math
+A_h^{\rm LCA\ only}(p,q)=\kappa_{\rm flux}(p,q),
+```
+
+indépendamment de $`h`$. Descendre jusqu'aux feuilles gagne exactement le
+facteur $`\kappa_{\rm conn}^{h-1}`$. À $`p=0.8`$, la conformité reste
+$`0.895765368433\ldots`$ avec le LCA seul, contre
+$`0.503645301931\ldots`$ avec le corridor complet pour $`h=40`$.
+
 Les deux coefficients décroissent strictement avec $`q`$. Le rang critique
 est donc exactement le cas postcritique le plus favorable sur ce cactus. À
 $`p=0.8`$ et $`q=q_\triangle`$,
@@ -282,10 +307,10 @@ le canal favorable, pas la loi de la composante géante triangulaire.
 Les trois problèmes prioritaires sont, dans cet ordre :
 
 1. **Bande de largeur deux.** Construire le noyau collapsed exact en gardant
-   la partition de la coupe et les deux parités répliquées ; certifier un
-   rayon spectral strictement inférieur à un à $`p=0.8`$. Cette bande teste
-   l'état de bord, mais reste quasi unidimensionnelle et ne remplace pas la
-   géométrie Palm de la grille.
+   la partition de la coupe, les deux bras complets et les deux parités
+   répliquées ; certifier un rayon spectral strictement inférieur à un à
+   $`p=0.8`$. Cette bande teste l'état de bord, mais reste quasi
+   unidimensionnelle et ne remplace pas la géométrie Palm de la grille.
 2. **Géométrie Palm.** Décrire sur la grille la loi des tailles
    $`(m_r)`$, des niveaux $`(\beta_r)`$ et des incidences du corridor vu
    depuis une paire critique lointaine, puis construire un couplage qui
@@ -334,6 +359,7 @@ cycles se chevauchent et où l'état de bord à un bit du cactus peut échouer.
 | 7 | [19_FAVORABLE_SWEEP_PROJECTIONS.md](19_FAVORABLE_SWEEP_PROJECTIONS.md) | projections, racines, Blackwell local et cible $`p=0.8`$ |
 | 8 | [20_COLLAPSED_CORRIDOR_BLACKWELL.md](20_COLLAPSED_CORRIDOR_BLACKWELL.md) | dynamique collapsed, tensorisation et nouveaux verrous |
 | 9 | [21_CACTUS_COLLAPSED_CERTIFICATE.md](21_CACTUS_COLLAPSED_CERTIFICATE.md) | canal cactus exact, LCA Palm, cas favorable et perte exponentielle |
+| 10 | [22_LCA_VS_FULL_HIERARCHY.md](22_LCA_VS_FULL_HIERARCHY.md) | LCA seul, profondeur optimale, bottom-up et corridor complet |
 
 ### Compléments utiles
 
@@ -346,7 +372,7 @@ cycles se chevauchent et où l'état de bord à un bit du cactus peut échouer.
   [10_ANCESTRAL_LAMBDA_ESTIMATION.md](10_ANCESTRAL_LAMBDA_ESTIMATION.md) et
   [15_CRITICAL_GIANT_PAIR_FLIP.md](15_CRITICAL_GIANT_PAIR_FLIP.md) : calculs
   locaux et contrôle des ancêtres.
-- [12_FAVORABLE_HIERARCHICAL_REDUCTION.md](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : première réduction favorable, désormais renforcée par les fichiers 19--21.
+- [12_FAVORABLE_HIERARCHICAL_REDUCTION.md](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : première réduction favorable, désormais renforcée par les fichiers 19--22.
 
 ### Audits secondaires conservés
 

@@ -1373,6 +1373,9 @@ LCA. C'est la version rigoureuse de l'idée « regarder le chemin », mais son
 | Les descendants contribuent directement au $`q_u^{ab}`$ d'un flip global des deux fils. | Faux | leurs facteurs sont communs aux quatre états |
 | Les niveaux descendants suffisent à calculer le flip de $`u`$. | Faux | les comptes de frontière et le message ancestral manquent |
 | La relation après un balayage est un produit de signes sur les deux bras. | Établi | identité déterministe de parité |
+| Le LCA seul est aussi contractant que tout le corridor. | Faux | identité pythagoricienne du fichier 22 |
+| Un sweep bottom-up terminant au LCA n'augmente pas la persistance du LCA seul. | Établi en $`L^2`$ | composition contractante dans l'ordre des fonctions |
+| La même comparaison est automatique en top-down. | Faux pour des projections générales | non-commutation, fichier 22 |
 | L'espérance de ce produit factorise. | Non établi pour la dynamique complète | décisions emboîtées et messages ancestraux dépendants |
 | La corrélation jointe se calcule par opérateurs tordus. | Établi | règle de la chaîne sur un état de frontière suffisant |
 | La formule PATH-FAC est exacte. | Établi dans l'oracle défini | indépendance imposée explicitement |
@@ -1386,8 +1389,13 @@ La voie descendante peut être testée sans ambiguïté. Depuis le fichier 20,
 le corridor collapsed est prioritaire pour la preuve ; le programme
 ci-dessous reste le contre-audit du sweep séquentiel.
 
-1. Sur cactus triangulaires, calculer exactement le message de frontière et
-   comparer le véritable balayage au produit PATH-FAC.
+Le fichier 22 résout la comparaison de profondeur pour les blocs collapsed :
+le corridor complet est toujours au moins aussi contractant que le LCA seul,
+et gagne exactement $`\kappa_{\rm conn}^{h-1}`$ sur le cactus. Il ne calcule
+pas encore un passage séquentiel complet sur tous les squelettes cactus.
+
+1. Sur cactus triangulaires, comparer le véritable balayage top-down et
+   bottom-up au bloc collapsed désormais connu exactement.
 2. Sur bandes, mesurer l'écart entre la corrélation jointe
    $`\mathbb E\prod_w(-1)^{A_w}`$ et le produit des marginales.
 3. Sur les tores triangulaires, enregistrer pour les deux bras d'une paire

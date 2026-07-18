@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import unittest
+from fractions import Fraction
 from math import fsum
 
 from collapsed_corridor_transfer import (
@@ -91,6 +92,7 @@ class CollapsedCorridorTransferTests(unittest.TestCase):
         second = projection((1,))
         collapsed = projection((0, 1))
         values = (1.0, -0.4, 0.2, -1.0, -0.7, 0.3, -0.1, 0.8)
+        lca_only = apply(first, values)
         sweep = apply(first, apply(second, values))
         block = apply(collapsed, values)
         sweep_norm = fsum(
@@ -99,6 +101,16 @@ class CollapsedCorridorTransferTests(unittest.TestCase):
         block_norm = fsum(
             mass * value * value for mass, value in zip(stationary, block)
         )
+        lca_norm = fsum(
+            mass * value * value
+            for mass, value in zip(stationary, lca_only)
+        )
+        depth_gap_norm = fsum(
+            mass * (lca - collapsed_value) ** 2
+            for mass, lca, collapsed_value in zip(
+                stationary, lca_only, block, strict=True
+            )
+        )
         original_mean = fsum(
             mass * value for mass, value in zip(stationary, values)
         )
@@ -106,8 +118,52 @@ class CollapsedCorridorTransferTests(unittest.TestCase):
             mass * value for mass, value in zip(stationary, block)
         )
         self.assertAlmostEqual(original_mean, block_mean)
+        self.assertAlmostEqual(lca_norm, block_norm + depth_gap_norm)
         self.assertLessEqual(original_mean * original_mean, block_norm)
         self.assertLessEqual(block_norm, sweep_norm + 1e-15)
+
+    def test_top_down_insertion_has_no_abstract_projection_order(self) -> None:
+        values = (
+            Fraction(1),
+            Fraction(-1),
+            Fraction(0),
+            Fraction(0),
+        )
+
+        def conditional_expectation(partition, vector):
+            answer = [Fraction(0)] * len(vector)
+            for cell in partition:
+                average = sum((vector[index] for index in cell), Fraction(0))
+                average /= len(cell)
+                for index in cell:
+                    answer[index] = average
+            return tuple(answer)
+
+        lca_partition = ((0, 1), (2,), (3,))
+        descendant_partition = ((0,), (1, 2), (3,))
+        lca_only = conditional_expectation(lca_partition, values)
+        descendant_first = conditional_expectation(
+            descendant_partition, values
+        )
+        top_down_operator = conditional_expectation(
+            lca_partition, descendant_first
+        )
+        lca_norm = sum((value * value for value in lca_only), Fraction(0)) / 4
+        top_down_norm = (
+            sum((value * value for value in top_down_operator), Fraction(0))
+            / 4
+        )
+        self.assertEqual(lca_norm, 0)
+        self.assertEqual(
+            top_down_operator,
+            (
+                Fraction(1, 4),
+                Fraction(1, 4),
+                Fraction(-1, 2),
+                Fraction(0),
+            ),
+        )
+        self.assertEqual(top_down_norm, Fraction(3, 32))
 
     def test_neutral_two_edge_blocks_contract_at_p_eight(self) -> None:
         p = 0.8

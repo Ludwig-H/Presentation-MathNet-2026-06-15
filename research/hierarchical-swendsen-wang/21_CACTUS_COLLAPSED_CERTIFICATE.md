@@ -700,3 +700,20 @@ bidimensionnelle.
 | Le même équivalent vaut après un sweep séquentiel | Non démontré | le collapsed est une projection différente |
 | Le coefficient d'un triangle est seulement $`s_c`$ | Faux | les fusions directes-premières sont parfaites |
 | Ce calcul prouve $`p=0.8`$ sur la grille triangulaire | Faux | état de bord et cycles chevauchants ouverts |
+
+## 11. LCA seul contre corridor complet
+
+Le [fichier 22](22_LCA_VS_FULL_HIERARCHY.md) répond à la question de
+profondeur laissée ouverte ici. Sous le même conditionnement Palm,
+
+```math
+A_h^{\rm LCA\ only}(p,q)=\kappa_{\rm flux}(p,q),
+\qquad
+\frac{A_h^{\rm full}(p,q)}{A_h^{\rm LCA\ only}(p,q)}
+=
+\kappa_{\rm conn}(p,q)^{h-1}.
+```
+
+Le bloc pivotal critique est donc un point de départ de bonne qualité, mais
+il ne voit pas la distance. La perte asymptotique utilise nécessairement les
+deux bras descendants jusqu'aux feuilles.

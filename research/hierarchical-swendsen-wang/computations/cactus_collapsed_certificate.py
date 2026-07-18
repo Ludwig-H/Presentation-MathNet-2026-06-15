@@ -287,6 +287,38 @@ def lca_rank_cactus_second_moment(
     )
 
 
+def lca_only_cactus_second_moment(
+    p: float, rank: float, block_count: int
+) -> float:
+    """Second moment when only the two children of the global LCA are updated.
+
+    The unique pivotal triangle is resampled.  Every nonpivotal relation on
+    the two descendant arms remains fixed and therefore contributes one.
+    """
+
+    if block_count <= 0:
+        raise ValueError("block_count must be positive")
+    return merger_flux_triangle_reliability(p, rank)
+
+
+def lca_only_cactus_conformity_probability(
+    p: float, rank: float, block_count: int
+) -> float:
+    """Reference-relation conformity after only the global LCA heat bath."""
+
+    return 0.5 * (1.0 + lca_only_cactus_second_moment(p, rank, block_count))
+
+
+def full_to_lca_cactus_second_moment_ratio(
+    p: float, rank: float, block_count: int
+) -> float:
+    """Exact gain from resampling all descendant blocks instead of only LCA."""
+
+    if block_count <= 0:
+        raise ValueError("block_count must be positive")
+    return connected_triangle_reliability(p, rank) ** (block_count - 1)
+
+
 def lca_rank_cactus_conformity_probability(
     p: float, rank: float, block_count: int
 ) -> float:
@@ -502,12 +534,15 @@ def main() -> None:
         f"flux_reliability={merger_flux_triangle_reliability(p, rank):.12f}"
     )
     for count in (2, 3, 5, 10, 20, 40):
+        lca_only = lca_only_cactus_second_moment(p, rank, count)
         second = connected_cactus_second_moment(p, rank, count)
         conformity = 0.5 * (1.0 + second)
         lca_second = lca_rank_cactus_second_moment(p, rank, count)
         lca_conformity = 0.5 * (1.0 + lca_second)
         print(
-            f"blocks={count:2d} second_moment={second:.12g} "
+            f"blocks={count:2d} lca_only={lca_only:.12g} "
+            f"full_over_lca={lca_second/lca_only:.12g} "
+            f"second_moment={second:.12g} "
             f"conformity={conformity:.12g} "
             f"lca_second={lca_second:.12g} "
             f"lca_conformity={lca_conformity:.12g}"

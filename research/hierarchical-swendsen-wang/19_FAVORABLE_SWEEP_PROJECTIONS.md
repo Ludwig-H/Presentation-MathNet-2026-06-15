@@ -755,6 +755,11 @@ A_h^{\rm LCA}(p,q)
 \longrightarrow0.
 ```
 
+Le fichier 22 montre que le LCA seul donnerait seulement
+$`\kappa_{\rm flux}(p,q)`$, indépendamment de la distance. La contraction
+asymptotique exige donc les deux bras descendants ; elle ne provient pas du
+seul nœud critique.
+
 Sous C0--C3,
 
 ```math
@@ -807,6 +812,8 @@ signes frustrés et le contre-exemple (5.1) détruisent la monotonie globale.
 | Blackwell se compose sur le corridor collapsed | Établi dans le fichier 20 | même squelette ; la géométrie Palm reste à coupler |
 | Le LCA critique est le cas favorable sur le cactus | Établi dans le fichier 21 | repose sur les articulations |
 | La conformité Nishimori du cactus tend vers $`1/2`$ | Établi dans le fichier 21 | ne prouve pas la grille |
+| Le LCA seul suffit à exploiter la distance | Faux | coefficient $`\kappa_{\rm flux}`$ constant, fichier 22 |
+| Le corridor complet contracte plus que le LCA seul | Établi pour le collapsed | comparaison top-down en un passage non automatique |
 | Toute violation vient d'un anti-alignement quantifiable | Établi pour un nœud fixé | le sweep demande l'état-frontière dynamique |
 | Les petits tores prouvent HF-S2 | Faux | ils donnent six tests compatibles avec son sens |
 | HF-S2 suffit à $`p=0.8`$ | Faux | il faut aussi faire tendre le second moment critique vers zéro |

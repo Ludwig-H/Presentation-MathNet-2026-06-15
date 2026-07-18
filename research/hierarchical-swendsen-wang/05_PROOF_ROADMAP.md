@@ -77,6 +77,22 @@ updates à $`D`$ fixé sont des projections orthogonales de $`L^2(\pi_D)`$.
 
 **Statut.** Établi dans le fichier 20.
 
+### F4. Profondeur de la dynamique
+
+Si $`P_u`$ est le heat bath du LCA seul et $`P_{\downarrow}`$ le heat bath
+collapsed des deux bras jusqu'aux feuilles, alors
+
+```math
+\|P_uf_{ij}\|_2^2
+=
+\|P_{\downarrow}f_{ij}\|_2^2
++\|(P_u-P_{\downarrow})f_{ij}\|_2^2.
+```
+
+**Statut.** Établi dans le fichier 22. Pour un seul sweep, bottom-up est au
+plus persistant que le LCA seul ; aucune comparaison top-down analogue ne
+découle des seules projections.
+
 ## Bloc P — critère informationnel
 
 ### P1. Second moment pairwise
@@ -259,6 +275,8 @@ arborescente réduit l'état de bord à la parité répliquée. Le fichier 21
 établit exactement
 
 ```math
+A_h^{\rm LCA\ only}(p,q)=\kappa_{\rm flux}(p,q),
+\qquad
 A_h^{\rm LCA}(p,q)
 =
 \kappa_{\rm flux}(p,q)\kappa_{\rm conn}(p,q)^{h-1},
@@ -320,7 +338,8 @@ la grille.
 Sur une bande triangulaire de largeur deux :
 
 1. encoder la partition non marquée des sommets de coupe ;
-2. ajouter les deux parités répliquées et le statut du bloc pivotal ;
+2. ajouter les deux bras descendants, les deux parités répliquées et le
+   statut du bloc pivotal ;
 3. construire la matrice de transfert collapsed $`\mathscr U_{p,2}`$ ;
 4. la recalculer par une énumération globale indépendante sur deux cellules ;
 5. certifier $`r(\mathscr U_{0.8,2})<1`$ par intervalles ;

@@ -151,6 +151,21 @@ sweeps qui n'utilisent que les mêmes coordonnées du corridor. Cela ne dit pas
 qu'il se mélange plus vite comme algorithme global ; (2.1) est un ordre sur
 la persistance $`L^2`$ d'une paire après un bloc fixé.
 
+Le [fichier 22](22_LCA_VS_FULL_HIERARCHY.md) spécialise cette enveloppe à la
+question de profondeur. Si $`u`$ est le LCA, le corridor descendant collapsed
+vérifie l'identité plus précise
+
+```math
+\|P_uf_{ij}\|_2^2
+=
+\|P_{\downarrow}f_{ij}\|_2^2
++\|(P_u-P_{\downarrow})f_{ij}\|_2^2.
+```
+
+Il distingue aussi le bloc collapsed d'un unique passage séquentiel :
+bottom-up est comparable au LCA seul, tandis que top-down exige un contrôle
+supplémentaire de la non-commutation.
+
 ### Théorème 2.2 — globalisation pair-spécifique, statut : établi
 
 Pour chaque paire $`i,j`$, choisissons son propre corridor collapsed et

@@ -17,6 +17,9 @@ from cactus_collapsed_certificate import (
     direct_first_connection_mass,
     fixed_path_first_cactus_direct_second_moment,
     fixed_path_first_cactus_transfer_second_moment,
+    full_to_lca_cactus_second_moment_ratio,
+    lca_only_cactus_conformity_probability,
+    lca_only_cactus_second_moment,
     lca_rank_cactus_conformity_probability,
     lca_rank_cactus_second_moment,
     merger_flux_triangle_reliability,
@@ -196,6 +199,30 @@ class CactusCollapsedCertificateTests(unittest.TestCase):
                 places=8,
             )
 
+    def test_full_descendant_corridor_strictly_improves_on_lca_only(
+        self,
+    ) -> None:
+        p = 0.8
+        rank = Q_CRITICAL
+        lca_only = merger_flux_triangle_reliability(p, rank)
+        for blocks in (1, 2, 3, 20, 40):
+            full = lca_rank_cactus_second_moment(p, rank, blocks)
+            ratio = full_to_lca_cactus_second_moment_ratio(
+                p, rank, blocks
+            )
+            self.assertAlmostEqual(
+                lca_only_cactus_second_moment(p, rank, blocks),
+                lca_only,
+            )
+            self.assertAlmostEqual(full, lca_only * ratio)
+            self.assertLessEqual(full, lca_only)
+            if blocks > 1:
+                self.assertLess(full, lca_only)
+        self.assertAlmostEqual(
+            lca_only_cactus_conformity_probability(p, rank, 40),
+            0.8957653684330873,
+        )
+
     def test_rational_interval_certifies_p_eight_values(self) -> None:
         lower, upper = p_eight_critical_cactus_interval(3)
         actual = connected_cactus_second_moment(0.8, Q_CRITICAL, 3)
@@ -231,6 +258,10 @@ class CactusCollapsedCertificateTests(unittest.TestCase):
             bsc_kernel(1.1)
         with self.assertRaises(ValueError):
             lca_rank_cactus_second_moment(0.8, 0.2, 0)
+        with self.assertRaises(ValueError):
+            lca_only_cactus_second_moment(0.8, 0.2, 0)
+        with self.assertRaises(ValueError):
+            full_to_lca_cactus_second_moment_ratio(0.8, 0.2, 0)
 
 
 if __name__ == "__main__":
