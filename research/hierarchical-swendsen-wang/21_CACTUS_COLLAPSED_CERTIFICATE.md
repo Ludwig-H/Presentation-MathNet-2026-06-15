@@ -42,7 +42,7 @@ $`r`$ a pour arêtes
 (a_{r-1},b_r),
 \qquad
 (b_r,a_r).
-\tag{1.1}
+\qquad\text{(1.1)}
 ```
 
 Deux blocs consécutifs ne partagent que $`a_r`$. En particulier, tout chemin
@@ -62,7 +62,7 @@ La correspondance avec le niveau d'horloge demandé dans les slides est
 q=q_p(\beta)=p(1-e^{-u_p\beta}),
 \qquad
 u_p=\log\frac p{1-p},
-\tag{1.2}
+\qquad\text{(1.2)}
 ```
 
 donc
@@ -71,7 +71,7 @@ donc
 \beta_c(p)
 =
 -\frac1{u_p}\log\left(1-\frac{q_\triangle}{p}\right).
-\tag{1.3}
+\qquad\text{(1.3)}
 ```
 
 Ce niveau appartient à $`[0,1]`$ exactement lorsque
@@ -88,7 +88,7 @@ heat bath collapsed produit $`\sigma^{(1)}`$. On mesure
 \sigma^{(1)}_{a_0}\sigma^{(1)}_{a_h}
 =
 \sigma^{(0)}_{a_0}\sigma^{(0)}_{a_h}.
-\tag{1.4}
+\qquad\text{(1.4)}
 ```
 
 Par Nishimori, $`\sigma^{(0)}`$ peut servir de vérité plantée dans cette loi
@@ -116,7 +116,7 @@ Par la structure d'articulation,
 \bigcap_{r=1}^h
 \{a_{r-1}\longleftrightarrow a_r
 \text{ dans le triangle }r\}.
-\tag{1.5}
+\qquad\text{(1.5)}
 ```
 
 Les événements de droite portent sur des ensembles d'arêtes disjoints et
@@ -126,7 +126,7 @@ En particulier,
 
 ```math
 \mathbb P(\mathcal C_h(q))=c(q)^h,
-\tag{1.6}
+\qquad\text{(1.6)}
 ```
 
 avec $`c(q)<1`$ pour $`q<1`$. Le conditionnement étudié devient donc
@@ -146,7 +146,7 @@ La probabilité de connexion des articulations au rang $`q`$ vaut
 c(q)
 =
 q+q^2-q^3.
-\tag{2.1}
+\qquad\text{(2.1)}
 ```
 
 En effet, elles sont connectées si l'arête directe est ouverte ou si les
@@ -172,7 +172,7 @@ d(q)
 \int_0^q(1-r)^2\,dr
 =
 q-q^2+\frac{q^3}{3}.
-\tag{2.2}
+\qquad\text{(2.2)}
 ```
 
 ### 2.2 Une arête latérale fusionne en premier
@@ -192,7 +192,7 @@ de gagnante du second bucket, est
 ```math
 g(r)=4r(1-r),
 \qquad 0<r<1.
-\tag{2.3}
+\qquad\text{(2.3)}
 ```
 
 Sa masse avant $`q`$ vaut donc
@@ -203,7 +203,7 @@ a(q)
 \int_0^qg(r)\,dr
 =
 2q^2-\frac{4q^3}{3}.
-\tag{2.4}
+\qquad\text{(2.4)}
 ```
 
 On vérifie exactement $`c(q)=d(q)+a(q)`$.
@@ -215,7 +215,7 @@ taille deux est conforme avec probabilité
 
 ```math
 s_p(r)=\frac{p-r}{1-r}.
-\tag{2.5}
+\qquad\text{(2.5)}
 ```
 
 Après marginalisation de l'identité de la gagnante :
@@ -238,7 +238,7 @@ fiabilité $`s_p(r)`$.
 u_pk\exp((1-t)u_pk),
 \qquad
 u_p=\log\frac p{1-p}.
-\tag{2.6}
+\qquad\text{(2.6)}
 ```
 
 Le bucket de taille un fixe la relation portée par la première arête. Dans
@@ -275,7 +275,7 @@ $`q`$, leur fiabilité répliquée collapsed est
 =
 \frac{1+(2p-1)q-q^2}{1+q-q^2}.
 }
-\tag{3.1}
+\qquad\text{(3.1)}
 ```
 
 #### Preuve
@@ -293,7 +293,7 @@ d(q)+4\int_0^qr(p-r)\,dr\\
 &=
 q+(2p-1)q^2-q^3.
 \end{aligned}
-\tag{3.2}
+\qquad\text{(3.2)}
 ```
 
 Le quotient $`n(q)/c(q)`$ donne (3.1).
@@ -317,7 +317,7 @@ K_{\rm conn}(p,q)
 1+\kappa_{\rm conn}&1-\kappa_{\rm conn}\\
 1-\kappa_{\rm conn}&1+\kappa_{\rm conn}
 \end{pmatrix}.
-\tag{3.3}
+\qquad\text{(3.3)}
 ```
 
 Le mode constant a valeur propre $`1`$ et le mode de parité valeur propre
@@ -351,7 +351,7 @@ On a
 c'(q)=1+2q-3q^2,
 \qquad
 n'(q)=1+2(2p-1)q-3q^2.
-\tag{4.1}
+\qquad\text{(4.1)}
 ```
 
 ### Théorème 4.1 — coefficient pivotal, statut : établi
@@ -365,7 +365,7 @@ $`q`$, le coefficient du bloc pivotal vaut
 =
 \frac{1+(4p-2)q-3q^2}{1+2q-3q^2}.
 }
-\tag{4.2}
+\qquad\text{(4.2)}
 ```
 
 #### Preuve
@@ -398,7 +398,7 @@ A_h^{\rm LCA}(p,q)
 \kappa_{\rm flux}(p,q)
 \kappa_{\rm conn}(p,q)^{h-1}.
 }
-\tag{4.3}
+\qquad\text{(4.3)}
 ```
 
 La probabilité moyenne que le heat bath collapsed préserve la relation de la
@@ -413,7 +413,7 @@ P_h^{\rm conf}(p,q)
 1+A_h^{\rm LCA}(p,q)
 \right].
 }
-\tag{4.4}
+\qquad\text{(4.4)}
 ```
 
 #### Preuve
@@ -450,7 +450,7 @@ Pour tout $`p<1`$ et tout $`q\in(0,2p-1]`$,
 =
 \frac{2(1-p)q}{1+q-q^2}
 >0.
-\tag{4.5}
+\qquad\text{(4.5)}
 ```
 
 Ainsi
@@ -459,7 +459,7 @@ Ainsi
 A_h^{\rm LCA}(p,q)\longrightarrow0,
 \qquad
 P_h^{\rm conf}(p,q)\longrightarrow\frac12
-\tag{4.6}
+\qquad\text{(4.6)}
 ```
 
 exponentiellement lorsque $`h\to\infty`$.
@@ -473,7 +473,7 @@ P_h^{\rm conf}(p,q)-\frac12
 \exp\{-h\gamma(p,q)\},
 \qquad
 \gamma(p,q)=-\log\kappa_{\rm conn}(p,q)>0.
-\tag{4.7}
+\qquad\text{(4.7)}
 ```
 
 Ce corollaire porte sur la dynamique hiérarchique collapsed conditionnée par
@@ -488,14 +488,14 @@ Les deux coefficients s'écrivent
 \kappa_{\rm conn}(p,q)
 =
 1-\frac{2(1-p)q}{1+q-q^2},
-\tag{5.1}
+\qquad\text{(5.1)}
 ```
 
 ```math
 \kappa_{\rm flux}(p,q)
 =
 1-\frac{4(1-p)q}{1+2q-3q^2}.
-\tag{5.2}
+\qquad\text{(5.2)}
 ```
 
 Leurs dérivées en $`q`$ sont strictement négatives :
@@ -504,14 +504,14 @@ Leurs dérivées en $`q`$ sont strictement négatives :
 \partial_q\kappa_{\rm conn}
 =
 -\frac{2(1-p)(1+q^2)}{(1+q-q^2)^2},
-\tag{5.3}
+\qquad\text{(5.3)}
 ```
 
 ```math
 \partial_q\kappa_{\rm flux}
 =
 -\frac{4(1-p)(1+3q^2)}{(1+2q-3q^2)^2}.
-\tag{5.4}
+\qquad\text{(5.4)}
 ```
 
 Par conséquent, pour $`q_\triangle\le q_1\le q_2\le2p-1`$,
@@ -522,7 +522,7 @@ A_h^{\rm LCA}(p,q_2)
 A_h^{\rm LCA}(p,q_1)
 \le
 A_h^{\rm LCA}(p,q_\triangle).
-\tag{5.5}
+\qquad\text{(5.5)}
 ```
 
 Le cas où la paire fusionne au seuil de percolation est donc exactement le
@@ -541,7 +541,7 @@ K_{\rm BSC}
 \frac{\kappa_{\alpha}(p,q_2)}
 {\kappa_{\alpha}(p,q_1)}
 \right).
-\tag{5.6}
+\qquad\text{(5.6)}
 ```
 
 Ici $`K_{\rm flux}`$ désigne la matrice (3.3) avec
@@ -578,7 +578,7 @@ s_c(0.8)&=0.693582222752\ldots,\\
 \kappa_{\rm flux}(0.8,q_\triangle)
 &=0.791530736866\ldots.
 \end{aligned}
-\tag{6.1}
+\qquad\text{(6.1)}
 ```
 
 Le taux et le préfacteur de (4.7) valent alors
@@ -588,7 +588,7 @@ Le taux et le préfacteur de (4.7) valent alors
 \qquad
 \frac{\kappa_{\rm flux}}{2\kappa_{\rm conn}}
 =0.446308680939\ldots.
-\tag{6.2}
+\qquad\text{(6.2)}
 ```
 
 La différence entre $`s_c`$ et $`\kappa_{\rm conn}`$ mesure exactement le
@@ -648,7 +648,7 @@ message extérieur $`B`$ vérifiant $`|B|\le b`$, le coefficient local devient
 \kappa(0)
 +[1-\kappa(0)]\tanh^2(b/2)
 <1
-\tag{8.1}
+\qquad\text{(8.1)}
 ```
 
 pour tout $`b<\infty`$. Cette borne ne peut être multipliée sur la grille

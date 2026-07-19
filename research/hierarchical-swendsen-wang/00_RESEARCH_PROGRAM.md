@@ -24,7 +24,7 @@ O_{xy}=\Sigma_x\Sigma_y Z_{xy},
 \mathbb P(Z_{xy}=+1)=p,
 \qquad
 u_p=\log\frac{p}{1-p}.
-\tag{1.1}
+\qquad\text{(1.1)}
 ```
 
 Une arête satisfaite par la réplique de référence reçoit une horloge
@@ -40,7 +40,7 @@ p_0=\frac45
 \quad\Longrightarrow\quad
 \text{absence de weak recovery sur le GSBM triangulaire.}
 }
-\tag{1.2}
+\qquad\text{(1.2)}
 ```
 
 Par dégradation BSC, une preuve à $`p_0`$ donnerait aussi l'impossibilité pour
@@ -61,7 +61,7 @@ Pour deux sommets $`i,j`$, posons
 \beta_{ij}
 :=
 \inf\{\beta:i\leftrightarrow j\text{ dans }\Pi_\beta\}.
-\tag{2.1}
+\qquad\text{(2.1)}
 ```
 
 Si $`q_c=2\sin(\pi/18)`$ est le seuil de percolation par arêtes de la grille
@@ -72,7 +72,7 @@ q_p(\beta_c)
 :=
 p(1-e^{-u_p\beta_c})
 =q_c.
-\tag{2.2}
+\qquad\text{(2.2)}
 ```
 
 L'expression « $`i,j`$ lointains fusionnent à la percolation » signifie en
@@ -86,7 +86,7 @@ d_L(i,j)\ge\rho L,
 \ \beta_c-\varepsilon
 \le\beta_{ij}\le\beta_c
 \right\}.
-\tag{2.3}
+\qquad\text{(2.3)}
 ```
 
 L'égalité exacte $`\beta_{ij}=\beta_c`$ a probabilité nulle. On travaille
@@ -127,7 +127,7 @@ latentes. Pour chaque niveau postcritique $`t_r\ge\beta_c`$, posons
 
 ```math
 t_r^{\mathrm{fav}}=\beta_c,
-\tag{3.1}
+\qquad\text{(3.1)}
 ```
 
 sans modifier le squelette. Alors, pour toute cible $`F`$, l'expérience
@@ -142,7 +142,7 @@ postérieur est plus grand :
 \mathbb E\left[
 \mathbb E(F\mid K^{\mathrm{fav}})^2
 \right].
-\tag{3.2}
+\qquad\text{(3.2)}
 ```
 
 Ce résultat est prouvé par l'ordre de Blackwell à taille fixée, puis par
@@ -154,7 +154,7 @@ rigoureusement :
 \text{à géométrie fixée, la fusion critique est le cas postcritique
 le plus favorable.}
 }
-\tag{3.3}
+\qquad\text{(3.3)}
 ```
 
 Références : [19](19_FAVORABLE_SWEEP_PROJECTIONS.md) et
@@ -209,7 +209,7 @@ h_p(\beta)
 2s_p(\beta)-1
 =
 \tanh\left(\frac{u_p(1-\beta)}2\right).
-\tag{5.1}
+\qquad\text{(5.1)}
 ```
 
 ### Coupe instantanée
@@ -220,7 +220,7 @@ Pour une coupe de taille $`m`$ non conditionnée à fusionner ensuite,
 K\mid X=+1\sim\mathrm{Bin}(m,s_p(\beta)),
 \qquad
 K\mid X=-1\sim\mathrm{Bin}(m,1-s_p(\beta)).
-\tag{5.2}
+\qquad\text{(5.2)}
 ```
 
 Le rapport signal sur bruit est
@@ -229,14 +229,14 @@ Le rapport signal sur bruit est
 \mathrm{SNR}^{\mathrm{snap}}
 =
 \frac{m h_p(\beta)^2}{1-h_p(\beta)^2}.
-\tag{5.3}
+\qquad\text{(5.3)}
 ```
 
 La variable géométrique prioritaire est donc
 
 ```math
 \mathcal J_v=m_vh_p(\beta_v)^2.
-\tag{5.4}
+\qquad\text{(5.4)}
 ```
 
 ### Coupe de fusion
@@ -247,7 +247,7 @@ Si cette coupe fusionne au niveau $`\beta`$, l'arête gagnante est conforme et
 K\mid X=+1
 \sim
 1+\mathrm{Bin}(m-1,s_p(\beta)).
-\tag{5.5}
+\qquad\text{(5.5)}
 ```
 
 Le log-rapport local devient
@@ -257,7 +257,7 @@ Le log-rapport local devient
 =
 \log\frac K{m-K}
 +u_p(1-\beta)(2K-m).
-\tag{5.6}
+\qquad\text{(5.6)}
 ```
 
 À $`\beta=1`$, sa fiabilité locale vaut exactement $`1/m`$. Une coupe de
@@ -270,14 +270,14 @@ Une coupe $`E(A,B)`$ de taille $`m(A,B)`$ fusionne au taux
 
 ```math
 m(A,B)u_ps_p(\beta).
-\tag{5.7}
+\qquad\text{(5.7)}
 ```
 
 Le LCA d'une paire lointaine ajoute le poids
 
 ```math
 m(A,B)N_\rho(A,B),
-\tag{5.8}
+\qquad\text{(5.8)}
 ```
 
 où $`N_\rho(A,B)`$ compte les paires macroscopiquement éloignées séparées par
@@ -302,7 +302,7 @@ sweep des mêmes nœuds,
 \|P_{\mathcal C}g\|_2^2
 +
 \|K(I-P_{\mathcal C})g\|_2^2.
-\tag{6.1}
+\qquad\text{(6.1)}
 ```
 
 Le corridor collapsed minimise donc la persistance $`L^2`$ parmi ces
@@ -321,7 +321,7 @@ q_u^{ab}
 \prod_{v\succeq u}
 \Lambda_v(\sigma^{ab})
 e^{(1-\beta_v)\Lambda_v(\sigma^{ab})}.
-\tag{7.1}
+\qquad\text{(7.1)}
 ```
 
 Pour $`v\succ u`$, sa frontière doit être divisée selon son incidence avec
@@ -330,7 +330,7 @@ avant d'appliquer
 
 ```math
 F_v(x)=xe^{(1-\beta_v)x},
-\tag{7.2}
+\qquad\text{(7.2)}
 ```
 
 car $`F_v`$ est non linéaire. Une majorité scalaire sur la coupe ne détermine
@@ -344,7 +344,7 @@ m_v,\beta_v,
 m_{v,0},m_{v,1},m_{v,2},
 Z_v,B_v
 \right)_{v\in\mathcal C_{ij}},
-\tag{7.3}
+\qquad\text{(7.3)}
 ```
 
 où $`Z_v`$ encode les ports latéraux et $`B_v`$ le message extérieur.
@@ -358,7 +358,7 @@ Soient $`I_L,J_L`$ uniformes et lointains. Le critère maître est
 H_{\mathcal C}(I_L,J_L)^2
 \right]
 \longrightarrow0.
-\tag{8.1}
+\qquad\text{(8.1)}
 ```
 
 Une preuve suffisante suivrait la chaîne suivante.
@@ -380,7 +380,7 @@ Une preuve suffisante suivrait la chaîne suivante.
 \le
 \mathbb E[\kappa^{N_L}]+o(1)
 \longrightarrow0.
-\tag{8.2}
+\qquad\text{(8.2)}
 ```
 
 Le théorème pairwise des fichiers [03](03_HIERARCHICAL_WEAK_RECOVERY.md) et
@@ -401,7 +401,7 @@ et le nombre de coupes vérifiant
 
 ```math
 m_vh_p(\beta_v)^2\le J_0.
-\tag{9.1}
+\qquad\text{(9.1)}
 ```
 
 Le facteur de repondération $`m_vN_\rho`$ doit être présent dans toute
@@ -434,7 +434,7 @@ Au seuil critique,
 s_c=0.693582222752\ldots,
 \qquad
 h_c=0.387164445505\ldots.
-\tag{10.1}
+\qquad\text{(10.1)}
 ```
 
 Ainsi,
@@ -443,7 +443,7 @@ Ainsi,
 \mathcal J_{m,\beta_c}
 =
 0.149896307863\ldots\,m.
-\tag{10.2}
+\qquad\text{(10.2)}
 ```
 
 Une grande coupe au LCA critique est donc très informative. L'obstruction ne
@@ -458,7 +458,7 @@ Pour un bucket $`m=2`$ neutre,
 s_c
 =
 0.693582222752\ldots.
-\tag{10.3}
+\qquad\text{(10.3)}
 ```
 
 Dans le corridor factorisé, $`N`$ tels blocs donnent $`s_c^N`$. Le verrou est

@@ -41,7 +41,7 @@ Fixons $`O,D`$ et écrivons
 \pi_D(d\sigma)=\nu_O(d\sigma\mid D),
 \qquad
 f_{ij}(\sigma)=\sigma_i\sigma_j.
-\tag{1.1}
+\qquad\text{(1.1)}
 ```
 
 Soit $`u=\mathrm{LCA}_D(i,j)`$, avec enfants $`C_i`$ et $`C_j`$ contenant
@@ -50,7 +50,7 @@ par le heat bath du nœud $`v`$ et
 
 ```math
 P_vg=\mathbb E_{\pi_D}[g\mid\mathcal G_v].
-\tag{1.2}
+\qquad\text{(1.2)}
 ```
 
 Soit $`\mathcal C_{ij}^{\downarrow}`$ l'union de $`u`$ et des deux bras qui
@@ -64,7 +64,7 @@ descendent de $`C_i,C_j`$ jusqu'aux feuilles $`i,j`$. Posons
 P_{\downarrow}g
 =
 \mathbb E_{\pi_D}[g\mid\mathcal A_{ij}^{\downarrow}].
-\tag{1.3}
+\qquad\text{(1.3)}
 ```
 
 Les trois opérations pertinentes sont alors :
@@ -85,7 +85,7 @@ deux bras, on a
 
 ```math
 \mathcal A_{ij}^{\downarrow}\subseteq\mathcal G_u.
-\tag{2.1}
+\qquad\text{(2.1)}
 ```
 
 ### Théorème 2.1 — le corridor complet domine le LCA seul, statut : établi
@@ -98,7 +98,7 @@ Pour tout $`g\in L^2(\pi_D)`$,
 \le
 \|P_ug\|_2^2.
 }
-\tag{2.2}
+\qquad\text{(2.2)}
 ```
 
 Plus précisément,
@@ -111,7 +111,7 @@ Plus précisément,
 +
 \|(P_u-P_{\downarrow})g\|_2^2.
 }
-\tag{2.3}
+\qquad\text{(2.3)}
 ```
 
 #### Preuve
@@ -122,7 +122,7 @@ L'inclusion (2.1) donne les identités de projections conditionnelles
 P_{\downarrow}P_u=P_{\downarrow},
 \qquad
 P_uP_{\downarrow}=P_{\downarrow}.
-\tag{2.4}
+\qquad\text{(2.4)}
 ```
 
 Ainsi $`P_u-P_{\downarrow}`$ est la projection orthogonale sur
@@ -142,7 +142,7 @@ L'inégalité est stricte pour $`g=f_{ij}`$ si et seulement si
 
 ```math
 (P_u-P_{\downarrow})f_{ij}\ne0.
-\tag{2.5}
+\qquad\text{(2.5)}
 ```
 
 Autrement dit, après le seul heat bath du LCA, il reste de l'information sur
@@ -157,14 +157,14 @@ Les seconds moments conditionnels associés aux deux couplages sont
 A_u(i,j;O,D)=\|P_uf_{ij}\|_2^2,
 \qquad
 A_{\downarrow}(i,j;O,D)=\|P_{\downarrow}f_{ij}\|_2^2.
-\tag{2.6}
+\qquad\text{(2.6)}
 ```
 
 Le théorème donne point par point
 
 ```math
 A_{\downarrow}(i,j;O,D)\le A_u(i,j;O,D).
-\tag{2.7}
+\qquad\text{(2.7)}
 ```
 
 Pour prouver une impossibilité, le membre de gauche est donc le meilleur
@@ -179,7 +179,7 @@ Si $`a,b\in\{0,1\}`$ indiquent les flips des deux enfants de $`u`$, alors
 \frac{f_{ij}(\sigma^{ab})}{f_{ij}(\sigma)}
 =
 (-1)^{a+b}.
-\tag{3.1}
+\qquad\text{(3.1)}
 ```
 
 Les états pairs $`(0,0)`$ et $`(1,1)`$ conservent la relation ; les états
@@ -188,7 +188,7 @@ impairs $`(1,0)`$ et $`(0,1)`$ l'inversent. Restreindre la dynamique aux deux
 
 ```math
 H(i,j)=1.
-\tag{3.2}
+\qquad\text{(3.2)}
 ```
 
 Il faut utiliser les quatre poids
@@ -200,7 +200,7 @@ q_u^{ab}
 \prod_{v\succeq u}
 \Lambda_v(\sigma^{ab})
 e^{(1-\beta_v)\Lambda_v(\sigma^{ab})}.
-\tag{3.3}
+\qquad\text{(3.3)}
 ```
 
 La probabilité de retournement de la relation au LCA est
@@ -210,7 +210,7 @@ La probabilité de retournement de la relation au LCA est
 =
 \frac{q_u^{10}+q_u^{01}}
 {q_u^{00}+q_u^{10}+q_u^{01}+q_u^{11}}.
-\tag{3.4}
+\qquad\text{(3.4)}
 ```
 
 Le fait que $`\beta_u=\beta_c`$ améliore la qualité du bucket de $`u`$, mais
@@ -227,7 +227,7 @@ les fonctions selon
 
 ```math
 K_S=P_{v_1}\cdots P_{v_M}.
-\tag{4.1}
+\qquad\text{(4.1)}
 ```
 
 Les projections agissent donc sur $`f_{ij}`$ dans l'ordre inverse du sweep
@@ -240,7 +240,7 @@ LCA, alors
 
 ```math
 K_{\rm BU}=Q_{\downarrow}P_u,
-\tag{4.2}
+\qquad\text{(4.2)}
 ```
 
 où $`Q_{\downarrow}`$ est un produit de projections descendantes. Comme tout
@@ -252,7 +252,7 @@ produit de contractions est une contraction,
 \le
 \|P_uf_{ij}\|_2.
 }
-\tag{4.3}
+\qquad\text{(4.3)}
 ```
 
 Ainsi, si l'on impose un seul parcours et si l'on veut une amélioration
@@ -266,7 +266,7 @@ Pour un sweep qui commence physiquement au LCA,
 
 ```math
 K_{\rm TD}=P_uQ_{\downarrow}.
-\tag{4.4}
+\qquad\text{(4.4)}
 ```
 
 Les projections ne commutent généralement pas. La seule contractivité ne
@@ -303,7 +303,7 @@ donc
 \|P_Af\|_2^2=0,
 \qquad
 \|P_AP_Bf\|_2^2=\frac3{32}.
-\tag{4.5}
+\qquad\text{(4.5)}
 ```
 
 Ce contre-exemple ne dit pas que top-down est mauvais sur tout dendrogramme.
@@ -322,7 +322,7 @@ mêmes nœuds,
 \le
 \|K_Sf_{ij}\|_2^2.
 }
-\tag{4.6}
+\qquad\text{(4.6)}
 ```
 
 En volume fini, répéter cycliquement tous les heat baths du corridor fait
@@ -334,7 +334,7 @@ K_S^m f
 \longrightarrow
 P_{\downarrow}f
 \qquad(m\to\infty).
-\tag{4.7}
+\qquad\text{(4.7)}
 ```
 
 Le heat bath collapsed est donc à la fois l'optimum $`L^2`$ et la limite
@@ -348,7 +348,7 @@ sens de la densité de Palm,
 
 ```math
 q_{\rm LCA}(a_0,a_h)=q.
-\tag{5.1}
+\qquad\text{(5.1)}
 ```
 
 Il existe presque sûrement un unique triangle pivotal au rang $`q`$. Les
@@ -365,7 +365,7 @@ A_h^{\rm LCA\ only}(p,q)
 =
 \kappa_{\rm flux}(p,q).
 }
-\tag{5.2}
+\qquad\text{(5.2)}
 ```
 
 Cette quantité ne dépend pas de $`h`$.
@@ -389,7 +389,7 @@ A_h^{\rm full}(p,q)
 \kappa_{\rm flux}(p,q)
 \kappa_{\rm conn}(p,q)^{h-1}.
 }
-\tag{5.3}
+\qquad\text{(5.3)}
 ```
 
 Ainsi le gain exact de profondeur vaut
@@ -401,7 +401,7 @@ Ainsi le gain exact de profondeur vaut
 =
 \kappa_{\rm conn}(p,q)^{h-1}.
 }
-\tag{5.4}
+\qquad\text{(5.4)}
 ```
 
 Pour tout $`p<1`$ admissible et $`q>0`$, ce rapport tend
@@ -415,7 +415,7 @@ On a
 \kappa_{\rm flux}=0.791530736866\ldots,
 \qquad
 \kappa_{\rm conn}=0.886752566857\ldots.
-\tag{5.5}
+\qquad\text{(5.5)}
 ```
 
 La conformité Nishimori après le LCA seul est donc, pour tout $`h`$,
@@ -425,7 +425,7 @@ P_h^{\rm LCA\ only}
 =
 \frac{1+\kappa_{\rm flux}}2
 =0.895765368433\ldots.
-\tag{5.6}
+\qquad\text{(5.6)}
 ```
 
 | $`h`$ | second moment LCA seul | rapport full/LCA | second moment full | conformité full |
@@ -463,7 +463,7 @@ Si $`P_{\rm root}`$ désigne ce bloc étendu jusqu'à la racine, alors
 \|P_{\downarrow}f_{ij}\|_2^2
 \le
 \|P_uf_{ij}\|_2^2.
-\tag{6.1}
+\qquad\text{(6.1)}
 ```
 
 Étendre le bloc à tout l'arbre finit cependant par reformuler directement
@@ -493,7 +493,7 @@ $`\kappa_r`$, la condition exacte est
 \prod_r\kappa_r\longrightarrow0
 \quad\Longleftrightarrow\quad
 \sum_r-\log\kappa_r\longrightarrow+\infty.
-\tag{7.1}
+\qquad\text{(7.1)}
 ```
 
 Sur la grille, cette somme doit être remplacée par une contraction de blocs
@@ -509,7 +509,7 @@ La cible correcte sur la grille devient
 \mathrm{Palm}(\beta_{I_LJ_L}=\beta_c)
 \right]
 \longrightarrow0.
-\tag{7.2}
+\qquad\text{(7.2)}
 ```
 
 Le LCA seul ne peut pas produire cette limite par un simple argument de

@@ -93,7 +93,7 @@ on a, conditionnellement à $`O,D`$,
 f_{ij},K_{S,D}^*K_{S,D}f_{ij}
 \rangle_{\pi_D}.
 }
-\tag{1.1}
+\qquad\text{(1.1)}
 ```
 
 #### Preuve
@@ -141,7 +141,7 @@ Alors
 \sum_{r=1}^M
 \|(I-P_{u_{M-r+1}})g_{r-1}\|_2^2.
 }
-\tag{1.2}
+\qquad\text{(1.2)}
 ```
 
 Chaque terme est une variance conditionnelle. Pour obtenir $`p=0.8`$, il
@@ -165,7 +165,7 @@ Pour le programme ainsi complété,
 \quad\Longrightarrow\quad
 H_S(i,j)=0.
 }
-\tag{2.1}
+\qquad\text{(2.1)}
 ```
 
 Si $`i,j`$ sont dans une même racine, ces recolorations ne changent pas leur
@@ -195,7 +195,7 @@ recoloration globale équitable. En particulier,
 \quad\Longrightarrow\quad
 H_{S_{\rm TD}}(i,j)=H_{S_{\rm BU}}(i,j)=0.
 }
-\tag{2.2}
+\qquad\text{(2.2)}
 ```
 
 En effet, sous l'a priori uniforme, la densité conditionnelle se factorise
@@ -235,7 +235,7 @@ Pour une paire lointaine, les quatre classes sont :
 \text{tardive}&\in(q_\triangle,2p-1]\cr
 \text{racines distinctes}&>2p-1.
 \end{array}
-\tag{3.1}
+\qquad\text{(3.1)}
 ```
 
 La première classe a une masse qui disparaît lorsque la distance diverge et
@@ -248,7 +248,7 @@ réduit à
 \text{comparer la classe tardive à la classe critique,
 puis contracter la classe critique.}
 }
-\tag{3.2}
+\qquad\text{(3.2)}
 ```
 
 Définissons
@@ -267,7 +267,7 @@ A_{L,S}^{\mathrm{late}}(p)
 A_{L,S}^{\mathrm c}(p)+\varepsilon_{L,S}^{\mathrm{HF}}(p),
 \qquad
 \varepsilon_{L,S}^{\mathrm{HF}}(p)\longrightarrow0.
-\tag{3.3}
+\qquad\text{(3.3)}
 ```
 
 ## 4. Comparaison exacte d'un nœud critique et tardif
@@ -285,7 +285,7 @@ et, lorsque $`1\le K\le m-1`$,
 =
 \log\frac K{m-K}
 +(1-t)u_p d.
-\tag{4.1}
+\qquad\text{(4.1)}
 ```
 
 Soit $`B`$ le message extérieur complet. La persistance locale est
@@ -294,7 +294,7 @@ Soit $`B`$ le message extérieur complet. La persistance locale est
 \eta_t(B,K,m)
 =
 \tanh^2\left(\frac{B+\ell_t}{2}\right).
-\tag{4.2}
+\qquad\text{(4.2)}
 ```
 
 Pour $`d\ne0`$, écrivons
@@ -317,7 +317,7 @@ Pour $`1\le K\le m-1`$ et $`d\ne0`$,
 \quad\Longleftrightarrow\quad
 b<-\frac{c_{\beta_c}+c_t}{2}.
 }
-\tag{4.3}
+\qquad\text{(4.3)}
 ```
 
 En dehors de cet événement, la fusion critique est bien la plus persistante.
@@ -332,7 +332,7 @@ De plus, avec $`c_{\mathrm{rel}}=2/(3\sqrt3)`$,
 c_{\mathrm{rel}}u_p|d|(t-\beta_c)
 \mathbf1_{\mathcal A_t},
 }
-\tag{4.4}
+\qquad\text{(4.4)}
 ```
 
 où $`\mathcal A_t`$ est l'événement de droite dans (4.3).
@@ -368,7 +368,7 @@ tardive,
 \mathbb E\left[
 |2K-m|(t-\beta_c)\mathbf1_{\mathcal A_t}
 \right].
-\tag{4.5}
+\qquad\text{(4.5)}
 ```
 
 La comparaison favorable locale est donc ramenée à une queue d'anti-alignement.
@@ -391,7 +391,7 @@ P_s^+(K=k)
 P_s^-(K=k)
 &=\binom{m-1}{k}s^{m-1-k}(1-s)^k.
 \end{aligned}
-\tag{4.6}
+\qquad\text{(4.6)}
 ```
 
 Ici $`0\le k\le m`$ et un coefficient binomial hors support vaut zéro.
@@ -402,7 +402,7 @@ Autrement dit,
 K\mid X=+\ \overset{\mathrm d}=\ 1+\mathrm{Bin}(m-1,s),
 \qquad
 K\mid X=-\ \overset{\mathrm d}=\ \mathrm{Bin}(m-1,1-s).
-\tag{4.7}
+\qquad\text{(4.7)}
 ```
 
 Si $`1/2\le s_2\le s_1\le1`$, alors l'expérience
@@ -413,7 +413,7 @@ $`X`$, tel que
 ```math
 P_{s_2}^x=P_{s_1}^xG_{s_1\to s_2},
 \qquad x\in\{+,-\}.
-\tag{4.8}
+\qquad\text{(4.8)}
 ```
 
 #### Preuve
@@ -425,7 +425,7 @@ Le rapport de vraisemblance vaut, pour $`1\le k\le m-1`$,
 =
 \frac{k}{m-k}
 \left(\frac{s}{1-s}\right)^{2k-m};
-\tag{4.9}
+\qquad\text{(4.9)}
 ```
 
 il est strictement croissant en $`k`$ lorsque $`s\ge1/2`$. Les tests de
@@ -458,7 +458,7 @@ $`\beta_c\le t\le1`$ :
 \succeq_{\rm Blackwell}
 \mathcal E_{m,s_p(t)}.
 }
-\tag{4.10}
+\qquad\text{(4.10)}
 ```
 
 Cette conclusion reste vraie en présence d'une information latérale
@@ -473,7 +473,7 @@ de $`X\mid B`$,
 \mathbb E\!\left[
 \mathbb E[X\mid B,K_t]^2
 \right].
-\tag{4.11}
+\qquad\text{(4.11)}
 ```
 
 Conditionnellement à un squelette non marqué fixé, les buckets disjoints ont
@@ -546,7 +546,7 @@ Par conséquent,
 \eta_{\beta_c}=7.4026844\,10^{-8},
 \qquad
 \eta_{0.8}=0.069281670285\ldots
-\tag{5.1}
+\qquad\text{(5.1)}
 ```
 
 La fusion tardive est ici plus persistante parce que le renforcement local
@@ -578,7 +578,7 @@ $`|B|\le b`$, le coefficient moyen exact est donc
 =
 s_c+(1-s_c)\tanh^2(b/2).
 }
-\tag{6.1}
+\qquad\text{(6.1)}
 ```
 
 À $`p=0.8`$ :
@@ -612,7 +612,7 @@ $`s_t\le s_c`$, le noyau de Blackwell de (4.8) est explicite :
 \end{cases}
 \qquad
 1\longmapsto1.
-\tag{6.2}
+\qquad\text{(6.2)}
 ```
 
 À $`p=0.8`$, entre $`\beta_c`$ et $`t=1`$, la probabilité d'effacement
@@ -621,7 +621,7 @@ supplémentaire vaut exactement numériquement
 ```math
 1-\frac{1/2}{s_c}
 =0.279104937240\ldots.
-\tag{6.3}
+\qquad\text{(6.3)}
 ```
 
 Ainsi la partie « comparaison critique/tardive » d'un bloc $`m=2`$ est
@@ -642,7 +642,7 @@ alors
 \le
 \mathbb E[\kappa_2(b)^{N_L^{(b)}}]+o(1)
 \longrightarrow0.
-\tag{6.4}
+\qquad\text{(6.4)}
 ```
 
 L'indépendance des marques de buckets disjoints sachant le squelette aide
@@ -723,7 +723,7 @@ construire un couplage critique/tardif des corridors et à montrer que
 ```math
 \varepsilon_{L}^{\mathrm{geom}}
 +\varepsilon_L^{\mathrm{frontière}}.
-\tag{8.1}
+\qquad\text{(8.1)}
 ```
 
 tend vers zéro. Le premier terme compare les géométries et les tailles de

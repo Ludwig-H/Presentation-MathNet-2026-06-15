@@ -155,7 +155,7 @@ cette équation est donc
 \boxed{
 H(Z_{e_1},Z_{e_2},Z_{e_3}\mid S_f)=1\ \text{bit}.
 }
-\tag{NO}
+\qquad\text{(NO)}
 ```
 
 Cette simplification n'est ni une approximation numérique ni une limite de
@@ -332,7 +332,7 @@ De plus,
 =
 \mathbb P(Z=z(\sigma)\mid S_\triangle).
 }
-\tag{F}
+\qquad\text{(F)}
 ```
 
 Par conséquent,

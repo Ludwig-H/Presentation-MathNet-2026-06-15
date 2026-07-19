@@ -45,7 +45,7 @@ A_{ij}(O,D)
 =
 \|P_{ij}^{\downarrow}f_{ij}\|_{L^2(\pi_D)}^2,
 \qquad 0\le A_{ij}\le1.
-\tag{1.1}
+\qquad\text{(1.1)}
 ```
 
 Le théorème 2.2 du fichier 20 donne déjà
@@ -54,7 +54,7 @@ Le théorème 2.2 du fichier 20 donne déjà
 Q_L
 \le
 \mathbb E[A_{I_LJ_L}(O,D)],
-\tag{1.2}
+\qquad\text{(1.2)}
 ```
 
 où $`Q_L`$ est le second moment moyen des corrélations postérieures. Il suffit
@@ -62,7 +62,7 @@ donc de montrer
 
 ```math
 \mathbb E[A_{I_LJ_L}]\longrightarrow0.
-\tag{1.3}
+\qquad\text{(1.3)}
 ```
 
 Le caractère pair-spécifique du corridor n'est pas une difficulté : (1.2)
@@ -77,7 +77,7 @@ Il est préférable de travailler dans la coordonnée de percolation
 ```math
 q_p(t)=p(1-e^{-u_pt}),
 \qquad q_c=q_\triangle=2\sin(\pi/18),
-\tag{2.1}
+\qquad\text{(2.1)}
 ```
 
 et de noter $`T_{ij}=q_p(\beta_{ij})`$ le rang du LCA. Pour une paire à
@@ -91,7 +91,7 @@ distance macroscopique et tout $`\delta>0`$ fixé,
 +\mathbb E[A;|T-q_c|\le\delta]\\
 &+\mathbb E[A;T>q_c+\delta,\ T\le q_p(1)]
 +\mathbb E[A;T>q_p(1)].
-\tag{2.2}
+\qquad\text{(2.2)}
 \end{aligned}
 ```
 
@@ -130,7 +130,7 @@ les niveaux plus précoces inchangés :
 
 ```math
 t_r^{\rm fav}=\min(t_r,\beta_c).
-\tag{3.1}
+\qquad\text{(3.1)}
 ```
 
 Alors, pour toute loi corrélée des parités latentes et toute cible $`F`$,
@@ -139,7 +139,7 @@ Alors, pour toute loi corrélée des parités latentes et toute cible $`F`$,
 \mathscr R((m_r,t_r)_r)
 \le
 \mathscr R((m_r,t_r^{\rm fav})_r).
-\tag{3.2}
+\qquad\text{(3.2)}
 ```
 
 #### Justification
@@ -163,7 +163,7 @@ mesure de flux des LCA de rang $`q`$. La formulation forte de l'idée serait
 \le
 \sup_{|r-q_c|\le\delta_L}\overline A_L(r)+o(1)
 \qquad(\delta_L\downarrow0).
-\tag{3.3}
+\qquad\text{(3.3)}
 ```
 
 Elle est exacte sur le cactus triangulaire du fichier 21. Elle n'est pas
@@ -194,7 +194,7 @@ Prenons des annuli séparés
 =
 B(i,\rho^{k+1})\setminus B(i,\rho^k),
 \qquad 1\le k\le K_L\asymp\log L,
-\tag{4.1}
+\qquad\text{(4.1)}
 ```
 
 et, symétriquement, des annuli autour de $`j`$. Un bloc peut aussi être
@@ -209,7 +209,7 @@ contenir au moins :
 
 ```math
 Z_k=(\Pi_k,R_k^{(1)},R_k^{(2)},P_k),
-\tag{4.2}
+\qquad\text{(4.2)}
 ```
 
 où $`\Pi_k`$ est la partition de connectivité des ports, les deux
@@ -236,7 +236,7 @@ Une définition utilisable doit imposer simultanément :
 \le
 \kappa(p)\|g\|_2^2,
 \qquad \kappa(p)<1,
-\tag{4.3}
+\qquad\text{(4.3)}
 ```
 
    pour chaque état de bord admis.
@@ -251,7 +251,7 @@ calcul local donne alors
 s_c(p)+(1-s_c(p))\tanh^2(B_0/2)<1,
 \qquad
 s_c(p)=\frac{p-q_c}{1-q_c}.
-\tag{4.4}
+\qquad\text{(4.4)}
 ```
 
 La formule (4.4) est une calibration, pas un remplacement du transfert
@@ -270,7 +270,7 @@ A_{ij}
 \kappa(p)^{N_L}+\varepsilon_L^{\rm tr},
 \qquad
 \mathbb E[\varepsilon_L^{\rm tr}]=o(1).
-\tag{4.5}
+\qquad\text{(4.5)}
 ```
 
 Cette inégalité doit être conditionnelle aux géométries et états de bord
@@ -290,7 +290,7 @@ annuli espacés tels que, pour une filtration révélant successivement les
 ```math
 \mathbb P(G_k\mid\mathcal F_{k-1},\mathrm{Palm})
 \ge a(p)>0.
-\tag{4.6}
+\qquad\text{(4.6)}
 ```
 
 Uniformément dans le rang postcritique pertinent, (4.6) implique une
@@ -301,7 +301,7 @@ obtient soit
 \mathbb E[A_{ij}\mid\mathrm{Palm}]
 \le
 \bigl(1-a(p)(1-\kappa(p))\bigr)^{K_L}+o(1),
-\tag{4.7}
+\qquad\text{(4.7)}
 ```
 
 soit la borne équivalente
@@ -310,7 +310,7 @@ soit la borne équivalente
 \mathbb E[A_{ij}\mid\mathrm{Palm}]
 \le
 \mathbb P(N_L<c\log L)+\kappa(p)^{c\log L}+o(1).
-\tag{4.8}
+\qquad\text{(4.8)}
 ```
 
 Dans les deux cas, le membre de droite tend polynomialement vers zéro.
@@ -375,7 +375,7 @@ Au seuil triangulaire,
 
 ```math
 s_c(0.8)=0.693582222752\ldots.
-\tag{7.1}
+\qquad\text{(7.1)}
 ```
 
 Le cactus fournit déjà un bloc physique exact de coefficient
@@ -383,7 +383,7 @@ Le cactus fournit déjà un bloc physique exact de coefficient
 ```math
 \kappa_{\rm conn}(0.8,q_c)
 =0.886752566857\ldots<1.
-\tag{7.2}
+\qquad\text{(7.2)}
 ```
 
 Il démontre que la marge locale est confortable. Le jalon suivant n'est pas

@@ -42,7 +42,7 @@ O_e=\Sigma_x\Sigma_y Z_e,
 \mathbb P(Z_e=+1)=p,
 \qquad
 u_p=\log\frac{p}{1-p}.
-\tag{1.1}
+\qquad\text{(1.1)}
 ```
 
 Une arête conforme $`Z_e=+1`$ reçoit une horloge exponentielle de taux
@@ -56,7 +56,7 @@ A_e(\beta)
 \Pi_\beta
 =
 \mathrm{cc}\bigl(V,\{e:A_e(\beta)=1\}\bigr).
-\tag{1.2}
+\qquad\text{(1.2)}
 ```
 
 Pour deux blocs distincts $`C_1,C_2\in\Pi_\beta`$, définissons
@@ -67,7 +67,7 @@ E(C_1,C_2)
 \{\{x,y\}\in E:x\in C_1,\ y\in C_2\},
 \qquad
 m(C_1,C_2)=|E(C_1,C_2)|.
-\tag{1.3}
+\qquad\text{(1.3)}
 ```
 
 Il faut séparer trois expériences.
@@ -93,7 +93,7 @@ Pour une partition $`\pi`$, notons
 =
 \{e=\{x,y\}\in E:x\text{ et }y
 \text{ appartiennent à deux blocs distincts de }\pi\}.
-\tag{2.1}
+\qquad\text{(2.1)}
 ```
 
 Définissons la probabilité résiduelle d'une arête conforme par
@@ -108,7 +108,7 @@ h_p(\beta)
 2s_p(\beta)-1
 =
 \tanh\left(\frac{u_p(1-\beta)}2\right).
-\tag{2.2}
+\qquad\text{(2.2)}
 ```
 
 ### Théorème 2.1 — factorisation conditionnelle de coupe, établi
@@ -126,7 +126,7 @@ h_p(\beta),
 \frac{1-h_p(\beta)}2,
 \frac{1-h_p(\beta)}2
 \right).
-\tag{2.3}
+\qquad\text{(2.3)}
 ```
 
 En particulier, chaque arête de frontière est conforme avec probabilité
@@ -148,7 +148,7 @@ des familles disjointes d'arêtes :
 \left(
 \bigcap_{e\in\partial\pi}\{A_e(\beta)=0\}
 \right).
-\tag{2.4}
+\qquad\text{(2.4)}
 ```
 
 La première parenthèse ne dépend que des arêtes internes aux blocs. La
@@ -165,7 +165,7 @@ pe^{-u_p\beta}-(1-p),
 1-p,
 \qquad
 1-p.
-\tag{2.5}
+\qquad\text{(2.5)}
 ```
 
 Leur somme vaut $`1-p+pe^{-u_p\beta}`$. La normalisation donne
@@ -226,7 +226,7 @@ K\mid X=+1
 K\mid X=-1
 \sim
 \mathrm{Bin}(m,1-s_p(\beta)).
-\tag{3.1}
+\qquad\text{(3.1)}
 ```
 
 Posons
@@ -237,7 +237,7 @@ a_p(\beta)
 \log\frac{s_p(\beta)}{1-s_p(\beta)}
 =
 u_p(1-\beta).
-\tag{3.2}
+\qquad\text{(3.2)}
 ```
 
 ### Lemme 3.1 — log-rapport et moments, établi
@@ -248,7 +248,7 @@ Pour $`0\le k\le m`$, le log-rapport de vraisemblance est
 L^{\mathrm{snap}}_{m,k}
 =
 a_p(\beta)(2k-m).
-\tag{3.3}
+\qquad\text{(3.3)}
 ```
 
 Si $`V=2K-m`$ sous $`X=+1`$, alors
@@ -261,7 +261,7 @@ m h_p(\beta),
 \mathrm{Var}(V)
 =
 m\bigl(1-h_p(\beta)^2\bigr).
-\tag{3.4}
+\qquad\text{(3.4)}
 ```
 
 Le rapport signal sur bruit du vote vaut donc exactement
@@ -272,7 +272,7 @@ Le rapport signal sur bruit du vote vaut donc exactement
 =
 \frac{m h_p(\beta)^2}{1-h_p(\beta)^2}.
 }
-\tag{3.5}
+\qquad\text{(3.5)}
 ```
 
 La preuve est la division des deux masses binomiales, puis le calcul des
@@ -289,7 +289,7 @@ $`\sqrt{1-h_p(\beta)^2}`$. L'information de Chernoff de la coupe est donc
 =
 -\frac m2\log\bigl(1-h_p(\beta)^2\bigr).
 }
-\tag{3.6}
+\qquad\text{(3.6)}
 ```
 
 Dans le régime de faible biais,
@@ -302,7 +302,7 @@ Dans le régime de faible biais,
 \mathcal J_{m,\beta}
 :=
 m h_p(\beta)^2.
-\tag{3.7}
+\qquad\text{(3.7)}
 ```
 
 La variable $`\mathcal J`$ est le premier résumé géométrique pertinent. Elle
@@ -320,7 +320,7 @@ Sous un prior uniforme et sans message extérieur, définissons
 \frac{a_p(\beta)(2K-m)}2
 \right)
 \right].
-\tag{3.8}
+\qquad\text{(3.8)}
 ```
 
 Par symétrie, cette quantité est aussi
@@ -331,7 +331,7 @@ Par symétrie, cette quantité est aussi
 \frac12
 \sum_{k=0}^m
 \frac{(P_+(k)-P_-(k))^2}{P_+(k)+P_-(k)}.
-\tag{3.9}
+\qquad\text{(3.9)}
 ```
 
 ### Théorème 3.2 — diagramme asymptotique géométrique, établi
@@ -353,7 +353,7 @@ $`h_L=h_p(\beta_L)`$.
 \mathbb E\left[
 \tanh^2\bigl(\sqrt\lambda Z+\lambda\bigr)
 \right].
-\tag{3.10}
+\qquad\text{(3.10)}
 ```
 
 #### Preuve du régime sans information
@@ -369,7 +369,7 @@ a_L^2
 m_L(1-h_L^2)+m_L^2h_L^2
 \right]
 \longrightarrow0.
-\tag{3.11}
+\qquad\text{(3.11)}
 ```
 
 Comme $`\tanh^2(x/2)\le x^2/4`$, la première conclusion suit.
@@ -382,7 +382,7 @@ Sous $`m_Lh_L^2\to\infty`$,
 \frac{V_L-m_Lh_L}{m_Lh_L}
 \longrightarrow0
 \quad\text{en probabilité}.
-\tag{3.12}
+\qquad\text{(3.12)}
 ```
 
 De plus $`a_Lm_Lh_L\to\infty`$ : si $`h_L\to0`$, ce produit est
@@ -402,7 +402,7 @@ Z+\sqrt\lambda,
 a_L\sqrt{m_L}
 \longrightarrow
 2\sqrt\lambda.
-\tag{3.13}
+\qquad\text{(3.13)}
 ```
 
 Donc $`L_L/2\Longrightarrow\sqrt\lambda Z+\lambda`$. La fonction
@@ -417,7 +417,7 @@ h_p(\beta)
 =
 \frac{u_p}{2}(1-\beta)
 +O\bigl((1-\beta)^3\bigr).
-\tag{3.14}
+\qquad\text{(3.14)}
 ```
 
 Une coupe instantanée de taille $`m`$ entre donc dans sa fenêtre de perte
@@ -429,14 +429,14 @@ autour de
 \asymp
 \frac{2}{u_p\sqrt m}.
 }
-\tag{3.15}
+\qquad\text{(3.15)}
 ```
 
 Si la taille elle-même dépend du temps, le critère devient
 
 ```math
 m(\beta)(1-\beta)^2\asymp1.
-\tag{3.16}
+\qquad\text{(3.16)}
 ```
 
 Il n'existe donc aucun seuil déterministe en $`\beta`$ sans théorème sur la
@@ -458,7 +458,7 @@ r_\beta(C_1,C_2)
 =
 m(C_1,C_2)u_ps_p(\beta).
 }
-\tag{4.1}
+\qquad\text{(4.1)}
 ```
 
 À partition et temps fixés, la prochaine coupe est donc sélectionnée avec un
@@ -475,7 +475,7 @@ N_\rho(A,B)
 \#\{(x,y)\in A\times B:d_L(x,y)\ge\rho L\}
 +
 \#\{(x,y)\in B\times A:d_L(x,y)\ge\rho L\}.
-\tag{4.2}
+\qquad\text{(4.2)}
 ```
 
 Pour toute fonction prévisible bornée $`F`$, la compensation des sauts du
@@ -497,7 +497,7 @@ u_ps_p(\beta)m(A,B)N_\rho(A,B)
 F(\Pi_\beta,A,B,\beta)
 \right]d\beta.
 \end{aligned}
-\tag{4.3}
+\qquad\text{(4.3)}
 ```
 
 À un temps déterministe, $`\Pi_{\beta-}=\Pi_\beta`$ presque sûrement, ce qui
@@ -511,7 +511,7 @@ Ainsi, à niveau fixé, la loi LCA-Palm d'une paire lointaine est repondérée p
 \boxed{
 m(A,B)N_\rho(A,B).
 }
-\tag{4.4}
+\qquad\text{(4.4)}
 ```
 
 Ce facteur est absent d'un calcul sur une coupe typique. Il favorise à la
@@ -533,7 +533,7 @@ K\mid X=+1
 K\mid X=-1
 \sim
 \mathrm{Bin}(m-1,1-s_p(\beta)).
-\tag{4.5}
+\qquad\text{(4.5)}
 ```
 
 Le log-rapport local vaut, pour $`1\le k\le m-1`$,
@@ -544,7 +544,7 @@ L^{\mathrm{merge}}_{m,k}
 \log\frac{k}{m-k}
 +
 a_p(\beta)(2k-m),
-\tag{4.6}
+\qquad\text{(4.6)}
 ```
 
 avec les conventions infinies aux deux extrémités. Le premier terme est
@@ -560,7 +560,7 @@ Sous la parité vraie, le vote $`V=2K-m`$ vérifie
 \mathrm{Var}(V)
 =
 (m-1)\bigl(1-h_p(\beta)^2\bigr).
-\tag{4.7}
+\qquad\text{(4.7)}
 ```
 
 Pour $`m\ge2`$, son rapport signal sur bruit est
@@ -570,7 +570,7 @@ Pour $`m\ge2`$, son rapport signal sur bruit est
 =
 \frac{[1+(m-1)h_p(\beta)]^2}
 {(m-1)[1-h_p(\beta)^2]}.
-\tag{4.8}
+\qquad\text{(4.8)}
 ```
 
 ### Théorème 4.3 — ce qui subsiste à la censure, établi
@@ -582,7 +582,7 @@ définie à partir de (4.6), alors
 \boxed{
 \Gamma_m^{\mathrm{merge}}(1;p)=\frac1m.
 }
-\tag{4.9}
+\qquad\text{(4.9)}
 ```
 
 En particulier, un bucket $`m=1`$ est parfait à tout niveau. Pour $`m`$ fixé,
@@ -604,7 +604,7 @@ Z+\sqrt\lambda,
 2\,\mathrm{artanh}\left(\frac{V_L}{m_L}\right)
 =
 o_{\mathbb P}(1).
-\tag{4.9a}
+\qquad\text{(4.9a)}
 ```
 
 Le terme $`a_p(\beta_L)V_L/2`$ a donc la même limite que dans (3.13).
@@ -621,7 +621,7 @@ L'identité (4.9) vient de
 \right)
 =
 \frac{2K-m}{m}
-\tag{4.10}
+\qquad\text{(4.10)}
 ```
 
 et de $`\mathbb E[(2K-m)^2]=m`$ lorsque
@@ -637,7 +637,7 @@ q_c=2\sin(\pi/18),
 \beta_c(p)
 =
 -\frac1{u_p}\log\left(1-\frac{q_c}{p}\right).
-\tag{5.1}
+\qquad\text{(5.1)}
 ```
 
 Lorsque $`\beta_c\le1`$,
@@ -648,7 +648,7 @@ h_c(p)
 h_p(\beta_c)
 =
 \frac{2p-1-q_c}{1-q_c}.
-\tag{5.2}
+\qquad\text{(5.2)}
 ```
 
 À $`p=4/5`$,
@@ -659,7 +659,7 @@ u_p=\log4,
 \beta_c=0.410716539196\ldots,
 \qquad
 h_c=0.387164445505\ldots.
-\tag{5.3}
+\qquad\text{(5.3)}
 ```
 
 La charge d'une coupe instantanée critique est donc
@@ -668,7 +668,7 @@ La charge d'une coupe instantanée critique est donc
 \mathcal J_{m,\beta_c}
 =
 0.149896\ldots\,m.
-\tag{5.4}
+\qquad\text{(5.4)}
 ```
 
 Deux conclusions rigoureuses en découlent.
@@ -697,7 +697,7 @@ Pour chaque coupe pertinente $`v`$, enregistrons au minimum
 \mathscr G_v
 =
 (m_v,\beta_v,Z_v,B_v),
-\tag{6.1}
+\qquad\text{(6.1)}
 ```
 
 où $`Z_v`$ est l'état géométrique des ports latéraux et $`B_v`$ le message
@@ -707,7 +707,7 @@ extérieur produit par les autres facteurs. Le diagnostic scalaire est
 \mathcal J_v
 =
 m_vh_p(\beta_v)^2.
-\tag{6.2}
+\qquad\text{(6.2)}
 ```
 
 ### Cas screené
@@ -735,7 +735,7 @@ F_v(\Lambda_v^{ab})
 \exp\bigl((1-\beta_v)\Lambda_v^{ab}\bigr),
 \qquad
 a,b\in\{0,1\}.
-\tag{6.3}
+\qquad\text{(6.3)}
 ```
 
 La factorisation du théorème 2.1 donne la loi des marques sur la frontière de
@@ -772,7 +772,7 @@ fausse ? », mais :
 (m_v,\beta_v,Z_v,B_v)
 \text{ le long du corridor de }i,j\,?
 }
-\tag{7.1}
+\qquad\text{(7.1)}
 ```
 
 Pour tester l'intuition d'une perte tardive, il faut en particulier estimer
@@ -783,7 +783,7 @@ v:\ m_vh_p(\beta_v)^2\le M,
 \ |B_v|\le B_0,
 \ v\text{ screené}
 \right\}.
-\tag{7.2}
+\qquad\text{(7.2)}
 ```
 
 Une version forte montrerait que ce nombre diverge pour des constantes
@@ -849,7 +849,7 @@ la perte d'information possède une formulation nette :
 \quad\Longleftrightarrow\quad
 m(C_1,C_2)h_p(\beta)^2\ll1
 }
-\tag{9.1}
+\qquad\text{(9.1)}
 ```
 
 pour une coupe instantanée screenée, et asymptotiquement pour une fusion de

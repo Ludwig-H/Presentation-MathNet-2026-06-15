@@ -44,7 +44,7 @@ la coupe physique
 E_u
 =
 \{\{x,y\}\in E:x\in C_1,\ y\in C_2\}.
-\tag{1.1}
+\qquad\text{(1.1)}
 ```
 
 Au nœud $`u`$, les deux enfants peuvent être conservés ou retournés. Leurs
@@ -57,7 +57,7 @@ q_u^{ab}
 \prod_{v\succeq u}
 \Lambda_v(\sigma^{ab})
 e^{(1-\beta_v)\Lambda_v(\sigma^{ab})}.
-\tag{1.2}
+\qquad\text{(1.2)}
 ```
 
 La difficulté centrale est donc d'estimer les quatre
@@ -76,7 +76,7 @@ d_L(i,j)\ge\rho L,
 \ \beta_c-\varepsilon
 \le\beta_{ij}\le\beta_c
 \right\}.
-\tag{1.3}
+\qquad\text{(1.3)}
 ```
 
 Elle représente deux points lointains qui se retrouvent dans la même
@@ -134,7 +134,7 @@ s_p(\beta)
 h_p(\beta)
 =
 2s_p(\beta)-1.
-\tag{2.1}
+\qquad\text{(2.1)}
 ```
 
 Les arêtes vraies déjà ouvertes sont internes aux clusters, mais cela ne
@@ -149,7 +149,7 @@ Pour une coupe instantanée de taille $`m`$,
 \boxed{
 \mathcal J=m h_p(\beta)^2.
 }
-\tag{2.2}
+\qquad\text{(2.2)}
 ```
 
 La coupe perd son information si $`\mathcal J\to0`$ et devient presque
@@ -164,7 +164,7 @@ Une coupe qui fusionne possède une arête gagnante conforme :
 K\mid X=+1
 \sim
 1+\mathrm{Bin}(m-1,s_p(\beta)).
-\tag{2.3}
+\qquad\text{(2.3)}
 ```
 
 À la censure $`\beta=1`$, sa fiabilité locale vaut exactement $`1/m`$. En
@@ -179,7 +179,7 @@ loi de la coupe est repondérée par
 \boxed{
 m(A,B)N_\rho(A,B),
 }
-\tag{2.4}
+\qquad\text{(2.4)}
 ```
 
 où $`N_\rho(A,B)`$ compte les paires lointaines séparées par les deux
@@ -223,7 +223,7 @@ h_c=0.387164445505\ldots,
 \mathcal J_{m,\beta_c}
 =
 0.149896307863\ldots\,m.
-\tag{4.1}
+\qquad\text{(4.1)}
 ```
 
 Une grande coupe critique est donc très informative. L'obstruction doit

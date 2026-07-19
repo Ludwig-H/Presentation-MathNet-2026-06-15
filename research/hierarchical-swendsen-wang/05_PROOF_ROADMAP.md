@@ -32,7 +32,7 @@ Le critère à établir est
 
 ```math
 \mathbb E[H_{\mathcal C}(I_L,J_L)^2]\longrightarrow0,
-\tag{T}
+\qquad\text{(T)}
 ```
 
 où $`P_{\mathcal C}`$ est le heat bath collapsed du corridor pair-spécifique.

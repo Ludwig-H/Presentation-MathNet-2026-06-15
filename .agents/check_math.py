@@ -48,6 +48,11 @@ def validate_equation(equation):
         errors.append(env_msg)
     if "\\operatorname" in equation:
         errors.append("Unsupported \\operatorname found (use \\mathrm or \\text instead)")
+    if re.search(r'\\tag\s*\{', equation):
+        errors.append(
+            "Visually unstable \\tag found "
+            "(append \\qquad\\text{(number)} in the ordinary math flow instead)"
+        )
     return errors
 
 def scan_file(filepath):

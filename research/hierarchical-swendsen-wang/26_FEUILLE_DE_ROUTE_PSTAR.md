@@ -35,7 +35,7 @@ p_{\mathrm{WR}}
 \inf\left\{
 p:\liminf_{L\to\infty}Q_L(p)>0
 \right\}
-\tag{1.0}
+\qquad\text{(1.0)}
 ```
 
 pour la notion d'avantage de probabilité positif. La borne
@@ -48,7 +48,7 @@ p_{\mathrm{info}}
 :=
 \frac{1+\sqrt{2\sin(\pi/18)}}2
 =0.794659275831\ldots.
-\tag{1.1}
+\qquad\text{(1.1)}
 ```
 
 Elle combine la borne $`\chi^2`$ d'Abbe--Boix-Adserà avec le seuil exact de
@@ -83,7 +83,7 @@ Pour
 f_{ij}(\sigma)=\sigma_i\sigma_j,
 \qquad
 c_{ij}(O)=\langle f_{ij}\rangle_{\mu_O},
-\tag{2.1}
+\qquad\text{(2.1)}
 ```
 
 posons
@@ -101,7 +101,7 @@ Q_L
 \sigma_i^{(1)}\sigma_i^{(2)}
 \right)^2
 \right\rangle.
-\tag{2.2}
+\qquad\text{(2.2)}
 ```
 
 Si un estimateur obtient un overlap signé au moins $`\varepsilon`$ avec
@@ -109,7 +109,7 @@ probabilité au moins $`\eta`$, alors
 
 ```math
 Q_L\ge \varepsilon^4\eta^2.
-\tag{2.3}
+\qquad\text{(2.3)}
 ```
 
 Ainsi $`Q_L\to0`$ interdit la weak recovery, y compris dans sa version avec
@@ -125,7 +125,7 @@ uniformes, retirer les paires telles que $`d(I_L,J_L)\le r_L`$, avec
 r_L\longrightarrow\infty,
 \qquad
 \frac{r_L}{L}\longrightarrow0,
-\tag{2.4}
+\qquad\text{(2.4)}
 ```
 
 puis étudier seulement une paire lointaine.
@@ -148,7 +148,7 @@ sont pas rééchantillonnés. Posons
 A_{ij}(O,D)
 =
 \|P_{ij}f_{ij}\|_{L^2(\pi_D)}^2.
-\tag{3.1}
+\qquad\text{(3.1)}
 ```
 
 ### Théorème H — obstruction hiérarchique pair-spécifique
@@ -161,7 +161,7 @@ Q_L
 \le
 \mathbb E[A_{I_LJ_L}(O,D)].
 }
-\tag{3.2}
+\qquad\text{(3.2)}
 ```
 
 Par conséquent,
@@ -170,7 +170,7 @@ Par conséquent,
 \mathbb E[A_{I_LJ_L}]\longrightarrow0
 \quad\Longrightarrow\quad
 \text{pas de weak recovery}.
-\tag{3.3}
+\qquad\text{(3.3)}
 ```
 
 Ce théorème est le bon analogue du théorème principal du chapitre 11.
@@ -205,7 +205,7 @@ c_{ij}(O)^2
 \mathbb E_{D\mid O}[\pi_D(P_{ij}f_{ij})^2]
 \le
 \mathbb E_{D\mid O}[\pi_D((P_{ij}f_{ij})^2)].
-\tag{3.4}
+\qquad\text{(3.4)}
 ```
 
 C'est la désintégration selon $`D`$, puis deux applications de Jensen. Elle
@@ -228,7 +228,7 @@ $`+\infty`$. Pour le dendrogramme de partitions non marqué,
 \prod_{u\in D}
 \Lambda_u(\sigma)
 e^{(1-\beta_u)\Lambda_u(\sigma)}.
-\tag{4.1}
+\qquad\text{(4.1)}
 ```
 
 Au nœud $`u`$, les quatre orientations de ses deux enfants sont tirées avec
@@ -246,7 +246,7 @@ conditionnellement à l'extérieur. L'opérateur est
 P_{ij}g
 =
 \mathbb E_{\pi_D}[g\mid\mathcal A_{ij}],
-\tag{4.2}
+\qquad\text{(4.2)}
 ```
 
 où $`\mathcal A_{ij}`$ conserve l'extérieur du bloc.
@@ -294,7 +294,7 @@ q_p(\beta)=p(1-e^{-u_p\beta}),
 u_p=\log\frac p{1-p},
 \qquad
 q_c=2\sin(\pi/18),
-\tag{5.1}
+\qquad\text{(5.1)}
 ```
 
 et $`\beta_c=q_p^{-1}(q_c)`$.
@@ -328,7 +328,7 @@ Conditionnellement au squelette, à ses incidences, à ses tailles de coupes et
 \beta_v
 \quad\text{par}\quad
 \beta_v^{\mathrm{fav}}=\min(\beta_v,\beta_c)
-\tag{5.2}
+\qquad\text{(5.2)}
 ```
 
 rend chaque canal de bucket plus informatif au sens de Blackwell. Cette
@@ -371,7 +371,7 @@ s_c=0.701242667184\ldots,
 h_c=0.402485334367\ldots,
 \qquad
 h_c^2=0.161994444381\ldots.
-\tag{6.1}
+\qquad\text{(6.1)}
 ```
 
 La perte ne viendra donc pas du LCA seul, mais de blocs ambigus répétés sur
@@ -385,7 +385,7 @@ Un état suffisant, sans prétendre qu'il soit minimal, est :
 z_B
 =
 (\mathcal G_B,\Pi_B,\Psi_B,x_B^{(1)},x_B^{(2)}),
-\tag{6.2}
+\qquad\text{(6.2)}
 ```
 
 où $`\mathcal G_B`$ contient le squelette non marqué, les temps, tailles et
@@ -419,7 +419,7 @@ incréments de la parité cible dans les deux tirages conditionnels. Définir
 =
 \sum_{\epsilon}\int \epsilon g(z')
 \mathsf T_{B,p}(z,dz',d\epsilon).
-\tag{6.3}
+\qquad\text{(6.3)}
 ```
 
 Le premier est le transfert non tordu de masse ; le second est le transfert
@@ -440,7 +440,7 @@ rapport de croissances
 =
 \frac{\rho(|\mathscr U_{B,p}|)}
 {\rho(\mathscr T_B^{(0)})}.
-\tag{6.4}
+\qquad\text{(6.4)}
 ```
 
 Ce quotient ne suffit pas pour des bords arbitraires ni pour des produits de
@@ -457,7 +457,7 @@ admissible $`\theta`$,
 \le
 (1-\varepsilon_B)w.
 }
-\tag{6.5}
+\qquad\text{(6.5)}
 ```
 
 avec $`\varepsilon_B>0`$ explicite et arithmétique d'intervalles.
@@ -539,7 +539,7 @@ p_0=\frac{161}{200},
 \qquad q_0=2p_0-1=\frac{61}{100},
 \qquad
 (a,s,e)=\left(\frac{13}{40},\frac9{80},\frac{27}{80}\right).
-\tag{7.0}
+\qquad\text{(7.0)}
 ```
 
 Il vérifie exactement
@@ -626,7 +626,7 @@ C\,\mathbb E[
 +\varepsilon_{\rm tr}(L)+o(1),
 \qquad
 \kappa(p)<1.
-\tag{7.1}
+\qquad\text{(7.1)}
 ```
 
 Le transfert doit intégrer les bons blocs, les mauvais blocs et les états de
@@ -738,7 +738,7 @@ exemple
 p_{\mathrm{cert}}
 =
 \sup\{p:\lambda_{\mathrm{cert}}(p)<0\}.
-\tag{9.1}
+\qquad\text{(9.1)}
 ```
 
 Après preuve du théorème de composition,

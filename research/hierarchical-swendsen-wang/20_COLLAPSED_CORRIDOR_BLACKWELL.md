@@ -44,7 +44,7 @@ bath local en $`u`$, on prend
 \mathcal A_{ij}
 =
 \bigcap_{u\in\mathcal C_{ij}}\mathcal G_u.
-\tag{1.1}
+\qquad\text{(1.1)}
 ```
 
 La dynamique **collapsed corridor** est le heat bath de tous les degrés de
@@ -54,7 +54,7 @@ liberté du corridor en un seul bloc. Son opérateur est
 P_{\mathcal C}g
 =
 \mathbb E_{\pi_D}[g\mid\mathcal A_{ij}].
-\tag{1.2}
+\qquad\text{(1.2)}
 ```
 
 Il s'agit d'une mise à jour hiérarchique valide, mais pair-spécifique. Cette
@@ -91,7 +91,7 @@ et tout $`g\in L^2(\pi_D)`$,
 \le
 \|Kg\|_2^2.
 }
-\tag{2.1}
+\qquad\text{(2.1)}
 ```
 
 Plus précisément,
@@ -103,7 +103,7 @@ Plus précisément,
 \|P_{\mathcal C}g\|_2^2
 +\|K(I-P_{\mathcal C})g\|_2^2.
 }
-\tag{2.2}
+\qquad\text{(2.2)}
 ```
 
 #### Preuve
@@ -143,7 +143,7 @@ Pour $`f_{ij}(\sigma)=\sigma_i\sigma_j`$,
 \mathbb E[H_{\mathcal C}(i,j)^2\mid O,D]
 =
 \|P_{\mathcal C}f_{ij}\|_2^2.
-\tag{2.3}
+\qquad\text{(2.3)}
 ```
 
 Le bloc collapsed est donc le certificat le plus contractant parmi les
@@ -189,7 +189,7 @@ Q_n
 \le
 \mathbb E[A_{I_nJ_n}(O,D)].
 }
-\tag{2.4}
+\qquad\text{(2.4)}
 ```
 
 Par conséquent,
@@ -198,7 +198,7 @@ Par conséquent,
 \mathbb E[A_{I_nJ_n}(O,D)]\longrightarrow0
 \quad\Longrightarrow\quad
 \text{pas de weak recovery}.
-\tag{2.5}
+\qquad\text{(2.5)}
 ```
 
 #### Preuve
@@ -262,7 +262,7 @@ K_r\mid X_r=+1
 K_r\mid X_r=-1
 &\ \overset{\mathrm d}=\ \mathrm{Bin}(m_r-1,1-s_r).
 \end{aligned}
-\tag{3.1}
+\qquad\text{(3.1)}
 ```
 
 La loi a priori $`\rho(dx)`$ de $`X`$ peut être arbitraire : les parités
@@ -278,7 +278,7 @@ Pour une cible $`F(X)\in[-1,1]`$, la persistance collapsed vaut
 \mathbb E\left[
 \mathbb E[F(X)\mid K_1,\ldots,K_h]^2
 \right].
-\tag{3.2}
+\qquad\text{(3.2)}
 ```
 
 Pour la paire, $`F`$ est le produit des parités qui séparent $`i`$ de $`j`$.
@@ -291,7 +291,7 @@ $`s_r^{\mathrm c}`$ ; dans l'expérience tardive,
 
 ```math
 \frac12\le s_r^{\mathrm l}\le s_r^{\mathrm c}\le1.
-\tag{4.1}
+\qquad\text{(4.1)}
 ```
 
 ### Théorème 4.1 — corridor favorable fixé, statut : établi
@@ -305,7 +305,7 @@ famille satisfaisant (4.1),
 \le
 \mathscr R_{\mathrm c}(\rho,F).
 }
-\tag{4.2}
+\qquad\text{(4.2)}
 ```
 
 Cette domination ne suppose ni l'indépendance des $`X_r`$, ni la neutralité
@@ -368,7 +368,7 @@ binaire $`\mathcal E`$ sous prior uniforme, soit
 \Pi_{\mathcal E}=\mathbb P(X=+1\mid K),
 \qquad
 C_{\mathcal E}(z)=\mathbb E[(\Pi_{\mathcal E}-z)_+].
-\tag{4.3}
+\qquad\text{(4.3)}
 ```
 
 Deux expériences binaires ont une moyenne postérieure égale à $`1/2`$.
@@ -377,7 +377,7 @@ Ainsi, $`\mathcal E_A`$ Blackwell-domine $`\mathcal E_B`$ si et seulement si
 ```math
 C_{\mathcal E_A}(z)\ge C_{\mathcal E_B}(z)
 \quad\text{pour tout }z\in[0,1],
-\tag{4.4}
+\qquad\text{(4.4)}
 ```
 
 c'est-à-dire si la première postérieure domine la seconde dans l'ordre
@@ -399,7 +399,7 @@ certificat par arithmétique rationnelle donne
 ```math
 C_A(z_A)-C_B(z_A)
 \in[-0.007184305272,-0.007184305271]
-\tag{4.5}
+\qquad\text{(4.5)}
 ```
 
 au point
@@ -416,7 +416,7 @@ tandis que
 ```math
 C_B(1/2)-C_A(1/2)
 \in[-0.044555124600,-0.044555124599].
-\tag{4.6}
+\qquad\text{(4.6)}
 ```
 
 La première inégalité interdit $`A\succeq B`$ et la seconde interdit
@@ -471,7 +471,7 @@ des autres arêtes. Posons
 q_p(t)=p(1-e^{-u_pt}),
 \qquad
 u_p=\log\frac p{1-p}.
-\tag{4.7}
+\qquad\text{(4.7)}
 ```
 
 Si $`T_e`$ est l'horloge censurée de l'arête et
@@ -480,7 +480,7 @@ $`0\le r\le2p-1`$,
 
 ```math
 \mathbb P(R_e\le r)=r.
-\tag{4.8}
+\qquad\text{(4.8)}
 ```
 
 Les rangs $`R_e`$ sont indépendants. Pour tout
@@ -493,7 +493,7 @@ ne dépend pas de $`p`$. Le paramètre statistique reste, lui,
 
 ```math
 s_c(p)=\frac{p-q_\triangle}{1-q_\triangle}.
-\tag{4.9}
+\qquad\text{(4.9)}
 ```
 
 #### Preuve
@@ -515,7 +515,7 @@ Pour une coupe **fixée** de taille $`m`$, la densité de son premier rang est
 
 ```math
 m(1-r)^{m-1}\,dr.
-\tag{4.10}
+\qquad\text{(4.10)}
 ```
 
 Au seuil, les horloges pénalisent donc une grande coupe par le facteur
@@ -546,7 +546,7 @@ du bucket $`r`$.
 =
 \prod_{r=1}^h\Gamma_{m_r}(t_r;p).
 }
-\tag{5.1}
+\qquad\text{(5.1)}
 ```
 
 Par conséquent,
@@ -556,7 +556,7 @@ Par conséquent,
 \quad\Longleftrightarrow\quad
 \sum_{r=1}^h-log\Gamma_{m_r}(t_r;p)
 \longrightarrow+\infty.
-\tag{5.2}
+\qquad\text{(5.2)}
 ```
 
 #### Preuve
@@ -595,7 +595,7 @@ donc exactement
 ```math
 \mathscr R_N=s_c^N
 =\exp(-0.365885484247\ldots N).
-\tag{6.1}
+\qquad\text{(6.1)}
 ```
 
 | $`N`$ | $`s_c^N`$ |
@@ -612,7 +612,7 @@ fichier 19 est
 \kappa_2(b)
 =
 s_c+(1-s_c)\tanh^2(b/2)<1
-\tag{6.2}
+\qquad\text{(6.2)}
 ```
 
 pour tout $`b<\infty`$. Multiplier ces coefficients exige encore un
@@ -648,7 +648,7 @@ Alors
 \le
 \mathbb E[\kappa^{N_L}]+o(1)
 \longrightarrow0.
-\tag{7.1}
+\qquad\text{(7.1)}
 ```
 
 Combiné à l'annulation des racines, à la disparition sous-critique et au

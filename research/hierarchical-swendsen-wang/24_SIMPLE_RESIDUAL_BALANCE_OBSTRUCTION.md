@@ -46,7 +46,7 @@ Y_e=\Sigma_x\Sigma_y Z_e,
 \mathbb P(Z_e=+1)=p,
 \qquad
 \mathbb P(Z_e=-1)=1-p.
-\tag{1.1}
+\qquad\text{(1.1)}
 ```
 
 Sous le couplage annealed de Nishimori, on peut prendre la réplique qui génère
@@ -58,14 +58,14 @@ T_e\sim\mathrm{Exp}(u_p)
 \qquad
 T_e=+\infty
 \quad\text{si }Z_e=-1,
-\tag{1.2}
+\qquad\text{(1.2)}
 ```
 
 avec
 
 ```math
 u_p=\log\frac p{1-p}.
-\tag{1.3}
+\qquad\text{(1.3)}
 ```
 
 Ainsi, toute arête ouverte est vraie dans cette jauge. Au temps
@@ -82,7 +82,7 @@ Les quatre masses somment à un. La probabilité d'ouverture vaut
 
 ```math
 q_p(\beta)=p(1-e^{-u_p\beta}).
-\tag{1.4}
+\qquad\text{(1.4)}
 ```
 
 Cette table ne doit être appliquée qu'aux arêtes d'une coupe ou d'une
@@ -99,14 +99,14 @@ $`\beta`$ est
 M_{\rm true}^{>\beta}
 =
 pe^{-u_p\beta}.
-\tag{2.1}
+\qquad\text{(2.1)}
 ```
 
 La masse des fausses arêtes est
 
 ```math
 M_{\rm false}=1-p=pe^{-u_p}.
-\tag{2.2}
+\qquad\text{(2.2)}
 ```
 
 ### Lemme 2.1 — pas de majorité fausse avant la censure, statut : établi
@@ -121,7 +121,7 @@ p(e^{-u_p\beta}-e^{-u_p})
 >0,&0\le\beta<1,\\
 =0,&\beta=1.
 \end{cases}
-\tag{2.3}
+\qquad\text{(2.3)}
 ```
 
 #### Preuve
@@ -152,7 +152,7 @@ M_{\rm future}(\beta)
 p(e^{-u_p\beta}-e^{-u_p})
 =
 pe^{-u_p\beta}-(1-p).
-\tag{3.1}
+\qquad\text{(3.1)}
 ```
 
 Comparer cette masse à $`1-p`$ donne un croisement plus précoce.
@@ -173,7 +173,7 @@ est
 =
 1-\frac{\log2}{u_p}.
 }
-\tag{3.2}
+\qquad\text{(3.2)}
 ```
 
 Pour $`\beta>\beta_{\rm act}(p)`$, les fausses arêtes sont plus nombreuses
@@ -221,7 +221,7 @@ $`\beta`$. Le normalisateur est
 1-q_p(\beta)
 =
 1-p+pe^{-u_p\beta}.
-\tag{4.1}
+\qquad\text{(4.1)}
 ```
 
 Sa probabilité d'être vraie vaut
@@ -235,7 +235,7 @@ s_p(\beta)
 =
 \frac1{1+e^{-u_p(1-\beta)}}.
 }
-\tag{4.2}
+\qquad\text{(4.2)}
 ```
 
 Son biais signé est
@@ -248,7 +248,7 @@ h_p(\beta)
 =
 \tanh\left(\frac{u_p(1-\beta)}2\right).
 }
-\tag{4.3}
+\qquad\text{(4.3)}
 ```
 
 ### Proposition 4.1 — dégradation continue, statut : établi
@@ -261,7 +261,7 @@ s_p(0)=p,
 s_p(1)=\frac12,
 \qquad
 s_p'(\beta)<0.
-\tag{4.4}
+\qquad\text{(4.4)}
 ```
 
 En particulier, il n'existe pas de transition abrupte locale : le canal se
@@ -287,7 +287,7 @@ Sur la grille triangulaire,
 
 ```math
 q_c=2\sin(\pi/18)=0.347296355334\ldots.
-\tag{5.1}
+\qquad\text{(5.1)}
 ```
 
 Le temps critique satisfait
@@ -298,14 +298,14 @@ q_p(\beta_c)=q_c,
 \beta_c(p)
 =
 -\frac1{u_p}\log\left(1-\frac{q_c}{p}\right).
-\tag{5.2}
+\qquad\text{(5.2)}
 ```
 
 Il appartient à $`[0,1]`$ exactement lorsque
 
 ```math
 p\ge p_{\rm SW}:=\frac{1+q_c}{2}=0.673648177667\ldots.
-\tag{5.3}
+\qquad\text{(5.3)}
 ```
 
 Les masses critiques non conditionnelles sont
@@ -319,7 +319,7 @@ Les masses critiques non conditionnelles sont
 \text{vraie censurée}&1-p\cr
 \text{fausse}&1-p.
 \end{array}
-\tag{5.4}
+\qquad\text{(5.4)}
 ```
 
 Sur une arête de frontière critique,
@@ -332,7 +332,7 @@ s_c(p)
 h_c(p)
 =
 \frac{2p-1-q_c}{1-q_c}.
-\tag{5.5}
+\qquad\text{(5.5)}
 ```
 
 Comme $`h_p(\beta)`$ décroît, $`\beta_c`$ maximise la qualité par arête parmi
@@ -357,7 +357,7 @@ p_{\partial,\rm act}
 =
 0.782432118445\ldots.
 }
-\tag{5.6}
+\qquad\text{(5.6)}
 ```
 
 C'est aussi l'unique valeur telle que
@@ -376,7 +376,7 @@ p_{\rm info}
 \frac{1+\sqrt{q_c}}2
 =
 0.794659275831\ldots,
-\tag{5.7}
+\qquad\text{(5.7)}
 ```
 
 où $`p_{\rm info}`$ est la borne d'information-percolation déjà connue.
@@ -391,7 +391,7 @@ On a
 \beta_c=0.410716539196\ldots,
 \qquad
 \beta_{\rm act}=0.5.
-\tag{5.8}
+\qquad\text{(5.8)}
 ```
 
 À $`\beta_c`$, les masses non conditionnelles sont
@@ -412,7 +412,7 @@ et
 
 ```math
 s_c(0.8)=0.693582222752\ldots.
-\tag{5.9}
+\qquad\text{(5.9)}
 ```
 
 Le bucket critique reste donc nettement biaisé vers la vérité. Une preuve à
@@ -453,14 +453,14 @@ $`X\in\{-1,+1\}`$, le compte $`K`$ suit
 K\mid X=+1
 \sim
 1+\mathrm{Bin}(m-1,s_p(\beta)),
-\tag{7.1}
+\qquad\text{(7.1)}
 ```
 
 ```math
 K\mid X=-1
 \sim
 \mathrm{Bin}(m-1,1-s_p(\beta)).
-\tag{7.2}
+\qquad\text{(7.2)}
 ```
 
 Pour $`1\le k\le m-1`$, le log-rapport local vaut
@@ -470,14 +470,14 @@ Pour $`1\le k\le m-1`$, le log-rapport local vaut
 =
 \log\frac{k}{m-k}
 +u_p(1-\beta)(2k-m).
-\tag{7.3}
+\qquad\text{(7.3)}
 ```
 
 Avec le message ancestral $`B_u`$, le log-rapport exact devient
 
 ```math
 L_u=B_u+\ell_{m,K}(\beta;p).
-\tag{7.4}
+\qquad\text{(7.4)}
 ```
 
 Une majorité $`K>m/2`$ rend $`\ell_{m,K}>0`$, mais ne contrôle pas le signe
@@ -494,7 +494,7 @@ Définissons la fiabilité oracle sans message extérieur
 \mathbb Eleft[
 \tanh^2\left(\frac{\ell_{m,K}(\beta;p)}2\right)
 \right].
-\tag{8.1}
+\qquad\text{(8.1)}
 ```
 
 La probabilité moyenne de conserver la parité vraie lors du heat bath est
@@ -503,7 +503,7 @@ La probabilité moyenne de conserver la parité vraie lors du heat bath est
 \overline P_m(\beta;p)
 =
 \frac{1+\Gamma_m(\beta;p)}2.
-\tag{8.2}
+\qquad\text{(8.2)}
 ```
 
 ### Théorème 8.1 — une grande coupe précoce est très informative, établi
@@ -513,7 +513,7 @@ Pour tout $`p>1/2`$ et tout $`\beta<1`$ fixé,
 ```math
 \Gamma_m(\beta;p)\longrightarrow1
 \qquad(m\to\infty).
-\tag{8.3}
+\qquad\text{(8.3)}
 ```
 
 Plus précisément, l'erreur décroît exponentiellement à l'échelle
@@ -549,7 +549,7 @@ Au bord $`\beta=1`$,
 \qquad
 \overline P_m(1;p)=\frac12+\frac1{2m}.
 }
-\tag{8.4}
+\qquad\text{(8.4)}
 ```
 
 #### Preuve
@@ -603,7 +603,7 @@ alors, pour $`Z\sim\mathcal N(0,1)`$,
 \ell_{m,K}(\beta_m;p)
 \Longrightarrow
 aZ+\frac{a^2}{2},
-\tag{8.5}
+\qquad\text{(8.5)}
 ```
 
 et
@@ -614,7 +614,7 @@ et
 \mathbb E\left[
 \tanh^2\left(\frac{aZ+a^2/2}{2}\right)
 \right].
-\tag{8.6}
+\qquad\text{(8.6)}
 ```
 
 Le paramètre simple qui distingue connexion et information est donc
@@ -636,7 +636,7 @@ Prenons $`m=2`$ et notons $`s=s_p(\beta)`$. Les deux lois du compte sont
 X=+1&0&1-s&s\cr
 X=-1&s&1-s&0.
 \end{array}
-\tag{9.1}
+\qquad\text{(9.1)}
 ```
 
 Avec probabilité $`s`$, le compte révèle parfaitement la parité. Avec
@@ -651,7 +651,7 @@ Sans message extérieur,
 \boxed{
 \Gamma_2(\beta;p)=s_p(\beta).
 }
-\tag{9.2}
+\qquad\text{(9.2)}
 ```
 
 Avec un message ancestral $`B`$, l'issue effacée conserve seulement ce
@@ -664,7 +664,7 @@ message. La fiabilité devient
 s_p(\beta)
 +(1-s_p(\beta))\tanh^2(B/2).
 }
-\tag{9.3}
+\qquad\text{(9.3)}
 ```
 
 Comme $`s_p(\beta)\le p`$ sur $`[0,1]`$, si $`|B|\le B_0<\infty`$,
@@ -676,7 +676,7 @@ Comme $`s_p(\beta)\le p`$ sur $`[0,1]`$, si $`|B|\le B_0<\infty`$,
 :=
 p+(1-p)\tanh^2(B_0/2)
 <1.
-\tag{9.4}
+\qquad\text{(9.4)}
 ```
 
 Cette borne est uniforme sur **tous** les niveaux, y compris ceux bien avant
@@ -696,7 +696,7 @@ A_N
 \le
 p^N.
 }
-\tag{9.5}
+\qquad\text{(9.5)}
 ```
 
 En particulier, pour $`p<1`$ fixé,
@@ -769,7 +769,7 @@ A_{I_LJ_L}
 \le
 \kappa(p,M,B_0)^{N_L}
 +\varepsilon_L,
-\tag{10.1}
+\qquad\text{(10.1)}
 ```
 
 avec $`\mathbb E\varepsilon_L=o(1)`$. Comme $`0<\kappa<1`$ et
@@ -797,7 +797,7 @@ alors
 \mathbb E[A_{I_LJ_L}]
 \le
 o(1)+L^{-c|\log\kappa|}.
-\tag{10.2}
+\qquad\text{(10.2)}
 ```
 
 ## 11. Ce que cette voie simple change dans le programme
@@ -813,7 +813,7 @@ d'une bande, il faut essayer de prouver :
 N_L\to\infty
 \text{ coupes de charge bornée et screenées.}
 }
-\tag{11.1}
+\qquad\text{(11.1)}
 ```
 
 Une version minimale chercherait seulement des motifs triangulaires donnant

@@ -62,6 +62,13 @@ If you need to use a literal dollar sign in the same line as a math expression:
 ### D. Repository-Specific Command Compatibility
 *   **Avoid `\operatorname`**: GitHub uses MathJax, not KaTeX. Nevertheless, this repository forbids `\operatorname{...}` (e.g. `\operatorname{Exp}`, `\operatorname{ov}`) because its validator and secondary rendering paths do not handle it consistently.
     *   *Solution:* Always use `\mathrm{...}` or `\text{...}` instead (e.g., `\mathrm{Exp}`, `\mathrm{ov}`, `\mathrm{RG}`, `\mathrm{tr}`, `\mathrm{diag}`).
+*   **Never use `\tag{...}` in Markdown math:** GitHub's rendered equation-tag
+    layout is visually unstable and can stack the number and formula vertically.
+    Keep the number in the ordinary horizontal math flow instead.
+    *   *Required form:* end the fenced `math` block with
+        `\qquad\text{(1.1)}` (adapt the number or symbolic label), never with
+        `\tag{1.1}`.
+    *   Equation references in prose remain ordinary text such as `(1.1)`.
 
 ---
 
@@ -71,7 +78,7 @@ When adding mathematical equations, ensure:
 1.  All parentheses `()`, brackets `[]`, and braces `{}` are properly balanced.
 2.  Special characters like `%`, `&`, `_`, `#` are properly escaped when not used in their LaTeX command contexts.
 3.  Any newline in multiline equations (like inside `align` or `substack` environments) uses `\\` properly and the equation is wrapped in a fenced `math` block.
-4.  No `\operatorname` is used in markdown equations.
+4.  No `\operatorname` or `\tag` is used in markdown equations.
 5.  Inline dollar and dollar-backtick delimiters use one exact GitHub-supported form, are adjacent to their delimiter characters, and close on the same line.
 6.  Display blocks are separated from prose by blank lines, are not embedded in table cells, and are not accidentally parsed as ordinary code.
 7.  Every edited formula is inspected in context for collisions with lists, blockquotes, HTML, links, code fences, and Mermaid diagrams.

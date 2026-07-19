@@ -76,14 +76,14 @@ A_e(t)
 \Pi_t
 :=
 \mathrm{cc}\bigl(V,\{e:A_e(t)=1\}\bigr).
-\tag{1.1}
+\qquad\text{(1.1)}
 ```
 
 Les variables $`A_e(t)`$ sont i.i.d. de paramètre
 
 ```math
 q_p(t)=p(1-e^{-u_pt}).
-\tag{1.2}
+\qquad\text{(1.2)}
 ```
 
 Sur la grille triangulaire, notons
@@ -101,7 +101,7 @@ positive
 =
 -\frac1{u_p}\log\left(1-\frac{q_c}{p}\right).
 }
-\tag{1.3}
+\qquad\text{(1.3)}
 ```
 
 Mais le dendrogramme utilisé par la dynamique est censuré à $t=1$. Ainsi,
@@ -112,7 +112,7 @@ Mais le dendrogramme utilisé par la dynamique est censuré à $t=1$. Ainsi,
 2p-1\ge q_c
 \quad\Longleftrightarrow\quad
 p\ge p_{\mathrm{SW}}:=\frac{1+q_c}{2}.
-\tag{1.4}
+\qquad\text{(1.4)}
 ```
 
 Pour $`1/2<p<p_{\mathrm{SW}}`$, le temps critique existe sur l'axe non
@@ -128,7 +128,7 @@ Pour une partition $`\pi`$ de $V$, notons sa frontière
 :=
 \bigl\{\{x,y\}\in E:x\text{ et }y
 \text{ appartiennent à deux blocs distincts de }\pi\bigr\}.
-\tag{2.1}
+\qquad\text{(2.1)}
 ```
 
 Au nœud $`u:C=C_1\mathbin{\dot\cup}C_2`$, la coupe des slides est
@@ -145,7 +145,7 @@ appartiennent au même bloc retourné, alors
 \sigma_x^{ab}\sigma_y^{ab}
 =
 \sigma_x\sigma_y.
-\tag{2.2}
+\qquad\text{(2.2)}
 ```
 
 Son indicateur de satisfaction ne dépend donc pas de $`(a,b)`$. Il en
@@ -203,7 +203,7 @@ h_p(t),
 \frac{1-h_p(t)}2
 \right),
 }
-\tag{3.1}
+\qquad\text{(3.1)}
 ```
 
 où
@@ -214,7 +214,7 @@ h_p(t)
 \frac{pe^{-u_pt}-q}{q+pe^{-u_pt}}
 =
 \tanh\left(\frac{u_p(1-t)}2\right),
-\tag{3.2}
+\qquad\text{(3.2)}
 ```
 
 et la probabilité d'être conforme vaut
@@ -225,7 +225,7 @@ s_p(t)
 \frac{pe^{-u_pt}}{q+pe^{-u_pt}}
 =
 \frac{1+h_p(t)}2.
-\tag{3.3}
+\qquad\text{(3.3)}
 ```
 
 ### Preuve
@@ -257,7 +257,7 @@ $`q_p(\beta_c)=q_c`$ donne
 
 ```math
 pe^{-u_p\beta_c}=p-q_c.
-\tag{3.4}
+\qquad\text{(3.4)}
 ```
 
 Les masses non conditionnelles d'une arête sont
@@ -271,7 +271,7 @@ Les masses non conditionnelles d'une arête sont
 \text{vraie censurée }(\xi_e>1)&1-p\cr
 \text{fausse}&1-p.
 \end{array}
-\tag{3.5}
+\qquad\text{(3.5)}
 ```
 
 Pour une arête de $`\partial\Pi_{\beta_c}`$, et seulement après
@@ -285,7 +285,7 @@ s_c(p)
 h_c(p)
 =
 \frac{2p-1-q_c}{1-q_c}.
-\tag{3.6}
+\qquad\text{(3.6)}
 ```
 
 La dérivée
@@ -295,7 +295,7 @@ La dérivée
 =
 -\frac{u_p}{2}\left[1-h_p(t)^2\right]
 <0
-\tag{3.7}
+\qquad\text{(3.7)}
 ```
 
 montre que $`\beta_c`$ maximise la qualité **par arête de frontière et à
@@ -311,7 +311,7 @@ p_{\partial,\mathrm{late}}
 \frac{2+q_c}{3}
 =
 0.7824321184\ldots.
-\tag{3.8}
+\qquad\text{(3.8)}
 ```
 
 Il ne s'agit ni d'une proportion globale d'arêtes, ni d'un seuil de weak
@@ -329,7 +329,7 @@ N_{L,\rho}(C)
 :=
 \#\bigl\{(x,y)\in C^2:x\ne y,\
 d_L(x,y)\ge\rho L\bigr\}.
-\tag{4.1}
+\qquad\text{(4.1)}
 ```
 
 La loi naturelle de la composante contenant une paire uniforme lointaine,
@@ -349,7 +349,7 @@ F(\Pi_{\beta_c},C,x,y)
 \displaystyle\sum_{C\in\Pi_{\beta_c}}N_{L,\rho}(C)
 \right]
 }.
-\tag{4.2}
+\qquad\text{(4.2)}
 ```
 
 ### Proposition 4.1 — biais exact de la paire, statut : établi
@@ -368,7 +368,7 @@ La masse non conditionnelle de l'événement de paire est
 =
 \frac1{n_L^2}
 \mathbb E\sum_{C\in\Pi_{\beta_c}}N_{L,\rho}(C).
-\tag{4.3}
+\qquad\text{(4.3)}
 ```
 
 Cette identité est un simple double comptage des paires ordonnées.
@@ -384,7 +384,7 @@ exhaustion plane périodique,
 \max_{C\in\Pi_{\beta_c}}|C|
 \longrightarrow0
 \quad\text{en probabilité}.
-\tag{4.4}
+\qquad\text{(4.4)}
 ```
 
 Il est donc trompeur de parler d'une « composante géante au moment exact de
@@ -423,7 +423,7 @@ Pour deux sommets, posons
 \beta_{ij}
 :=
 \inf\{t:i\leftrightarrow j\text{ dans }\Pi_t\}.
-\tag{5.1}
+\qquad\text{(5.1)}
 ```
 
 L'implication déterministe fondamentale est
@@ -432,7 +432,7 @@ L'implication déterministe fondamentale est
 i\leftrightarrow j\text{ dans }\Pi_{\beta_c}
 \quad\Longrightarrow\quad
 \beta_{ij}\le\beta_c.
-\tag{5.2}
+\qquad\text{(5.2)}
 ```
 
 Le cas favorable conforme à l'idée étudiée doit donc être formulé par la
@@ -445,7 +445,7 @@ fenêtre gauche
 d_L(I_L,J_L)\ge\rho L,\
 \beta_c-\varepsilon\le\beta_{I_LJ_L}\le\beta_c
 \right\}.
-\tag{5.3}
+\qquad\text{(5.3)}
 ```
 
 Il impose simultanément une composante critique macroscopique et une
@@ -464,7 +464,7 @@ d_L(I_L,J_L)\ge\rho L,\
 \beta_{I_LJ_L}\le\beta_c
 \right)
 \longrightarrow0.
-\tag{5.4}
+\qquad\text{(5.4)}
 ```
 
 En effet, $`q_p(\beta_c-\delta)<q_c`$. La probabilité de relier deux points à
@@ -506,7 +506,7 @@ h_p(t),
 \frac{1-h_p(t)}2,
 \frac{1-h_p(t)}2
 \right).
-\tag{5.5}
+\qquad\text{(5.5)}
 ```
 
 Le nombre d'arêtes de la coupe satisfaites par la ground truth vaut
@@ -517,7 +517,7 @@ K_u
 1+R+S
 \stackrel d=
 1+\mathrm{Bin}(m-1,s_p(t)).
-\tag{5.6}
+\qquad\text{(5.6)}
 ```
 
 Pour $`V_u:=2K_u-m`$,
@@ -530,7 +530,7 @@ Pour $`V_u:=2K_u-m`$,
 \mathrm{Var}(V_u\mid m,t)
 =
 (m-1)[1-h_p(t)^2],
-\tag{5.7}
+\qquad\text{(5.7)}
 ```
 
 et
@@ -541,7 +541,7 @@ et
 \sum_{r=\lfloor m/2\rfloor}^{m-1}
 \binom{m-1}{r}
 s_p(t)^r[1-s_p(t)]^{m-1-r}.
-\tag{5.8}
+\qquad\text{(5.8)}
 ```
 
 Le paramètre de concentration est $`m h_p(t)^2`$. La loi (5.5) concerne la
@@ -580,7 +580,7 @@ $`G_v\in\{0,1,2\}`$,
 \mathbb P(G_v=r\mid\mathscr D)
 =
 \frac{m_{v,r}}{m_{v,0}+m_{v,1}+m_{v,2}},
-\tag{6.1}
+\qquad\text{(6.1)}
 ```
 
 et, conditionnellement à $`G_v`$,
@@ -597,7 +597,7 @@ m_{v,r}-\mathbf1_{\{G_v=r\}},
 s_p(\beta_v)
 \right).
 }
-\tag{6.2}
+\qquad\text{(6.2)}
 ```
 
 Les quatre taux sous les flips $`(a,b)\in\{0,1\}^2`$ sont
@@ -618,7 +618,7 @@ K_{v,2},&b=0,\cr
 m_{v,2}-K_{v,2},&b=1.
 \end{cases}
 }
-\tag{6.3}
+\qquad\text{(6.3)}
 ```
 
 Par conséquent,
@@ -627,14 +627,14 @@ Par conséquent,
 \Lambda_v^{00}-\Lambda_v^{10}=u_pM_{v,1},
 \qquad
 \Lambda_v^{00}-\Lambda_v^{01}=u_pM_{v,2},
-\tag{6.4}
+\qquad\text{(6.4)}
 ```
 
 ```math
 \Lambda_v^{00}-\Lambda_v^{11}
 =
 u_p(M_{v,1}+M_{v,2}).
-\tag{6.5}
+\qquad\text{(6.5)}
 ```
 
 Une majorité sur tout $`E_v`$ ne suffit donc pas. Pour que le taux de la
@@ -645,21 +645,21 @@ suffit d'avoir des majorités strictes dans **les deux groupes affectés** :
 M_{v,1}>0,
 \qquad
 M_{v,2}>0.
-\tag{6.6}
+\qquad\text{(6.6)}
 ```
 
 Pour chaque groupe, l'échelle de concentration pertinente est
 
 ```math
 m_{v,r}h_p(\beta_v)^2.
-\tag{6.7}
+\qquad\text{(6.7)}
 ```
 
 On a toujours $`\beta_v>\beta_u`$, donc
 
 ```math
 h_p(\beta_v)<h_p(\beta_u).
-\tag{6.8}
+\qquad\text{(6.8)}
 ```
 
 Si $`\beta_v\ge\beta_c`$, alors $`h_p(\beta_v)\le h_c(p)`$. Mais un ancêtre
@@ -682,7 +682,7 @@ q_u^{ab}
 F_v(\Lambda_v^{ab}),
 \qquad
 F_v(x):=xe^{(1-\beta_v)x}.
-\tag{7.1}
+\qquad\text{(7.1)}
 ```
 
 Sous l'a priori uniforme, la probabilité que le heat bath conserve la parité
@@ -693,7 +693,7 @@ P_u^{\mathrm{keep}}
 =
 \frac{q_u^{00}+q_u^{11}}
 {q_u^{00}+q_u^{01}+q_u^{10}+q_u^{11}}.
-\tag{7.2}
+\qquad\text{(7.2)}
 ```
 
 Posons
@@ -703,7 +703,7 @@ L_u
 :=
 \log\frac{q_u^{00}+q_u^{11}}
 {q_u^{10}+q_u^{01}}.
-\tag{7.3}
+\qquad\text{(7.3)}
 ```
 
 Alors
@@ -712,7 +712,7 @@ Alors
 P_u^{\mathrm{keep}}>\frac12
 \quad\Longleftrightarrow\quad
 L_u>0,
-\tag{7.4}
+\qquad\text{(7.4)}
 ```
 
 et le biais signé du heat bath vaut $`\tanh(L_u/2)`$.
@@ -731,14 +731,14 @@ Le critère exact devient
 >
 e^{-D_{10}}+e^{-D_{01}}.
 }
-\tag{7.5}
+\qquad\text{(7.5)}
 ```
 
 Une condition suffisante simple est
 
 ```math
 \min(D_{10},D_{01})>\log2.
-\tag{7.6}
+\qquad\text{(7.6)}
 ```
 
 Les cas où un taux est nul doivent être traités directement dans (7.2), sans
@@ -756,7 +756,7 @@ Si
 
 ```math
 2\Lambda_u-T_u\ge0
-\tag{7.7}
+\qquad\text{(7.7)}
 ```
 
 et si, pour tout ancêtre strict $`v\succ u`$,
@@ -765,7 +765,7 @@ et si, pour tout ancêtre strict $`v\succ u`$,
 X_{v,1}\ge0,
 \qquad
 X_{v,2}\ge0,
-\tag{7.8}
+\qquad\text{(7.8)}
 ```
 
 alors
@@ -776,7 +776,7 @@ q_u^{00}+q_u^{11}
 \ge
 q_u^{10}+q_u^{01}.
 }
-\tag{7.9}
+\qquad\text{(7.9)}
 ```
 
 Si la majorité locale (7.7) est stricte, alors (7.9) est stricte. Dans le cas
@@ -833,7 +833,7 @@ F_v''(x)
 \widehat f_v(12)
 =
 \frac14(f_v^{00}+f_v^{11}-f_v^{10}-f_v^{01}).
-\tag{7.10}
+\qquad\text{(7.10)}
 ```
 
 Le coefficient constant est positif. Sous (7.8), les deux coefficients
@@ -895,7 +895,7 @@ queues binomiales exactes
 :=
 \sum_{b=\lceil(n-g)/2\rceil}^{n}
 \binom nb s^b(1-s)^{n-b},
-\tag{7.11}
+\qquad\text{(7.11)}
 ```
 
 et
@@ -905,7 +905,7 @@ et
 :=
 \sum_{b=\lfloor(n-g)/2\rfloor+1}^{n}
 \binom nb s^b(1-s)^{n-b}.
-\tag{7.12}
+\qquad\text{(7.12)}
 ```
 
 Pour le nœud local, posons $`n_u=m_u-1`$. Pour un groupe ancestral,
@@ -929,7 +929,7 @@ n_u,1,s_p(\beta_u)
 \mathcal A_{\ge}\left(
 n_{v,r},g_{v,r},s_p(\beta_v)
 \right).
-\tag{7.13}
+\qquad\text{(7.13)}
 ```
 
 Par conséquent,
@@ -944,7 +944,7 @@ P_u^{\mathrm{keep}}>\frac12
 \ge
 \mathcal C_u(\mathscr D,G).
 }
-\tag{7.14}
+\qquad\text{(7.14)}
 ```
 
 Cette borne est exacte pour l'événement suffisant, mais pas nécessairement
@@ -959,7 +959,7 @@ Pour obtenir un certificat plus lisible, posons aussi
 0,&n=0,\cr
 \exp\left[-\dfrac{(nh+g)^2}{2n}\right],&n\ge1.
 \end{cases}
-\tag{7.15}
+\qquad\text{(7.15)}
 ```
 
 Alors
@@ -977,7 +977,7 @@ P_u^{\mathrm{keep}}>\frac12
 -\sum_{v\succ u}\sum_{r=1}^2
 \varepsilon(n_{v,r},g_{v,r},h_p(\beta_v))
 \right]_+.
-\tag{7.16}
+\qquad\text{(7.16)}
 ```
 
 Ici $`[x]_+:=\max(x,0)`$.
@@ -1008,7 +1008,7 @@ m_{v,r}h_p(\beta_v)^2
 \right\}
 \gg
 \log H.
-\tag{7.17}
+\qquad\text{(7.17)}
 ```
 
 Il n'est pas nécessaire : le critère exact (7.5) peut rester favorable
@@ -1048,7 +1048,7 @@ Par (4.4),
 \frac1{n_L}\max_{C\in\Pi_{\beta_c}}|C|
 \right]
 \longrightarrow0.
-\tag{8.1}
+\qquad\text{(8.1)}
 ```
 
 Une paire uniforme appartient donc à une même composante critique
@@ -1067,7 +1067,7 @@ peut être très informative, mais sa contribution brute au score est
 \mid
 \mathcal F_{L,\rho,\varepsilon}^{c}
 \right].
-\tag{8.2}
+\qquad\text{(8.2)}
 ```
 
 Supprimer le premier facteur est un biais de sélection. Inversement, pour
@@ -1090,7 +1090,7 @@ p_{\mathrm{info}}&(1+\sqrt{q_c})/2=0.794659\ldots
 p_{\mathrm N}^{(0)}&0.835805\ldots
 &\text{calibration entropique exacte d'une face}
 \end{array}
-\tag{8.3}
+\qquad\text{(8.3)}
 ```
 
 Le test de majorité tardive ne peut pas, seul, améliorer la baseline puisque
@@ -1139,7 +1139,7 @@ Sous la loi de Palm (4.2), l'objet géométrique complet est
 \beta_v,m_{v,0},m_{v,1},m_{v,2},G_v
 \right)_{v\succeq u}
 \right).
-\tag{10.1}
+\qquad\text{(10.1)}
 ```
 
 Conditionnellement à (10.1), les comptes $`K_{v,r}`$ sont donnés par (6.2),
