@@ -67,7 +67,7 @@ La progression quantitative doit être :
 
 La valeur $`0.835805792367\ldots`$ provient de la condition principale de
 Nishimori--Ohzeki. Elle est conjecturale ; la première correction par amas
-donne déjà $`0.835985\ldots`. Il ne faut donc pas annoncer cette constante
+donne déjà $`0.835985\ldots`$. Il ne faut donc pas annoncer cette constante
 comme un seuil exact à démontrer par simple identification numérique.
 Voir [Nishimori--Ohzeki](https://arxiv.org/abs/cond-mat/0601356) et
 [Ohzeki](https://arxiv.org/abs/0811.0464).

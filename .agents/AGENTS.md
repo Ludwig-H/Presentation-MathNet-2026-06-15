@@ -6,12 +6,12 @@ This workspace configuration enforces specific rules for files and math notation
 To ensure equations render perfectly on GitHub via MathJax:
 
 1. **Inline Math**: Always use `$equation$` with no whitespace immediately following the opening `$` or preceding the closing `$`.
-2. **Conflict Prevention**: For equations containing characters like `_`, `*`, `[`, or `]`, use the backtick syntax `$ `equation` $` to prevent Markdown parsing interference.
-3. **Block Math**: Place double dollar signs `$$` on their own lines. For complex multi-line math (e.g. using `\\`, `\substack`, or environments), you **must** use the ` ```math ` code block syntax to prevent GFM parser interference.
-4. **Unsupported LaTeX Commands**: Do **not** use `\operatorname{...}` (e.g. `\operatorname{Exp}`, `\operatorname{ov}`) as it is often unsupported or causes rendering errors in GitHub/KaTeX. Always use `\mathrm{...}` or `\text{...}` (e.g. `\mathrm{Exp}`, `\mathrm{ov}`, `\mathrm{RG}`, `\mathrm{tr}`, `\mathrm{diag}`) instead.
+2. **Conflict Prevention**: For equations containing Markdown control characters, use GitHub's exact dollar-backtick syntax: the opening dollar sign and backtick must be adjacent, as must the closing backtick and dollar sign. Never insert spaces inside either delimiter.
+3. **Block Math**: Place double-dollar delimiters on their own lines. For complex multi-line math (e.g. using `\\`, `\substack`, or environments), you **must** use a fenced `math` block to prevent GFM parser interference.
+4. **Repository Command Compatibility**: GitHub uses MathJax. This repository nevertheless forbids `\operatorname{...}` because its validator and secondary rendering paths do not handle it consistently. Always use `\mathrm{...}` or `\text{...}` instead.
 5. **Dollar Signs**: Escape literal dollar signs inside math as `\$` and wrap them in `<span>$</span>` outside math on the same line.
 
-Refer to [agents.md](file:///workspaces/Presentation-MathNet-2026-06-15/agents.md) for full examples and guides.
+Refer to [agents.md](../agents.md) for full examples and guides.
 
 ## Automatic Verification
 To verify that all math formulas in the workspace are valid, run:
@@ -21,4 +21,7 @@ python3 .agents/check_markdown_links.py
 ```
 The first script checks balanced braces, correct delimiter escaping, and
 invalid LaTeX commands. The second checks every relative Markdown link.
-
+These checks are necessary but not sufficient: inspect the actual
+GitHub-rendered Markdown after every push and correct any raw delimiter,
+unrendered formula, broken table, or misparsed code block immediately on
+`main`.

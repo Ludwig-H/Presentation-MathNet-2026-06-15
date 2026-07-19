@@ -41,7 +41,7 @@ recovery par Jensen paire par paire.
 
 Le point $`p=4/5`$ est un pré-certificat. Pour conclure réellement
 $`p_{\mathrm{WR}}>0.8`$, la marge du transfert doit ensuite être certifiée à
-$`p_1=0.805`$ ou sur un intervalle $`[0.8,0.8+\varepsilon]`. La stratégie
+$`p_1=0.805`$ ou sur un intervalle $`[0.8,0.8+\varepsilon]`$. La stratégie
 correspondante, avec traitement explicite des attaches ponctuelles, est dans le
 [fichier 26](26_FEUILLE_DE_ROUTE_PSTAR.md).
 
@@ -376,7 +376,7 @@ p+(1-p)\tanh^2(B_0/2)<1.
 ```
 
 Par conséquent, si un corridor exact contient $`N_L\to\infty`$ buckets
-`m=2`$ disjoints et screenés dont les contractions se composent
+$`m=2`$ disjoints et screenés dont les contractions se composent
 conditionnellement, alors sa persistance tend vers zéro. La même conclusion
 vaut pour $`2\le m\le M`$ dès qu'une borne uniforme strictement inférieure à
 un est certifiée sur l'espace fini correspondant.
