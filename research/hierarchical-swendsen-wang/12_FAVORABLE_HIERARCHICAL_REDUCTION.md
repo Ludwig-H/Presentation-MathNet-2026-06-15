@@ -27,17 +27,17 @@ La conclusion rigoureuse comporte trois niveaux.
    toute la contribution postcritique est majorée par cet oracle favorable.
    Le conditionnement de paire seul ne fournit pas cette domination.
 3. **Problème central.** Dans cet oracle, la fiabilité dépend du log-rapport
-   complet
+   complet défini ci-dessous.
 
-   ```math
-   L_u
-   =
-   \ell_u^{\mathrm{crit}}+B_u,
-   ```
+```math
+L_u
+=
+\ell_u^{\mathrm{crit}}+B_u,
+```
 
-   où $`B_u`$ utilise les quatre taux
-   $`\Lambda_v(\sigma^{ab})`$ de **chaque** ancêtre $`v\succ u`$. Poser
-   $`B_u=0`$ ne traite donc pas la dynamique hiérarchique des slides 31--33.
+Ici, $`B_u`$ utilise les quatre taux $`\Lambda_v(\sigma^{ab})`$ de **chaque**
+ancêtre $`v\succ u`$. Poser $`B_u=0`$ ne traite donc pas la dynamique
+hiérarchique des slides 31--33.
 
 Le résultat recherché est une impossibilité : si même cette expérience
 oracle favorable contracte la parité, et si elle domine les expériences
@@ -296,9 +296,8 @@ f(L_L^{\mathrm c})
 
 Sur l'événement exceptionnel, on utilise $`f\le1`$. La fiabilité moyenne de
 toutes les paires lointaines postcritiques est donc au plus
-$`\Gamma_{L,\varepsilon}^{\mathrm{fav}}
-+c_{\mathrm{rel}}\zeta_{L,\varepsilon}
-+\delta_{L,\varepsilon}`$. Sa masse est au plus $`1`$. On ajoute les paires
+$`\Gamma_{L,\varepsilon}^{\mathrm{fav}}+c_{\mathrm{rel}}\zeta_{L,\varepsilon}+\delta_{L,\varepsilon}`$.
+Sa masse est au plus $`1`$. On ajoute les paires
 proches et les fusions sous-critiques comme dans la proposition 2.1.
 
 Ce théorème donne le sens précis de l'expérience favorable : on ne prétend
@@ -603,14 +602,15 @@ intervalle les quatre entrées suivantes.
    $`(m_{v,0},m_{v,1},m_{v,2},\beta_v)`$ converge sous le biais de la paire
    critique, les quatre coins proches de zéro sont traités exactement et la
    queue $`\mathcal R_u^{(>K)}`$ est sommable.
-4. **Contraction critique.** Le calcul fini obtenu satisfait
+4. **Contraction critique.** Le calcul fini obtenu satisfait l'équation
+   ci-dessous.
 
-   ```math
-   \lim_{\varepsilon\downarrow0}
-   \limsup_{L\to\infty}
-   \Gamma_{L,\varepsilon}^{\mathrm{fav}}(p)
-   =0.
-   ```
+```math
+\lim_{\varepsilon\downarrow0}
+\limsup_{L\to\infty}
+\Gamma_{L,\varepsilon}^{\mathrm{fav}}(p)
+=0.
+```
 
 Le théorème 3.1 donnerait alors l'impossibilité pour $`p<p_\star`$. Une borne
 strictement meilleure que l'information-percolation correspondrait à

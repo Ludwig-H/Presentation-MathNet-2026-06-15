@@ -1399,13 +1399,8 @@ pas encore un passage séquentiel complet sur tous les squelettes cactus.
 2. Sur bandes, mesurer l'écart entre la corrélation jointe
    $`\mathbb E\prod_w(-1)^{A_w}`$ et le produit des marginales.
 3. Sur les tores triangulaires, enregistrer pour les deux bras d'une paire
-   lointaine
-
-   ```math
-   (t_w,m_w,K_w,B_w)_{w\in\mathcal P(i,j)}
-   ```
-
-   ainsi que les tailles de frontière des branches latérales.
+   lointaine $`(t_w,m_w,K_w,B_w)_{w\in\mathcal P(i,j)}`$, ainsi que les tailles
+   de frontière des branches latérales.
 4. Comparer explicitement trois auxiliaires : dendrogramme non marqué,
    gagnants marqués et oracle PATH-FAC. Une amélioration observée seulement
    après marquage ne concerne pas la dynamique des slides.

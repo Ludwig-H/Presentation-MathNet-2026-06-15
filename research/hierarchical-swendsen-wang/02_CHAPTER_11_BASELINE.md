@@ -186,15 +186,17 @@ Le dernier membre est la version second-moment de la percolation Swendsen--Wang.
 
 ## 6. A priori non uniforme
 
-Pour $`\mu_0`$ général, deux modifications sont indispensables :
+Pour $`\mu_0`$ général, deux modifications sont indispensables. La
+première consiste à conserver la définition $`\mathrm{RG}_n(s)`$ au lieu de
+remplacer sans preuve le niveau de référence par $`1/K`$. La seconde impose au
+noyau de recoloriage $`R_\kappa`$ la balance
 
-1. conserver la définition $`\mathrm{RG}_n(s)`$ au lieu de remplacer sans preuve le niveau de référence par $1/K$ ;
-2. imposer au noyau de recoloriage $`R_\kappa`$ la balance
 ```math
-    e^{-U_0(\sigma)}R_\kappa(\sigma,\sigma')
-    =
-    e^{-U_0(\sigma')}R_\kappa(\sigma',\sigma).
+e^{-U_0(\sigma)}R_\kappa(\sigma,\sigma')
+=
+e^{-U_0(\sigma')}R_\kappa(\sigma',\sigma).
 ```
+
 La loi jointe $`\nu_O(\sigma,D)`$ du fichier précédent est conçue pour intégrer proprement cette seconde contrainte.
 
 ## 7. Statut

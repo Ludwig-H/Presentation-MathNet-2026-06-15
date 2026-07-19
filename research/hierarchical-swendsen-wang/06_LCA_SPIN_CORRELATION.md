@@ -873,13 +873,9 @@ Elle donne le diagnostic suivant pour la contribution locale $`B_u=0`$ :
 - si $m=1$, la fusion verrouille la parité et $`\eta_u=1`$ ;
 - si $m=2$, le cas $k=1$ randomise parfaitement la parité, tandis que $k=2$ la verrouille ;
 - pour $t<1$ fixé et $m\to\infty$, la majorité conditionnelle devient forte et $`\eta_u\to1`$ en probabilité ;
-- à $t=1$, $k=1+\mathrm{Bin}(m-1,1/2)$ et, dans le modèle local sans message d'ancêtre,
-```math
-    \eta_u=\left(\frac{2k-m}{m}\right)^2,
-    \qquad
-    \mathbb E\eta_u=\frac1m.
-```
-    exactement.
+- à $`t=1`$, $`k=1+\mathrm{Bin}(m-1,1/2)`$ et, dans le modèle local sans
+  message d'ancêtre, $`\eta_u=((2k-m)/m)^2`$ et
+  $`\mathbb E\eta_u=1/m`$ exactement.
 
 Cela suggère qu'un seul flip LCA peut rester proche de la borne percolative lorsque les coalescences longue portée surviennent tôt et à travers de grandes coupes. La suite itérée $`H_n^{(m)}`$, ou la propagation du message complet $`B_u`$, devient alors essentielle.
 

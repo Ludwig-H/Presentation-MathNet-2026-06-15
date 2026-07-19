@@ -462,22 +462,10 @@ Supposons :
    équitablement ;
 2. $`\mathbb P(d(I_L,J_L)<r_L)\to0`$ ;
 3. pour tout $`\varepsilon>0`$,
-
-   ```math
-   \mathbb P(
-   d(I_L,J_L)\ge r_L,
-   \ \beta_{I_LJ_L}\le\beta_c-\varepsilon
-   )\to0;
-   ```
-
+   $`\mathbb P(d(I_L,J_L)\ge r_L,\ \beta_{I_LJ_L}\le\beta_c-\varepsilon)\to0`$ ;
 4. HF-S2 est vraie ;
 5. dans l'ordre $`L\to\infty`$ puis $`\varepsilon\downarrow0`$,
-
-   ```math
-   a_{L,\varepsilon}^{S}(p)
-   +\delta_{L,\varepsilon}^{S}(p)
-   \longrightarrow0.
-   ```
+   $`a_{L,\varepsilon}^{S}(p)+\delta_{L,\varepsilon}^{S}(p)\longrightarrow0`$.
 
 Alors
 

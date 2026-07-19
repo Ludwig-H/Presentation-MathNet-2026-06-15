@@ -426,31 +426,49 @@ Pour une grande coupe, la fenêtre locale non triviale est $`1-\beta\asymp m^{-1
 
 Dans les quatre exemples suivants, $`q=q_p(1)=2p-1`$.
 
-- **Une arête.** La valeur propre centrée du noyau pair-spécifique vaut $\lambda=q/(1+q)$, donc
+**Une arête.** La valeur propre centrée du noyau pair-spécifique vaut
+$`\lambda=q/(1+q)`$, donc
+
 ```math
-    A_{ij}^{(m)}
-    =
-    q^2+(1-q^2)\left(\frac{q}{1+q}\right)^m.
+A_{ij}^{(m)}
+=
+q^2+(1-q^2)\left(\frac{q}{1+q}\right)^m.
 ```
-    En particulier $`A_{ij}^{(1)}=q`$ et $`A_{ij}^{(m)}\downarrow q^2=c_{ij}^2`$.
-- **Chemin de longueur $\ell$.** Chaque coupe a $m=1$, donc la borne à un pas vaut $`A_{ij}^{(1)}=q^\ell`$, tandis que la valeur exacte est $`c_{ij}^2=q^{2\ell}`$. Ce gap montre pourquoi les itérations sont nécessaires même sans cycles.
-- **Triangle isolé.** La probabilité de connexion FK vaut $q+q^2-q^3$, mais la borne LCA à un pas se simplifie en $`A_{ij}^{(1)}=q`$. La corrélation exacte à deux répliques est
+
+En particulier, $`A_{ij}^{(1)}=q`$ et
+$`A_{ij}^{(m)}\downarrow q^2=c_{ij}^2`$.
+
+**Chemin de longueur $`\ell`$.** Chaque coupe a $`m=1`$, donc la borne à un
+pas vaut $`A_{ij}^{(1)}=q^\ell`$, tandis que la valeur exacte est
+$`c_{ij}^2=q^{2\ell}`$. Ce gap montre pourquoi les itérations sont nécessaires
+même sans cycles.
+
+**Triangle isolé.** La probabilité de connexion FK vaut $`q+q^2-q^3`$, mais
+la borne LCA à un pas se simplifie en $`A_{ij}^{(1)}=q`$. La corrélation
+exacte à deux répliques est
+
 ```math
-    \eta_\triangle
-    =
-    \frac12\left[
-    \frac{(q+q^2)^2}{1+q^3}
-    +
-    \frac{(q-q^2)^2}{1-q^3}
-    \right].
+\eta_\triangle
+=
+\frac12\left[
+\frac{(q+q^2)^2}{1+q^3}
++
+\frac{(q-q^2)^2}{1-q^3}
+\right].
 ```
-    Elle se simplifie en
+
+Elle se simplifie en
+
 ```math
-    \eta_\triangle
-    =
-    \frac{q^2(1+2q^2)}{1+q^2+q^4}.
+\eta_\triangle
+=
+\frac{q^2(1+2q^2)}{1+q^2+q^4}.
 ```
-- **Cactus de $L$ triangles.** La fonction de connexion brute se factorise en $`[q+q^2-q^3]^L`$, tandis que la corrélation exacte vaut $`\eta_\triangle^L`$. C'est le premier banc d'essai pour vérifier numériquement et analytiquement $`A_{ij}^{(m)}\downarrow\eta_\triangle^L`$.
+
+**Cactus de $`L`$ triangles.** La fonction de connexion brute se factorise en
+$`[q+q^2-q^3]^L`$, tandis que la corrélation exacte vaut
+$`\eta_\triangle^L`$. C'est le premier banc d'essai pour vérifier numériquement
+et analytiquement $`A_{ij}^{(m)}\downarrow\eta_\triangle^L`$.
 
 Les démonstrations générales et la distinction entre couplage depuis la vérité et réplique indépendante sont dans [06_LCA_SPIN_CORRELATION.md](06_LCA_SPIN_CORRELATION.md).
 

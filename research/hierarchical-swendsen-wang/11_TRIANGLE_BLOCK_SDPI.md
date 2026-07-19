@@ -747,6 +747,6 @@ diagnostique.
 Sources primaires :
 
 - [Polyanskiy--Wu, information-percolation multi-terminale](https://arxiv.org/abs/1806.04195) ;
-- [Abbe--Boix, borne $`\chi^2`$ sur les graphes](https://arxiv.org/abs/1806.03227) ;
-- [Makur--Polyanskiy, critère less-noisy par $`\chi^2`$](https://arxiv.org/abs/1609.06877) ;
+- [Abbe--Boix, borne χ² sur les graphes](https://arxiv.org/abs/1806.03227) ;
+- [Makur--Polyanskiy, critère less-noisy par χ²](https://arxiv.org/abs/1609.06877) ;
 - [Chayes--Lei, modèle random-cluster triangulaire](https://arxiv.org/abs/cond-mat/0508254).

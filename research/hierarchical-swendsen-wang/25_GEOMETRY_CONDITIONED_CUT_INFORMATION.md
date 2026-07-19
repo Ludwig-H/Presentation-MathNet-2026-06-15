@@ -168,8 +168,8 @@ pe^{-u_p\beta}-(1-p),
 \tag{2.5}
 ```
 
-Leur somme vaut $`1-p+pe^{-u_p\beta}``. La normalisation donne
-(2.3). Enfin $`e^{-u_p}=(1-p)/p``, ce qui donne (2.2).
+Leur somme vaut $`1-p+pe^{-u_p\beta}`$. La normalisation donne
+(2.3). Enfin $`e^{-u_p}=(1-p)/p`$, ce qui donne (2.2).
 
 ### Corollaire 2.2 — sélection mesurable par la partition, établi
 
@@ -187,7 +187,7 @@ conditionnement Palm de la section 4.
 En particulier, conditionner $`i,j`$ à appartenir à une composante géante,
 ou sélectionner la plus grande composante, change la loi de la géométrie
 $`m(C_1,C_2)`$ mais pas la loi des marques une fois la partition et la taille
-fixées. Après mélange sur les partitions ayant la même taille $`m``, le
+fixées. Après mélange sur les partitions ayant la même taille $`m`$, le
 nombre d'arêtes conformes d'une coupe mesurable par la partition reste
 $`\mathrm{Bin}(m,s_p(\beta))`$. L'hypothèse de composante géante agit donc
 sur les tailles, les formes et les états de bord, non sur le paramètre
@@ -281,7 +281,7 @@ moments d'une binomiale.
 ### Charge informationnelle exacte
 
 Le coefficient de Bhattacharyya des deux expériences à une arête est
-$`\sqrt{1-h_p(\beta)^2}``. L'information de Chernoff de la coupe est donc
+$`\sqrt{1-h_p(\beta)^2}`$. L'information de Chernoff de la coupe est donc
 
 ```math
 \boxed{
@@ -385,7 +385,7 @@ Sous $`m_Lh_L^2\to\infty`$,
 \tag{3.12}
 ```
 
-De plus $`a_Lm_Lh_L\to\infty`$ : si $`h_L\to0``, ce produit est
+De plus $`a_Lm_Lh_L\to\infty`$ : si $`h_L\to0`$, ce produit est
 asymptotique à $`2m_Lh_L^2`$ ; sinon il diverge linéairement en $`m_L`$.
 Ainsi $`L_L\to+\infty`$ en probabilité sous l'hypothèse vraie. La convergence
 bornée donne la deuxième conclusion.

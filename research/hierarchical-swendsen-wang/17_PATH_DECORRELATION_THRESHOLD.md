@@ -19,32 +19,35 @@ Le verdict comporte quatre régimes distincts.
    buckets non triviaux de taille bornée force $`A_L\to\infty`$. Le seuil
    PATH-FAC est alors le bord dégénéré $`p=1`$.
 3. **Interfaces logarithmiques.** Si les buckets critiques ont une taille
-   régulière $`m_L\sim\alpha\log H_L`$, un seuil non trivial apparaît :
+   régulière $`m_L\sim\alpha\log H_L`$, un seuil non trivial apparaît. Il est
+   donné par l'expression suivante.
 
-   ```math
-   p_{\mathrm{path}}(\alpha)
-   =
-   \frac{
-   1+q_\triangle
-   +(1-q_\triangle)\sqrt{1-e^{-2/\alpha}}
-   }2.
-   ```
+```math
+p_{\mathrm{path}}(\alpha)
+=
+\frac{
+1+q_\triangle
++(1-q_\triangle)\sqrt{1-e^{-2/\alpha}}
+}2.
+```
 
-   En dessous, PATH-FAC se décorrèle ; au-dessus, il conserve la relation.
-   Le cas d'égalité exige une correction $`\log\log H_L`$.
+En dessous, PATH-FAC se décorrèle ; au-dessus, il conserve la relation. Le cas
+d'égalité exige une correction $`\log\log H_L`$.
+
 4. **Interfaces hétérogènes.** Si toutes les tailles critiques s'échappent
    vers l'infini, la quantité géométrique exacte au niveau exponentiel est
+   décrite par la quantité suivante.
 
-   ```math
-   \Phi_L(I)
-   =
-   \sum_{w\in\mathcal P_L}
-   m_w^{-1/2}e^{-I m_w}.
-   ```
+```math
+\Phi_L(I)
+=
+\sum_{w\in\mathcal P_L}
+m_w^{-1/2}e^{-I m_w}.
+```
 
-   Son abscisse de transition, lorsqu'elle existe, se transporte en un seuil
-   explicite en $`p`$ par $`I=I_c(p)`. Pour le vrai profil descendant, il faut
-   remplacer $`I_c(p)`$ par $`I(t_w;p)`$ nœud par nœud.
+Son abscisse de transition, lorsqu'elle existe, se transporte en un seuil
+explicite en $`p`$ par $`I=I_c(p)`$. Pour le vrai profil descendant, il faut
+remplacer $`I_c(p)`$ par $`I(t_w;p)`$ nœud par nœud.
 
 Ces conclusions montrent immédiatement qu'il n'existe pas de seuil fonction
 de $`p`$ seul avant d'avoir établi la loi géométrique des tailles de coupe le
@@ -318,17 +321,18 @@ Alors, dans PATH-FAC :
   $`P_L^{\mathrm{FAC}}(p)\to1/2`$ ;
 - si $`z_L(p)\to+\infty`$, alors
   $`P_L^{\mathrm{FAC}}(p)\to1`$ ;
-- si $`z_L(p)\to z\in\mathbb R`$ et si $`r_L=r`$ est fixé, alors
+- si $`z_L(p)\to z\in\mathbb R`$ et si $`r_L=r`$ est fixé, alors la limite
+  suivante vaut :
 
-  ```math
-  \boxed{
-  P_L^{\mathrm{FAC}}(p)
-  \longrightarrow
-  \frac12\left[
-  1+\exp\bigl(-2C_r(p)e^{-z}\bigr)
-  \right].
-  }
-  ```
+```math
+\boxed{
+P_L^{\mathrm{FAC}}(p)
+\longrightarrow
+\frac12\left[
+1+\exp\bigl(-2C_r(p)e^{-z}\bigr)
+\right].
+}
+```
 
 #### Preuve
 
@@ -467,7 +471,7 @@ Sur $`0\le t\le\beta_c(p)`$, le paramètre
 a_p(t)=u_p(1-t)
 ```
 
-reste dans le compact $`[a_c(p),u_p]`\subset(0,+\infty)`. Dans la preuve par
+reste dans le compact $`[a_c(p),u_p]\subset(0,+\infty)`$. Dans la preuve par
 point selle du fichier 16, les deux préfacteurs
 
 ```math
@@ -489,7 +493,7 @@ car $`a_p(t)\ge a_c(p)>0`$. L'équivalent
 2C_{m\bmod2}(t;p)m^{-1/2}e^{-mI(t;p)}
 ```
 
-est ainsi uniforme en $`t\in[0,\beta_c(p)]`. Les inégalités
+est ainsi uniforme en $`t\in[0,\beta_c(p)]`$. Les inégalités
 $`d\le-\log(1-d)\le2d`$ terminent comme dans la proposition 4.2.
 
 Cette uniformité est à $`p`$ fixé. Elle dégénère lorsque
@@ -499,7 +503,7 @@ pas non plus la fenêtre simultanée $`p\uparrow1`$ du paragraphe 6.
 ### Lemme 4.4 — épaisseur de la bande descendante pertinente, statut : établi
 
 Écrivons $`t=\theta\beta_c(p)`$ et fixons
-$`p\in(p_{\mathrm{SW}},1)`. Alors
+$`p\in(p_{\mathrm{SW}},1)`$. Alors
 
 ```math
 a_p(\theta\beta_c)
@@ -843,13 +847,8 @@ ferment pas cette étape.
 - Leur construction de la limite d'échelle du MST encode la topologie et les
   niveaux proche-critiques des branchements macroscopiques. Elle ne fournit
   pas, dans les énoncés disponibles, la loi jointe
-
-  ```math
-  (H_L,(m_w,t_w)_{w\in\mathcal P_L})
-  ```
-
-  sous la loi de Palm imposant une paire lointaine dans la composante géante
-  et un LCA critique.
+  $`(H_L,(m_w,t_w)_{w\in\mathcal P_L})`$ sous la loi de Palm imposant une paire
+  lointaine dans la composante géante et un LCA critique.
 - Les outlets de l'invasion percolation sont des arêtes record séparant des
   échelles successives. Leur nombre n'est ni $`H_L`$ ni $`N_{L,M}`$, et leur
   multiplicité n'est pas la taille $`m_w`$ d'un bucket. En particulier, un
@@ -961,13 +960,8 @@ Alors :
 
 - si $`Y_L\to+\infty`$, $`P_L^{\mathrm{FAC}}\to1/2`$ ;
 - si $`Y_L\to0`$, $`P_L^{\mathrm{FAC}}\to1`$ ;
-- si $`Y_L\to\lambda\in(0,+\infty)`$,
-
-  ```math
-  P_L^{\mathrm{FAC}}
-  \longrightarrow
-  \frac12(1+e^{-\lambda}).
-  ```
+- si $`Y_L\to\lambda\in(0,+\infty)`$, alors
+  $`P_L^{\mathrm{FAC}}\longrightarrow\frac12(1+e^{-\lambda})`$.
 
 Le crossover est donc
 
@@ -1154,33 +1148,13 @@ maintenant mesurer ou démontrer les objets suivants sous la loi de Palm d'une
 paire critique lointaine.
 
 1. La longueur $`H_L`$ des deux bras vers le LCA.
-2. Les comptes
-
-   ```math
-   N_{L,M}=\#\{w:2\le m_w\le M\}.
-   ```
-
-   Si l'un d'eux diverge pour un $`M`$ fixé, PATH-FAC est déjà décorrélé pour
-   tout $`p<1`$ fixé.
-3. Le profil empirique
-
-   ```math
-   \{(m_w,t_w/\beta_c)\}_{w\in\mathcal P_L}.
-   ```
-
+2. Les comptes $`N_{L,M}=\#\{w:2\le m_w\le M\}`$. Si l'un d'eux diverge pour
+   un $`M`$ fixé, PATH-FAC est déjà décorrélé pour tout $`p<1`$ fixé.
+3. Le profil empirique $`\{(m_w,t_w/\beta_c)\}_{w\in\mathcal P_L}`$.
 4. Dans le régime de grandes interfaces, la fonction de partition
-
-   ```math
-   \Phi_L(I)=\sum_w m_w^{-1/2}e^{-Im_w},
-   ```
-
-   puis, dans le sous-cas régulier, le rapport
-
-   ```math
-   \frac{m_w}{\log H_L}
-   ```
-
-   et ses fluctuations d'ordre $`\log\log H_L`$.
+   $`\Phi_L(I)=\sum_w m_w^{-1/2}e^{-Im_w}`$, puis, dans le sous-cas régulier,
+   le rapport $`m_w/\log H_L`$ et ses fluctuations d'ordre
+   $`\log\log H_L`$.
 5. Sur cactus et bandes, les normes de blocs tordus $`\kappa_r`$ et leur
    comparaison numérique avec $`\Gamma_{m_r}(t_r;p)`$.
 

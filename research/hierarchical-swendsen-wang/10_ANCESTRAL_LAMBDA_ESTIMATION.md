@@ -428,8 +428,7 @@ Le théorème précédent donne exactement
 }
 ```
 
-Pour le vecteur $`\boldsymbol\lambda_v=(\lambda_{v,0},\lambda_{v,1},
-\lambda_{v,2})`$,
+Pour le vecteur $`\boldsymbol\lambda_v=(\lambda_{v,0},\lambda_{v,1},\lambda_{v,2})`$,
 
 ```math
 \boxed{

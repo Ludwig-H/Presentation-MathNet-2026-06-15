@@ -69,7 +69,7 @@ u_p=\log\frac p{1-p}.
 ```
 
 Ainsi, toute arête ouverte est vraie dans cette jauge. Au temps
-`\beta\in[0,1]`, les masses non conditionnelles se décomposent exactement en
+$`\beta\in[0,1]`$, les masses non conditionnelles se décomposent exactement en
 
 | catégorie | événement | masse |
 |---|---|---:|
@@ -93,7 +93,7 @@ figurent pas dans le $`\Lambda_u`$ de la coupe courante.
 ## 2. Premier bilan : toutes les vraies non activées contre les fausses
 
 La masse des vraies arêtes dont l'horloge n'a pas encore sonné à
-`\beta` est
+$`\beta`$ est
 
 ```math
 M_{\rm true}^{>\beta}
@@ -194,7 +194,7 @@ Après logarithme,
 ```
 
 d'où (3.2). La solution est positive exactement lorsque
-`u_p>\log2`, soit $`p>2/3`$.
+$`u_p>\log2`$, soit $`p>2/3`$.
 
 ### Contre-audit
 
@@ -215,7 +215,7 @@ donc ni « aucune information », ni « flip équitable ».
 ## 4. Loi exacte d'une arête de frontière
 
 Conditionnons une arête par le fait qu'elle n'est pas ouverte avant
-`\beta`. Le normalisateur est
+$`\beta`$. Le normalisateur est
 
 ```math
 1-q_p(\beta)
@@ -416,7 +416,7 @@ s_c(0.8)=0.693582222752\ldots.
 ```
 
 Le bucket critique reste donc nettement biaisé vers la vérité. Une preuve à
-`p=0.8`$ ne peut pas reposer sur une absence locale de majorité au LCA.
+$`p=0.8`$ ne peut pas reposer sur une absence locale de majorité au LCA.
 
 ## 6. Pourquoi les premiers clusters sont informatifs
 
@@ -429,7 +429,7 @@ Pour $`q_p(\beta)<q_c`$ à distance fixe du seuil, les composantes sont petites
 et une paire macroscopiquement éloignée n'est connectée qu'avec probabilité
 tendant vers zéro. Le premier temps non sous-critique auquel une telle paire
 peut raisonnablement apparaître dans une même composante est donc
-`\beta_c`.
+$`\beta_c`$.
 
 Cela justifie le scénario favorable :
 
@@ -445,9 +445,9 @@ conditionnement critique est rare pour une paire uniforme et ne peut pas
 ## 7. Canal exact d'un bucket de fusion
 
 Considérons une coupe homogène de taille $`m`$ fusionnant au niveau
-`\beta`. Le dendrogramme non marqué révèle qu'une arête satisfaite a gagné la
+$`\beta`$. Le dendrogramme non marqué révèle qu'une arête satisfaite a gagné la
 course, sans révéler son identité. Pour la parité latente
-`X\in\{-1,+1\}`, le compte $`K`$ suit
+$`X\in\{-1,+1\}`$, le compte $`K`$ suit
 
 ```math
 K\mid X=+1
@@ -680,12 +680,12 @@ p+(1-p)\tanh^2(B_0/2)
 ```
 
 Cette borne est uniforme sur **tous** les niveaux, y compris ceux bien avant
-`\beta_c`.
+$`\beta_c`$.
 
 ### Théorème 9.2 — corridor factorisé, statut : établi
 
 Supposons qu'un corridor comporte $`N`$ parités indépendantes uniformes,
-chacune observée par un bucket $`m=2`$ au niveau $`\beta_r`. Pour la parité
+chacune observée par un bucket $`m=2`$ au niveau $`\beta_r`$. Pour la parité
 produit entre les endpoints,
 
 ```math
@@ -773,7 +773,7 @@ A_{I_LJ_L}
 ```
 
 avec $`\mathbb E\varepsilon_L=o(1)`$. Comme $`0<\kappa<1`$ et
-`N_L\to\infty`$ en probabilité,
+$`N_L\to\infty`$ en probabilité,
 
 ```math
 \kappa^{N_L}\longrightarrow0
@@ -817,7 +817,7 @@ N_L\to\infty
 ```
 
 Une version minimale chercherait seulement des motifs triangulaires donnant
-`m=2`. Une version robuste autoriserait des tailles variables sous la
+$`m=2`$. Une version robuste autoriserait des tailles variables sous la
 contrainte $`m_rh_p(\beta_r)^2\le M`$ et certifierait leur coefficient exact,
 avec l'arête gagnante et l'état de bord. Les buckets bornés restent un
 sous-cas commode, pas la définition géométrique de la perte.
@@ -833,7 +833,7 @@ logique au test du mécanisme simple.
 |---|---|---|
 | Au début, seules les vraies arêtes sonnent dans la jauge plantée | Établi annealed | les fausses ont horloge $`+\infty`$ |
 | Les petits clusters précoces sont informatifs | Établi dans le couplage | tout chemin ouvert est conforme à la réplique de référence |
-| Avant $`1`, les fausses dépassent toutes les vraies non activées | Faux | différence strictement positive dans (2.3) |
+| Avant $`1`$, les fausses dépassent toutes les vraies non activées | Faux | différence strictement positive dans (2.3) |
 | Les fausses dépassent les vraies qui sonneront encore avant $`1`$ | Vrai après $`\beta_{\rm act}`$ | mais les vraies censurées restent présentes |
 | $`\beta_{\rm act}`$ est un seuil de perte d'information | Faux | à ce temps, une arête fermée est encore vraie avec probabilité $`2/3`$ |
 | Le diagnostic critique correspondant bat la borne connue | Faux | $`0.782432<0.794659`$ |
@@ -850,18 +850,18 @@ logique au test du mécanisme simple.
 
 L'intuition du « signal qui s'épuise » est correcte si elle est formulée en
 termes de biais continu $`h_p(\beta)`$ et de rapport signal sur bruit
-`m h_p(\beta)^2`. Elle est fausse sous la forme d'une majorité soudaine de
+$`m h_p(\beta)^2`$. Elle est fausse sous la forme d'une majorité soudaine de
 fausses arêtes avant $`\beta=1`$.
 
 Deux mécanismes simples et rigoureux restent disponibles :
 
 1. une grande coupe fusionnant dans la fenêtre terminale
    $`1-\beta\asymp m^{-1/2}`$ ;
-2. l'accumulation de buckets bornés ambigus, spécialement $`m=2`, le long du
+2. l'accumulation de buckets bornés ambigus, spécialement $`m=2`$, le long du
    corridor descendant.
 
 Pour attaquer $`p=0.8`$, le second est le plus prometteur. Le scénario où
-`i,j` fusionnent dès $`\beta_c`$ reste le test favorable le plus sévère : le
+$`i,j`$ fusionnent dès $`\beta_c`$ reste le test favorable le plus sévère : le
 bucket du LCA y est fortement informatif, mais la distance peut encore être
 exploitée si le corridor contient un nombre divergent de motifs ambigus
 screenés.

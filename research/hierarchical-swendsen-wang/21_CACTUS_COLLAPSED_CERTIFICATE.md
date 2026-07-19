@@ -298,9 +298,16 @@ q+(2p-1)q^2-q^3.
 
 Le quotient $`n(q)/c(q)`$ donne (3.1).
 
-Sur l'état répliqué
-$`\delta=\sigma^{(1)}_{a_{r-1}}\sigma^{(1)}_{a_r}
-\sigma^{(2)}_{a_{r-1}}\sigma^{(2)}_{a_r}`$, le noyau vaut exactement
+Sur l'état répliqué défini par
+
+```math
+\delta
+=
+\sigma^{(1)}_{a_{r-1}}\sigma^{(1)}_{a_r}
+\sigma^{(2)}_{a_{r-1}}\sigma^{(2)}_{a_r},
+```
+
+le noyau vaut exactement
 
 ```math
 K_{\rm conn}(p,q)

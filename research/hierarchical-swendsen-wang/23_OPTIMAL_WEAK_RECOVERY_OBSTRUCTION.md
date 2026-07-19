@@ -213,7 +213,7 @@ Z_k=(\Pi_k,R_k^{(1)},R_k^{(2)},P_k),
 ```
 
 où $`\Pi_k`$ est la partition de connectivité des ports, les deux
-$`R_k^{(a)}` sont les parités dans les deux répliques et $`P_k`$ indique le
+$`R_k^{(a)}`$ sont les parités dans les deux répliques et $`P_k`$ indique le
 statut de fusion/pivotalité. Si le nombre de ports n'est pas borné, l'espace
 d'états n'est pas fini. Un bon bloc doit précisément fournir un événement de
 screening qui le borne.
@@ -341,7 +341,7 @@ des blobs ambigus autour des goulots, pas les goulots seuls.
 
 ### Théorème 6.1 — critère annulaire, statut : conditionnel
 
-Fixons $`p>1/2`. Supposons :
+Fixons $`p>1/2`$. Supposons :
 
 1. la localisation sous-critique de la section 2 ;
 2. l'annulation exacte pour les racines distinctes ;

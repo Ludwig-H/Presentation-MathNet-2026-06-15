@@ -807,7 +807,7 @@ un majorant ni un minorant de $`P_u^{\mathrm{pair}}`$.
 
 ANC suffit à obtenir $`P_u^{\mathrm{pair}}\to1`$, mais ne suffit pas à
 transporter l'exposant $`I_c(p)`$. Des événements ancestraux rares peuvent
-dominer $`\mathbb E[1-P_u^{\mathrm{pair}}]`. Un taux moyen exige une borne de
+dominer $`\mathbb E[1-P_u^{\mathrm{pair}}]`$. Un taux moyen exige une borne de
 grandes déviations jointe pour $`(K_L,B_L,M_L)`$.
 
 Même dans l'oracle local, le préfacteur précis oscille entre $`C_0(p)`$ et

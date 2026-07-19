@@ -24,7 +24,7 @@ $`0.8`$ vise $`p_0=0.805`$. La stratégie resserrée est donnée dans le
 **Commencer ici :**
 [programme prioritaire](00_RESEARCH_PROGRAM.md) ·
 [feuille de route](05_PROOF_ROADMAP.md) ·
-[feuille de route vers $`p_\star>0.8`$](26_FEUILLE_DE_ROUTE_PSTAR.md) ·
+[feuille de route vers une borne strictement supérieure à 0,8](26_FEUILLE_DE_ROUTE_PSTAR.md) ·
 [calculs reproductibles](computations/README.md) ·
 [slides du 16 juillet](../../beamer-presentation-reunion-2026-07-16/Presentation_2026-07-16_LouisHauseux_ReunionLouisNahuelKonstantin.pdf)
 
