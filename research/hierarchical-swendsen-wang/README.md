@@ -11,13 +11,14 @@ p=\frac45=0.8
 
 sur le GSBM triangulaire.
 
-La voie privilégiée est désormais précise : **majorer chaque canal tardif
-par sa version critique sur le même squelette, remplacer le corridor de la
-paire par un heat bath conjoint exact, puis accumuler des contractions sur
-des buckets bornés screenés ou, si nécessaire, des blocs annulaires plus
-riches**. Le conditionnement par une composante
-critique reste l'expérience géométrique favorable à étudier, mais sa
-domination des autres géométries n'est pas supposée sans preuve.
+La voie privilégiée est désormais précise : **conditionner d'abord par les
+coupes réellement sélectionnées, mesurer leur charge géométrique
+$`m h_p(\beta)^2`$, majorer chaque canal tardif par sa version critique sur
+le même squelette, puis accumuler des contractions screenées dans le heat
+bath conjoint du corridor**. Des buckets bornés ou, si nécessaire, des blocs
+annulaires fournissent les premiers certificats finis. Le conditionnement par
+une composante critique reste l'expérience géométrique favorable à étudier,
+mais sa domination des autres géométries n'est pas supposée sans preuve.
 
 Le premier jalon géométrique est maintenant résolu exactement sur une chaîne
 de cactus triangulaires. Même lorsque le LCA de la paire est fixé au seuil de
@@ -140,12 +141,30 @@ p_{\partial,\rm act}
 
 en dessous de la borne information-percolation connue.
 
-Le mécanisme simple utile est différent. Un bucket $`m=2`$ est exactement un
-canal d'effacement de fiabilité $`s_p(\beta)\le p<1`$. Un nombre divergent de
-tels buckets, ou plus généralement de buckets bornés ambigus dont le message
-ancestral est screené, suffit à annuler la corrélation. Le fichier 24 donne
-les preuves, la fenêtre terminale $`1-\beta\asymp m^{-1/2}`$ et tous les
-contre-audits.
+Le mécanisme simple utile est différent et dépend de la coupe. Après
+conditionnement par la partition complète, les marques d'une frontière sont
+i.i.d. de biais
+
+```math
+h_p(\beta)=\tanh\left(\frac{u_p(1-\beta)}2\right).
+```
+
+Pour une coupe instantanée de taille $`m`$, la charge informationnelle est
+
+```math
+\mathcal J=m h_p(\beta)^2.
+```
+
+Elle devient non informative si $`\mathcal J\to0`$ et presque parfaite si
+$`\mathcal J\to\infty`$. Une fusion réelle possède en plus une arête
+gagnante ; à $`\beta=1`$, sa fiabilité exacte vaut $`1/m`$. Enfin, le LCA
+d'une paire lointaine repondère la coupe par $`mN_\rho`$, où $`N_\rho`$ est
+le nombre de paires lointaines séparées par ses enfants. Le fichier 25 donne
+les preuves et montre pourquoi une coupe typique ne suffit pas.
+
+Le bucket $`m=2`$ reste un canal d'effacement exact de fiabilité
+$`s_p(\beta)\le p<1`$. Un nombre divergent de tels buckets screenés suffit à
+annuler la corrélation, mais ce n'est qu'un sous-cas du critère géométrique.
 
 ## 2. La dynamique privilégiée
 
@@ -191,8 +210,9 @@ flowchart TD
     C0["C0 — racines distinctes"] --> R["Réduction aux paires critiques"]
     C1["C1 — décroissance sous-critique"] --> R
     R --> C2["C2 — domination favorable"]
-    C2 --> C3a["C3a — cactus exact"]
-    C3a --> S["S — buckets bornés screenés"]
+    C2 --> G["G — loi Palm des charges de coupe"]
+    G --> C3a["C3a — cactus exact"]
+    C3a --> S["S — coupes de faible charge screenées"]
     S --> W["Pas de weak recovery à p=0.8"]
     S -. "état de bord trop riche" .-> C3b["C3b — transfert de bande"]
     C3b --> C3c["C3c — abondance annulaire"]
@@ -207,6 +227,8 @@ flowchart TD
 | C2-corridor | la domination se tensorise sur un corridor fixé, pour tout prior corrélé des parités | démontré pour le bloc collapsed |
 | C2-tailles | remplacer arbitrairement un bucket tardif par un bucket critique d'une autre taille | faux en général ; contre-certificat rationnel |
 | C2-géométrie | coupler les corridors Palm critique et postcritique | ouvert |
+| G-frontière | loi i.i.d. conditionnelle, charge $`m h_p(\beta)^2`$ et intensité LCA-Palm $`mN_\rho`$ | démontré |
+| G-corridor | loi jointe des charges, ports et messages le long d'une paire Palm critique | ouvert |
 | C3-bloc | un bucket critique $`m=2`$ screené contracte strictement à $`p=0.8`$ | démontré localement |
 | C3-simple | $`N_L\to\infty`$ buckets bornés screenés implique une perte totale | démontré conditionnellement à l'abondance et à la composition |
 | C3-cactus | LCA fixé à $`q`$, LCA seul contre corridor complet et comparaison critique/postcritique | démontré exactement sur une chaîne de cactus |
@@ -354,10 +376,11 @@ le canal favorable, pas la loi de la composante géante triangulaire.
 
 Les trois problèmes prioritaires sont, dans cet ordre :
 
-1. **Lemme simple de buckets.** Tenter de montrer directement que le corridor
-   Palm critique contient $`N_L\to\infty`$ coupes disjointes avec
-   $`2\le m\le M`$ et message ancestral borné. Le sous-cas $`m=2`$ possède
-   déjà son coefficient exact.
+1. **Lemme géométrique de charges.** Estimer sous Palm critique la loi jointe
+   de $`(m_v,\beta_v,Z_v,B_v)`$ et montrer que le corridor contient
+   $`N_L\to\infty`$ coupes disjointes avec
+   $`m_vh_p(\beta_v)^2\le M`$ et message ancestral borné. Le sous-cas
+   $`m=2`$ possède déjà son coefficient exact.
 2. **Screening géométrique.** Isoler ces coupes des routes latérales et
    justifier la composition conditionnelle de leurs contractions. Si ce
    screening fini fonctionne, la bande complète est inutile.
@@ -410,6 +433,7 @@ premier certificat fini à construire si les cycles empêchent ce screening.
 | 10 | [22_LCA_VS_FULL_HIERARCHY.md](22_LCA_VS_FULL_HIERARCHY.md) | LCA seul, profondeur optimale, bottom-up et corridor complet |
 | 11 | [23_OPTIMAL_WEAK_RECOVERY_OBSTRUCTION.md](23_OPTIMAL_WEAK_RECOVERY_OBSTRUCTION.md) | stratégie maître : oracle critique à squelette fixé, blocs annulaires et théorème conditionnel |
 | 12 | [24_SIMPLE_RESIDUAL_BALANCE_OBSTRUCTION.md](24_SIMPLE_RESIDUAL_BALANCE_OBSTRUCTION.md) | bilan vrai/faux exact, fenêtre terminale et réduction simple aux buckets bornés |
+| 13 | [25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md](25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md) | coupes conditionnées, charge $`m h_p(\beta)^2`$, taux de fusion et loi LCA-Palm |
 
 ### Compléments utiles
 
@@ -422,7 +446,7 @@ premier certificat fini à construire si les cycles empêchent ce screening.
   [10_ANCESTRAL_LAMBDA_ESTIMATION.md](10_ANCESTRAL_LAMBDA_ESTIMATION.md) et
   [15_CRITICAL_GIANT_PAIR_FLIP.md](15_CRITICAL_GIANT_PAIR_FLIP.md) : calculs
   locaux et contrôle des ancêtres.
-- [12_FAVORABLE_HIERARCHICAL_REDUCTION.md](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : première réduction favorable, désormais renforcée et auditée par les fichiers 19--24.
+- [12_FAVORABLE_HIERARCHICAL_REDUCTION.md](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : première réduction favorable, désormais renforcée et auditée par les fichiers 19--25.
 
 ### Audits secondaires conservés
 

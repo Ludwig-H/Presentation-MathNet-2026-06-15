@@ -25,7 +25,7 @@ Les scripts n'ont pas de dépendance scientifique externe.
 |---|---|
 | `ancestral_lambda_chain.py` | quatre taux ancestraux et message exact sur un squelette fini |
 | `ancestral_lambda_estimation.py` | moments pondérés et certificat de queue des ancêtres |
-| `critical_component_boundary.py` | marques de frontière, biais Palm et critères quatre états |
+| `critical_component_boundary.py` | marques de frontière, canal instantané, charge géométrique, taux Palm et critères quatre états |
 | `hierarchical_flip_probabilities.py` | probabilités racine, feuille, nœud interne et transfert tordu |
 | `joint_hierarchical_sweep.py` | sweep exact top-down/bottom-up sur petits tores |
 | `favorable_time_comparison.py` | anti-alignement, Blackwell à taille fixe et incomparabilité cross-size certifiée à $`p=4/5`$ |
@@ -35,11 +35,11 @@ Les scripts n'ont pas de dépendance scientifique externe.
 
 Chaque module actif possède un fichier `test_*.py` associé.
 
-Le module `critical_component_boundary.py` imprime aussi le contre-audit
-simple des bilans résiduels : temps critique, croisement des seules vraies
-qui sonneront encore avant $`1`$, et différence entre toutes les vraies non
-activées et les fausses. Les identités correspondantes sont testées
-exactement.
+Le module `critical_component_boundary.py` contient aussi le contre-audit
+des bilans résiduels et les nouveaux calculs conditionnés par une coupe :
+moments du vote instantané, charge de Chernoff, fiabilité $`L^2`$ et taux de
+fusion $`m u_ps_p(\beta)`$. La fiabilité est recalculée indépendamment à
+partir des deux expériences binomiales symétriques dans les tests.
 
 ## Calculs auxiliaires conservés
 
@@ -167,10 +167,12 @@ une erreur standard : il ne faut pas surinterpréter les six signes positifs.
 
 ## Prochaine étape
 
-Le fichier 24 demande d'abord un lemme géométrique, sans nouveau module :
-compter sous Palm critique des buckets disjoints avec $`2\le m\le M`$ et
-message ancestral screené. Le module de bande suivant ne devient prioritaire
-que si cette réduction finie échoue.
+Le fichier 25 demande d'abord d'estimer sous Palm critique la loi jointe de
+$`(m_v,\beta_v,Z_v,B_v)`$, en tenant compte de la repondération exacte
+$`m_vN_\rho`$. Il faut ensuite compter des coupes disjointes et screenées de
+charge $`m_vh_p(\beta_v)^2\le J_0`$. Les buckets
+$`2\le m\le M`$ restent un sous-cas. Le module de bande suivant ne devient
+prioritaire que si cette réduction finie échoue.
 
 ## Module de bande, plan B
 

@@ -5,6 +5,14 @@ sont informatives, puis la qualité des arêtes restant entre les clusters se
 dégrade avec le niveau $`\beta`$. Elle cherche volontairement le mécanisme le
 plus simple qui puisse encore conduire à une obstruction de weak recovery.
 
+> **Portée corrigée.** Les bilans globaux des sections 1--6 sont seulement
+> des préliminaires. Ils ne décrivent pas la coupe sélectionnée par la
+> géométrie. Le [fichier 25](25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md)
+> conditionne par la partition complète, prouve le critère
+> $`m h_p(\beta)^2`$, puis dérive le biais LCA-Palm exact
+> $`mN_\rho`$. Il constitue désormais la référence pour toute affirmation
+> selon laquelle une coupe « cesse d'être informative ».
+
 Le bilan exact donne une conclusion en deux parties.
 
 1. L'intuition qualitative est correcte : les clusters précoces sont formés
@@ -794,21 +802,25 @@ o(1)+L^{-c|\log\kappa|}.
 
 ## 11. Ce que cette voie simple change dans le programme
 
-La cible géométrique prioritaire peut être affaiblie. Avant de construire le
-transfert complet d'une bande, il faut essayer de prouver :
+La cible géométrique prioritaire peut être affaiblie. Le fichier 25 montre
+que le bon premier tri porte sur la charge
+$`\mathcal J_r=m_rh_p(\beta_r)^2`$. Avant de construire le transfert complet
+d'une bande, il faut essayer de prouver :
 
 ```math
 \boxed{
 \text{sous Palm critique, le corridor contient }
 N_L\to\infty
-\text{ buckets bornés et screenés.}
+\text{ coupes de charge bornée et screenées.}
 }
 \tag{11.1}
 ```
 
 Une version minimale chercherait seulement des motifs triangulaires donnant
-`m=2`. Une version robuste autoriserait $`2\le m\le M`$ et certifierait leur
-coefficient maximal par énumération finie.
+`m=2`. Une version robuste autoriserait des tailles variables sous la
+contrainte $`m_rh_p(\beta_r)^2\le M`$ et certifierait leur coefficient exact,
+avec l'arête gagnante et l'état de bord. Les buckets bornés restent un
+sous-cas commode, pas la définition géométrique de la perte.
 
 Si (11.1) échoue parce que les interfaces ou messages de bord ne peuvent pas
 être isolés, alors le transfert de bande de largeur deux redevient nécessaire.

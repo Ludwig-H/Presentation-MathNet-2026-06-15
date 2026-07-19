@@ -4,8 +4,10 @@ Cette feuille de route remplace l'ancien inventaire chronologique. Elle ne
 contient que les dépendances nécessaires à la voie privilégiée : corridor
 collapsed, criticalisation à squelette fixé et contraction multiscale à
 $`p=4/5`$. Le fichier 24 teste d'abord la réduction plus simple aux buckets
-bornés ; la synthèse générale et le théorème annulaire sont dans le fichier
-23.
+bornés. Le fichier 25 corrige cette réduction au niveau géométrique en
+introduisant la charge $`m h_p(\beta)^2`$ et la repondération LCA-Palm
+$`mN_\rho`$ ; la synthèse générale et le théorème annulaire sont dans le
+fichier 23.
 
 ## Théorème cible intermédiaire
 
@@ -253,11 +255,30 @@ Sous le biais d'une paire lointaine critique, étudier la loi de
 \left(
 m_r,\beta_r,
 m_{r,0},m_{r,1},m_{r,2},
-Z_r
+Z_r,B_r,
+\mathcal J_r
 \right)_{r\in\mathcal C_{I_LJ_L}},
 ```
 
-où $`Z_r`$ est l'état de bord minimal du transfert collapsed.
+où $`Z_r`$ est l'état de bord minimal du transfert collapsed et
+
+```math
+\mathcal J_r=m_rh_p(\beta_r)^2.
+```
+
+### G1 bis. Intensité Palm exacte
+
+Conditionnellement à la partition au niveau $`\beta`$, une coupe de taille
+$`m`$ fusionne à taux $`m u_ps_p(\beta)`$. Le LCA d'une paire lointaine
+repondère encore cette coupe par le nombre $`N_\rho`$ de paires séparées par
+ses enfants. À niveau fixé, la densité Palm porte donc le facteur exact
+
+```math
+mN_\rho.
+```
+
+**Statut.** Établi dans le fichier 25 par la formule de compensation des
+sauts. La loi asymptotique de $`mN_\rho`$ sur la grille reste ouverte.
 
 ### G2. Porte critique/postcritique
 
@@ -413,16 +434,18 @@ $`K_L\asymp\log L`$ annuli, la borne quantitative devient
 Avant tout nouveau transfert de bande, tenter de prouver sous Palm critique :
 
 ```math
-N_L^{(M,B_0)}
+N_L^{(J_0,B_0)}
 :=
-\#\{r:2\le m_r\le M,\ |B_r|\le B_0,
+\#\{r:m_rh_p(\beta_r)^2\le J_0,\ |B_r|\le B_0,
 \text{ bloc }r\text{ screené}\}
 \longrightarrow\infty.
 ```
 
-Il faut ensuite vérifier que des sous-blocs disjoints peuvent être choisis de
-façon que leurs coefficients $`\chi^2`$ se composent. Une preuve de ces deux
-lignes ferme le bloc X sans calculer tout l'état de bord de la bande.
+La version $`2\le m_r\le M`$ reste un sous-cas suffisant, mais la charge
+autorise aussi une grande coupe assez tardive. Il faut ensuite vérifier que
+des sous-blocs disjoints peuvent être choisis de façon que leurs coefficients
+$`\chi^2`$ exacts, correction gagnante incluse, se composent. Une preuve de
+ces deux lignes ferme le bloc X sans calculer tout l'état de bord de la bande.
 
 ## Plan B : calcul certifié de bande
 

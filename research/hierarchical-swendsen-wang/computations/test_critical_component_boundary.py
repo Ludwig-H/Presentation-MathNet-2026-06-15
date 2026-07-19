@@ -17,6 +17,7 @@ from critical_component_boundary import (
     critical_closed_categories,
     critical_masses,
     critical_time_untruncated,
+    direct_cut_merger_hazard,
     future_activation_crossover_time,
     future_true_minus_false_mass,
     grouped_rates,
@@ -29,6 +30,10 @@ from critical_component_boundary import (
     parity_log_odds,
     partition_boundary,
     strict_majority_probability,
+    snapshot_cut_information_load,
+    snapshot_cut_reliability,
+    snapshot_cut_signal_to_noise,
+    snapshot_cut_vote_moments,
     unactivated_true_minus_false_mass,
     walsh_coefficients,
 )
@@ -297,6 +302,107 @@ class CriticalComponentBoundaryTests(unittest.TestCase):
         mean, variance = bucket_vote_moments(size, p, time)
         self.assertAlmostEqual(mean, direct_mean)
         self.assertAlmostEqual(variance, direct_variance)
+
+    def test_snapshot_cut_moments_match_full_enumeration(self) -> None:
+        size = 7
+        p = 0.81
+        time = 0.55
+        s = closed_categories(p, time).true_probability
+        probabilities: list[tuple[float, float]] = []
+        for word in itertools.product((0, 1), repeat=size):
+            probability = 1.0
+            for bit in word:
+                probability *= s if bit else 1.0 - s
+            vote = 2.0 * sum(word) - size
+            probabilities.append((probability, vote))
+        direct_mean = sum(probability * vote for probability, vote in probabilities)
+        direct_variance = sum(
+            probability * (vote - direct_mean) ** 2
+            for probability, vote in probabilities
+        )
+        mean, variance = snapshot_cut_vote_moments(size, p, time)
+        self.assertAlmostEqual(mean, direct_mean)
+        self.assertAlmostEqual(variance, direct_variance)
+        self.assertAlmostEqual(
+            snapshot_cut_signal_to_noise(size, p, time),
+            direct_mean * direct_mean / direct_variance,
+        )
+
+    def test_snapshot_reliability_matches_two_independent_calculations(self) -> None:
+        size = 6
+        p = 0.82
+        time = 0.63
+        categories = closed_categories(p, time)
+        s = categories.true_probability
+        residual_log_odds = log(s / (1.0 - s))
+        plus: dict[int, float] = {}
+        minus: dict[int, float] = {}
+        direct_from_plus = 0.0
+        for count in range(size + 1):
+            plus[count] = (
+                comb(size, count) * s**count * (1.0 - s) ** (size - count)
+            )
+            minus[count] = (
+                comb(size, count)
+                * (1.0 - s) ** count
+                * s ** (size - count)
+            )
+            bias = tanh(residual_log_odds * (2 * count - size) / 2.0)
+            direct_from_plus += plus[count] * bias * bias
+        symmetric = 0.5 * sum(
+            (plus[count] - minus[count]) ** 2
+            / (plus[count] + minus[count])
+            for count in range(size + 1)
+        )
+        result = snapshot_cut_reliability(size, p, time)
+        self.assertAlmostEqual(result, direct_from_plus)
+        self.assertAlmostEqual(result, symmetric)
+
+    def test_snapshot_terminal_cut_has_zero_information(self) -> None:
+        for size in (1, 2, 7, 20):
+            self.assertAlmostEqual(snapshot_cut_reliability(size, 0.8, 1.0), 0.0)
+            self.assertAlmostEqual(
+                snapshot_cut_signal_to_noise(size, 0.8, 1.0), 0.0
+            )
+            self.assertAlmostEqual(snapshot_cut_information_load(size, 0.8, 1.0), 0.0)
+
+    def test_information_load_has_the_expected_weak_bias_equivalent(self) -> None:
+        p = 0.8
+        size = 37
+        for time in (0.9, 0.99, 0.999):
+            h = closed_categories(p, time).signed_margin
+            load = snapshot_cut_information_load(size, p, time)
+            ratio = load / (0.5 * size * h * h)
+            self.assertLess(abs(ratio - 1.0), 0.01)
+
+    def test_merger_hazard_is_exactly_size_biased(self) -> None:
+        p = 0.8
+        time = 0.61
+        unit = direct_cut_merger_hazard(1, p, time)
+        for size in (2, 3, 11):
+            self.assertAlmostEqual(
+                direct_cut_merger_hazard(size, p, time), size * unit
+            )
+
+    def test_merger_compensator_matches_direct_cut_activation(self) -> None:
+        p = 0.8
+        q = 1.0 - p
+        rate = log(p / q)
+        for size in (1, 2, 5, 9):
+            # Independent integration of
+            # P(cut still closed at t) * conditional cut hazard at t.
+            compensator = 0.0
+            for power in range(size):
+                compensator += (
+                    size
+                    * comb(size - 1, power)
+                    * q ** (size - 1 - power)
+                    * p ** (power + 1)
+                    * (1.0 - exp(-(power + 1) * rate))
+                    / (power + 1)
+                )
+            direct = 1.0 - (2.0 * q) ** size
+            self.assertAlmostEqual(compensator, direct)
 
     def test_hoeffding_margin_bound_covers_exact_binomial_tail(self) -> None:
         for residual_count in (1, 2, 5, 12):

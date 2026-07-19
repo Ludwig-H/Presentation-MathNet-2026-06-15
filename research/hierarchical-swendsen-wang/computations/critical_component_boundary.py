@@ -12,7 +12,7 @@ from __future__ import annotations
 
 from collections.abc import Callable, Iterable
 from dataclasses import dataclass
-from math import comb, exp, fsum, log, log1p, prod, sqrt, tanh
+from math import comb, exp, fsum, lgamma, log, log1p, prod, sqrt, tanh
 
 from critical_band_thresholds import Q_CRITICAL, coupling
 
@@ -293,6 +293,88 @@ def bucket_vote_moments(size: int, p: float, time: float) -> tuple[float, float]
     mean = 1.0 + (size - 1) * h
     variance = (size - 1) * (1.0 - h * h)
     return mean, variance
+
+
+def snapshot_cut_vote_moments(
+    size: int, p: float, time: float
+) -> tuple[float, float]:
+    """Return moments of ``V=2K-size`` on a cut closed at ``time``.
+
+    This is the snapshot experiment, before conditioning on this particular
+    cut being the next Kruskal merger.  Hence ``K`` is binomial and there is
+    no forced winning edge.
+    """
+
+    if size <= 0:
+        raise ValueError("size must be positive")
+    h = closed_categories(p, time).signed_margin
+    return size * h, size * (1.0 - h * h)
+
+
+def snapshot_cut_signal_to_noise(size: int, p: float, time: float) -> float:
+    """Return ``E[V]^2 / Var(V) = size*h^2/(1-h^2)``."""
+
+    mean, variance = snapshot_cut_vote_moments(size, p, time)
+    return mean * mean / variance
+
+
+def snapshot_cut_information_load(size: int, p: float, time: float) -> float:
+    """Return the exact Chernoff load ``-size*log(1-h^2)/2``.
+
+    It equals ``size * D(1/2 || s_p(time))`` for the two mirrored binomial
+    experiments.  In the weak-bias regime it is asymptotic to
+    ``size*h_p(time)^2/2``.
+    """
+
+    if size <= 0:
+        raise ValueError("size must be positive")
+    h = closed_categories(p, time).signed_margin
+    return -0.5 * size * log1p(-h * h)
+
+
+def snapshot_cut_reliability(size: int, p: float, time: float) -> float:
+    """Return the exact L2 reliability of a geometry-fixed closed cut.
+
+    Under the planted parity, ``K ~ Bin(size, s_p(time))`` and the local
+    log-likelihood ratio is ``u_p*(1-time)*(2K-size)``.  This experiment must
+    not be confused with a realized merger bucket, whose winning edge adds a
+    Palm correction.
+    """
+
+    if size <= 0:
+        raise ValueError("size must be positive")
+    categories = closed_categories(p, time)
+    s = categories.true_probability
+    residual_log_odds = coupling(p) * (1.0 - categories.time)
+    terms = []
+    for count in range(size + 1):
+        log_mass = (
+            lgamma(size + 1)
+            - lgamma(count + 1)
+            - lgamma(size - count + 1)
+            + count * log(s)
+            + (size - count) * log1p(-s)
+        )
+        posterior_bias = tanh(
+            residual_log_odds * (2 * count - size) / 2.0
+        )
+        terms.append(exp(log_mass) * posterior_bias * posterior_bias)
+    return fsum(terms)
+
+
+def direct_cut_merger_hazard(size: int, p: float, time: float) -> float:
+    """Return the instantaneous activation rate of a closed physical cut.
+
+    Conditional on the full component partition at ``time``, each boundary
+    edge is true with probability ``s_p(time)`` and then has exponential
+    hazard ``u_p``.  The direct merger hazard is therefore
+    ``size*u_p*s_p(time)``.  The formula is a left-hazard at the censoring
+    endpoint ``time=1``; the hierarchy itself stops there.
+    """
+
+    if size <= 0:
+        raise ValueError("size must be positive")
+    return size * coupling(p) * closed_categories(p, time).true_probability
 
 
 def margin_failure_bound(
