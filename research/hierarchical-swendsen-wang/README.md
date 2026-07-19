@@ -3,22 +3,28 @@
 Ce dossier développe une généralisation hiérarchique du couplage de
 Swendsen--Wang par horloges exponentielles. Le but est d'obtenir des
 obstructions de weak recovery plus fortes que la seule borne de percolation
-du chapitre 11, d'abord sur le GSBM binaire homogène triangulaire au point
+du chapitre 11. Le point
 
 ```math
 p=\frac45.
 ```
 
+est le pré-certificat naturel ; la première borne strictement supérieure à
+$`0.8`$ vise $`p_0=0.805`$. La stratégie resserrée est donnée dans le
+[fichier 26](26_FEUILLE_DE_ROUTE_PSTAR.md).
+
 > [!IMPORTANT]
 > **Piste prioritaire.** Suivre une paire $`i,j`$ macroscopiquement éloignée
-> dont le LCA apparaît juste à la percolation, puis rééchantillonner tout son
-> corridor hiérarchique. À squelette fixé, cette expérience critique est
-> rigoureusement la plus favorable parmi les expériences postcritiques. La
-> domination de la géométrie critique complète reste ouverte sur la grille.
+> sur son corridor hiérarchique réel, puis rééchantillonner ce corridor par
+> heat bath collapsed. À squelette, tailles et bord fixés, avancer chaque
+> canal tardif jusqu'à la criticité est rigoureusement favorable. On ne
+> suppose pas que le LCA ponctuel est critique ; les attaches tardives restent
+> dans l'état du transfert.
 
 **Commencer ici :**
 [programme prioritaire](00_RESEARCH_PROGRAM.md) ·
 [feuille de route](05_PROOF_ROADMAP.md) ·
+[feuille de route vers $`p_\star>0.8`$](26_FEUILLE_DE_ROUTE_PSTAR.md) ·
 [calculs reproductibles](computations/README.md) ·
 [slides du 16 juillet](../../beamer-presentation-reunion-2026-07-16/Presentation_2026-07-16_LouisHauseux_ReunionLouisNahuelKonstantin.pdf)
 
@@ -58,7 +64,7 @@ La difficulté centrale est donc d'estimer les quatre
 $`\Lambda_v^{ab}`$ pour $`v\succ u`$, avec leur géométrie d'incidence et
 leurs messages de bord.
 
-### La paire lointaine favorable
+### L'oracle critique comme test favorable
 
 Pour $`\beta_{ij}`$ le niveau du LCA, l'expérience canonique est
 
@@ -75,6 +81,9 @@ d_L(i,j)\ge\rho L,
 
 Elle représente deux points lointains qui se retrouvent dans la même
 composante critique aussi tôt que la percolation macroscopique le permet.
+Cet événement est un oracle favorable utile pour tester un bloc ; ce n'est
+pas une description typique du LCA ponctuel des paires connectées à
+$`\beta=1`$, qui peuvent avoir des attaches tardives.
 
 Le mot « favorable » possède un statut précis :
 
@@ -102,12 +111,12 @@ mêmes nœuds.
 
 ```mermaid
 flowchart TD
-    P["Paire lointaine"] --> U["LCA dans la fenêtre critique"]
-    U --> C["Corridor descendant complet"]
-    C --> G["Coupes de faible charge"]
-    G --> S["Screening des bords"]
-    S --> X["Contraction répliquée"]
-    X --> W["Obstruction de weak recovery"]
+    P["Paire lointaine"] --> D["Décomposition sous-critique / corridor réel / racines distinctes"]
+    D --> C["Criticalisation à squelette et tailles fixés"]
+    C --> H["Heat bath collapsed du corridor"]
+    H --> X["Secteur tordu répliqué"]
+    X --> A["Composition annealed, attaches comprises"]
+    A --> W["Obstruction de weak recovery"]
 ```
 
 ## 2. Les quantités à retenir
@@ -183,7 +192,7 @@ enfants. Toute analyse géométrique doit inclure ce facteur.
 | mesure jointe du dendrogramme non marqué et heat baths exacts | établi en volume fini | [01](01_MATHEMATICAL_FRAMEWORK.md) |
 | critère pairwise $`L^2`$ impliquant l'absence de weak recovery | établi | [03](03_HIERARCHICAL_WEAK_RECOVERY.md), [20](20_COLLAPSED_CORRIDOR_BLACKWELL.md) |
 | calcul des quatre taux ancestraux et décomposition par incidences | établi | [08](08_ANCESTRAL_LAMBDA_CHAIN.md), [10](10_ANCESTRAL_LAMBDA_ESTIMATION.md) |
-| localisation critique des LCA lointains, à fenêtre fixe | établie | [12](12_FAVORABLE_HIERARCHICAL_REDUCTION.md), [14](14_CRITICAL_COMPONENT_BOUNDARY.md) |
+| localisation critique du LCA sous l'événement macroscopique favorable | établie sous les hypothèses indiquées | [12](12_FAVORABLE_HIERARCHICAL_REDUCTION.md), [14](14_CRITICAL_COMPONENT_BOUNDARY.md) |
 | loi conditionnelle exacte des frontières | établie | [14](14_CRITICAL_COMPONENT_BOUNDARY.md), [25](25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md) |
 | canal de fusion, correction gagnante et fenêtre $`m h^2`$ | établis | [09](09_CRITICAL_MERGER_ORACLE.md), [25](25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md) |
 | ordre de Blackwell critique/tardif à taille fixée | établi | [19](19_FAVORABLE_SWEEP_PROJECTIONS.md) |
@@ -194,18 +203,17 @@ enfants. Toute analyse géométrique doit inclure ce facteur.
 
 ## 4. Verrous prioritaires
 
-1. **Géométrie Palm.** Déterminer la loi jointe de
-   $`(m_v,\beta_v,Z_v,B_v)`$ le long du corridor critique, avec la
-   repondération $`m_vN_\rho`$.
-2. **$`\Lambda_v`$ ancestraux.** Contrôler les trois groupes d'incidence et
-   le message extérieur dans la non-linéarité
-   $`F_v(x)=xe^{(1-\beta_v)x}`$.
-3. **Screening.** Extraire un nombre divergent de coupes ou blocs dont les
-   routes latérales sont neutralisées.
-4. **Composition.** Prouver que leurs coefficients répliqués se composent
-   jusqu'à donner un second moment pairwise nul.
-5. **Porte postcritique.** Uniformiser le résultat sur les corridors réels
-   criticalisés ou démontrer la domination géométrique favorable.
+1. **Transfert tordu.** Construire le secteur
+   $`\chi\otimes\chi`$ avec potentiel extérieur complet, incidences, tailles
+   et temps ; ne pas contracter le mode constant.
+2. **Troncature.** Contrôler les ports et messages rares par une erreur
+   additive $`o(1)`$ ou un drift pondéré, sans overflow absorbant.
+3. **Composition annealed.** Composer les blocs sur les corridors réels,
+   histoires en peigne et attaches tardives comprises.
+4. **Abondance.** Montrer que le nombre effectif de blocs contractants diverge
+   sous la loi marquée pertinente, sans classifier toute la Palm critique.
+5. **Certificat quantitatif.** Établir un poids commun et une marge rigoureuse
+   à $`p=0.805`$, puis seulement optimiser le seuil.
 
 À $`p=0.8`$,
 

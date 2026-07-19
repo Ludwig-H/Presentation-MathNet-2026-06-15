@@ -3,7 +3,10 @@
 > [!IMPORTANT]
 > Le [programme prioritaire](00_RESEARCH_PROGRAM.md) donne l'exposé
 > pédagogique et le statut des lemmes. Cette page conserve le graphe technique
-> détaillé des dépendances.
+> détaillé des dépendances historiques à $`p=4/5`$. La
+> [feuille de route actuelle](26_FEUILLE_DE_ROUTE_PSTAR.md) vise
+> $`p_0=0.805`$ et remplace le screening uniforme par un transfert annealed
+> sur le corridor réel, attaches comprises.
 
 Cette feuille de route remplace l'ancien inventaire chronologique. Elle ne
 contient que les dépendances nécessaires à la voie privilégiée : corridor
@@ -35,6 +38,12 @@ Le critère à établir est
 où $`P_{\mathcal C}`$ est le heat bath collapsed du corridor pair-spécifique.
 Le théorème 2.2 du fichier 20 transforme (T) en impossibilité de weak
 recovery par Jensen paire par paire.
+
+Le point $`p=4/5`$ est un pré-certificat. Pour conclure réellement
+$`p_{\mathrm{WR}}>0.8`$, la marge du transfert doit ensuite être certifiée à
+$`p_1=0.805`$ ou sur un intervalle $`[0.8,0.8+\varepsilon]`. La stratégie
+correspondante, avec traitement explicite des attaches ponctuelles, est dans le
+[fichier 26](26_FEUILLE_DE_ROUTE_PSTAR.md).
 
 ## Graphe de dépendances
 

@@ -1,16 +1,17 @@
 # Programme prioritaire : oracle critique et corridor hiérarchique
 
 > [!IMPORTANT]
-> La piste prioritaire consiste à étudier deux sommets lointains dont le LCA
-> apparaît juste au seuil de percolation, puis à appliquer le heat bath
-> collapsed à tout leur corridor hiérarchique. Le LCA critique est l'oracle
-> postcritique le plus favorable à géométrie fixée ; sa domination des autres
-> géométries est établie sur le cactus et reste ouverte sur la grille
-> triangulaire.
+> La [feuille de route resserrée](26_FEUILLE_DE_ROUTE_PSTAR.md) remplace
+> l'oracle « LCA ponctuel critique » comme réduction principale. Elle traite
+> le corridor réel, criticalise seulement les canaux tardifs à squelette et
+> tailles fixés, et conserve les attaches postcritiques. L'oracle critique de
+> cette page reste un test favorable et un catalogue de lemmes, pas une
+> hypothèse typique sur toutes les paires.
 
-Cette page est le point d'entrée canonique du programme. Elle sépare les
+Cette page sépare les
 lemmes déjà prouvés, les réductions conditionnelles et les verrous qui doivent
-encore être fermés pour obtenir une nouvelle borne de weak recovery.
+encore être fermés pour obtenir une nouvelle borne de weak recovery. Pour
+l'ordre actuel des travaux, le point d'entrée est le fichier 26.
 
 ## 1. Question cible
 
@@ -31,7 +32,7 @@ $`\mathrm{Exp}(u_p)`$ ; une arête insatisfaite reçoit l'horloge infinie. Les
 arêtes sonnées avant $`\beta`$ engendrent une partition $`\Pi_\beta`$ et un
 dendrogramme de Kruskal.
 
-Le premier objectif quantitatif est :
+Le premier pré-certificat quantitatif est :
 
 ```math
 \boxed{
@@ -45,6 +46,12 @@ p_0=\frac45
 Par dégradation BSC, une preuve à $`p_0`$ donnerait aussi l'impossibilité pour
 tout $`p\le p_0`$. Ce résultat améliorerait la borne de référence
 $`0.794659\ldots`$, mais il n'est pas encore démontré.
+
+Une preuve au seul point $`p_0=4/5`$ ne donnerait toutefois pas encore un
+seuil strictement supérieur à $`0.8`$. Le premier objectif publiable renforcé
+est de prolonger le certificat, par continuité avec marge ou directement, au
+point rationnel $`p_1=0.805`$. Voir la
+[feuille de route resserrée](26_FEUILLE_DE_ROUTE_PSTAR.md).
 
 ## 2. Expérience favorable canonique
 

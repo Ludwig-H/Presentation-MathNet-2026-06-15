@@ -11,6 +11,7 @@ To ensure consistency, readability, and correct rendering across GitHub, all age
 *   **Compilation Artifacts:** LaTeX compilation produces many auxiliary files (e.g., `.aux`, `.log`, `.nav`, `.out`, `.snm`, `.toc`, `.fls`, `.fdb_latexmk`). Never commit these files. Ensure your `.gitignore` is active and correct.
 *   **Asset Management:** Store image assets and figures in designated directories (e.g., `theme/imgs/` or `imgs/`). Use relative paths with correct casing.
 *   **Documentation:** Maintain all documentation in Markdown format using the standards defined in the next section.
+*   **Git Branch Policy:** Work and push directly on `main`. Do not create auxiliary, topic, `agent/*`, or other parasite branches unless the user explicitly requests one. Before every push, verify that the current branch is `main` and target `origin/main` explicitly.
 
 ---
 
@@ -76,5 +77,4 @@ A Python script is available to automatically validate math syntax in all Markdo
 *   **How to run**: `python3 .agents/check_math.py` or `./.agents/check_math.py`
 
 **Mandatory Rule for Agents:** Whenever you edit or add markdown files containing math formulas, you **must** run this verification script before finishing/pushing to ensure that no rendering errors are introduced.
-
 
