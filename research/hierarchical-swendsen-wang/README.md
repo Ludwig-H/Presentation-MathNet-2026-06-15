@@ -14,7 +14,8 @@ sur le GSBM triangulaire.
 La voie privilégiée est désormais précise : **majorer chaque canal tardif
 par sa version critique sur le même squelette, remplacer le corridor de la
 paire par un heat bath conjoint exact, puis accumuler des contractions sur
-des blocs annulaires screenés**. Le conditionnement par une composante
+des buckets bornés screenés ou, si nécessaire, des blocs annulaires plus
+riches**. Le conditionnement par une composante
 critique reste l'expérience géométrique favorable à étudier, mais sa
 domination des autres géométries n'est pas supposée sans preuve.
 
@@ -107,6 +108,45 @@ critique $`m=4`$ et le bucket tardif $`m=2`$ sont rigoureusement
 incomparables. La réduction favorable doit donc coupler la géométrie, pas
 seulement avancer les niveaux.
 
+### Le bilan résiduel le plus simple
+
+À un temps $`\beta`$, les masses non conditionnelles d'arêtes vraies non
+encore activées et d'arêtes fausses sont
+
+```math
+pe^{-u_p\beta}
+\quad\text{et}\quad
+1-p=pe^{-u_p}.
+```
+
+La première reste strictement plus grande pour tout $`\beta<1`$. Il n'y a
+donc pas de majorité soudaine des fausses arêtes avant la censure. Si l'on ne
+compte que les vraies arêtes qui sonneront encore dans $`(\beta,1]`$, le
+croisement a lieu à
+
+```math
+\beta_{\rm act}(p)=1-\frac{\log2}{u_p}.
+```
+
+Mais à ce temps une arête fermée est encore vraie avec probabilité $`2/3`$ :
+ce n'est pas un seuil d'information. Au niveau critique, ce diagnostic donne
+seulement
+
+```math
+p_{\partial,\rm act}
+=\frac{2+q_c}{3}
+=0.782432118445\ldots,
+```
+
+en dessous de la borne information-percolation connue.
+
+Le mécanisme simple utile est différent. Un bucket $`m=2`$ est exactement un
+canal d'effacement de fiabilité $`s_p(\beta)\le p<1`$. Un nombre divergent de
+tels buckets, ou plus généralement de buckets bornés ambigus dont le message
+ancestral est screené, suffit à annuler la corrélation. Le fichier 24 donne
+les preuves, la fenêtre terminale $`1-\beta\asymp m^{-1/2}`$ et tous les
+contre-audits.
+
 ## 2. La dynamique privilégiée
 
 Deux dynamiques sont conservées, avec des rôles différents.
@@ -152,7 +192,9 @@ flowchart TD
     C1["C1 — décroissance sous-critique"] --> R
     R --> C2["C2 — domination favorable"]
     C2 --> C3a["C3a — cactus exact"]
-    C3a --> C3b["C3b — transfert de bande"]
+    C3a --> S["S — buckets bornés screenés"]
+    S --> W["Pas de weak recovery à p=0.8"]
+    S -. "état de bord trop riche" .-> C3b["C3b — transfert de bande"]
     C3b --> C3c["C3c — abondance annulaire"]
     C3c --> W["Pas de weak recovery à p=0.8"]
 ```
@@ -166,6 +208,7 @@ flowchart TD
 | C2-tailles | remplacer arbitrairement un bucket tardif par un bucket critique d'une autre taille | faux en général ; contre-certificat rationnel |
 | C2-géométrie | coupler les corridors Palm critique et postcritique | ouvert |
 | C3-bloc | un bucket critique $`m=2`$ screené contracte strictement à $`p=0.8`$ | démontré localement |
+| C3-simple | $`N_L\to\infty`$ buckets bornés screenés implique une perte totale | démontré conditionnellement à l'abondance et à la composition |
 | C3-cactus | LCA fixé à $`q`$, LCA seul contre corridor complet et comparaison critique/postcritique | démontré exactement sur une chaîne de cactus |
 | C3-bande | état de bord fini et rayon spectral du transfert répliqué de largeur deux | ouvert |
 | C3-annuli | extraire sous Palm un nombre logarithmique de blobs screenés et contractants | ouvert |
@@ -311,23 +354,20 @@ le canal favorable, pas la loi de la composante géante triangulaire.
 
 Les trois problèmes prioritaires sont, dans cet ordre :
 
-1. **Bande de largeur deux.** Construire le noyau collapsed exact en gardant
-   la partition de la coupe, les deux bras complets et les deux parités
-   répliquées ; certifier un rayon spectral strictement inférieur à un à
-   $`p=0.8`$. Cette bande teste l'état de bord, mais reste quasi
-   unidimensionnelle et ne remplace pas la géométrie Palm de la grille.
-2. **Motif annulaire.** Extraire du transfert de bande une liste finie de
-   partitions de ports qui donnent une contraction uniforme, y compris avec
-   les deux répliques et tous les messages ancestraux.
-3. **Géométrie Palm.** Montrer par RSW, séparation d'interfaces et
-   quasi-multiplicativité qu'un nombre logarithmique de ces motifs apparaît
-   sous le biais d'une paire lointaine. La preuve doit être uniforme
-   postcritique après criticalisation à squelette fixé, ou être complétée par
-   un couplage géométrique favorable.
+1. **Lemme simple de buckets.** Tenter de montrer directement que le corridor
+   Palm critique contient $`N_L\to\infty`$ coupes disjointes avec
+   $`2\le m\le M`$ et message ancestral borné. Le sous-cas $`m=2`$ possède
+   déjà son coefficient exact.
+2. **Screening géométrique.** Isoler ces coupes des routes latérales et
+   justifier la composition conditionnelle de leurs contractions. Si ce
+   screening fini fonctionne, la bande complète est inutile.
+3. **Bande de largeur deux, plan B.** Si l'état de bord ne se réduit pas aux
+   buckets bornés, construire le noyau collapsed exact, puis traduire ses
+   états contractants en motifs annulaires sous la loi Palm.
 
-Le certificat cactus étant acquis, le prochain certificat fini doit porter
-sur une bande triangulaire de largeur deux. C'est le premier modèle où des
-cycles se chevauchent et où l'état de bord à un bit du cactus peut échouer.
+Le certificat cactus étant acquis, le prochain résultat doit d'abord tester
+le lemme géométrique simple. La bande triangulaire de largeur deux reste le
+premier certificat fini à construire si les cycles empêchent ce screening.
 
 ## 6. Ce qui n'est pas une preuve du seuil
 
@@ -347,6 +387,7 @@ cycles se chevauchent et où l'état de bord à un bit du cactus peut échouer.
 |---|---:|---|
 | Swendsen–Wang/percolation | $`0.673648\ldots`$ | obstruction par taille des composantes |
 | borne triangulaire antérieure | $`0.719224\ldots`$ | amélioration locale antérieure |
+| futur activable contre faux | $`0.782432\ldots`$ | diagnostic de frontière, pas un seuil de weak recovery |
 | information-percolation | $`0.794659\ldots`$ | meilleure impossibilité rigoureuse de référence |
 | cible intermédiaire | $`0.8`$ | premier gain strict visé ici |
 | Nishimori–Ohzeki | $`0.835805792367\ldots`$ | conjecture multicritique |
@@ -368,6 +409,7 @@ cycles se chevauchent et où l'état de bord à un bit du cactus peut échouer.
 | 9 | [21_CACTUS_COLLAPSED_CERTIFICATE.md](21_CACTUS_COLLAPSED_CERTIFICATE.md) | canal cactus exact, LCA Palm, cas favorable et perte exponentielle |
 | 10 | [22_LCA_VS_FULL_HIERARCHY.md](22_LCA_VS_FULL_HIERARCHY.md) | LCA seul, profondeur optimale, bottom-up et corridor complet |
 | 11 | [23_OPTIMAL_WEAK_RECOVERY_OBSTRUCTION.md](23_OPTIMAL_WEAK_RECOVERY_OBSTRUCTION.md) | stratégie maître : oracle critique à squelette fixé, blocs annulaires et théorème conditionnel |
+| 12 | [24_SIMPLE_RESIDUAL_BALANCE_OBSTRUCTION.md](24_SIMPLE_RESIDUAL_BALANCE_OBSTRUCTION.md) | bilan vrai/faux exact, fenêtre terminale et réduction simple aux buckets bornés |
 
 ### Compléments utiles
 
@@ -380,7 +422,7 @@ cycles se chevauchent et où l'état de bord à un bit du cactus peut échouer.
   [10_ANCESTRAL_LAMBDA_ESTIMATION.md](10_ANCESTRAL_LAMBDA_ESTIMATION.md) et
   [15_CRITICAL_GIANT_PAIR_FLIP.md](15_CRITICAL_GIANT_PAIR_FLIP.md) : calculs
   locaux et contrôle des ancêtres.
-- [12_FAVORABLE_HIERARCHICAL_REDUCTION.md](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : première réduction favorable, désormais renforcée et auditée par les fichiers 19--23.
+- [12_FAVORABLE_HIERARCHICAL_REDUCTION.md](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) : première réduction favorable, désormais renforcée et auditée par les fichiers 19--24.
 
 ### Audits secondaires conservés
 

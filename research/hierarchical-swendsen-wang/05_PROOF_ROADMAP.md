@@ -3,7 +3,9 @@
 Cette feuille de route remplace l'ancien inventaire chronologique. Elle ne
 contient que les dépendances nécessaires à la voie privilégiée : corridor
 collapsed, criticalisation à squelette fixé et contraction multiscale à
-$`p=4/5`$. La synthèse et le théorème conditionnel sont dans le fichier 23.
+$`p=4/5`$. Le fichier 24 teste d'abord la réduction plus simple aux buckets
+bornés ; la synthèse générale et le théorème annulaire sont dans le fichier
+23.
 
 ## Théorème cible intermédiaire
 
@@ -35,9 +37,13 @@ flowchart TD
     P --> R["R — réduction aux paires critiques"]
     B["B — Blackwell sur buckets"] --> C["C — tensorisation corridor fixé"]
     R --> G["G — géométrie Palm"]
-    C --> X["X — transfert annulaire"]
+    C --> S["S — buckets bornés screenés"]
+    G --> S
+    S --> T["T — impossibilité à p=0.8"]
+    S -. "si échec" .-> X["X — transfert annulaire"]
+    C --> X
     G --> X
-    X --> T["T — impossibilité à p=0.8"]
+    X --> T
 ```
 
 ## Bloc F — fondations finies
@@ -318,6 +324,31 @@ s_c=0.693582222752\ldots.
 
 **Statut.** Établi.
 
+### X1 bis. Réduction simple par buckets bornés
+
+Pour $`m=2`$ et tout niveau $`0\le\beta\le1`$,
+
+```math
+\Gamma_2(\beta;p)=s_p(\beta)\le p<1.
+```
+
+Avec $`|B|\le B_0`$,
+
+```math
+\kappa_2(B;\beta,p)
+\le
+p+(1-p)\tanh^2(B_0/2)<1.
+```
+
+Par conséquent, si un corridor exact contient $`N_L\to\infty`$ buckets
+`m=2`$ disjoints et screenés dont les contractions se composent
+conditionnellement, alors sa persistance tend vers zéro. La même conclusion
+vaut pour $`2\le m\le M`$ dès qu'une borne uniforme strictement inférieure à
+un est certifiée sur l'espace fini correspondant.
+
+**Statut.** Établi pour le corridor factorisé ; implication globale
+conditionnelle au screening et à l'abondance. Voir le fichier 24.
+
 ### X2. Bon bloc annulaire
 
 Un bloc doit avoir un nombre borné de ports, un screening latéral, au moins
@@ -377,7 +408,23 @@ $`K_L\asymp\log L`$ annuli, la borne quantitative devient
 \bigl(1-a(p)(1-\kappa(p))\bigr)^{K_L}+o(1).
 ```
 
-## Prochain calcul certifié
+## Prochain lemme simple
+
+Avant tout nouveau transfert de bande, tenter de prouver sous Palm critique :
+
+```math
+N_L^{(M,B_0)}
+:=
+\#\{r:2\le m_r\le M,\ |B_r|\le B_0,
+\text{ bloc }r\text{ screené}\}
+\longrightarrow\infty.
+```
+
+Il faut ensuite vérifier que des sous-blocs disjoints peuvent être choisis de
+façon que leurs coefficients $`\chi^2`$ se composent. Une preuve de ces deux
+lignes ferme le bloc X sans calculer tout l'état de bord de la bande.
+
+## Plan B : calcul certifié de bande
 
 Sur une bande triangulaire de largeur deux :
 

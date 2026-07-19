@@ -35,6 +35,12 @@ Les scripts n'ont pas de dépendance scientifique externe.
 
 Chaque module actif possède un fichier `test_*.py` associé.
 
+Le module `critical_component_boundary.py` imprime aussi le contre-audit
+simple des bilans résiduels : temps critique, croisement des seules vraies
+qui sonneront encore avant $`1`$, et différence entre toutes les vraies non
+activées et les fausses. Les identités correspondantes sont testées
+exactement.
+
 ## Calculs auxiliaires conservés
 
 | module | rôle de contre-audit |
@@ -159,10 +165,16 @@ une erreur standard : il ne faut pas surinterpréter les six signes positifs.
 - Les fichiers de résultats bruts ne sont ajoutés que s'ils sont nécessaires
   à une figure ou à un certificat non reproductible rapidement.
 
-## Prochain module
+## Prochaine étape
 
-Le prochain ajout doit être `triangular_band_collapsed_certificate.py`. Il
-devra :
+Le fichier 24 demande d'abord un lemme géométrique, sans nouveau module :
+compter sous Palm critique des buckets disjoints avec $`2\le m\le M`$ et
+message ancestral screené. Le module de bande suivant ne devient prioritaire
+que si cette réduction finie échoue.
+
+## Module de bande, plan B
+
+L'ajout serait `triangular_band_collapsed_certificate.py`. Il devra :
 
 1. encoder les partitions de bord d'une bande triangulaire de largeur deux ;
 2. conserver les deux parités répliquées et le statut pivotal ;

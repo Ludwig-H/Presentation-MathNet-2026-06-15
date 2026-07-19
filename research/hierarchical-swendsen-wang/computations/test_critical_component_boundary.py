@@ -17,6 +17,8 @@ from critical_component_boundary import (
     critical_closed_categories,
     critical_masses,
     critical_time_untruncated,
+    future_activation_crossover_time,
+    future_true_minus_false_mass,
     grouped_rates,
     internal_proportions,
     margin_failure_bound,
@@ -27,6 +29,7 @@ from critical_component_boundary import (
     parity_log_odds,
     partition_boundary,
     strict_majority_probability,
+    unactivated_true_minus_false_mass,
     walsh_coefficients,
 )
 
@@ -60,6 +63,23 @@ class CriticalComponentBoundaryTests(unittest.TestCase):
             self.assertAlmostEqual(
                 result.signed_margin, tanh(rate * (1.0 - time) / 2.0)
             )
+
+    def test_two_residual_balance_crossovers_are_distinct(self) -> None:
+        p = 0.8
+        beta_active = future_activation_crossover_time(p)
+        self.assertAlmostEqual(beta_active, 0.5)
+        self.assertAlmostEqual(
+            future_true_minus_false_mass(p, beta_active), 0.0
+        )
+        for time in (0.0, 0.2, 0.5, 0.9):
+            self.assertGreater(unactivated_true_minus_false_mass(p, time), 0.0)
+        self.assertAlmostEqual(unactivated_true_minus_false_mass(p, 1.0), 0.0)
+
+    def test_boundary_late_threshold_aligns_the_two_times(self) -> None:
+        self.assertAlmostEqual(
+            critical_time_untruncated(P_BOUNDARY_LATE),
+            future_activation_crossover_time(P_BOUNDARY_LATE),
+        )
 
     def test_internal_proportions_separate_geometry_from_residual_marks(
         self,

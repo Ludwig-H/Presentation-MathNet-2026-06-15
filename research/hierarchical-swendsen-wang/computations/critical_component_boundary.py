@@ -71,6 +71,36 @@ def critical_time_untruncated(p: float) -> float:
     return -log1p(-Q_CRITICAL / p) / coupling(p)
 
 
+def future_activation_crossover_time(p: float) -> float:
+    """Solve late-true mass = false mass without truncating to [0, 1].
+
+    Here ``late true`` means a true edge whose clock lies in ``(time, 1]``.
+    This diagnostic deliberately excludes true edges censored after time 1.
+    The returned value belongs to ``[0, 1]`` exactly when ``p >= 2/3``.
+    """
+
+    _validate_p(p)
+    return 1.0 - log(2.0) / coupling(p)
+
+
+def unactivated_true_minus_false_mass(p: float, time: float) -> float:
+    """Unconditional mass gap: all unactivated true edges minus false edges."""
+
+    _validate_p(p)
+    if not 0.0 <= time <= 1.0:
+        raise ValueError("time must belong to [0, 1]")
+    return p * exp(-coupling(p) * time) - (1.0 - p)
+
+
+def future_true_minus_false_mass(p: float, time: float) -> float:
+    """Mass gap: true clocks in ``(time, 1]`` minus false edges."""
+
+    _validate_p(p)
+    if not 0.0 <= time <= 1.0:
+        raise ValueError("time must belong to [0, 1]")
+    return p * exp(-coupling(p) * time) - 2.0 * (1.0 - p)
+
+
 def closed_categories(p: float, time: float) -> ClosedCategories:
     """Return the exact categories conditional on no opening before ``time``."""
 
@@ -427,6 +457,20 @@ def main() -> None:
     print(f"p_SW      = {P_SW:.12f}")
     print(f"p_dlate   = {P_BOUNDARY_LATE:.12f}")
     print(f"p_info    = {P_INFO:.12f}")
+    p_target = 4.0 / 5.0
+    beta_critical = critical_time_untruncated(p_target)
+    beta_active = future_activation_crossover_time(p_target)
+    print("\nsimple residual-balance audit at p=0.8")
+    print(f"beta_c    = {beta_critical:.12f}")
+    print(f"beta_act  = {beta_active:.12f}")
+    print(
+        "all-unactivated true minus false at beta_c = "
+        f"{unactivated_true_minus_false_mass(p_target, beta_critical):.12f}"
+    )
+    print(
+        "future-ringing true minus false at beta_act = "
+        f"{future_true_minus_false_mass(p_target, beta_active):.12f}"
+    )
     print("\ncritical category audit")
     print("p              beta_c        late          censored      false         s_c")
     for p in (P_SW, P_BOUNDARY_LATE, P_INFO, 0.835805792367):

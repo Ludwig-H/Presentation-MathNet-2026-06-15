@@ -421,15 +421,20 @@ $`\kappa_2(B_0;p)<1`$.
 
 ## 9. Ordre de travail recommandé
 
-1. **Certificat fini.** Construire le transfert exact de largeur deux,
+1. **Test simple.** Chercher d'abord sous Palm un nombre divergent de buckets
+   bornés, en priorité $`m=2`$, dont le message ancestral et les
+   contournements sont screenés. Le fichier 24 donne le théorème conditionnel
+   exact correspondant.
+2. **Certificat fini si nécessaire.** Si le test simple ne permet pas de
+   fermer l'état de bord, construire le transfert exact de largeur deux,
    doublement répliqué, et identifier le plus petit motif de ports réellement
    contractant à $`p=0.8`$.
-2. **Lemme annulaire critique.** Traduire ce motif en événement planaire et
+3. **Lemme annulaire critique.** Traduire ce motif en événement planaire et
    prouver (4.6) sous la loi Palm à deux points au seuil.
-3. **Porte postcritique.** D'abord tenter la version uniforme de (4.6) après
+4. **Porte postcritique.** D'abord tenter la version uniforme de (4.6) après
    criticalisation à squelette fixé ; ne chercher (3.3) que si cette voie
    échoue.
-4. **Clôture pairwise.** Insérer (4.7) dans (2.2), puis dans (1.2), et
+5. **Clôture pairwise.** Insérer (4.7) dans (2.2), puis dans (1.2), et
    appliquer la dégradation BSC.
 
 Cette organisation sépare trois difficultés qui doivent rester distinctes :
