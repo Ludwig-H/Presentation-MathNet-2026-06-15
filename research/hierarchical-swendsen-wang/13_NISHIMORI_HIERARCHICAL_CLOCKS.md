@@ -3,7 +3,7 @@
 > **Statut dans le programme.** Cette note est une calibration entropique
 > auxiliaire. Elle fournit une identité exacte de face, mais n'est pas une
 > route autonome vers la weak recovery. La preuve prioritaire passe par le
-> [corridor collapsed](20_COLLAPSED_CORRIDOR_BLACKWELL.md).
+> [corridor collapsed aux rangs réels](29_AUDIT_FROID_PIVOT_RANGS_REELS.md).
 
 Ce fichier répond à une question précise : la dynamique hiérarchique peut-elle
 retrouver le nombre triangulaire
@@ -27,7 +27,8 @@ recovery ? La réponse comporte trois niveaux qu'il faut absolument séparer.
 3. **À prouver.** L'égalité autoduale du premier niveau n'identifie pas, à
    elle seule, le seuil de weak recovery. Il faut contrôler, sous une même
    loi, les trois groupes de liens de chaque ancêtre, les quatre
-   $`\Lambda_v^{ab}`$, puis établir le lemme favorable HF du fichier 12.
+   $`\Lambda_v^{ab}`$, puis composer le transfert multiport aux rangs
+   réalisés. Le lemme favorable HF est faux en général.
 
 Ainsi, la dynamique réobtient exactement la **constante conjecturée au niveau
 face** et fournit un bilan hiérarchique précis à tester. Elle ne donne pas
@@ -483,10 +484,13 @@ L'ordre de travail est maintenant :
 2. utiliser le cactus du fichier 21 comme cas-test exact : il perd toute
    persistance pour chaque $`(1+q_\triangle)/2<p<1`$ et ne sélectionne donc
    pas la constante de Nishimori ;
-3. construire le transfert collapsed d'une bande triangulaire de largeur
-   deux, où les cycles se chevauchent ;
-4. chercher seulement ensuite une identité autoduale sur ce transfert ou
-   une limite de bandes.
+3. mesurer d'abord la dissipation $`L^2`$ sur deux projections collapsed
+   emboîtées aux rangs réalisés, comme dans le fichier 30 ;
+4. conserver la cellule T2 locale uniquement comme contre-test d'une jauge
+   Markov-fermée : l'état fidèle donne exactement $`d=0`$ ;
+5. n'élargir à une bande triangulaire que si la cellule $`L^2`$ garde une
+   seconde perte et, pour la route T2, si le quotient de bord est fermé ;
+6. chercher seulement ensuite une identité autoduale ou une limite de bandes.
 
 Le calcul de face reproductible est dans
 [`computations/nishimori_hierarchical_entropy.py`](computations/nishimori_hierarchical_entropy.py),

@@ -713,9 +713,10 @@ Une seconde amélioration possible est un heat bath **collapsed** qui marginalis
   baseline $`0.794659\ldots`$ ; seule l'amplitude quatre états le long du
   squelette peut encore produire une amélioration.
 
-Le prochain calcul décisif est donc clair : estimer la loi de
-$`(m_{v,0},m_{v,1},m_{v,2},\beta_v)_{v\succ u}`$ sous le biais d'une paire
-lointaine critique, évaluer sur cactus les quatre $`\Lambda_v^{ab}`$, les
-majorités groupées et $`\Gamma_u(\mathscr D)`$, puis les borner par
-intervalles sur des bandes de largeur croissante, avant toute extrapolation au
-plan.
+Le prochain calcul décisif est donc plus précis : sous la Palm d'événement
+réelle, estimer quand les groupes d'incidence d'une orientation cessent
+d'apparaître dans les facteurs ancestraux. Il faut ensuite construire soit
+une jauge de ports Markov-fermée transportant les quatre poids projectifs,
+soit un bloc multi-update qui marginalise cette orientation à sa dernière
+interaction. Le cactus sert de contre-audit exact ; les bandes de largeur
+croissante ne viennent qu'après ce test de fermeture.

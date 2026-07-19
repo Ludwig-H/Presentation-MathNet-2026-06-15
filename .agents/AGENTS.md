@@ -10,6 +10,7 @@ To ensure equations render perfectly on GitHub via MathJax:
 3. **Block Math**: Place double-dollar delimiters on their own lines. For complex multi-line math (e.g. using `\\`, `\substack`, or environments), you **must** use a fenced `math` block to prevent GFM parser interference.
 4. **Repository Command Compatibility**: GitHub uses MathJax. This repository nevertheless forbids `\operatorname{...}` because its validator and secondary rendering paths do not handle it consistently. Always use `\mathrm{...}` or `\text{...}` instead.
 5. **Dollar Signs**: Escape literal dollar signs inside math as `\$` and wrap them in `<span>$</span>` outside math on the same line.
+6. **No Nested Math Fences**: Every opening and closing fence of a `math` block must begin at column 1. Never indent or nest it in a list, blockquote, or callout: GitHub otherwise renders it as ordinary code rather than MathJax. Restructure the surrounding Markdown instead.
 
 Refer to [agents.md](../agents.md) for full examples and guides.
 

@@ -1,5 +1,12 @@
 # Oracle de fusion critique et seuil local
 
+> [!CAUTION]
+> Cet oracle est un benchmark **local mono-bit**. Il n'est pas une enveloppe
+> du corridor multiport : avec une gagnante marginalisée et plusieurs groupes
+> d'incidence, la criticalisation peut augmenter ou diminuer la persistance.
+> Le contre-exemple exact et le programme corrigé sont dans le
+> [fichier 29](29_AUDIT_FROID_PIVOT_RANGS_REELS.md).
+
 Ce fichier pousse jusqu'au bout l'hypothèse favorable suivante : deux sommets
 lointains sont étudiés conditionnellement au fait que leur fusion de Kruskal a
 lieu au seuil géométrique de percolation. Le calcul local se ferme exactement
@@ -24,17 +31,15 @@ Le verdict comporte trois parties distinctes.
    fenêtre critique de masse $`o(1)`$ parmi les paires contribue au plus
    $`o(1)`$ à l'overlap, même si sa fiabilité conditionnelle tend vers $1$.
    Elle ne mesure donc pas, à elle seule, le seuil de weak recovery.
-3. **Usage correct du cas favorable.** Le
-   [fichier 12](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) formule le lemme de
-   domination qui remplace toutes les expériences postcritiques par l'oracle
-   où la paire lointaine du même arbre se sépare au seuil. Sous ce lemme,
-   l'échec de l'oracle favorable donne bien une impossibilité globale, sans
-   demander que la masse réelle des temps LCA se concentre au seuil.
+3. **Usage correct du cas favorable.** Il calibre une fusion isolée et sert
+   de benchmark au cactus. L'ancien lemme qui remplaçait toutes les
+   expériences postcritiques par cet oracle est faux sur l'état multiport ;
+   une preuve globale doit garder les rangs réalisés.
 
-Autrement dit, se placer au temps critique est le bon oracle extrémal pour la
-voie hiérarchique, mais son caractère « le plus favorable » doit être prouvé
-sur le log-rapport complet. La quantité à contrôler n'est pas seulement le
-bucket local : elle contient tous les $`\Lambda_v`$ pour $`v\succ u`$.
+Autrement dit, se placer au temps critique isole le cas local le plus
+informatif à taille fixée. Cela n'ordonne pas le log-rapport complet, qui
+contient tous les $`\Lambda_v`$ pour $`v\succ u`$ et plusieurs relations
+variables.
 
 ## 1. Cadre fini et convention de conditionnement
 

@@ -748,8 +748,8 @@ paire.
 ### Critère suffisant à viser
 
 Une obstruction hiérarchique exploitable prendrait la forme suivante. Sous
-la Palm favorable où le LCA de la paire lointaine appartient à la fenêtre
-critique, extraire des coupes $`v_1,\ldots,v_{N_L}`$ telles que :
+la Palm des événements de fusion réalisés, extraire du corridor aux rangs
+réels des coupes $`v_1,\ldots,v_{N_L}`$ telles que :
 
 1. leurs transferts sont screenés conditionnellement par les états de bord ;
 2. leur coefficient répliqué exact vérifie
@@ -768,7 +768,7 @@ fausse ? », mais :
 
 ```math
 \boxed{
-\text{Quelle est, sous la loi LCA-Palm critique, la loi jointe de }
+\text{Quelle est, sous la Palm d'événement réelle, la loi jointe de }
 (m_v,\beta_v,Z_v,B_v)
 \text{ le long du corridor de }i,j\,?
 }
@@ -791,8 +791,10 @@ $`M,B_0`$ et que les transferts correspondants contractent uniformément. Une
 version plus fine utiliserait directement la somme des déficits
 $`-\log\eta_v`$ sans imposer une taille de coupe bornée.
 
-La formule Palm (4.3) fournit le point de départ exact pour cette étude. Elle
-montre aussi le danger d'un échantillonnage naïf : compter les coupes de la
+Les formules Palm de la section 4 fournissent le point de départ exact : le
+flux pré-saut utilise $`mN_\rho`$, tandis qu'un nœud de fusion déjà réalisé
+utilise $`N_\rho`$ seulement. Elles montrent aussi le danger d'un
+échantillonnage naïf : compter les coupes de la
 partition uniformément ne reproduit pas la loi du LCA d'une paire lointaine.
 
 ## 8. Audit et contre-audit
@@ -809,7 +811,7 @@ partition uniformément ne reproduit pas la loi du LCA d'une paire lointaine.
 | Une fusion réelle a exactement la même loi qu'une coupe instantanée | Faux | l'arête gagnante ajoute le terme $`\log(k/(m-k))`$ |
 | Une grande fusion terminale perd l'information | Établi | fiabilité $`1/m\to0`$ |
 | Une fusion terminale de taille bornée est sans information | Faux | fiabilité $`1/m`$ ; $`m=1`$ est parfait |
-| Le LCA voit une coupe typique de la partition | Faux | repondération $`mN_\rho`$ dans (4.4) |
+| Le LCA voit une coupe typique de la partition | Faux | intensité pré-saut $`mN_\rho`$ ; nœud réalisé pondéré par $`N_\rho`$ seulement |
 | Un vote local non informatif suffit pour exclure la weak recovery | Faux | les messages ancestraux et routes latérales peuvent porter la parité |
 | À $`p=0.8`$, une grande coupe au LCA critique donne l'obstruction | Faux | $`h_c>0`$ fixé et $`\mathcal J_c\asymp m`$ |
 
@@ -822,19 +824,19 @@ partition uniformément ne reproduit pas la loi du LCA d'une paire lointaine.
 - canal binomial d'une coupe instantanée ;
 - transition gouvernée par $`m h_p(\beta)^2`$ ;
 - taux de fusion direct $`m u_p s_p(\beta)`$ ;
-- repondération LCA-Palm par $`mN_\rho`$ ;
+- convention Palm : $`mN_\rho`$ avant la course, $`N_\rho`$ pour un nœud
+  réalisé ;
 - correction de l'arête gagnante et canal de fusion décalé ;
 - reliquat terminal exact $`1/m`$.
 
 ### Ouvert sur le GSBM triangulaire
 
-- loi asymptotique de $`m_v`$ sous la Palm d'une paire lointaine critique ;
+- loi asymptotique de $`m_v`$ sous la Palm d'événement d'une paire lointaine ;
 - contrôle conjoint de $`m_v`$ et $`\beta_v`$ sur les descendants et les
   ancêtres ;
 - screening des messages $`B_v`$ et des ports latéraux ;
 - composition des contractions dans le sweep top-down ou bottom-up ;
-- domination géométrique des paires postcritiques par l'expérience critique
-  favorable ;
+- contrôle annealed des transferts multiports à leurs rangs réalisés ;
 - déduction d'une nouvelle borne d'impossibilité, notamment à $`p=0.8`$.
 
 ## Conclusion
@@ -855,10 +857,12 @@ m(C_1,C_2)h_p(\beta)^2\ll1
 pour une coupe instantanée screenée, et asymptotiquement pour une fusion de
 taille croissante. Le seuil correspondant dépend donc de la croissance
 géométrique de la coupe. Sous le conditionnement LCA d'une paire lointaine,
-la loi pertinente est en outre biaisée par $`mN_\rho`$.
+l'intensité pré-saut est biaisée par $`mN_\rho`$. Une fois le nœud de fusion
+réalisé, le facteur $`m`$ a déjà sélectionné la course et le poids est
+$`N_\rho`$ seulement.
 
 La voie la plus rigoureuse vers une obstruction à $`p=0.8`$ est maintenant
-de mesurer cette charge le long du corridor hiérarchique favorable, puis de
+de mesurer cette charge le long du corridor hiérarchique réel, puis de
 certifier la contraction des coupes de faible charge après screening. Le
 bucket critique seul est généralement trop informatif ; la distance entre
 $`i`$ et $`j`$ doit être exploitée par l'accumulation des coupes et par le

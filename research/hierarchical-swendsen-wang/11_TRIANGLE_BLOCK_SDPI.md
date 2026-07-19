@@ -2,9 +2,13 @@
 
 > **Statut dans le programme.** Ce fichier est un audit auxiliaire d'un canal
 > physique. Il ne remplace pas la dynamique hiérarchique des slides 31--33.
-> La voie prioritaire est maintenant le
-> [corridor collapsed critique](20_COLLAPSED_CORRIDOR_BLACKWELL.md), qui
-> conserve tous les $`\Lambda_v^{ab}`$ au-dessus du LCA d'une paire lointaine.
+> La voie hiérarchique est maintenant le
+> [pivot $`L^2`$ aux rangs réels](30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md),
+> restreint aux [cellules critiques
+> pondérées](33_SOUS_FEUILLE_ROUTE_CELLULES_CRITIQUES_L2.md). La voie de ce
+> fichier est non hiérarchique. Elle donne désormais une borne rigoureuse à
+> $`p=0.809439`$ par un certificat rationnel exact ; elle ne doit pas être
+> attribuée à la dynamique du dendrogramme.
 
 Ce fichier répond à la question quantitative suivante : peut-on dépasser la
 borne d'impossibilité
@@ -19,7 +23,7 @@ sur le GSBM triangulaire en exploitant simultanément les trois observations
 d'un triangle, puis les quatre poids construits à partir des
 $`\Lambda_v`$ ancestraux ?
 
-La réponse actuelle est précise mais en deux parties.
+La réponse actuelle est précise mais en trois parties.
 
 1. **Établi.** Regrouper un triangle en un seul facteur scalaire ne peut pas
    améliorer information-percolation. La contraction uniforme séduisante
@@ -27,14 +31,16 @@ La réponse actuelle est précise mais en deux parties.
    contraction SDPI globale du facteur vaut
    $`2q^2/(1+q^2)`$ et conduit seulement à
    $`p<(1+1/\sqrt3)/2=0.788675\ldots`$.
-2. **À prouver.** Un canal d'effacement multi-état — vide, une relation
-   révélée, ou triangle entièrement révélé — conserve la géométrie des trois
-   modes. Son enveloppe exacte produit le candidat conditionnel
-   $`p_\star=0.8099092892\ldots`$. L'inégalité quadratique requise par le
-   critère less-noisy est démontrée pour tous les a priori quatre états non
-   polarisés. Il reste à la démontrer lorsqu'un état a masse strictement
-   supérieure à $`1/2`$ ; sans ce lemme, $`p_\star`$ n'est **pas** une
-   nouvelle borne rigoureuse.
+2. **Établi à un point rationnel.** Le canal d'effacement multi-état conserve
+   la géométrie des trois modes. À $`p=0.809439`$, quatre certificats de Sturm et
+   une identité de dominance diagonale prouvent la comparaison less-noisy
+   pour tous les a priori, bords compris. Information-percolation et le
+   régime sous-critique de Chayes--Lei donnent
+   $`p_{\mathrm{WR}}\ge0.809439`$.
+3. **Encore ouvert au point tangent.** L'enveloppe optimale produit
+   $`p_\star=0.8099092892\ldots`$. Ses marges s'annulent sur des faces du
+   simplexe ; le certificat rationnel strict à $`0.809439`$ ne prouve donc pas
+   le point $`p_\star`$ lui-même.
 
 Cette séparation est importante pour la chaîne ancestrale. Les slides 31--33
 imposent précisément de calculer les quatre poids du heat bath, donc aussi
@@ -634,6 +640,213 @@ p<p_\star^{\mathrm{cond}}
 
 Ni $`P_\star`$ ni cette conclusion ne sont actuellement classés « établis ».
 
+### Jalon A0 rationnel à $`p=0.805`$
+
+Avant d'attaquer le point tangent $`p_\star^{\mathrm{cond}}`$, où les marges
+s'annulent sur des faces du simplexe, fixons
+
+```math
+p_0=\frac{161}{200},
+\qquad
+q_0=2p_0-1=\frac{61}{100},
+```
+
+et le canal multi-état entièrement rationnel
+
+```math
+(a_0,s_0,e_0)
+=
+\frac1{125}(41,14,42).
+\qquad\text{(6.1)}
+```
+
+Ses contraintes géométriques ont des marges exactes :
+
+```math
+a_0+3s_0+e_0=1,
+\qquad
+2a_0+3s_0=\frac{124}{125}<1,
+\qquad
+a_0e_0=\frac{1722}{15625}
+>
+2s_0^2=\frac{392}{15625}.
+\qquad\text{(6.2)}
+```
+
+De plus,
+
+```math
+a_0+e_0=\frac{83}{125}
+>
+\frac{2\sqrt2}{3+2\sqrt2}.
+\qquad\text{(6.3)}
+```
+
+La cible finie renforcée est
+
+```math
+Q_{E_{a_0,s_0,e_0}}(\mu,f)
+-
+Q_{Y_{q_0}}(\mu,f)
+\ge
+\frac1{200}\,\mathrm{Var}_\mu(f)
+\qquad\text{pour tous }\mu,f.
+\qquad\text{(6.4)}
+```
+
+Soustraire le membre droit revient à remplacer $`a_0`$ par
+$`a_0-1/200=323/1000`$ dans la matrice $M$. Le secteur
+$`\max_x\mu_x\le1/2`$ de (6.4) est déjà certifié exactement. En effet, pour
+$`0\le t\le1/2`$,
+
+```math
+a_0+4s_0t-c_{q_0}(t)-\frac1{200}
+=
+\frac{N(t)}{1000A(t)B(t)},
+\qquad\text{(6.4a)}
+```
+
+où
+
+```math
+\begin{aligned}
+A(t)&=24400t-25921,\\
+B(t)&=24400t+1521,\\
+N(t)&=266721280000t^3-295953456000t^2\\
+&\qquad+105026035232t-12734546643.
+\end{aligned}
+\qquad\text{(6.4b)}
+```
+
+On a $`A<0<B`$ sur cet intervalle. La suite de Sturm rationnelle de $`N`$
+a deux variations en $`0`$ comme en $`1/2`$ ; $`N`$ n'y a donc aucune racine.
+Comme $`N(0)<0`$, le membre gauche de (6.4a) est strictement positif.
+
+Le secteur polarisé est également certifié. Après élimination de la masse
+dominante, quatre inégalités univariées contrôlent la partie non polarisée,
+la décroissance d'un profil $`d(t)`$, sa séparation entre queue et masse
+dominante, et la positivité des termes hors diagonale. Les termes restants
+vérifient exactement
+
+```math
+M_{ii}-M_{ij}-M_{ik}=d(\mu_i)-d(\mu_0)\ge0.
+\qquad\text{(6.4c)}
+```
+
+La dominance diagonale donne $`M\succeq0`$ et les faces suivent par
+continuité. Le certificat exact complet est dans le [fichier
+31](31_CERTIFICAT_RATIONNEL_A0.md). Ainsi,
+
+```math
+p\in\left[\frac12,\frac{161}{200}\right]
+\quad\Longrightarrow\quad
+\text{pas de weak recovery},
+\qquad\text{(6.5)}
+```
+
+par dégradation BSC pour $`p<p_0`$ et par le pont global ci-dessous. Ce jalon
+est volontairement séparé du programme hiérarchique.
+
+### Point rationnel renforcé à $`p=0.809439`$
+
+Le même schéma possède encore des marges strictes au point
+
+```math
+p_1=\frac{809439}{10^6},
+\qquad
+q_1=\frac{309439}{500000},
+\qquad
+(a_1,s_1,e_1)
+=
+\frac1{5\times10^8}(166642280,55571811,166642287).
+\qquad\text{(6.5a)}
+```
+
+Le [certificat P809439](34_CERTIFICAT_RATIONNEL_P809439.md) établit, pour tous
+$`\mu,f`$,
+
+```math
+Q_{E_{a_1,s_1,e_1}}(\mu,f)-Q_{Y_{q_1}}(\mu,f)
+\ge
+\frac1{5\times10^7}\,\mathrm{Var}_\mu(f).
+\qquad\text{(6.5b)}
+```
+
+Les quatre suites de Sturm n'ont aucune racine dans leurs intervalles, les
+faces sont incluses et les contraintes de Chayes--Lei ont des marges
+strictes. Ce point remplace $`0.809`$ comme meilleure borne rationnelle
+certifiée du dossier.
+
+### Pont fini vers la weak recovery
+
+Le dernier passage n'exige pas de dynamique. Les triangles montants forment
+une partition edge-disjoint des arêtes. La projection
+$`\rho(x_1,x_2,x_3)=(x_1x_2,x_1x_3)`$ identifie les deux orientations
+globales d'un facteur ; les canaux physique et auxiliaire ne dépendent que de
+$`\rho`$. La comparaison less-noisy sur quatre états se relève donc aux trois
+spins, puis se tensorise facteur par facteur par le théorème 3 de
+[Polyanskiy--Wu](https://arxiv.org/abs/1806.04195), même si les triangles
+partagent des sommets.
+
+Soit $`n=|V|`$ et, pour toute observation $`Y`$,
+
+```math
+m_{ij}(Y)=\mathbb E[X_iX_j\mid Y].
+\qquad\text{(6.6)}
+```
+
+Le paramètre pairwise exact du [fichier
+03](03_HIERARCHICAL_WEAK_RECOVERY.md) est
+
+```math
+Q_L
+=
+\frac1n+
+\frac1{n^2}\sum_{i\ne j}\mathbb E[m_{ij}(Y)^2].
+\qquad\text{(6.7)}
+```
+
+Sous la symétrie de flip global, l'information de la relation binaire
+satisfait, en logarithmes naturels,
+
+```math
+\frac12\mathbb E[m_{ij}(Y)^2]
+\le
+I(X_i;Y\mid X_j).
+\qquad\text{(6.8)}
+```
+
+Le même théorème d'information-percolation majore le membre droit par
+$`(\log 2)\mathbb P_E(i\leftrightarrow j)`$. Par conséquent,
+
+```math
+Q_L
+\le
+\frac1n+
+\frac{2\log 2}{n^2}
+\sum_{i\ne j}\mathbb P_E(i\leftrightarrow j).
+\qquad\text{(6.9)}
+```
+
+Pour A0 et P809439, on a $`a<e`$ et les hypothèses strictes du théorème 2.5 de
+[Chayes--Lei](https://arxiv.org/abs/cond-mat/0508254). Les connexions du canal
+auxiliaire décroissent exponentiellement ; leur susceptibilité est uniforme
+sur les tores, par immersion des boules de rayon inférieur à $`L/4`$ et
+contrôle de l'événement de bras qui précède tout enroulement. Le membre droit
+de (6.9) tend vers zéro. Ainsi,
+
+```math
+p\in\left[\frac12,\frac{809439}{10^6}\right]
+\quad\Longrightarrow\quad
+Q_L(p)\longrightarrow0,
+\qquad
+p_{\mathrm{WR}}\ge0.809439.
+\qquad\text{(6.10)}
+```
+
+Le fichier 32 donne la preuve autonome, y compris une version par double
+limite qui n'utilise que l'absence de composante infinie.
+
 ## 7. Où interviennent les $`\Lambda_v`$ ancestraux ?
 
 Pour le heat bath au LCA $u$, les slides 31--33 donnent les quatre log-poids
@@ -705,12 +918,13 @@ garde-fous subsistent.
    nécessaire avant d'utiliser une borne sur les $`\Lambda_v`$ dans le
    théorème facteur.
 
-La voie hiérarchique peut donc produire un gain, mais seulement si elle ferme
-l'un des deux énoncés suivants :
-
-- le lemme $`P_\star`$ sur le secteur polarisé ;
-- une domination adaptée qui paie explicitement la probabilité et la
-  géométrie des nœuds où $`M_u>1/2`$.
+Il faut désormais séparer deux suites. Le lemme tangent $`P_\star`$ est une
+optimisation du canal non hiérarchique P809439. La voie hiérarchique, elle, ne
+doit plus chercher une domination uniforme par ce canal : elle doit utiliser
+les $`\pi_u^{ab}`$ réels dans l'inégalité de variance des [cellules critiques
+pondérées par l'énergie](33_SOUS_FEUILLE_ROUTE_CELLULES_CRITIQUES_L2.md), en
+payant explicitement la polarisation et la géométrie des nœuds où
+$`M_u>1/2`$.
 
 ## 8. Statut et ordre de travail
 
@@ -720,15 +934,15 @@ l'un des deux énoncés suivants :
 | SDPI globale $`2q^2/(1+q^2)`$ | Établi | le triangle scalaire ne bat pas la baseline |
 | Borne des trois projections | Établi | inégalité $`\chi^2`$ pour $`\max\mu\le1/2`$ |
 | Enveloppe $`a(q),s(q),e(q)`$ | Établie comme optimisation locale | candidat algébrique $`0.809909\ldots`$ |
-| Lemme $`P_\star`$, masse dominante | À prouver | positivité rationnelle $`3\times3`$ |
-| Passage des $`\pi_u^{ab}`$ LCA au canal facteur | À prouver | verrou propre aux $`\Lambda_v`$ |
-| Nouvelle borne weak recovery | Conditionnelle | ne pas citer $`0.809909\ldots`$ comme théorème |
+| Certificat rationnel P809439, tous a priori | Établi exactement | marge $`\mathrm{Var}/(5\times10^7)`$ |
+| Relèvement quotient, tensorisation et tore | Établi | comparaison globale facteur par facteur |
+| Nouvelle borne weak recovery | Établie | $`p_{\mathrm{WR}}\ge0.809439`$ |
+| Lemme tangent $`P_\star`$ | À prouver | ne pas citer $`0.809909\ldots`$ comme théorème |
 
-Ordre recommandé : prouver ou réfuter $`P_\star`$ en certifiant les mineurs de
-la matrice $M$ sur le simplexe polarisé. Le critère de Makur--Polyanskiy donne
-alors directement la comparaison less-noisy. Seulement ensuite appliquer
-Chayes--Lei et revenir à la loi des $`\Lambda_v`$ le long d'une paire
-critique.
+Ordre recommandé : conserver P809439 comme borne rigoureuse, puis n'attaquer le
+point tangent $`P_\star`$ qu'avec un certificat capable de traiter les marges
+nulles sur les faces. Cette optimisation reste indépendante de la loi des
+$`\Lambda_v`$ le long d'une paire critique.
 
 ## 9. Vérification reproductible
 

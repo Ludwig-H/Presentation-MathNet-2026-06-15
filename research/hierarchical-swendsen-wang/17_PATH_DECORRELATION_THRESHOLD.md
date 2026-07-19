@@ -2,8 +2,9 @@
 
 > **Statut dans le programme.** Les résultats PATH-FAC de cette note sont un
 > benchmark factorisé. Leur interprétation exacte est désormais le corridor
-> collapsed sous prior de parités indépendant ; le fichier 20 traite la
-> tensorisation avec prior corrélé et isole l'état de bord restant.
+> produit mono-bit sous prior de parités indépendant ; le fichier 20 traite
+> sa tensorisation abstraite avec prior corrélé. Elle ne décrit pas le
+> corridor collapsed multiport réel.
 
 Cette note cherche précisément quand, en fonction de $`p`$, deux sommets
 lointains perdent leur corrélation sous la dynamique descendante. Elle part de
@@ -1202,5 +1203,6 @@ corrélations $`+1`$ et $`-1`$ peuvent annuler le premier moment tout en
 restant parfaitement informatifs. Le
 [transfert répliqué sous Palm critique](18_CRITICAL_PALM_REPLICATED_TRANSFER.md)
 établit la globalisation spectrale, définit le noyau répliqué partageant le
-même environnement et formule la domination HF-S2 requise pour un sweep
-complet.
+même environnement et documente l'ancienne domination HF-S2. Celle-ci est
+fausse en général multiport ; le sweep complet doit être contrôlé directement
+aux rangs réalisés.

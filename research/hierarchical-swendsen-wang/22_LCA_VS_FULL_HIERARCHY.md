@@ -1,5 +1,12 @@
 # Jusqu'où descendre dans la hiérarchie ?
 
+> [!IMPORTANT]
+> Le verdict courant est dans le
+> [fichier 30](30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md) : descendre reste
+> optimal, mais la contraction doit être mesurée comme dissipation de la
+> fonction de paire sous des blocs collapsed imbriqués, et non comme déficit
+> local d'un transfert fidèle.
+
 Cette note compare rigoureusement les deux dynamiques proposées pour une
 paire $`i,j`$ dont le LCA $`u`$ fusionne au niveau critique
 $`\beta_u=\beta_c(p)`$ :
@@ -474,15 +481,17 @@ meilleur compromis actuel entre contraction et calculabilité.
 
 Deux optimisations indépendantes interviennent.
 
-1. **Géométrie favorable.** Parmi les fusions postcritiques, placer le LCA à
-   $`\beta_c`$ maximise la persistance sur le cactus.
+1. **Benchmark géométrique.** Parmi les fusions postcritiques, placer le LCA
+   à $`\beta_c`$ maximise la persistance sur le cactus seulement.
 2. **Couplage contractant.** À cette géométrie fixée, rééchantillonner tout le
    corridor minimise la persistance parmi les programmes utilisant ces
    coordonnées.
 
-Il n'y a pas de contradiction : on majore les géométries défavorables par la
-géométrie critique la plus informative, puis on choisit dans cette géométrie
-le couplage postérieur le plus utile au théorème d'obstruction.
+Sur la grille, la première opération n'est pas disponible : la
+criticalisation peut augmenter ou diminuer la persistance d'une cellule
+multiport selon son état de bord. Il faut donc garder la géométrie et les
+rangs réalisés, puis choisir le heat bath collapsed comme enveloppe $`L^2`$
+parmi les programmes portant sur ces mêmes coordonnées.
 
 L'ordre (2.7) ne suffit toutefois pas à prouver une limite nulle. Les fusions
 descendantes ont des niveaux plus précoces que $`\beta_c`$ et peuvent être
@@ -503,10 +512,8 @@ donc le bon ordre de dynamique, pas encore un théorème de perte.
 La cible correcte sur la grille devient
 
 ```math
-\mathbb E\left[
-\|P_{\downarrow}f_{I_LJ_L}\|_2^2
-\middle|
-\mathrm{Palm}(\beta_{I_LJ_L}=\beta_c)
+\mathbb E_{\text{Palm d'événement}}\left[
+\|P_{\downarrow}^{\mathrm{réel}}f_{I_LJ_L}\|_2^2
 \right]
 \longrightarrow0.
 \qquad\text{(7.2)}
@@ -514,8 +521,10 @@ La cible correcte sur la grille devient
 
 Le LCA seul ne peut pas produire cette limite par un simple argument de
 distance : sur le cactus, son second moment reste exactement
-$`\kappa_{\rm flux}`$. Le prochain certificat de bande doit donc représenter
-les deux bras complets et non seulement le bloc pivotal.
+$`\kappa_{\rm flux}`$. Le prochain test doit donc d'abord décider si les deux
+bras admettent une jauge de ports Markov-fermée. Un certificat de bande n'est
+pertinent qu'après cette fermeture ; représenter fidèlement les deux bras
+sans les quotienter rend le twist mesurable et le déficit local nul.
 
 ## 8. Audit et contre-audit
 
@@ -539,21 +548,25 @@ les deux bras complets et non seulement le bloc pivotal.
 Pour utiliser au mieux la dynamique hiérarchique dans la preuve de weak
 recovery :
 
-1. conditionner le LCA de $`i,j`$ à fusionner à $`\beta_c`$ ;
-2. conserver les quatre états exacts au LCA et tous les
-   $`\Lambda_v`$ ancestraux ;
-3. descendre sur les deux bras jusqu'aux feuilles ;
-4. utiliser le heat bath collapsed de ce corridor pour la preuve ;
-5. utiliser un sweep bottom-up en un passage, puis top-down comme
+1. tirer la paire sous la Palm des événements de fusion réalisés ;
+2. utiliser l'état fidèle pour définir le heat bath exact, tout en notant que
+   cet état rend le twist mesurable et le déficit local nul ;
+3. chercher une jauge de ports Markov-fermée qui agrège des signes opposés
+   sans perdre la mise à jour des $`\Lambda_v`$ ancestraux ;
+4. descendre sur les deux bras jusqu'aux feuilles **à leurs rangs réels** ;
+5. garder le LCA critique comme benchmark cactus/mono-bit, sans en faire une
+   enveloppe de la grille ;
+6. utiliser un sweep bottom-up en un passage, puis top-down comme
    contre-audit séquentiel ;
-6. certifier sur une bande de largeur deux que le transfert complet conserve
-   un rayon spectral strictement inférieur à un.
+7. ne chercher un déficit de cellule qu'après avoir certifié la fermeture du
+   quotient ; arrêter la route locale si l'orientation globale reste dans le
+   séparateur jusqu'à la racine.
 
-Le LCA critique est le meilleur **point de départ**. Il n'est pas une
-dynamique suffisante : la distance ne devient exploitable qu'en utilisant
-toute la hiérarchie descendante.
+Le LCA critique est un **benchmark**, pas un point de départ imposé. La
+distance ne devient exploitable qu'en utilisant toute la hiérarchie
+descendante aux rangs réalisés.
 
-Le [fichier 23](23_OPTIMAL_WEAK_RECOVERY_OBSTRUCTION.md) transforme cette
-conclusion en stratégie de preuve : criticalisation de chaque canal tardif à
-squelette fixé, transfert répliqué sur des blobs annulaires screenés, puis
-abondance sous la loi Palm à deux points.
+Le [fichier 29](29_AUDIT_FROID_PIVOT_RANGS_REELS.md) transforme cette
+conclusion en porte de décision corrigée : jauge de ports fermée ou no-go,
+puis seulement transfert répliqué, Feynman--Kac et abondance sous la loi Palm
+à deux points.

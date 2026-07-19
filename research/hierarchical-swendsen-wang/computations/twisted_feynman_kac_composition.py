@@ -1,4 +1,4 @@
-"""Finite twisted Feynman--Kac composition after common normalization.
+"""Finite twisted Feynman--Kac composition and backward Doob normalization.
 
 For a positive lifted transfer ``T(z, z', epsilon)``, with
 ``epsilon in {-1, +1}``, set
@@ -20,9 +20,13 @@ order of application to ``g``, the left side is equivalently written
 ``|U_N ... U_1 g|``.  The public API numbers kernels in path order, from
 ``Z_0`` to ``Z_N``, to keep the Feynman--Kac expectation unambiguous.
 
-This is only a finite composition lemma.  Constructing one common Doob
-normalization for the hierarchical corridor, and identifying its lifted
-transfer with the real Palm corridor, remain open.
+The row-stochastic formulation is convenient but not necessary.  For a
+finite inhomogeneous sequence of arbitrary nonnegative mass transfers
+``K_j`` and dominated signed transfers ``|U_j| <= K_j``, backward partition
+functions give an exact finite-horizon Doob transform.  The diagonal factors
+telescope, so no common, time-homogeneous normalization has to be guessed.
+Identifying those unnormalized transfers with the real Palm corridor and
+controlling the resulting killed path measure remain open.
 """
 
 from __future__ import annotations
@@ -34,7 +38,6 @@ from itertools import product
 from math import isfinite
 from numbers import Real
 
-
 Scalar = int | float | Fraction
 SignedPair = tuple[Scalar, Scalar]
 LiftedKernel = tuple[tuple[SignedPair, ...], ...]
@@ -44,8 +47,8 @@ Vector = tuple[Scalar, ...]
 EPSILON_ORDER = (-1, 1)
 DEFAULT_TOLERANCE = 1e-12
 OPEN_STEPS = (
-    "common Doob normalization for all real corridor blocks",
-    "identification of the normalized transfer with the Palm corridor",
+    "identification of the unnormalized transfers with the real Palm corridor",
+    "thermodynamic control of the killed finite-horizon Doob path measure",
 )
 
 
@@ -125,6 +128,73 @@ class CommonNormalizedTransfer:
             for pair in row
             for value in pair
         )
+
+
+@dataclass(frozen=True)
+class DominatedTransfer:
+    """One finite positive/signed pair without a row normalization.
+
+    The sole structural condition is the entrywise domination
+    ``|twisted| <= mass``.  It is exactly the condition needed to represent
+    the signed entry as the difference of two nonnegative lifted masses.
+    """
+
+    mass: Matrix
+    twisted: Matrix
+    ratio: Matrix
+    source_size: int
+    target_size: int
+
+    @property
+    def is_exact(self) -> bool:
+        return all(
+            isinstance(value, (int, Fraction))
+            for matrix in (self.mass, self.twisted, self.ratio)
+            for row in matrix
+            for value in row
+        )
+
+
+def dominated_transfer(
+    mass: Sequence[Sequence[Scalar]],
+    twisted: Sequence[Sequence[Scalar]],
+) -> DominatedTransfer:
+    """Validate an unnormalized pair ``(K,U)`` with ``|U| <= K``.
+
+    No stochasticity or common eigenvector is assumed.  Integer and rational
+    inputs retain exact arithmetic in the local ratios.
+    """
+
+    mass_shape = _validate_matrix(mass, "mass")
+    twisted_shape = _validate_matrix(twisted, "twisted")
+    if mass_shape != twisted_shape:
+        raise ValueError("mass and twisted matrices must have the same shape")
+
+    frozen_mass = []
+    frozen_twisted = []
+    ratios = []
+    for mass_row, twisted_row in zip(mass, twisted, strict=True):
+        if any(value < 0 for value in mass_row):
+            raise ValueError("mass entries must be nonnegative")
+        ratio_row = []
+        for mass_value, twisted_value in zip(mass_row, twisted_row, strict=True):
+            if abs(twisted_value) > mass_value:
+                raise ValueError("the twist must satisfy |U| <= K entrywise")
+            ratio_row.append(
+                _divide(abs(twisted_value), mass_value)
+                if mass_value != 0
+                else type(mass_value)(0)
+            )
+        frozen_mass.append(tuple(mass_row))
+        frozen_twisted.append(tuple(twisted_row))
+        ratios.append(tuple(ratio_row))
+    return DominatedTransfer(
+        mass=tuple(frozen_mass),
+        twisted=tuple(frozen_twisted),
+        ratio=tuple(ratios),
+        source_size=mass_shape[0],
+        target_size=mass_shape[1],
+    )
 
 
 def normalize_lifted_transfer(
@@ -223,9 +293,7 @@ def canonical_lift_from_mass_and_twist(
         if not _equals_one(mass_row, tolerance):
             raise ValueError("every row of the common mass kernel must sum to one")
         lifted_row = []
-        for mass_value, twisted_value in zip(
-            mass_row, twisted_row, strict=True
-        ):
+        for mass_value, twisted_value in zip(mass_row, twisted_row, strict=True):
             if abs(twisted_value) > mass_value:
                 raise ValueError("the twist must satisfy |U| <= K entrywise")
             lifted_row.append(
@@ -260,10 +328,7 @@ def _apply(matrix: Matrix, vector: Sequence[Scalar]) -> Vector:
 
 def _killed_mass_matrix(step: CommonNormalizedTransfer) -> Matrix:
     return tuple(
-        tuple(
-            mass * ratio
-            for mass, ratio in zip(mass_row, ratio_row, strict=True)
-        )
+        tuple(mass * ratio for mass, ratio in zip(mass_row, ratio_row, strict=True))
         for mass_row, ratio_row in zip(step.mass, step.ratio, strict=True)
     )
 
@@ -278,6 +343,208 @@ def _validate_chain(
             raise ValueError("successive transfer dimensions do not match")
     if steps[-1].target_size != terminal_size:
         raise ValueError("the last transfer does not match the terminal function")
+
+
+def _validate_dominated_chain(
+    steps: Sequence[DominatedTransfer], terminal_size: int
+) -> None:
+    if not steps:
+        return
+    for first, second in zip(steps[:-1], steps[1:], strict=True):
+        if first.target_size != second.source_size:
+            raise ValueError("successive transfer dimensions do not match")
+    if steps[-1].target_size != terminal_size:
+        raise ValueError("the last transfer does not match the terminal function")
+
+
+def _pointwise_divide_on_support(
+    numerator: Sequence[Scalar], denominator: Sequence[Scalar]
+) -> Vector:
+    if len(numerator) != len(denominator):
+        raise ValueError("pointwise division requires vectors of equal length")
+    result = []
+    for top, bottom in zip(numerator, denominator, strict=True):
+        if bottom < 0:
+            raise ValueError("a reference potential cannot be negative")
+        if bottom == 0:
+            if top != 0:
+                raise AssertionError("a dominated numerator survived off support")
+            result.append(type(bottom)(0))
+        else:
+            result.append(_divide(top, bottom))
+    return tuple(result)
+
+
+@dataclass(frozen=True)
+class FiniteHorizonDoobCertificate:
+    """Exact telescoping normalization for unnormalized finite transfers.
+
+    Rows attached to a zero backward potential are outside the finite-horizon
+    support.  They are stored as zero rows; every active row of the Doob
+    kernels is stochastic.
+    """
+
+    backward_potentials: tuple[Vector, ...]
+    active_states: tuple[tuple[bool, ...], ...]
+    doob_kernels: tuple[Matrix, ...]
+    signed_values: Vector
+    feynman_kac_envelope: Vector
+    normalized_absolute_values: Vector
+    normalized_feynman_kac_envelope: Vector
+    doob_expectation: Vector
+    normalized_slacks: Vector
+    active_rows_are_stochastic: bool
+    normalization_identity_holds: bool
+    inequality_holds: bool
+    is_exact: bool
+    scope_label: str = (
+        "finite inhomogeneous composition with an exact backward Doob transform"
+    )
+    open_steps: tuple[str, ...] = OPEN_STEPS
+
+
+def finite_horizon_doob_certificate(
+    steps: Sequence[DominatedTransfer],
+    terminal: Sequence[Scalar],
+    reference_terminal: Sequence[Scalar],
+    *,
+    tolerance: float = DEFAULT_TOLERANCE,
+) -> FiniteHorizonDoobCertificate:
+    """Normalize an arbitrary finite dominated chain by backward potentials.
+
+    Let ``h_N`` be ``reference_terminal`` and recursively set
+    ``h_{j-1}=K_j h_j``.  On ``{h_{j-1}>0}``,
+
+    ``P_j(z,z') = K_j(z,z') h_j(z') / h_{j-1}(z)``
+
+    is stochastic.  With ``r_j=|U_j|/K_j`` and ``|g|<=h_N``, diagonal
+    factors telescope and give the normalized Feynman--Kac bound.  Zero
+    backward potentials are retained as inactive states, so impossible rows
+    need not be completed by an artificial stochastic kernel.
+    """
+
+    _validate_tolerance(tolerance)
+    terminal_values = _validate_terminal(terminal)
+    reference_values = _validate_terminal(reference_terminal)
+    if len(terminal_values) != len(reference_values):
+        raise ValueError("terminal and reference_terminal must have equal length")
+    if any(value < 0 for value in reference_values):
+        raise ValueError("reference_terminal must be nonnegative")
+    if any(
+        abs(value) > reference
+        for value, reference in zip(terminal_values, reference_values, strict=True)
+    ):
+        raise ValueError("the terminal function must satisfy |g| <= h_N")
+
+    frozen_steps = tuple(steps)
+    if any(not isinstance(step, DominatedTransfer) for step in frozen_steps):
+        raise ValueError("every step must be a DominatedTransfer")
+    _validate_dominated_chain(frozen_steps, len(terminal_values))
+
+    backward_reversed = [reference_values]
+    for step in reversed(frozen_steps):
+        backward_reversed.append(_apply(step.mass, backward_reversed[-1]))
+    backward = tuple(reversed(backward_reversed))
+    active_states = tuple(
+        tuple(value > 0 for value in potential) for potential in backward
+    )
+
+    doob_kernels = []
+    active_rows_are_stochastic = True
+    for index, step in enumerate(frozen_steps):
+        source_potential = backward[index]
+        target_potential = backward[index + 1]
+        rows = []
+        for source, mass_row in enumerate(step.mass):
+            if source_potential[source] == 0:
+                rows.append(tuple(type(value)(0) for value in mass_row))
+                continue
+            row = tuple(
+                _divide(
+                    mass * target_potential[target],
+                    source_potential[source],
+                )
+                for target, mass in enumerate(mass_row)
+            )
+            if not _equals_one(row, tolerance):
+                active_rows_are_stochastic = False
+            rows.append(row)
+        doob_kernels.append(tuple(rows))
+
+    signed = terminal_values
+    envelope = tuple(abs(value) for value in terminal_values)
+    doob_value = _pointwise_divide_on_support(envelope, reference_values)
+    for index in reversed(range(len(frozen_steps))):
+        step = frozen_steps[index]
+        signed = _apply(step.twisted, signed)
+        envelope = _apply(
+            tuple(
+                tuple(
+                    mass * ratio
+                    for mass, ratio in zip(mass_row, ratio_row, strict=True)
+                )
+                for mass_row, ratio_row in zip(step.mass, step.ratio, strict=True)
+            ),
+            envelope,
+        )
+        doob_value = _apply(
+            tuple(
+                tuple(
+                    probability * ratio
+                    for probability, ratio in zip(
+                        probability_row, ratio_row, strict=True
+                    )
+                )
+                for probability_row, ratio_row in zip(
+                    doob_kernels[index], step.ratio, strict=True
+                )
+            ),
+            doob_value,
+        )
+
+    absolute = tuple(abs(value) for value in signed)
+    normalized_absolute = _pointwise_divide_on_support(absolute, backward[0])
+    normalized_envelope = _pointwise_divide_on_support(envelope, backward[0])
+    slacks = tuple(
+        upper - lower
+        for upper, lower in zip(normalized_envelope, normalized_absolute, strict=True)
+    )
+    exact = (
+        all(step.is_exact for step in frozen_steps)
+        and _is_exact(terminal_values)
+        and _is_exact(reference_values)
+    )
+    if exact:
+        normalization_holds = doob_value == normalized_envelope
+        inequality_holds = all(slack >= 0 for slack in slacks)
+    else:
+        normalization_holds = all(
+            abs(float(first) - float(second)) <= tolerance
+            for first, second in zip(doob_value, normalized_envelope, strict=True)
+        )
+        inequality_holds = all(float(slack) >= -tolerance for slack in slacks)
+    if not active_rows_are_stochastic:
+        raise AssertionError("the backward Doob transform is not stochastic")
+    if not normalization_holds:
+        raise AssertionError("the Doob and unnormalized envelopes disagree")
+    if not inequality_holds:
+        raise AssertionError("the normalized Feynman--Kac domination failed")
+
+    return FiniteHorizonDoobCertificate(
+        backward_potentials=backward,
+        active_states=active_states,
+        doob_kernels=tuple(doob_kernels),
+        signed_values=signed,
+        feynman_kac_envelope=envelope,
+        normalized_absolute_values=normalized_absolute,
+        normalized_feynman_kac_envelope=normalized_envelope,
+        doob_expectation=doob_value,
+        normalized_slacks=slacks,
+        active_rows_are_stochastic=active_rows_are_stochastic,
+        normalization_identity_holds=normalization_holds,
+        inequality_holds=inequality_holds,
+        is_exact=exact,
+    )
 
 
 @dataclass(frozen=True)
@@ -316,12 +583,9 @@ def finite_composition_certificate(
         envelope = _apply(_killed_mass_matrix(step), envelope)
     absolute = tuple(abs(value) for value in signed)
     slacks = tuple(
-        upper - lower
-        for upper, lower in zip(envelope, absolute, strict=True)
+        upper - lower for upper, lower in zip(envelope, absolute, strict=True)
     )
-    exact = all(step.is_exact for step in frozen_steps) and _is_exact(
-        terminal_values
-    )
+    exact = all(step.is_exact for step in frozen_steps) and _is_exact(terminal_values)
     if exact:
         holds = all(slack >= 0 for slack in slacks)
     else:
@@ -370,8 +634,7 @@ def brute_force_path_expansion(
             for step, following in zip(frozen_steps, tail, strict=True):
                 signed_weight *= step.twisted[previous][following]
                 envelope_weight *= (
-                    step.mass[previous][following]
-                    * step.ratio[previous][following]
+                    step.mass[previous][following] * step.ratio[previous][following]
                 )
                 previous = following
             signed_total += signed_weight * terminal_values[tail[-1]]
@@ -394,8 +657,7 @@ class FractionCompositionAudit:
     def matches_exactly(self) -> bool:
         return (
             self.certificate.signed_values == self.brute_signed_values
-            and self.certificate.feynman_kac_envelope
-            == self.brute_envelope_values
+            and self.certificate.feynman_kac_envelope == self.brute_envelope_values
         )
 
 
@@ -491,6 +753,38 @@ def canonical_fraction_lift_audit() -> FractionCompositionAudit:
     )
 
 
+def unnormalized_fraction_doob_audit() -> FiniteHorizonDoobCertificate:
+    """Exact 2-to-3-to-2 audit with non-stochastic mass transfers."""
+
+    first = dominated_transfer(
+        (
+            (Fraction(2), Fraction(1), Fraction(0)),
+            (Fraction(1, 2), Fraction(3, 2), Fraction(1)),
+        ),
+        (
+            (Fraction(1), Fraction(-1, 2), Fraction(0)),
+            (Fraction(-1, 4), Fraction(1), Fraction(1, 2)),
+        ),
+    )
+    second = dominated_transfer(
+        (
+            (Fraction(1), Fraction(2)),
+            (Fraction(3), Fraction(1)),
+            (Fraction(0), Fraction(5)),
+        ),
+        (
+            (Fraction(1, 2), Fraction(-1)),
+            (Fraction(-2), Fraction(1, 2)),
+            (Fraction(0), Fraction(3)),
+        ),
+    )
+    return finite_horizon_doob_certificate(
+        (first, second),
+        (Fraction(2), Fraction(1)),
+        (Fraction(3), Fraction(3)),
+    )
+
+
 @dataclass(frozen=True)
 class TriangularNeutralPowerDiagnostic:
     """Composition diagnostic for the existing neutral triangular cell."""
@@ -532,9 +826,7 @@ def triangular_neutral_power_diagnostic(
         raise ValueError("depths must be a nonempty sequence of integers >= 0")
 
     transfer = triangular_cell_transfer(p=p)
-    step = canonical_lift_from_mass_and_twist(
-        transfer.mass, transfer.chi_tensor_chi
-    )
+    step = canonical_lift_from_mass_and_twist(transfer.mass, transfer.chi_tensor_chi)
     initial = PARITY_PAIRS.index((1, 1))
     signed_values = []
     envelopes = []
@@ -576,6 +868,14 @@ def main() -> None:
             f"matches_paths={audit.matches_exactly} "
             f"slacks={audit.certificate.slacks}"
         )
+    doob = unnormalized_fraction_doob_audit()
+    print(
+        "unnormalized finite-horizon Doob audit: "
+        f"exact={doob.is_exact} "
+        f"stochastic={doob.active_rows_are_stochastic} "
+        f"telescopes={doob.normalization_identity_holds} "
+        f"slacks={doob.normalized_slacks}"
+    )
     diagnostic = triangular_neutral_power_diagnostic()
     print(diagnostic.scope_label)
     print(f"uniform coefficient={diagnostic.uniform_coefficient:.12f}")

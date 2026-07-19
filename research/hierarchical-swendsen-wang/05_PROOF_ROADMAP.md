@@ -4,13 +4,17 @@
 > Le [programme prioritaire](00_RESEARCH_PROGRAM.md) donne l'exposé
 > pédagogique et le statut des lemmes. Cette page conserve le graphe technique
 > détaillé des dépendances historiques à $`p=4/5`$. La
-> [feuille de route actuelle](26_FEUILLE_DE_ROUTE_PSTAR.md) vise
-> $`p_0=0.805`$ et remplace le screening uniforme par un transfert annealed
-> sur le corridor réel, attaches comprises.
+> [feuille de route actuelle](29_AUDIT_FROID_PIVOT_RANGS_REELS.md) remplace
+> la criticalisation réfutée par une dissipation annealed aux rangs réels.
+> Les diagnostics D1--D2 rendent cette branche incertaine. D1-pop isole
+> toutefois un enrichissement net de la dissipation dans la fenêtre critique,
+> ce qui laisse une sous-piste étroite mais falsifiable. Le certificat
+> rationnel P809439 du fichier 34 ferme déjà la borne
+> $`p_{\mathrm{WR}}\ge0.809439`$ ; il est non hiérarchique.
 
 Cette feuille de route remplace l'ancien inventaire chronologique. Elle ne
-contient que les dépendances nécessaires à la voie privilégiée : corridor
-collapsed, criticalisation à squelette fixé et contraction multiscale à
+contient les dépendances historiques de la voie : corridor collapsed,
+transfert multiport aux rangs réels et contraction multiscale à
 $`p=4/5`$. Le fichier 24 teste d'abord la réduction plus simple aux buckets
 bornés. Le fichier 25 corrige cette réduction au niveau géométrique en
 introduisant la charge $`m h_p(\beta)^2`$ et la repondération LCA-Palm
@@ -26,7 +30,7 @@ p_0=\frac45
 ```
 
 la weak recovery est impossible. Par dégradation BSC des observations, le
-même résultat vaudrait alors pour tout $`p\le p_0`$.
+même résultat vaudrait alors pour $`p\in[1/2,p_0]`$.
 
 Le critère à établir est
 
@@ -39,25 +43,26 @@ où $`P_{\mathcal C}`$ est le heat bath collapsed du corridor pair-spécifique.
 Le théorème 2.2 du fichier 20 transforme (T) en impossibilité de weak
 recovery par Jensen paire par paire.
 
-Le point $`p=4/5`$ est un pré-certificat. Pour conclure réellement
-$`p_{\mathrm{WR}}>0.8`$, la marge du transfert doit ensuite être certifiée à
-$`p_1=0.805`$ ou sur un intervalle $`[0.8,0.8+\varepsilon]`$. La stratégie
-correspondante, avec traitement explicite des attaches ponctuelles, est dans le
-[fichier 26](26_FEUILLE_DE_ROUTE_PSTAR.md).
+Le point $`p=4/5`$ reste le pré-certificat de la branche hiérarchique. La
+borne non hiérarchique est maintenant fermée à $`p=0.809439`$ dans le [fichier
+34](34_CERTIFICAT_RATIONNEL_P809439.md). Pour que la dynamique hiérarchique
+apporte un résultat propre, elle doit reproduire ou améliorer ce niveau par
+la sous-feuille critique, avec traitement explicite des attaches ponctuelles.
 
 ## Graphe de dépendances
 
 ```mermaid
 flowchart TD
     F["F — mesure jointe et projections"] --> P["P — critère pairwise L²"]
-    P --> R["R — réduction aux paires critiques"]
-    B["B — Blackwell sur buckets"] --> C["C — tensorisation corridor fixé"]
+    P --> R["R — décomposition des paires et corridor réel"]
+    B["B — Blackwell mono-bit"] -. "surrogate seulement" .-> C["C — produit mono-bit"]
+    R --> M["M — transfert multiport aux rangs réalisés"]
     R --> G["G — géométrie Palm"]
-    C --> S["S — coupes de faible charge screenées"]
+    M --> S["S — déficit Feynman--Kac localisé"]
     G --> S
     S --> T["T — impossibilité à p=0.8"]
     S -. "si échec" .-> X["X — transfert annulaire"]
-    C --> X
+    M --> X
     G --> X
     X --> T
 ```
@@ -171,6 +176,10 @@ postcritique par l'expérience critique favorable.
 
 ## Bloc B — ordre favorable local
 
+> [!NOTE]
+> Les énoncés B1--B2 concernent un bucket mono-bit dont toutes les arêtes
+> codent la même relation.
+
 ### B1. Canal d'un bucket
 
 Pour $`s=s_p(t)`$,
@@ -212,6 +221,11 @@ ou vérifier explicitement la domination entre les deux expériences de
 tailles différentes. Comparer seulement leurs niveaux est insuffisant.
 
 ## Bloc C — corridor fixé
+
+> [!CAUTION]
+> C1 est un théorème abstrait pour un produit conditionnel de canaux
+> mono-bit. Il ne décrit pas le corridor collapsed multiport ; voir le
+> contre-exemple du fichier 29.
 
 ### C1. Tensorisation
 
@@ -263,7 +277,8 @@ ancêtres postcritiques, ni l'état de bord du transfert.
 
 ### G1. Variable à faire converger
 
-Sous le biais d'une paire lointaine critique, étudier la loi de
+Sous la Palm d'un événement de fusion réalisé, biaisé par une paire lointaine
+séparée par ses deux enfants, étudier la loi de
 
 ```math
 \left(
@@ -285,27 +300,30 @@ où $`Z_r`$ est l'état de bord minimal du transfert collapsed et
 Conditionnellement à la partition au niveau $`\beta`$, une coupe de taille
 $`m`$ fusionne à taux $`m u_ps_p(\beta)`$. Le LCA d'une paire lointaine
 repondère encore cette coupe par le nombre $`N_\rho`$ de paires séparées par
-ses enfants. À niveau fixé, la densité Palm porte donc le facteur exact
+ses enfants. La mesure compensatrice **pré-saut** porte donc le facteur
 
 ```math
 mN_\rho.
 ```
 
 **Statut.** Établi dans le fichier 25 par la formule de compensation des
-sauts. La loi asymptotique de $`mN_\rho`$ sur la grille reste ouverte.
+sauts. Sur le dendrogramme déjà réalisé, chaque événement est pondéré par
+$`N_\rho`$ seulement : le facteur $`m`$ est déjà absorbé par la loi du saut.
+La loi asymptotique de l'une ou l'autre représentation sur la grille reste
+ouverte.
 
-### G2. Porte critique/postcritique
+### G2. Porte postcritique aux rangs réels
 
-La première opération est déjà rigoureuse : sur chaque squelette réel,
-remplacer tout niveau $`t_r>\beta_c`$ par $`\beta_c`$ sans changer sa taille.
-La tensorisation du bloc C fournit alors un oracle plus informatif.
+La criticalisation globale autrefois annoncée est fausse pour une fusion
+multiport. La première opération correcte conserve tout niveau
+$`t_r>\beta_c`$ et construit son transfert $`K_r,U_r`$ exact.
 
 Il reste deux options, par ordre de robustesse :
 
-1. prouver l'abondance et la contraction directement, uniformément sur les
-   corridors Palm de rang $`q\ge q_c`$ après cette criticalisation ;
-2. construire un couplage qui aligne un corridor postcritique sur un corridor
-   véritablement critique plus informatif, puis payer explicitement :
+1. prouver une contraction annealed directe sur les corridors Palm de rang
+   $`q\ge q_c`$ ;
+2. à défaut, démontrer une domination **cible-spécifique** sous la véritable
+   loi de bord, puis payer explicitement :
 
 ```math
 \varepsilon_L^{\rm géom}
@@ -313,11 +331,9 @@ Il reste deux options, par ordre de robustesse :
 +\varepsilon_L^{\rm Palm}.
 ```
 
-La somme doit tendre vers zéro. Blackwell traite les marques à squelette
-fixé ; il ne fournit pas le second couplage. En raison de B4, « aligné »
-signifie ici mêmes tailles ou domination cross-size certifiée, pas seulement
-mêmes incidences approximatives. La première option évite ce verrou et doit
-être tentée d'abord.
+La somme doit tendre vers zéro. Blackwell traite le bucket mono-bit ; fixer
+squelette et tailles ne suffit pas pour le bucket multiport. La première
+option est la voie active.
 
 ### G3. Premier modèle
 
@@ -337,13 +353,13 @@ contre-audité par énumération globale, transfert local, quadrature et
 intervalles rationnels. Les deux coefficients décroissent avec $`q`$ : le
 rang critique est bien le cas postcritique le plus favorable sur ce modèle.
 
-**Statut.** Établi sur le cactus. La prochaine étape est une bande
-triangulaire de largeur deux ; la grille bidimensionnelle entière vient
-seulement après ce certificat. Ni le cactus ni une bande de largeur fixée ne
-possèdent une géante à $`q_\triangle`$ : ce sont des certificats de canal et
-d'état de bord, pas des substituts à la loi Palm bidimensionnelle.
+**Statut.** Établi sur le cactus. La prochaine étape est le test de dernière
+interaction et un quotient de ports Markov-fermé ; une bande triangulaire de
+largeur deux ne vient qu'ensuite. Ni le cactus ni une bande de largeur fixée
+ne possèdent une géante à $`q_\triangle`$ : ce sont des certificats de canal
+et d'état de bord, pas des substituts à la loi Palm bidimensionnelle.
 
-## Bloc X — contraction critique à $`p=0.8`$, ouvert
+## Bloc X — déficit aux rangs réels à $`p=0.805`$, ouvert
 
 ### X1. Bloc élémentaire
 
@@ -386,9 +402,9 @@ conditionnelle au screening et à l'abondance. Voir le fichier 24.
 
 ### X2. Bon bloc annulaire
 
-Un bloc doit avoir un nombre borné de ports, un screening latéral, au moins
-deux routes ou arêtes candidates dans une coupe pertinente, et un transfert
-répliqué exact dont le coefficient sur le secteur impair vérifie
+Dans l'ancienne route locale, un bloc devait avoir un nombre borné de ports,
+un screening latéral, au moins deux routes candidates et un transfert
+répliqué exact dont le coefficient sur le secteur impair vérifiait
 
 ```math
 \eta_{\chi^2}(\mathscr U_{p,k}\mid Z_k)\le\kappa(p)<1
@@ -397,84 +413,110 @@ répliqué exact dont le coefficient sur le secteur impair vérifie
 pour tout état de bord admis. Une arête pivotale isolée, donc un bucket
 $`m=1`$, est un canal parfait et ne compte pas comme bloc contractant.
 
-**Statut.** Ouvert sur la bande et la grille ; le cactus donne le premier
-exemple physique exact.
+Ce coefficient ne devient composable qu'après un quotient Markov-fermé ;
+l'état fidèle donne au contraire $`d=0`$. Dans la route active, le bloc est
+une projection collapsed et son coefficient est évalué seulement sur la
+fonction entrante réellement issue de $`f_{ij}`$, comme dans le fichier 30.
+
+**Statut.** Cactus établi ; quotient local ouvert et probablement non borné ;
+dissipation collapsed finie établie, lemme annulaire ouvert.
 
 ### X3. Abondance
 
-Extraire $`N_L\to\infty`$ blocs dont le coefficient répliqué est uniformément
-inférieur à un. Les blocs peuvent être :
+L'ancienne cible consistait à extraire $`N_L\to\infty`$ blocs dont le
+coefficient répliqué était uniformément inférieur à un. Elle n'est valide
+sur la grille qu'après fermeture d'un quotient. Les motifs candidats restent :
 
 - des coupes $`m=2`$ screenées ;
 - des blocs cactus, dont le coefficient est maintenant certifié dans le
   fichier 21 ;
 - des blocs de bande admis par un programme linéaire de dégradation.
 
-La cible forte, sur des annuli séparés, est
+Sur des annuli séparés, viser
 
 ```math
-\mathbb P(G_k\mid\mathcal F_{k-1},\mathrm{Palm})\ge a(p)>0.
+\mathbb E[\mathbf1_{G_k}M_{k-1}^2]
+\ge
+a(p)\mathbb E[M_{k-1}^2]-\eta_{k,L}.
 ```
 
 Elle doit être obtenue sous la loi Palm à deux points, et non par une simple
-application de RSW non conditionnée.
+application de RSW non conditionnée. L'abondance non pondérée ne contrôle pas
+les environnements rares qui portent le second moment.
 
 **Statut.** Ouvert sur la grille.
 
 ### X4. Composition
 
-Construire un transfert fini tel que
+Construire des blocs collapsed imbriqués tels que
 
 ```math
-\mathbb E[H_{\mathcal C}(I_L,J_L)^2\mid\mathrm{Palm\ critique}]
+\mathbb E[H_{\mathcal C}(I_L,J_L)^2\mid\mathrm{Palm\ d'événement\ réalisé}]
 \le
-\mathbb E[\kappa^{N_L}]+o(1).
+\mathbb E\!\left[
+e^{-\sum_{k=1}^{K_L}\alpha_{k,L}}
+\right]+o(1).
 ```
 
-**Statut.** Établi sur le cactus par le fichier 21 ; ouvert sur les bandes et
-la grille.
+L'identité télescopique définissant les $`\alpha_{k,L}`$ est établie en
+volume fini dans le fichier 30. Sa moyenne annealed est ouverte sur la grille.
 
-Sous une minoration conditionnelle uniforme de probabilité $`a(p)`$ sur
-$`K_L\asymp\log L`$ annuli, la borne quantitative devient
+Sous une minoration énergétique comme X3 sur $`K_L\asymp\log L`$ cellules
+critiques séparées, la
+borne quantitative devient
 
 ```math
 \mathbb E[H_{\mathcal C}^2]
 \le
-\bigl(1-a(p)(1-\kappa(p))\bigr)^{K_L}+o(1).
+\bigl(1-a(p)\delta(p)\bigr)^{K_L}+o(1),
 ```
 
-## Prochain lemme simple
+avec les erreurs amorties de la proposition 3.1 du fichier 30. Ici
+$`a(p)`$ est la masse énergétique des bons blocs et $`\delta(p)`$ leur
+dissipation relative cible-spécifique ; aucun coefficient local
+$`\kappa(p)`$ n'est utilisé dans cette route.
 
-Avant tout nouveau transfert de bande, tenter de prouver sous Palm critique :
+## Prochain lemme structurel
+
+Pour deux blocs collapsed emboîtés, poser
 
 ```math
-N_L^{(J_0,B_0)}
-:=
-\#\{r:m_rh_p(\beta_r)^2\le J_0,\ |B_r|\le B_0,
-\text{ bloc }r\text{ screené}\}
-\longrightarrow\infty.
+M_k
+=
+\mathbb E[f_{ij}\mid\mathcal F_k],
+\qquad
+\Gamma_{k,L}
+=
+\frac{\mathbb E[(M_{k-1}-M_k)^2]}
+{\mathbb E[M_{k-1}^2]}.
 ```
 
-La version $`2\le m_r\le M`$ reste un sous-cas suffisant, mais la charge
-autorise aussi une grande coupe assez tardive. Il faut ensuite vérifier que
-des sous-blocs disjoints peuvent être choisis de façon que leurs coefficients
-$`\chi^2`$ exacts, correction gagnante incluse, se composent. Une preuve de
-ces deux lignes ferme le bloc X sans calculer tout l'état de bord de la bande.
+Les deux tests finis sont effectués. D1 donne $`\Gamma_{2,L}>0`$ sur un
+witness réel, mais sa marge uniforme s'annule sur les potentiels extérieurs
+de bord. D2 montre une dissipation dominée par peu de paquets et une queue
+rare. L'audit non sélectionné D1-pop montre que les cellules dans
+$`|q-q_c|\le0.02`$ reçoivent $`4.13\%`$ de l'énergie mais portent
+$`34.12\%`$ de la seconde perte sur deux graines poolées. Ce signal de petit
+volume ne valide que le [programme critique
+resserré](33_SOUS_FEUILLE_ROUTE_CELLULES_CRITIQUES_L2.md). Le scan de dernière
+incidence reste utile pour réduire l'état, mais il ne libère pas à lui seul
+le twist global.
 
-## Plan B : calcul certifié de bande
+## Contre-test local : calcul certifié de bande
 
-Sur une bande triangulaire de largeur deux :
+Seulement après fermeture du quotient, sur une bande triangulaire de largeur
+deux :
 
 1. encoder la partition non marquée des sommets de coupe ;
-2. ajouter les deux bras descendants, les deux parités répliquées et le
-   statut du bloc pivotal ;
-3. construire la matrice de transfert collapsed $`\mathscr U_{p,2}`$ ;
-4. la recalculer par une énumération globale indépendante sur deux cellules ;
-5. certifier $`r(\mathscr U_{0.8,2})<1`$ par intervalles ;
-6. extraire les configurations finies de ports qui réalisent cette
+2. ajouter les orientations de frontière encore actives, sans conserver le
+   twist déjà éliminé ;
+3. transporter exactement le potentiel projectif $`\Psi`$ ;
+4. construire la matrice de transfert collapsed $`\mathscr U_{p,2}`$ ;
+5. la recalculer par une énumération globale indépendante sur deux cellules ;
+6. certifier une contraction à $`p=0.805`$ par intervalles ;
+7. extraire les configurations finies de ports qui réalisent cette
    contraction ;
-7. chercher d'abord une borne uniforme postcritique sur le même squelette,
-   puis seulement une comparaison entre géométries si elle est nécessaire.
+8. les joindre aux rangs réalisés sous la Palm d'événement.
 
 Un résultat n'est accepté que si les deux implémentations donnent les mêmes
 poids avant l'arrondi d'intervalle. Le rayon spectral ne doit jamais être
@@ -486,11 +528,13 @@ Les pistes suivantes restent des audits, mais ne doivent plus détourner le
 programme principal :
 
 - majorité scalaire globale d'une coupe ;
-- seuil du canal de triangle isolé ;
+- contraction scalaire d'un triangle isolé ; le canal multi-état A0 possède
+  désormais un certificat PSD exact distinct de cette heuristique ;
 - calibration Nishimori utilisée comme preuve ;
 - chemin physique marqué de la MSF ;
 - formule PATH-FAC appliquée sans factorisation ;
-- nouveaux diagnostics de grands tores avant le certificat de largeur deux.
+- nouveaux diagnostics de grands tores avant un lemme analytique de cellule
+  critique pondérée par l'énergie.
 
 Les exposants exacts de la percolation de sites sur le réseau triangulaire ne
 doivent pas être transférés sans preuve à la percolation par arêtes utilisée
@@ -506,8 +550,15 @@ simultanément prouvées :
 \begin{aligned}
 \text{précoce}_L&=o(1),\\
 \text{racines distinctes}_L&=0,\\
-A_L^{\rm late}&\le A_L^{\rm crit}+o(1),\\
-A_L^{\rm crit}&=o(1).
+A_L^{\rm actual}
+&\le
+\mathbb E\!\left[
+e^{-\sum_{k=1}^{K_L}\alpha_{k,L}}
+\right]
++o(1),\\
+\mathbb E\!\left[
+e^{-\sum_{k=1}^{K_L}\alpha_{k,L}}
+\right]&=o(1).
 \end{aligned}
 ```
 

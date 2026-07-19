@@ -45,14 +45,16 @@ Les résultats nouveaux de ce fichier sont les suivants.
    $`(m_{v,0},m_{v,1},m_{v,2},\beta_v)`$.
 4. **Établi, déterministe.** Une fonctionnelle explicite contrôle l'erreur sur
    $`B_u`$ lorsque des ancêtres sont tronqués.
-5. **À prouver.** Sur la grille entière, le verrou restant est la loi du
-   squelette ancestral sous la mesure biaisée par une paire lointaine dont le
-   LCA tombe dans la fenêtre critique.
-6. **Établi sous une domination explicite.** Le
+5. **Ouvert pour l'oracle conditionnel seulement.** Sur la grille entière, la
+   loi du squelette ancestral sous la mesure biaisée par une paire lointaine
+   dont le LCA tombe dans la fenêtre critique reste inconnue. La résoudre ne
+   suffirait pas à globaliser le résultat.
+6. **Établi comme implication conditionnelle historique.** Le
    [théorème de réduction favorable](12_FAVORABLE_HIERARCHICAL_REDUCTION.md)
    montre que l'annulation de la fiabilité critique implique l'impossibilité
-   globale dès que l'expérience postcritique est dominée par l'oracle où la
-   paire se sépare au seuil.
+   globale sous HF. Le [fichier 29](29_AUDIT_FROID_PIVOT_RANGS_REELS.md)
+   réfute HF comme domination uniforme multiport ; la route active transporte
+   directement les rangs réalisés.
 
 ## 1. Expérience favorable et quantité à calculer
 
@@ -166,11 +168,10 @@ dépend encore des marques conditionnelles.
 
 On peut définir un **seuil favorable ancestral** à partir de la non-disparition
 de $`\mathcal G_{L,\varepsilon}^{\mathrm{fav}}`$, après avoir fixé l'ordre des
-limites. Pour une preuve d'impossibilité, son rôle est plus précis qu'un simple
-benchmark : si le lemme de domination HF du fichier 12 est établi, toute la
-contribution postcritique est majorée par cet oracle critique. Son annulation
-devient alors une condition suffisante d'impossibilité. Sans HF, le succès ou
-l'échec sous ce seul conditionnement ne détermine pas le seuil global.
+limites. Il s'agit désormais d'un benchmark conditionnel : la domination HF
+du fichier 12 est fausse sur le corridor multiport. Le succès ou l'échec sous
+ce seul conditionnement ne détermine donc pas le seuil global ; le programme
+actif utilise les rangs réalisés sous la Palm d'événement.
 
 ## 2. Statistiques minimales d'un ancêtre
 
@@ -900,10 +901,11 @@ $`B_u^{(K)}`$ conserve les $`K`$ premiers ancêtres, alors
 \min\left(1,\frac{2\mathcal R_u^{(>K)}}{3\sqrt3}\right).
 ```
 
-Ainsi G1--G3 ferment l'oracle favorable. Pour en déduire une borne globale de
-weak recovery sans supposer que tous les temps LCA se concentrent, il reste à
-prouver G4 : la domination HF entre la chaîne postcritique et la chaîne
-critique.
+Ainsi G1--G3 fermeraient l'oracle favorable comme problème conditionnel. Ils
+ne donneraient pas une borne globale : l'ancien jalon G4, domination HF entre
+la chaîne postcritique et la chaîne critique, est faux en général multiport.
+La fermeture globale doit remplacer G4 par un transfert annealed aux rangs
+réels.
 
 ### Quelle géométrie doit être estimée ?
 
@@ -984,9 +986,9 @@ pas une preuve de sommabilité.
    $`|C_{u,1}||C_{u,2}|`$ lorsque toutes les paires sont incluses.
 8. **Oracle favorable et portée logique.** Le succès conditionnel des fusions
    les plus favorables n'est pas une condition suffisante de weak recovery.
-   En revanche, leur impossibilité donne une impossibilité globale dès que la
-   domination HF du fichier 12 est démontrée ; ce lemme ne doit pas rester
-   implicite.
+   L'ancienne extension globale par domination HF est fausse en général
+   multiport ; il faut transporter directement la loi réelle des rangs et du
+   bord.
 
 ## 11. Implémentation et vérification
 

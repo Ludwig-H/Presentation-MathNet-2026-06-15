@@ -1,17 +1,26 @@
-# Corridor collapsed et tensorisation de Blackwell
+# Projection collapsed et tensorisation scalaire restreinte
+
+> [!CAUTION]
+> Les théorèmes de projection de la section 2 restent exacts. Le théorème 4.1
+> reste exact pour le **surrogate produit mono-bit** défini en section 3, mais
+> son ancienne identification au corridor collapsed réel est fausse. Une
+> fusion multiport à gagnante marginalisée fournit un contre-exemple de même
+> squelette et de même taille ; voir le
+> [fichier 29](29_AUDIT_FROID_PIVOT_RANGS_REELS.md).
 
 Cette note affine la voie favorable des fichiers 18--19. Elle répond à deux
 questions distinctes.
 
 1. Quelle dynamique hiérarchique donne le certificat $`L^2`$ le plus fort
    pour une paire fixée ?
-2. Comment composer la domination critique/postcritique sans réutiliser
-   séquentiellement les mêmes buckets dans les messages descendants ?
+2. Comment composer les transferts multiports aux rangs réalisés sans
+   réutiliser séquentiellement les mêmes buckets dans les messages
+   descendants ?
 
-La réponse est une mise à jour conjointe des orientations du **corridor** de
-la paire. Elle reste un heat bath hiérarchique exact. À squelette fixé, elle
-permet de tensoriser l'ordre de Blackwell du fichier 19, même si les parités
-latentes du corridor sont corrélées.
+La mise à jour conjointe des orientations du **corridor** de la paire reste
+un heat bath hiérarchique exact et fournit l'enveloppe $`L^2`$ de la section
+2. En revanche, l'ordre de Blackwell du fichier 19 ne se tensorise sur tout
+le bloc que lorsque chaque bucket dépend réellement d'un unique bit latent.
 
 Le résultat ne constitue pas encore une preuve d'impossibilité à $`p=0.8`$ :
 la géométrie Palm du corridor triangulaire et le contrôle de son état de bord
@@ -241,9 +250,9 @@ répliques écrit $`Q_n=n^{-2}\sum_{i,j}\mathbb E[c_{ij}(O)^2]`$, d'où (2.4).
 Cette preuve n'exige pas que les différentes quantités $`A_{ij}`$ forment une
 matrice positive semi-définie commune.
 
-## 3. Expérience de comptes sur un squelette fixé
+## 3. Surrogate de comptes mono-bit sur un squelette fixé
 
-Fixons maintenant un corridor fini de $`h`$ buckets. Pour
+Fixons maintenant une expérience factorisée de $`h`$ buckets. Pour
 $`1\le r\le h`$, notons :
 
 - $`X_r\in\{-1,+1\}`$ sa parité latente ;
@@ -264,6 +273,11 @@ K_r\mid X_r=-1
 \end{aligned}
 \qquad\text{(3.1)}
 ```
+
+L'hypothèse décisive est que toutes les arêtes du bucket $`r`$ codent le même
+bit $`X_r`$. Elle correspond notamment à des relations descendantes figées
+ou révélées. Elle ne décrit pas un bucket ancestral multiport lorsque des
+flips descendants font varier séparément plusieurs groupes d'incidence.
 
 La loi a priori $`\rho(dx)`$ de $`X`$ peut être arbitraire : les parités
 peuvent être corrélées par un état de bord, des branches latérales ou des
@@ -294,7 +308,7 @@ $`s_r^{\mathrm c}`$ ; dans l'expérience tardive,
 \qquad\text{(4.1)}
 ```
 
-### Théorème 4.1 — corridor favorable fixé, statut : établi
+### Théorème 4.1 — surrogate produit mono-bit, statut : établi
 
 Pour toute loi $`\rho`$ sur les parités, toute cible bornée $`F`$ et toute
 famille satisfaisant (4.1),
@@ -348,16 +362,21 @@ Par la propriété de tour,
 
 et Jensen conditionnelle donne (4.2).
 
-### Portée exacte
+### Portée exacte et limite multiport
 
-Le théorème 4.1 résout la comparaison critique/postcritique **à corridor
-fixé** pour le bloc collapsed. Il supprime à la fois :
+Le théorème 4.1 résout la comparaison critique/postcritique dans
+l'**expérience produit mono-bit** de la section 3. Il supprime, dans ce
+surrogate :
 
 - les contre-exemples pointwise d'anti-alignement ;
 - le feedback séquentiel où un descendant réutilise un compte ancestral.
 
-Il ne compare pas encore les lois de deux corridors de Kruskal sélectionnés
-à des niveaux différents.
+Il ne décrit pas le corridor collapsed réel dès qu'un même facteur ancestral
+dépend de plusieurs caractères du vecteur de flips. Avec deux incidences et
+une gagnante marginalisée, les canaux critique et tardif ne sont pas ordonnés
+par Blackwell ; sous un bord polarisé, le second moment de la parité cible
+peut même être plus grand au temps tardif. Le certificat est dans le fichier
+29. Cette obstruction apparaît sans changer ni squelette ni taille.
 
 ### Contre-lemme 4.2 — changement de taille, statut : établi
 
@@ -454,11 +473,10 @@ Le calcul reproductible est
 [`p_eight_cross_size_incomparability_certificate`](computations/favorable_time_comparison.py).
 Aucun arrondi flottant n'intervient dans le signe de (4.5)--(4.6).
 
-Ce contre-lemme précise le sens de « critique = cas favorable » : l'ordre
-est exact conditionnellement au même squelette et aux mêmes tailles, mais il
-n'est pas robuste à une substitution arbitraire des interfaces. Le couplage
-géométrique doit donc aligner les buckets, ou vérifier leur ordre de
-Blackwell **avec leurs tailles effectives**.
+Ce contre-lemme montre déjà que la taille doit être conservée dans le
+surrogate mono-bit. Le contre-exemple multiport du fichier 29 va plus loin :
+même conserver le squelette, la taille et les incidences ne suffit pas si
+plusieurs caractères latents varient dans un bucket.
 
 ### Lemme 4.3 — séparation géométrie/canal au seuil, statut : établi
 
@@ -628,13 +646,15 @@ Le script
 | uniforme | $`0.232015050844`$ | $`0.047131567858`$ |
 | chaîne d'Ising, interaction $`0.6`$ | $`0.426226710965`$ | $`0.221677424071`$ |
 
-Ces nombres contre-auditent la tensorisation avec un prior indépendant puis
-corrélé. Ils ne sont pas des estimations du tore triangulaire.
+Ces nombres contre-auditent la tensorisation du **surrogate factorisé** avec
+un prior indépendant puis corrélé. Ils ne sont ni des estimations du tore
+triangulaire, ni des calculs du corridor collapsed multiport.
 
 ## 7. Théorème conditionnel ciblé à $`p=0.8`$
 
-Pour une paire Palm critique $`(I_L,J_L)`$, supposons que son corridor
-collapsed contienne $`N_L`$ blocs complets tels que :
+Pour une paire $`(I_L,J_L)`$ tirée sous la Palm des événements de fusion
+réalisés, supposons que son corridor collapsed aux rangs réels contienne
+$`N_L`$ blocs complets tels que :
 
 1. $`N_L\to\infty`$ en probabilité ;
 2. chaque bloc possède un coefficient répliqué au plus
@@ -644,34 +664,32 @@ collapsed contienne $`N_L`$ blocs complets tels que :
 Alors
 
 ```math
-\mathbb E[H_{\mathcal C}(I_L,J_L)^2\mid\text{Palm critique}]
+\mathbb E_{\text{Palm d'événement}}
+\left[H_{\mathcal C}^{\mathrm{réel}}(I_L,J_L)^2\right]
 \le
 \mathbb E[\kappa^{N_L}]+o(1)
 \longrightarrow0.
 \qquad\text{(7.1)}
 ```
 
-Combiné à l'annulation des racines, à la disparition sous-critique et au
-transport favorable des géométries, (7.1) interdirait la weak recovery à
-$`p=0.8`$, puis à tout $`p\le0.8`$ par dégradation BSC des observations.
+Combiné à l'annulation des racines, à la disparition sous-critique et à une
+certification directe des blocs multiports aux rangs réalisés, (7.1)
+interdirait la weak recovery à $`p=0.8`$, puis à tout $`p\le0.8`$ par
+dégradation BSC des observations.
 
-Le contenu nouveau n'est pas l'implication élémentaire
-$`\kappa^{N_L}\to0`$ ; c'est l'identification d'un bloc heat bath optimal et
-la tensorisation exacte qui réduisent les hypothèses à la géométrie et à
-l'état de bord.
+Le contenu utile est l'identification d'un bloc heat bath optimal. La
+tensorisation scalaire ne réduit pas automatiquement le transfert multiport ;
+celui-ci doit être calculé avec son état de bord réel.
 
 ## 8. Les trois verrous restants sur la grille triangulaire
 
-### G1 — couplage des corridors
+### G1 — transfert direct aux rangs réalisés
 
-Comparer la loi du squelette Palm d'une paire fusionnant dans la fenêtre
-critique à celle d'une paire fusionnant plus tard. Le théorème 4.1 s'applique
-une fois les tailles et l'incidence couplées. Le contre-lemme 4.2 montre
-qu'un couplage changeant arbitrairement les tailles ne suffit pas : il faut
-soit préserver les tailles, soit certifier bucket par bucket la domination
-des expériences de tailles différentes. Le lemme 4.3 permet d'étudier toute
-la partie critique descendante sous une même géométrie de percolation en
-coordonnée $`q`$.
+Construire les transferts de masse et tordus d'une cellule multiport en
+conservant chaque rang réalisé. Le théorème 4.1 peut servir pour une
+coordonnée véritablement mono-bit, mais ne fournit aucune comparaison
+automatique du bloc collapsed. Une domination cible-spécifique reste
+admissible si elle est démontrée sous la vraie loi de bord.
 
 ### G2 — compression de l'état de bord
 
@@ -683,14 +701,16 @@ exponentielle dans la largeur mais reste calculable.
 
 ### G3 — abondance de blocs contractants
 
-Montrer sous Palm critique qu'un nombre divergent de blocs a soit une petite
-interface, soit un message de bord screené. La distance entre $`i`$ et $`j`$
-ne suffit pas : un corridor macroscopique peut contenir des goulots pivotaux
-mais aussi de grandes coupes presque déterministes.
+Montrer sous la Palm d'événement réelle qu'un nombre divergent de blocs a
+soit une petite interface, soit un message de bord screené. La distance entre
+$`i`$ et $`j`$ ne suffit pas : un corridor macroscopique peut contenir des
+goulots pivotaux mais aussi de grandes coupes presque déterministes.
 
-Le cactus résout désormais $`G2`$ et la comparaison favorable sur son propre
-squelette. L'ordre recommandé est $`G2`$ sur une bande de largeur deux, puis
-$`G1`$ sur cette même bande, avant toute extrapolation à la grille entière.
+Le cactus résout désormais $`G2`$ grâce à ses articulations scalaires.
+L'ordre recommandé est : test de dernière interaction, quotient de jauge
+Markov-fermé ou bloc multi-update, puis seulement identification du déficit
+à une signature locale du corridor. Une cellule T2 qui conserve le twist
+dans son état complet a $`|U|=K`$ et ne peut pas fournir ce déficit.
 
 ## 9. Audit et contre-audit
 
@@ -698,11 +718,12 @@ $`G1`$ sur cette même bande, avant toute extrapolation à la grille entière.
 |---|---|---|
 | Le corridor collapsed est un heat bath valide | Établi | bloc pair-spécifique |
 | Il est plus contractant qu'un sweep des mêmes nœuds | Établi en $`L^2`$ | ne compare pas les temps de calcul |
-| Blackwell se tensorise sur un corridor fixé | Établi | même squelette et indépendance conditionnelle des buckets |
+| Blackwell se tensorise dans le surrogate produit mono-bit | Établi | un seul caractère latent par bucket et indépendance conditionnelle des observations |
+| Le même ordre vaut pour un corridor collapsed multiport | Faux en général | contre-exemple $`m=2`$ au même squelette et à la même taille |
 | Un bucket critique domine un bucket tardif de taille différente | Faux en général | contre-lemme 4.2 : expériences incomparables à $`p=t=4/5`$ |
 | La géométrie non marquée sous le seuil dépend de $`p`$ | Faux en coordonnée $`q`$ | établi sous la loi jointe annealed ; les ancêtres postcritiques restent à traiter |
 | Le facteur $`(1-q_\triangle)^{m-1}`$ donne une queue Palm | Non démontré | il faut contrôler l'entropie des coupes et le biais de paire |
-| Les parités latentes doivent être indépendantes | Faux | un prior corrélé arbitraire est permis dans le théorème 4.1 |
+| Les parités du surrogate doivent être indépendantes | Faux | un prior corrélé arbitraire est permis, mais chaque bucket doit rester mono-bit |
 | La formule produit (5.1) vaut toujours | Faux | elle exige le prior factorisé et l'absence d'état de bord partagé |
 | Le cas LCA critique est le plus favorable sur un cactus | Établi dans le fichier 21 | aucun transfert automatique à la grille |
 | La persistance cactus tend vers zéro à $`p=0.8`$ | Établi exactement | chaîne d'articulations, pas cycles chevauchants |

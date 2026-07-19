@@ -7,13 +7,19 @@ Elle ne revendique pas encore la borne
 $`p_{\mathrm{WR}}\ge161/200`$.
 
 > [!IMPORTANT]
-> **Décision scientifique.** La piste hiérarchique reste crédible, mais le
-> motif « bucket $`m=2`$ avec message neutre » est trop étroit. Le prochain
-> bloc doit couvrir une famille de petites coupes, une fusion de Kruskal
-> réelle et la polarisation extérieure. La composition doit accumuler un
-> déficit dépendant de l'état sous la loi annealed ; une marge absolue
-> uniforme sur tous les potentiels extérieurs est impossible, même dans la
-> cellule la plus simple.
+> **Décision scientifique, corrigée par le fichier 29.** La piste
+> hiérarchique n'est pas réfutée, mais le motif « bucket $`m=2`$ avec message
+> neutre » et le déficit sur état fidèle sont fermés. Le
+> [fichier 30](30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md) fait des projections
+> collapsed imbriquées la voie active. La jauge T2 reste un contre-test d'une
+> compression spéciale, pas le préalable principal.
+
+> [!CAUTION]
+> La criticalisation du corridor final annoncée dans la première version de
+> cette note est réfutée sur une cellule multiport exacte. Les quantités
+> $`q_v^{\mathrm{fav}}`$ ci-dessous sont des proxies algébriques, pas des
+> majorations informationnelles. Voir
+> [l'audit à froid](29_AUDIT_FROID_PIVOT_RANGS_REELS.md).
 
 ## 1. Ce qui est désormais fixé exactement
 
@@ -80,8 +86,8 @@ Le calcul conserve deux expériences séparées.
    les deux bras réels de la paire sont conservés.
 
 Le premier objet change le squelette. Il constitue un benchmark d'intensité
-critique, pas une domination de Blackwell du second. La comparaison
-favorable rigoureuse porte uniquement sur le corridor final fixé :
+critique, pas une domination de Blackwell du second. Sur le corridor final,
+on calculait aussi le rang tronqué diagnostique
 
 ```math
 q_v^{\mathrm{fav}}
@@ -91,6 +97,10 @@ q_v^{\mathrm{fav}}
 \text{squelette, tailles, incidences et attaches inchangés}.
 \qquad\text{(1.4)}
 ```
+
+Cette opération ne domine pas le transfert multiport réel. Elle sert
+uniquement à définir l'ancien proxy de charge ; tout nouveau transfert doit
+utiliser $`q_v`$.
 
 ## 2. Diagnostic géométrique du corridor réel
 
@@ -134,7 +144,7 @@ Les erreurs ci-dessous sont des jackknives delete-one-environment. Les
 nœuds d'un même environnement ne sont jamais traités comme des observations
 i.i.d.
 
-| côté $`L`$ | environnements | coupes du corridor | buckets $`m=2`$ | proxy favorable $`G_{8,1}`$ |
+| côté $`L`$ | environnements | coupes du corridor | buckets $`m=2`$ | proxy criticalisé algébrique $`G_{8,1}`$ |
 |---:|---:|---:|---:|---:|
 | 8 | 100 | $`12.526\pm0.140`$ | $`2.236\pm0.091`$ | $`5.786\pm0.135`$ |
 | 12 | 50 | $`19.002\pm0.328`$ | $`2.929\pm0.143`$ | $`8.687\pm0.281`$ |
@@ -382,8 +392,8 @@ simple puissance du pire coefficient dès la profondeur deux.
 | 5 | $`0.000564617656372`$ | $`0.00113949947561`$ | $`0.00219629550382`$ |
 | 10 | $`1.89285427006\times10^{-7}`$ | $`1.08695758136\times10^{-6}`$ | $`4.82371394009\times10^{-6}`$ |
 
-Le verrou n'est plus une contraction uniforme irréaliste, mais la fermeture
-d'une normalisation commune et la preuve
+Le transformé de Doob rétrograde du fichier 29 ferme maintenant la
+normalisation abstraite en horizon fini. Le verrou est la preuve
 
 ```math
 \mathbb E
@@ -401,39 +411,50 @@ d_r(Z_{r-1},Z_r)
 
 La formule (5.4) est donc établie et contre-auditée en dimension finie.
 L'identification exacte de $`K_r,U_r`$ au heat bath collapsed, la
-normalisation de Doob commune, le cocycle de bord et (5.5) restent les étapes
-globales.
+localisation des fonctions de Doob rétrogrades, le cocycle de bord et (5.5)
+restent les étapes globales.
 
-## 6. Sous-problème suivant : cellule T2-Kruskal
+## 6. Cellule quotient T2-Kruskal : première couche construite
 
-Le prochain calcul ne doit pas simplement élargir la cellule E1+. Il doit
-ajouter exactement les objets qui peuvent annuler sa marge.
+Le fichier 29 construit maintenant une cellule quotient conditionnelle avec
+facteurs de fusion exacts, gagnantes marginalisées, attache ancestrale et
+polarisation. Elle n'est pas encore embarquée dans une géométrie Palm réelle.
+Elle suffit à réfuter la criticalisation uniforme sur l'état multiport
+complet. L'enrichissement suivant doit ajouter exactement les objets
+nécessaires au déficit composable.
 
 ### État minimal à conserver
 
 ```math
 z
 =
-(\mathcal G,\Pi,\Psi,x^{(1)},x^{(2)},\mathfrak p),
+(\mathcal G,\Pi,\Psi,\xi_{\mathrm{front}},\mathfrak p),
 \qquad\text{(6.1)}
 ```
 
 où $`\mathcal G`$ contient le squelette et les groupes d'incidence,
 $`\Pi`$ la partition signée des ports, $`\Psi`$ le potentiel extérieur
-projectif, $`x^{(1)},x^{(2)}`$ les deux orientations relatives et
-$`\mathfrak p`$ le statut de fusion ou d'attache en peigne.
+projectif, $`\xi_{\mathrm{front}}`$ les orientations encore nécessaires aux
+facteurs futurs et $`\mathfrak p`$ le statut de fusion ou d'attache en
+peigne. L'état ne doit pas conserver une orientation interne après sa
+dernière interaction : si le twist est mesurable depuis la transition, le
+no-go du fichier 29 donne $`|U|=K`$ et $`d=0`$.
 
 ### Cellule exigée
 
-Le bloc T2-Kruskal doit contenir :
+Le bloc T2-Kruskal enrichi doit contenir :
 
 1. une fusion réelle, avec l'identité de l'arête gagnante oubliée et le
    facteur $`\Lambda e^{(1-\beta)\Lambda}`$ exact ;
 2. au moins trois ports et une route latérale possible ;
-3. une attache postcritique criticalisée sans resquelettisation ;
+3. une attache postcritique à rang variable, avec le rang critique comme
+   colonne comparative seulement ;
 4. les quatre valeurs $`\Lambda_v^{ab}`$ d'au moins un ancêtre ;
 5. le même environnement pour les deux répliques ;
-6. une énumération directe et une élimination dynamique indépendantes.
+6. soit une jauge de ports dont la transition de $`\Psi`$ est Markov-fermée,
+   soit plusieurs updates allant jusqu'à la dernière interaction d'une
+   orientation ;
+7. une énumération directe et une élimination dynamique indépendantes.
 
 La première sortie utile n'est pas un unique rayon spectral. C'est la carte
 
@@ -447,28 +468,32 @@ d(z,z'),
 ```
 
 qui permet de relier exactement le transfert à un événement géométrique
-observable dans le diagnostic Palm.
+observable dans le diagnostic Palm. Cette carte n'est utile que si plusieurs
+signes sont effectivement agrégés dans une même transition quotient ; sur
+l'état fidèle complet, elle doit retourner $`d=0`$.
 
 ## 7. Ordre de travail révisé
 
-### Priorité 1 — fermer la composition finie
+### Priorité 1 — identifier la dernière interaction
 
-Établir (5.4) pour les noyaux finis, préciser la normalisation commune et
-isoler explicitement les facteurs de bord. Cette étape est indépendante de
-toute limite de percolation et ne demande pas de mélange global.
+Pour chaque petite attache du corridor réel, calculer le premier ancêtre après
+lequel ses deux enfants ne sont plus distingués par aucun facteur futur du
+séparateur retenu. Si ce temps est typiquement macroscopique, un bloc local
+exact ne pourra pas porter la contraction.
 
-### Priorité 2 — construire T2-Kruskal avec polarisation
+### Priorité 2 — fermer le quotient de frontière
 
-Commencer par une cellule à trois ports et une seule attache. Scanner
-$`\Psi`$ de façon adversariale avant toute certification d'intervalles. Si
-le déficit reste presque nul sur toute la loi pertinente, arrêter ce motif
-avant d'entreprendre une preuve Palm.
+Construire une jauge de ports avec transition exacte de $`\Psi`$, ou un bloc
+multi-update éliminant une orientation à sa dernière interaction. Calculer
+alors seulement $`K,U,d`$. La projection en un pas de déficit
+$`0.008259\ldots`$ est non composable et ne constitue pas cette fermeture.
 
 ### Priorité 3 — enrichir le diagnostic géométrique
 
-Pour chaque bucket du proxy $`G_{M,J}`$, enregistrer le nombre de ports, le
-type d'attache, une signature locale des contournements et la boîte de
-message requise par T2. Remplacer ensuite le simple compte de coupes par
+Pour chaque bucket au rang réel, enregistrer le nombre de ports, le type
+d'attache, une signature locale des contournements, le message et le rang de
+dernière interaction. Après fermeture de la priorité 2 seulement, remplacer
+le simple compte de coupes par
 
 ```math
 D_{ij}^{\mathrm{diag}}
@@ -480,10 +505,11 @@ d_{\mathrm{T2}}(z_{r-1},z_r).
 
 ### Priorité 4 — seulement alors prouver l'abondance
 
-Le lemme planaire doit viser (5.5), ou une minoration multiscale de
-$`D_{ij}`$, sans chercher la loi limite complète du dendrogramme. Des
-annuli disjoints, RSW, finite energy et quasi-multiplicativité ne deviennent
-pertinents qu'une fois le motif T2 précisément défini.
+Le lemme planaire doit viser une transformée de Laplace du nombre d'outlets T2
+protégés visités avec $`|\Psi|\le M`$, sans borner le maximum de $`\Psi`$ et
+sans chercher la loi limite complète du dendrogramme. RSW, finite energy et
+quasi-multiplicativité ne deviennent pertinents qu'une fois le quotient T2
+précisément défini.
 
 ### Priorité 5 — certificat à $`p_0`$
 
@@ -495,10 +521,10 @@ $`p_0=161/200`$. Tester $`p=0.81`$ seulement après cette clôture.
 
 | test | go | no-go local |
 |---|---|---|
-| géométrie | croissance du déficit T2 cumulé | croissance du seul compte $`m=2`$, sans ports ni messages |
-| bord | visites suffisantes d'états où $`d(z,z')>0`$ | potentiel presque toujours polarisé et déficit total tendu |
-| transfert | déficit positif sur une classe définie géométriquement | marge visible seulement après bornage gratuit de $`\Psi`$ |
-| composition | normalisation commune et Feynman--Kac sans facteur exponentiel caché | rayons individuels inférieurs à un mais produit incontrôlé |
+| géométrie | beaucoup d'orientations quittent un séparateur local | dernière interaction typiquement macroscopique |
+| bord | quotient Markov-fermé et retours suffisants de $`\Psi`$ dans un compact | projection non fermée ou potentiel sans retours modérés |
+| transfert | déficit positif après élimination exacte du twist | $`|U|=K`$ parce que le twist reste mesurable |
+| composition | Doob rétrograde exact et Feynman--Kac sans facteur exponentiel caché | rayons individuels inférieurs à un mais produit incontrôlé |
 | seuil | marge certifiée dominant troncature et mauvais blocs à $`0.805`$ | optimisation numérique avant fermeture du théorème global |
 
 ## 9. Bilan de ce cycle
@@ -507,14 +533,19 @@ $`p_0=161/200`$. Tester $`p=0.81`$ seulement après cette clôture.
 
 - conventions Palm sans double biais ;
 - partition exacte des paires connectées par les LCA réalisés ;
-- criticalisation sur le squelette final inchangé ;
+- lemme de criticalisation mono-bit et contre-exemple multiport exact ;
 - transfert répliqué à environnement partagé pour la cellule E1+ ;
 - coefficient tordu E1+ strictement inférieur à $`0.3`$ par intervalles
   rationnels ;
 - impossibilité d'une contraction absolue brute uniforme sur les potentiels
   extérieurs non bornés ;
-- domination de Feynman--Kac pour toute suite finie de transferts positifs
-  déjà placés dans une normalisation stochastique commune.
+- domination de Feynman--Kac pour toute suite finie de transferts positifs,
+  avec normalisation rétrograde automatique ;
+- cellule quotient T2-Kruskal à rangs paramétrés, gagnantes marginalisées et
+  bord polarisé ; elle n'est pas échantillonnée sous la Palm réelle ;
+- no-go exact $`|U|=K`$ pour un update dont l'état complet révèle le twist ;
+- projection en un pas de coefficient $`0.991774\ldots`$, explicitement non
+  Markov-fermée et non composable.
 
 ### Indiqué numériquement
 
@@ -524,14 +555,18 @@ $`p_0=161/200`$. Tester $`p=0.81`$ seulement après cette clôture.
 
 ### Toujours ouvert avant toute borne de weak recovery nouvelle
 
-- transfert T2 avec fusion, pivotalité, ports et $`\Lambda`$ ancestraux ;
+- rang de dernière interaction sous la Palm réelle ;
+- quotient de ports Markov-fermé ou bloc multi-update d'élimination ;
+- transfert T2 composable avec fusion, pivotalité, ports et $`\Lambda`$
+  ancestraux ;
 - loi et drift du potentiel extérieur ;
 - composition exacte jusqu'au heat bath collapsed ;
 - abondance du déficit sous la loi LCA-Palm réelle ;
 - passage à $`\mathbb E[A_{I_LJ_L}]\to0`$.
 
 Le résultat le plus important de ce cycle n'est donc pas la valeur
-$`0.29399\ldots`$ prise isolément. C'est l'identification d'une route qui ne
-demande ni mélange global, ni screening uniforme, ni loi complète du
-dendrogramme : transfert tordu à état enrichi, déficit de Feynman--Kac et
-abondance annealed sur le corridor réel.
+$`0.29399\ldots`$ prise isolément. C'est le double filtre logique : le
+Feynman--Kac fini est disponible, mais un état fidèle trop riche rend son
+déficit trivial. La route restante passe par une élimination de dernière
+interaction Markov-fermée, puis seulement par l'abondance annealed sur le
+corridor réel.

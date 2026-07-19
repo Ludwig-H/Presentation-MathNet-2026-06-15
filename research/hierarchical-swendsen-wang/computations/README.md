@@ -5,7 +5,7 @@ sortie numérique est toujours étiquetée comme diagnostic tant qu'elle n'est
 pas accompagnée d'une preuve ou d'un certificat d'intervalles.
 
 Le contexte, l'ordre de travail et les lemmes servis par ces calculs sont
-résumés dans le [programme prioritaire](../00_RESEARCH_PROGRAM.md).
+résumés dans l'[audit à froid](../29_AUDIT_FROID_PIVOT_RANGS_REELS.md).
 
 ## Validation complète
 
@@ -33,11 +33,22 @@ Les scripts n'ont pas de dépendance scientifique externe.
 | `joint_hierarchical_sweep.py` | sweep exact top-down/bottom-up sur petits tores |
 | `favorable_time_comparison.py` | anti-alignement, Blackwell à taille fixe et incomparabilité cross-size certifiée à $`p=4/5`$ |
 | `pair_favorability_diagnostic.py` | comparaison pondérée critique/tardive par classes de paires |
-| `collapsed_corridor_transfer.py` | transfert collapsed exact pour un corridor et un prior corrélé |
+| `collapsed_corridor_transfer.py` | surrogate produit mono-bit avec prior corrélé ; ce n'est pas le corridor multiport réel |
 | `cactus_collapsed_certificate.py` | canal cactus exact, LCA seul contre corridor complet et certificat $`p=0.8`$ |
-| `lca_palm_corridor_diagnostic.py` | benchmark snapshot critique, corridor final réel et criticalisation à squelette fixé |
+| `lca_palm_corridor_diagnostic.py` | benchmark snapshot critique, corridor final réel et rang tronqué diagnostique sans ordre informationnel |
+| `multiport_blackwell_counterexample.py` | contre-exemple exact à la criticalisation d'une fusion à deux incidences |
+| `kruskal_fusion_t2_transfer.py` | cellule quotient T2-Kruskal à rangs paramétrés, gagnantes marginalisées et bord polarisé |
+| `corridor_t2_signature_diagnostic.py` | attaches en peigne, ports géométriques et audits Palm sur le corridor final |
+| `ancestral_polarization_palm_diagnostic.py` | messages ancestraux exacts aux rangs réalisés sous la Palm d'événement |
+| `joint_real_rank_t2_palm_diagnostic.py` | filtre conjoint rang réel, petite attache et message ancestral sur les mêmes nœuds Palm |
+| `real_rank_t2_deficit_prototype.py` | no-go $`|U|=K`$ sur l'état complet et projection en un pas non composable |
+| `last_use_attachment_palm_diagnostic.py` | borne supérieure structurelle par dernière incidence des attaches et de l'union, sans fermeture Markov ni déficit |
+| `nested_projection_l2_diagnostic.py` | énumération exacte de $`\pi_D`$ à $`L=4`$ et dissipation pythagoricienne des projections collapsed imbriquées |
+| `rational_a0_less_noisy_certificate.py` | certificats exhaustifs par Sturm et dominance diagonale de $`p=0.805`$ à $`p=0.809439`$ |
+| `two_step_l2_population_diagnostic.py` | audit non sélectionné de toutes les cellules strict-arm consécutives d'une paire à distance maximale |
+| `two_step_projective_l2_cell.py` | witness D1 exact à deux projections, potentiels extérieurs atteints et échec de la marge uniforme au bord |
 | `triangular_band_collapsed_certificate.py` | premier secteur répliqué E1+ sur une cellule triangulaire neutre à quatre ports |
-| `twisted_feynman_kac_composition.py` | composition finie du secteur tordu par un déficit de Feynman--Kac |
+| `twisted_feynman_kac_composition.py` | composition finie et transformé de Doob rétrograde pour des transferts non normalisés |
 
 Chaque module actif possède un fichier `test_*.py` associé.
 
@@ -61,7 +72,7 @@ partir des deux expériences binomiales symétriques dans les tests.
 Ces modules restent testés, mais ne déterminent plus l'ordre du programme de
 recherche.
 
-## Corridor collapsed à $`p=0.8`$
+## Surrogate factorisé mono-bit à $`p=0.8`$
 
 ```bash
 python3 \
@@ -87,8 +98,9 @@ neutral m=2 blocks=20 bound=0.000663680509319
 neutral m=2 blocks=40 bound=4.4047181845e-07
 ```
 
-Ces nombres valident l'énumération sur un corridor fixé ; ils ne représentent
-pas la loi du tore triangulaire.
+Ces nombres valident l'énumération d'une expérience produit mono-bit. Ils ne
+représentent ni le corridor collapsed multiport ni la loi du tore
+triangulaire.
 
 ## Diagnostic LCA-Palm du corridor réel à $`p=0.805`$
 
@@ -110,9 +122,9 @@ Le module sépare deux expériences qui ne sont pas interchangeables.
 Le contre-audit détecte explicitement le faux poids $`m^2N_\rho`$ et vérifie
 que la somme des $`N_\rho`$ sur les LCA réalisés est exactement le nombre de
 paires ordonnées lointaines connectées. Le benchmark snapshot change le
-squelette et ne constitue pas une domination de Blackwell. Seul le corridor
-final applique la criticalisation favorable
-$`q_v\mapsto\min(q_v,q_c)`$ sur un squelette inchangé.
+squelette et ne constitue pas une domination de Blackwell. Le corridor final
+calcule aussi le rang tronqué $`q_v\mapsto\min(q_v,q_c)`$, mais celui-ci est
+un proxy algébrique, pas une majoration du transfert multiport.
 
 À $`L=12`$, avec les paramètres ci-dessus, le corridor final contient en
 moyenne jackknife
@@ -129,6 +141,298 @@ ports latéraux, ni le potentiel extérieur. Les erreurs sont des jackknives
 par environnement de rang, jamais des erreurs i.i.d. par nœud. Le tableau
 d'échelle complet et ses limites sont dans le
 [fichier 28](../28_FIRST_CORRIDOR_P0805_RESULTS.md).
+
+## Contre-exemples multiports à $`p=0.805`$
+
+```bash
+python3 \
+  research/hierarchical-swendsen-wang/computations/multiport_blackwell_counterexample.py
+python3 \
+  research/hierarchical-swendsen-wang/computations/kruskal_fusion_t2_transfer.py
+```
+
+Le premier script certifie par fractions et intervalles
+
+```text
+R(-- ) in [-0.071225876442769, -0.071225876442768]
+late-minus-critical variance in [0.006261909458020, 0.006261909458020]
+```
+
+pour un canal à deux relations et une gagnante marginalisée. Le second
+reconstruit une fusion cible puis une attache ancestrale avec les facteurs
+$`\Lambda e^{(1-\beta)\Lambda}`$ exacts. Pour le bord $`B=4,J=3`$, il donne
+
+```text
+critical=0.735112203 late=0.755637535 gap=+0.020525332
+```
+
+Deux voies indépendantes, arête par arête et par comptes groupés, coïncident.
+Ces calculs réfutent la domination uniforme ; ils ne réfutent pas une
+contraction annealed sous la loi réelle des messages.
+
+## Signatures T2 et polarisation ancestrale sous Palm
+
+```bash
+python3 \
+  research/hierarchical-swendsen-wang/computations/corridor_t2_signature_diagnostic.py \
+  --sides 12 --repetitions 40 --p 0.805 \
+  --distance-fraction 0.25 --maximum-bucket-size 6 \
+  --maximum-charge 1 --maximum-ports 6 \
+  --maximum-attachment-size 4 --seed 21260722
+python3 \
+  research/hierarchical-swendsen-wang/computations/ancestral_polarization_palm_diagnostic.py \
+  --side 12 --repetitions 30 --p 0.805 \
+  --distance-fraction 0.25 --maximum-bucket-size 8 \
+  --maximum-charge 1 --message-thresholds 1,2,4 --seed 21260725
+python3 \
+  research/hierarchical-swendsen-wang/computations/joint_real_rank_t2_palm_diagnostic.py \
+  --sides 8,12,16 --repetitions 24,10,5 --p 0.805 \
+  --distance-fraction 0.25 --maximum-bucket-size 8 \
+  --maximum-attachment-size 4 --maximum-charge 1 \
+  --message-thresholds 1,2,4 --seed 20260723
+```
+
+Aux trois tailles testées, le premier diagnostic observe davantage de petites
+attaches en peigne lorsque $`L`$ augmente, tandis qu'un cap fixe sur la
+frontière globale les écrase. Cette tendance de volume fini n'est pas une
+loi d'échelle. Le second calcule le vrai message externe de tous les ancêtres stricts aux rangs
+réalisés. Un message borné n'est pas un certificat de screening. Les tables
+et les erreurs par environnement sont dans le
+[fichier 29](../29_AUDIT_FROID_PIVOT_RANGS_REELS.md).
+
+Le troisième diagnostic réunit ces filtres sur les mêmes nœuds et utilise en
+premier lieu la charge au **rang réel**. Le nombre moyen de candidats passe
+de $`4.476\pm0.205`$ à $`L=8`$ à $`10.213\pm0.693`$ à $`L=16`$ ; après
+$`|B|\le2`$, il passe de $`2.275\pm0.151`$ à $`5.763\pm0.637`$. Le
+proxy criticalisé donne presque les mêmes comptes, donc le signal ne dépend
+pas de l'oracle réfuté. Le module ne calcule encore ni screening, ni déficit
+T2, ni borne de weak recovery.
+
+## No-go du déficit local complètement résolu
+
+```bash
+python3 \
+  research/hierarchical-swendsen-wang/computations/real_rank_t2_deficit_prototype.py \
+  --side 8 --p 0.805 --distance-fraction 0.25 \
+  --maximum-bucket-size 8 --maximum-attachment-size 4 \
+  --seed 20260724
+```
+
+Le module extrait une petite attache d'un corridor réel, conserve ses rangs,
+les quatre poids du potentiel extérieur et les deux répliques dans le même
+environnement. Si l'état cible conserve les configurations de spins
+complètes, le twist $`\epsilon`$ est mesurable depuis la sortie. On a donc
+exactement $`U=\epsilon K`$, $`|U|=K`$ et un déficit nul sur chaque
+transition.
+
+La sortie reproductible sélectionne un bucket $`m=5`$ avec une attache de
+taille un au rang $`q=0.3688343\ldots`$ :
+
+```text
+faithful_feynman_kac_envelope: 1.0
+faithful_logarithmic_attenuation: 0.0
+projected_feynman_kac_envelope: 0.9917743479761344
+projected_logarithmic_attenuation: 0.008259669371149435
+projected_boundary_is_markov_closed: false
+composable_t2_deficit_certified: false
+```
+
+La projection agrège bien des signes opposés, mais oublie les orientations
+nécessaires pour mettre à jour le potentiel ancestral. Son déficit positif
+n'est donc pas composable. Une jauge Markov-fermée reste un contre-test ; la
+voie active passe aux projections collapsed $`L^2`$, qui n'exigent pas de
+fermeture locale de dimension fixe.
+
+## Dernière utilisation des orientations
+
+```bash
+python3 \
+  research/hierarchical-swendsen-wang/computations/last_use_attachment_palm_diagnostic.py \
+  --sides 8,12,16 --repetitions 24 --p 0.805 \
+  --distance-fraction 0.25 --maximum-bucket-size 8 \
+  --maximum-attachment-size 4 --ancestor-windows 0,1,2,4,8 \
+  --seed 20260725
+```
+
+Le critère est un certificat structurel conservateur : en prenant la branche
+principale comme jauge, une attache peut être marginalisée après le dernier
+bucket physique qui lui est incident. Des contributions incidentes peuvent
+s'annuler, donc ce rang majore le dernier usage fonctionnel sans
+nécessairement lui être égal. Sous la Palm des événements réalisés, pondérée
+par $`N_\rho`$, cette dernière incidence a une profondeur moyenne
+$`2.153`$, $`3.961`$, puis $`7.551`$ pour $`L=8,12,16`$. Le mécanisme local
+n'est donc pas vide.
+
+Il ne marginalise toutefois pas l'orientation globale qui porte le twist de
+la paire. La dernière incidence possible de cette orientation est à la
+racine dans des fractions $`0.940`$, $`0.939`$, puis $`0.962`$ ; à $`L=16`$,
+seulement $`0.106`$ des unions n'ont plus d'incidence après les huit niveaux
+suivants.
+L'élimination locale de l'attache réduit l'état, mais ne rend pas composable
+le déficit projeté. Le diagnostic ne prouve ni fermeture Markov, ni
+contraction, ni résultat de weak recovery.
+
+## Dissipation $`L^2`$ globale sur le tore $`L=4`$
+
+```bash
+python3 \
+  research/hierarchical-swendsen-wang/computations/nested_projection_l2_diagnostic.py \
+  --side 4 --repetitions 96 --p 0.805 \
+  --distance-fraction 0.5 --seed 20260726
+```
+
+Le module énumère les $`2^{16}`$ états de la loi conditionnelle $`\pi_D`$,
+prend indépendamment du dendrogramme une paire à distance maximale $`2`$ sur
+ce tore, puis intègre des paquets croissants d'orientations sur ses deux
+bras. Le choix antérieur $`\texttt{distance-fraction}=0.25`$ ne filtrait en
+réalité que les paires distinctes à $`L=4`$ ; il ne doit pas être décrit
+comme un test de paire lointaine. Le calcul vérifie
+indépendamment à chaque étape
+
+```math
+\|M_{k-1}\|_2^2-\|M_k\|_2^2
+=
+\|M_{k-1}-M_k\|_2^2.
+```
+
+À $`p=0.805`$, 94 des 96 paires sont dans une même racine finale. Sur ces
+94 environnements, la persistance collapsed moyenne vaut
+$`0.82045\pm0.02732`$, contre $`0.79657`$ pour le carré de la moyenne
+postérieure. La perte totale vaut $`0.17955`$ en moyenne mais seulement
+$`0.04372`$ en médiane. Conditionnellement à une perte non nulle, le nombre
+effectif de paquets vaut $`1.547`$ et le paquet dominant porte en moyenne
+$`79.8\%`$ de la perte.
+
+Le second paquet strictement pré-LCA a un ratio énergétique agrégé
+$`0.02837`$, mais sa perte relative médiane n'est que
+$`1.22\times10^{-5}`$. Les $`10\%`$ de cas les plus dissipatifs portent
+$`78.0\%`$ de sa perte absolue. Même la prédominance pré-LCA doit être lue
+avec prudence : dans 54 cas sur 94, le paquet du LCA n'ajoute aucun générateur
+indépendant et sa perte est donc structurellement nulle.
+
+Le pivot $`L^2`$ voit ainsi une cancellation réelle que l'enveloppe fidèle
+$`|U|=K`$ perd, mais D2 est un avertissement contre une accumulation
+multiscalaire brute. Le seul test encore justifié est d'isoler deux mises à
+jour emboîtées et de déterminer si la queue dissipative correspond à une
+classe de bords atteignable et certifiable. L'erreur pythagoricienne maximale
+vaut $`1.67\times10^{-15}`$ ; aucune extrapolation en $`L`$ n'est faite.
+
+## Cellule D1 exacte à deux projections
+
+```bash
+python3 \
+  research/hierarchical-swendsen-wang/computations/two_step_projective_l2_cell.py
+```
+
+Le module reconstruit un witness réel $`L=4`$, $`p=0.805`$, choisi après un
+scan exploratoire. Les deux nœuds strict-arm consécutifs ont des rangs
+réalisés $`0.19324`$ et $`0.20258`$ ; leurs trois bits de cluster ont les
+tailles $`1,4,1`$. Les pertes exactes sont
+
+```math
+\|M_0\|_2^2-\|M_1\|_2^2=0.0308734,
+\qquad
+\|M_1\|_2^2-\|M_2\|_2^2=0.1322561,
+```
+
+soit $`\alpha_2=0.1364694`$. Le nouveau sibling ne contient aucun endpoint :
+le projeter seul sur $`f_{ij}`$ donne une perte nulle. La seconde perte est
+donc bien calculée sur la fonction $`M_1`$ propagée.
+
+Le calcul conditionne ensuite sur tous les cosets extérieurs positifs. Il
+obtient 128 potentiels projectifs réellement atteints et audite la
+factorisation du poids postérieur complet à $`1.43\times10^{-14}`$ près. Les
+64 potentiels strictement positifs portent $`94.8\%`$ de la masse
+postérieure ; leur ratio énergétique agrégé vaut $`0.14420`$ et leur marge
+relative minimale $`0.00303`$. Les 64 potentiels de bord font toutefois
+tomber la marge globale à zéro.
+
+D1 prouve donc que le mécanisme à deux niveaux n'est pas algébriquement vide.
+Il ne prouve pas qu'il soit fréquent : la paire du witness est à distance
+$`1`$, la cellule est très précritique et elle a été sélectionnée après
+exploration. Aucun poids Palm ni aucune abondance asymptotique n'est inféré.
+
+## Audit de population D1 sans sélection
+
+```bash
+python3 \
+  research/hierarchical-swendsen-wang/computations/two_step_l2_population_diagnostic.py \
+  --repetitions 32 --p 0.805 --distance-fraction 0.5 \
+  --critical-rank-window 0.02 --seed 20260729
+python3 \
+  research/hierarchical-swendsen-wang/computations/two_step_l2_population_diagnostic.py \
+  --repetitions 64 --p 0.805 --distance-fraction 0.5 \
+  --critical-rank-window 0.02 --seed 20260730
+```
+
+Pour chaque dendrogramme, la paire à distance maximale est tirée avant de
+regarder ses fusions. Le module énumère ensuite toutes les paires de fusions
+strict-arm consécutives et recalcule exactement le postérieur complet, les
+potentiels extérieurs atteints et les deux identités pythagoriciennes. Les
+cellules se recouvrent et ne sont pas indépendantes ; il s'agit toujours
+d'un diagnostic au volume $`L=4`$, pas d'un échantillon Palm asymptotique.
+
+Les deux graines donnent ensemble 96 paires connectées et 302 cellules. Sur
+la population entière, la seconde perte est très concentrée : son ratio
+énergétique vaut $`0.03722`$, sa médiane relative
+$`7.87\times10^{-5}`$, et les $`10\%`$ de cellules les plus dissipatives
+portent plus de $`81\%`$ de la perte. Une marge uniforme reste impossible :
+$`65.2\%`$ des cellules ont un potentiel atteint de bord à marge nulle.
+
+Le signal nouveau est sa localisation en rang. Dans la fenêtre
+
+```math
+|q_{\mathrm{sup}}-q_c|\le0.02,
+```
+
+on ne trouve que 14 cellules sur 302. Elles portent $`4.13\%`$ de l'énergie
+entrante, mais $`34.12\%`$ de la seconde perte absolue ; leur ratio
+énergétique agrégé vaut $`0.30779`$. Pour la fenêtre de largeur $`0.05`$, 42
+cellules portent $`58.35\%`$ de la perte, avec un ratio $`0.16897`$.
+
+Les deux graines sont variables : la fenêtre de largeur $`0.02`$ contient
+respectivement 10 cellules sur 102 et 4 sur 200, portant $`56.6\%`$ puis
+$`17.6\%`$ de la perte. Le résultat ne prouve donc ni une densité positive,
+ni une contraction thermodynamique. Il falsifie toutefois l'idée que le rang
+critique est sans rapport avec la queue dissipative et remplace le chantier
+annulaire générique par un test beaucoup plus étroit : démontrer une
+occupation **énergétique** répétée de cellules consécutives dans une fenêtre
+near-critical.
+
+## Certificats rationnels less-noisy
+
+```bash
+python3 \
+  research/hierarchical-swendsen-wang/computations/rational_a0_less_noisy_certificate.py \
+  --candidate a0
+python3 \
+  research/hierarchical-swendsen-wang/computations/rational_a0_less_noisy_certificate.py \
+  --candidate p809439
+```
+
+Le module conserve aussi les jalons $`p=0.809`$ et $`p=0.8094`$ comme
+contre-tests lisibles. Il n'effectue aucun scan flottant. Pour chaque
+candidat, il construit
+exactement les quatre polynômes nécessaires, compte leurs racines par les
+suites de Sturm, vérifie les signes aux extrémités et contrôle l'identité de
+dominance diagonale de la matrice polarisée. La sortie renforcée est
+
+```text
+candidate: p809439
+status: CERTIFIED_PSD
+scope: exhaustive
+unresolved_regions: 0
+variance_gap: 1/50000000
+order_slack: 7/500000000
+self_dual_slack: 7/500000000
+```
+
+Les tests reconstruisent aussi les formes quadratiques du canal physique et
+du canal auxiliaire sur l'intérieur et les faces du simplexe. Le certificat
+local exact et sa conséquence globale sont détaillés dans les [fichiers
+31](../31_CERTIFICAT_RATIONNEL_A0.md),
+[32](../32_CERTIFICAT_RATIONNEL_P809.md) et
+[34](../34_CERTIFICAT_RATIONNEL_P809439.md).
 
 ## Cellule triangulaire répliquée E1+
 
@@ -173,8 +477,7 @@ python3 \
   research/hierarchical-swendsen-wang/computations/twisted_feynman_kac_composition.py
 ```
 
-Pour chaque transfert positif levé déjà placé dans une normalisation
-stochastique commune, le module construit
+Pour chaque transfert positif levé, le module construit
 
 ```math
 K=\sum_\epsilon T_\epsilon,
@@ -189,6 +492,11 @@ de $`\prod r`$ sous la chaîne de masse $`K`$. Deux exemples en `Fraction`
 comparent exactement la récurrence dynamique à une énumération indépendante
 de tous les chemins.
 
+Pour une suite non normalisée, les fonctions rétrogrades
+$`h_{r-1}=K_rh_r`$ construisent automatiquement un transformé de Doob
+inhomogène. Les facteurs diagonaux télescopent et les lignes de masse nulle
+restent hors support.
+
 Pour la cellule E1+ à $`p=0.805`$, la sortie contient :
 
 ```text
@@ -196,9 +504,9 @@ depth= 2 signed=0.0649753038062 FK=0.0738919329503 uniform=0.0864323475826
 depth=10 signed=1.89285427006e-07 FK=1.08695758136e-06 uniform=4.82371394009e-06
 ```
 
-La normalisation de Doob commune à tous les blocs du corridor et
-l'identification au transfert LCA-Palm réel restent ouvertes. Le module
-certifie le lemme de composition fini, pas ces deux étapes.
+L'identification de ces transferts non normalisés au corridor LCA-Palm réel
+et le contrôle thermodynamique de la mesure tuée restent ouverts. La
+normalisation finie abstraite ne l'est plus.
 
 ## Certificat cactus collapsed
 
@@ -246,7 +554,7 @@ $`t=4/5`$ sont incomparables. Les fonctions génériques de comparaison
 cross-size utilisent des flottants et restent des diagnostics ; ce certificat
 particulier, lui, est une preuve par intervalles exacts.
 
-## Diagnostic HF-S2 sur petits tores
+## Diagnostic historique HF-S2 sur petits tores
 
 Les trois lignes du fichier 19 se reproduisent par :
 
@@ -266,6 +574,9 @@ La sortie JSON contient les masses de classes, le nombre d'environnements
 contributeurs, les deux ordres de sweep, les seconds moments et le contraste
 jackknife apparié. Le contraste à $`L=8`$ est compatible avec zéro à environ
 une erreur standard : il ne faut pas surinterpréter les six signes positifs.
+Le contre-exemple multiport montre désormais que ce diagnostic ne teste pas
+une domination universelle. Il est conservé comme comparaison
+cible-spécifique historique.
 
 ## Conventions de développement
 
@@ -283,23 +594,25 @@ une erreur standard : il ne faut pas surinterpréter les six signes positifs.
 
 ## Prochaine étape
 
-La cellule E1+ a rempli son rôle de test de secteur et a révélé le verrou de
-polarisation. Le prochain module doit être une cellule **T2-Kruskal**, et non
-une simple bande neutre plus large. Il devra :
+Deux raccourcis sont désormais fermés : l'état microscopique fidèle donne
+$`d_r=0`$, tandis que la projection sur la seule orientation relative donne
+un déficit positif non Markov-fermé. Le diagnostic de dernière utilisation
+montre en outre qu'on ne peut presque jamais certifier, par la seule absence
+d'incidences, l'élimination de l'orientation globale dans une fenêtre
+ancestrale bornée aux tailles testées.
 
-1. inclure une fusion réelle et marginaliser correctement l'arête gagnante ;
-2. encoder la partition ouverte, au moins trois ports et une attache en
-   peigne ;
-3. conserver le potentiel extérieur et les quatre
-   $`\Lambda_v^{ab}`$ d'un ancêtre ;
-4. construire les deux répliques dans le même environnement ;
-5. produire un déficit tordu dépendant de l'état, composable par une formule
-   de Feynman--Kac ;
-6. fournir deux implémentations concordantes avant tout certificat
-   d'intervalles.
+Le prochain calcul n'est donc **pas** une T2 plus riche suivie d'un déficit
+par rang, et l'audit de population demandé est maintenant effectué. Il
+confirme la queue rare à rang arbitraire, mais montre un enrichissement net
+de la dissipation dans la fenêtre critique. La prochaine étape est
+analytique : isoler un événement de cellule critique mesurable par la
+géométrie et prouver une minoration annealed pondérée par l'énergie, puis
+établir que le corridor d'une paire macroscopique rencontre un nombre
+divergent de telles cellules énergétiquement actives.
 
-Le diagnostic Palm doit ensuite enregistrer exactement les ports et états
-requis par cette cellule. Il est inutile de lancer une preuve multiscale
-d'abondance avant d'avoir identifié ce motif fini. L'ordre détaillé est dans
-la [sous-feuille de route](../27_SUBROADMAP_CORRIDOR_P0805.md) et les
-[premiers résultats](../28_FIRST_CORRIDOR_P0805_RESULTS.md).
+La jauge de ports reste un dernier contre-test d'une compression spéciale.
+Les annuli génériques restent gelés tant que ce lemme critique n'est pas
+fermé. L'ordre détaillé est dans les [fichiers
+29](../29_AUDIT_FROID_PIVOT_RANGS_REELS.md),
+[30](../30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md) et la
+[sous-feuille critique](../33_SOUS_FEUILLE_ROUTE_CELLULES_CRITIQUES_L2.md).

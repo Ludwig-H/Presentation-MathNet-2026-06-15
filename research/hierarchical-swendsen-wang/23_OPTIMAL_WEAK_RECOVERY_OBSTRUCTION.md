@@ -2,8 +2,12 @@
 
 > [!NOTE]
 > La version synthétique et l'ordre de travail courant sont dans le
-> [programme prioritaire](00_RESEARCH_PROGRAM.md). Cette note développe le
-> théorème conditionnel et l'architecture annulaire complète.
+> [programme prioritaire](00_RESEARCH_PROGRAM.md). Le
+> [contre-audit multiport](29_AUDIT_FROID_PIVOT_RANGS_REELS.md) invalide
+> l'étape historique de criticalisation ci-dessous. L'architecture annulaire
+> reste pertinente, mais le [pivot $`L^2`$](30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md)
+> remplace désormais le transfert local borné par des projections collapsed
+> et une occupation pondérée par l'énergie.
 
 Cette note répond à la question suivante : parmi toutes les façons d'utiliser
 la dynamique hiérarchique, quelle architecture de preuve a le plus de chances
@@ -14,17 +18,17 @@ La réponse courte est :
 
 1. utiliser le **corridor descendant collapsed** propre à la paire, et non le
    seul LCA ;
-2. rendre chaque canal postcritique artificiellement aussi informatif qu'au
-   seuil, **sans changer le squelette ni les tailles de buckets** ;
+2. conserver chaque update postcritique à son rang réalisé et intégrer des
+   blocs collapsed imbriqués ;
 3. décomposer le corridor en blocs annulaires screenés ;
-4. prouver une contraction $`\chi^2`$ uniforme du transfert répliqué sur
-   chaque bon bloc ;
-5. montrer sous la loi Palm de fusion que le nombre de bons blocs diverge.
+4. minorer la variance perdue sur la fonction effectivement propagée, pas une
+   norme uniforme qui contient les constantes ;
+5. montrer sous la loi Palm que l'énergie portée par les bons blocs est
+   abondante.
 
-Cette stratégie conserve exactement l'idée du cas le plus favorable, mais
-elle la formule sous une forme que l'ordre de Blackwell permet réellement de
-prouver. La comparaison plus forte avec un véritable corridor critique reste
-un lemme géométrique ouvert.
+L'ordre de Blackwell reste utile pour un bucket mono-bit, mais ne fournit pas
+d'enveloppe du corridor collapsed. La comparaison avec un corridor critique
+est désormais un benchmark, pas une réduction.
 
 ## 1. Quantité maître
 
@@ -122,10 +126,11 @@ expérience rare est une **enveloppe favorable** des autres paires.
 
 Il faut séparer la qualité des marques de la géométrie du corridor.
 
-### Proposition 3.1 — criticalisation à squelette fixé, statut : établi
+### Proposition 3.1 — surrogate mono-bit, statut : établi sous factorisation
 
-Fixons un corridor, ses incidences, son état de bord et ses tailles
-$`m_r`$. Remplaçons chaque niveau $`t_r>\beta_c`$ par $`\beta_c`$ et laissons
+Fixons une expérience dans laquelle chaque bucket observe un unique bit
+latent et les observations sont indépendantes conditionnellement au vecteur
+de bits. Remplaçons chaque niveau $`t_r>\beta_c`$ par $`\beta_c`$ et laissons
 les niveaux plus précoces inchangés :
 
 ```math
@@ -144,14 +149,14 @@ Alors, pour toute loi corrélée des parités latentes et toute cible $`F`$,
 
 #### Justification
 
-À taille fixée, le canal du compte du bucket au niveau le plus précoce
+À taille fixée, le canal mono-bit du compte au niveau le plus précoce
 Blackwell-domine celui du niveau tardif. Les noyaux de dégradation se
 tensorisent conditionnellement au vecteur complet des parités, même si ce
 vecteur a un prior corrélé. C'est le théorème 4.1 du fichier 20.
 
-Cette proposition est exactement la version rigoureuse de « prendre les
-liens les plus nombreux et de meilleure qualité ». Elle ne modifie aucune
-taille et ne confond pas les arêtes internes avec les arêtes de la coupe.
+Cette proposition ne s'applique pas au corridor multiport réel. Deux groupes
+d'incidence variant séparément suffisent à la réfuter, sans changer la taille
+ni le squelette ; voir le fichier 29.
 
 ### Conjecture 3.2 — enveloppe géométrique critique, statut : ouvert
 
@@ -175,15 +180,17 @@ peuvent être incomparables au sens de Blackwell.
 
 La meilleure preuve ne doit pas dépendre entièrement de (3.3). Elle doit :
 
-- utiliser immédiatement la proposition 3.1 sur chaque corridor réel ;
-- prouver le mécanisme de contraction uniformément pour les lois de
-  corridors de rang $`q\ge q_c`$ ;
+- utiliser la proposition 3.1 seulement à l'intérieur d'une vraie coordonnée
+  mono-bit, jamais comme remplacement du corridor multiport ;
+- construire le mécanisme de contraction directement aux rangs réalisés,
+  sous la loi de bord annealed ;
 - conserver (3.3) comme raccourci possible si un couplage préservant les
   tailles est découvert.
 
-Ainsi, le cas critique est l'oracle le plus favorable pour les **canaux** ;
-sa domination de toutes les **géométries** reste à établir, et n'est plus un
-axiome caché de la preuve.
+Ainsi, le cas critique reste un benchmark favorable sur le cactus et pour un
+canal mono-bit. Il n'est pas un oracle supérieur pour le canal multiport
+réel. La conjecture géométrique (3.3) est un éventuel raccourci séparé, pas
+un axiome du programme actif.
 
 ## 4. Le moteur multiscale recommandé
 
@@ -345,7 +352,8 @@ Fixons $`p>1/2`$. Supposons :
 
 1. la localisation sous-critique de la section 2 ;
 2. l'annulation exacte pour les racines distinctes ;
-3. la criticalisation à squelette fixé de la proposition 3.1 ;
+3. une domination cible-spécifique démontrée sous la vraie loi de bord, ou
+   une borne directe de Feynman--Kac sur les transferts aux rangs réalisés ;
 4. un découpage de transfert satisfaisant (4.5) ;
 5. le lemme géométrique (4.6), soit sous toutes les lois Palm
    postcritiques, soit au seuil complété par (3.3).
@@ -360,11 +368,10 @@ et la weak recovery est impossible à ce $`p`$.
 
 #### Preuve
 
-Les classes précoce et racines distinctes disparaissent par 1--2. La
-proposition 3.1 majore les canaux tardifs sur leur squelette réel par leurs
-versions criticalisées. Les hypothèses 4--5 et (4.7) font tendre vers zéro
-la contribution critique/postcritique. L'équation (1.2) donne $`Q_L\to0`$,
-ce qui interdit la weak recovery.
+Les classes précoce et racines distinctes disparaissent par 1--2.
+L'hypothèse 3 traite directement les canaux postcritiques réels. Les
+hypothèses 4--5 et (4.7) font tendre vers zéro leur contribution. L'équation
+(1.2) donne $`Q_L\to0`$, ce qui interdit la weak recovery.
 
 Si ce théorème est obtenu à $`p_0=4/5`$, la dégradation BSC des observations
 étend l'impossibilité à tout $`p\le p_0`$.
@@ -386,12 +393,12 @@ Le cactus fournit déjà un bloc physique exact de coefficient
 \qquad\text{(7.2)}
 ```
 
-Il démontre que la marge locale est confortable. Le jalon suivant n'est pas
-un nouveau calcul scalaire : il faut certifier, sur une bande triangulaire de
-largeur deux, un opérateur avec partition de bord et deux répliques dont le
-rayon spectral est strictement inférieur à un. Ce calcul doit aussi extraire
-une liste finie de configurations de ports qui puissent devenir les bons
-blocs de (4.6).
+Il démontre que la marge locale est confortable dans cette cellule. Le jalon
+suivant n'est ni un nouveau calcul scalaire, ni directement une bande de
+largeur deux : il faut d'abord construire un quotient de ports Markov-fermé
+où une orientation portant le twist est éliminée après sa dernière
+interaction. Conserver le micro-état complet donne le no-go $`|U|=K`$ du
+fichier 29.
 
 La bande reste un certificat de **canal**. Elle ne possède pas la géométrie
 critique bidimensionnelle et ne prouve pas l'abondance annulaire.
@@ -402,10 +409,10 @@ critique bidimensionnelle et ne prouve pas l'abondance annulaire.
 |---|---|---|
 | Le LCA seul est la meilleure dynamique d'obstruction | Faux | il est plus persistant ; le corridor collapsed est plus contractant |
 | Les états $`(0,0)`$ et $`(1,1)`$ décorrèlent $`i,j`$ | Faux | ils conservent exactement $`\sigma_i\sigma_j`$ |
-| Mettre un canal tardif au niveau critique aide la récupération | Établi à squelette et taille fixés | domination de Blackwell, donc oracle favorable valide |
+| Mettre un canal tardif mono-bit au niveau critique aide la récupération | Établi pour le bucket scalaire ; faux universellement en multiport | le corridor réel exige un transfert direct |
 | Une vraie géométrie critique domine toute géométrie tardive | Ouvert | les tailles et incidences changent ; contre-exemples cross-size |
 | Une paire dans la composante critique est un événement typique | Faux | au seuil, il n'y a pas de géante de densité positive |
-| On peut ignorer le complément du conditionnement critique | Faux | il faut (3.3) ou un lemme uniforme postcritique |
+| On peut ignorer le complément du conditionnement critique | Faux | traiter directement la Palm d'événement aux rangs réalisés |
 | Un pivot fournit un bloc contractant | Faux | un bucket $`m=1`$ transmet parfaitement |
 | Une majorité locale stricte suffit | Faux | le message de bord peut l'écraser |
 | Un coefficient local $`<1`$ suffit | Faux | il faut une abondance divergente et contrôler les contournements |
@@ -426,19 +433,16 @@ $`\kappa_2(B_0;p)<1`$.
 
 ## 9. Ordre de travail recommandé
 
-1. **Test simple.** Chercher d'abord sous Palm un nombre divergent de buckets
-   bornés, en priorité $`m=2`$, dont le message ancestral et les
-   contournements sont screenés. Le fichier 24 donne le théorème conditionnel
-   exact correspondant.
-2. **Certificat fini si nécessaire.** Si le test simple ne permet pas de
-   fermer l'état de bord, construire le transfert exact de largeur deux,
-   doublement répliqué, et identifier le plus petit motif de ports réellement
-   contractant à $`p=0.8`$.
-3. **Lemme annulaire critique.** Traduire ce motif en événement planaire et
-   prouver (4.6) sous la loi Palm à deux points au seuil.
-4. **Porte postcritique.** D'abord tenter la version uniforme de (4.6) après
-   criticalisation à squelette fixé ; ne chercher (3.3) que si cette voie
-   échoue.
+1. **Test de dernière utilisation.** Mesurer sous la Palm d'événement quand
+   une orientation interne cesse d'affecter les buckets ancestraux.
+2. **Certificat fini.** Construire une jauge de ports Markov-fermée ou un
+   bloc multi-update qui élimine cette orientation ; le micro-état complet
+   doit rendre automatiquement un déficit nul.
+3. **Jointure réelle.** Sur les mêmes cellules, joindre rang, message,
+   signature de ports et déficit composable à $`p=0.805`$.
+4. **Lemme annulaire marqué.** Traduire le motif en outlet T2 protégé et
+   contrôler la transformée de Laplace du nombre de visites avec potentiel
+   modéré, sans supposer les annuli indépendants.
 5. **Clôture pairwise.** Insérer (4.7) dans (2.2), puis dans (1.2), et
    appliquer la dégradation BSC.
 
@@ -451,7 +455,8 @@ $`\Lambda_v`$, et la géométrie Palm du corridor.
 La meilleure stratégie n'est ni de s'arrêter au nœud de fusion, ni de suivre
 un unique chemin gagnant de la MSF. Il faut utiliser toute la hiérarchie
 descendante de la paire, mais la regrouper en blocs planaires dont le transfert
-répliqué est calculable. La fusion au seuil sert d'**oracle favorable de
-canal**. Le vrai théorème manquant est qu'une paire lointaine, même sous ce
-biais favorable, traverse logarithmiquement beaucoup de blobs hiérarchiques
-screenés et strictement contractants.
+répliqué est calculable. La fusion au seuil sert seulement de benchmark sur
+le cactus et dans une coordonnée mono-bit. Le vrai théorème manquant est
+qu'une paire lointaine sous la Palm d'événement réelle traverse assez
+d'outlets T2 protégés où le quotient de frontière revient dans une zone
+modérée et accumule un déficit composable.

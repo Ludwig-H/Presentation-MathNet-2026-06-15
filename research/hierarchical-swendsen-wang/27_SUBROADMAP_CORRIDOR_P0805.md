@@ -1,5 +1,17 @@
 # Sous-feuille de route : corridor hiérarchique à $`p_0=161/200`$
 
+> [!CAUTION]
+> Cette sous-feuille est corrigée par le
+> [fichier 29](29_AUDIT_FROID_PIVOT_RANGS_REELS.md). La criticalisation
+> multiport et l'inégalité (3.3) sont fausses en général. Le théorème cible
+> doit porter sur le corridor à ses rangs réalisés. De plus, un état fidèle
+> qui conserve le twist donne exactement $`|U|=K`$ et $`d=0`$. La première
+> porte n'est donc plus « calculer T2 ». La jauge locale est un dernier
+> contre-test ; la priorité active est la
+> [dissipation $`L^2`$ collapsed](30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md)
+> sur la fonction de paire réellement propagée, désormais resserrée aux
+> [cellules critiques](33_SOUS_FEUILLE_ROUTE_CELLULES_CRITIQUES_L2.md).
+
 Cette note transforme la
 [feuille de route générale](26_FEUILLE_DE_ROUTE_PSTAR.md) en un chantier
 falsifiable au point
@@ -20,11 +32,12 @@ p_{\mathrm{WR}}
 ```
 
 La voie étudiée ici est exclusivement hiérarchique : heat bath collapsed du
-corridor réel, criticalisation des canaux à squelette fixé, transfert
-répliqué dans le secteur de parité et composition sous la loi marquée de la
-paire. Le certificat de triangle sans dendrogramme du
-[fichier 26](26_FEUILLE_DE_ROUTE_PSTAR.md) reste un benchmark indépendant ;
-il ne remplace aucun des lemmes de cette page.
+corridor réel, transfert multiport aux rangs réalisés dans le secteur de
+parité et composition sous la loi marquée de la paire. Le certificat de
+triangle sans dendrogramme du
+[fichier 34](34_CERTIFICAT_RATIONNEL_P809439.md) établit déjà la borne plus forte
+$`p_{\mathrm{WR}}\ge0.809439`$ ; il ne remplace aucun des lemmes hiérarchiques de
+cette page.
 
 Cette sous-feuille spécialise le
 [programme prioritaire](00_RESEARCH_PROGRAM.md), la
@@ -34,22 +47,21 @@ Cette sous-feuille spécialise le
 la [feuille de route quantitative](26_FEUILLE_DE_ROUTE_PSTAR.md).
 
 > [!IMPORTANT]
-> Le premier calcul à fermer est un transfert de bloc fini à
-> $`p_0=161/200`$. Il doit être tenté avant une analyse Palm complète. Si
-> aucune contraction robuste n'apparaît sur les blocs de largeur deux ou
-> trois, il faut identifier le mode persistant avant d'entreprendre une
-> preuve géométrique multiscale.
+> E2G a échoué dans l'état fidèle et reste seulement un contre-test. Le
+> premier lemme à fermer est maintenant la variance d'une cellule à deux
+> fusions near-critical sous pondération énergétique. Les annuli génériques
+> et toute preuve géométrique longue restent gelés jusqu'à cette porte.
 
 > [!NOTE]
-> **Mise à jour après le premier cycle.** Le
+> **Mise à jour après les deux contre-audits.** Le
 > [fichier 28](28_FIRST_CORRIDOR_P0805_RESULTS.md) certifie le secteur neutre
 > E1+ mais montre aussi qu'un potentiel extérieur non borné fait tendre le
 > second moment brut vers un. La forme uniforme (5.5) ne peut donc pas être
-> exigée sur tout le simplexe projectif. Le chantier prioritaire est désormais
-> une cellule T2-Kruskal avec polarisation dans l'état et une composition de
-> Feynman--Kac à déficit dépendant de la transition. Le lemme de composition
-> est déjà contre-audité en dimension finie ; sa normalisation de Doob commune
-> sur le corridor reste ouverte.
+> exigée sur tout le simplexe projectif. Le fichier 29 montre ensuite que
+> conserver toute cette polarisation avec les orientations fidèles annule le
+> déficit local, tandis que la projection contractante testée n'est pas
+> fermée. Le chantier prioritaire est la jauge exacte ; Feynman--Kac ne vient
+> qu'après. La composition de Doob finie est, elle, déjà établie.
 
 ## 1. Statuts utilisés
 
@@ -110,13 +122,18 @@ Q_L(p)
 
 ### Théorème P0805 à établir
 
-À $`p=p_0`$, il existe une sélection mesurable de blocs disjoints
-$`B_1,\ldots,B_{N_{ij}}`$ du corridor réel, une normalisation commune dont
-les noyaux de masse sont $`K_r`$, et des déficits transitionnels
-$`d_r(z,z')\ge0`$ tels que, après criticalisation à squelette fixé,
+**Prérequis désormais explicite.** Il existe un quotient de ports
+Markov-fermé qui transporte le potentiel extérieur, agrège plusieurs signes
+du twist dans une même transition et possède une complexité contrôlable le
+long du corridor. Sans ce quotient, l'énoncé suivant n'est pas une cible
+active.
+
+À $`p=p_0`$, il existe alors une sélection mesurable de blocs disjoints
+$`B_1,\ldots,B_{N_{ij}}`$ du corridor réel, des noyaux de masse $`K_r`$ aux
+rangs réalisés et des déficits transitionnels $`d_r(z,z')\ge0`$ tels que
 
 ```math
-A_{ij}^{\mathrm{fav}}
+A_{ij}^{\mathrm{actual}}
 \le
 C_w
 \mathbb E^{K_1,\ldots,K_{N_{ij}}}
@@ -164,7 +181,7 @@ Q_L(p_0)\longrightarrow0,
 ```
 
 donc la weak recovery est impossible à $`p_0`$. Par dégradation BSC, elle
-est également impossible pour tout $`p\le p_0`$.
+est également impossible pour tout $`p\in[1/2,p_0]`$.
 
 La version à bons blocs uniformes est le cas particulier
 
@@ -181,7 +198,7 @@ pour lequel il suffit de montrer $`N_{I_LJ_L}\to\infty`$ en probabilité.
 La formulation par somme de déficits est plus robuste : elle autorise des
 tailles, temps et états de bord variables.
 
-## 3. Réduction favorable exacte
+## 3. Décomposition exacte et rangs réalisés
 
 Posons
 
@@ -207,8 +224,8 @@ $`T_{ij}=+\infty`$ si elle ne fusionne pas avant la censure.
 L'ordre des limites est $`L\to\infty`$ à $`\delta`$ fixé, puis
 $`\delta\downarrow0`$.
 
-Sur le deuxième secteur, conserver le squelette, les tailles, les incidences
-et les attaches, puis remplacer seulement les temps par
+Sur le deuxième secteur, conserver le squelette, les tailles, les incidences,
+les attaches **et les temps réalisés**. L'ancien proxy tronquait les temps par
 
 ```math
 \beta_v^{\mathrm{fav}}
@@ -217,7 +234,7 @@ et les attaches, puis remplacer seulement les temps par
 \qquad\text{(3.2)}
 ```
 
-La domination de Blackwell à tailles fixées et sa tensorisation donnent
+mais ce proxy ne fournit pas la domination autrefois annoncée
 
 ```math
 A_{ij}^{\mathrm{réel}}
@@ -226,10 +243,10 @@ A_{ij}^{\mathrm{fav}}.
 \qquad\text{(3.3)}
 ```
 
-Cette opération est la seule interprétation utilisée ici de « mettre la
-fusion au seuil ». Elle ne conditionne pas sur l'événement ponctuel
-$`\beta_{ij}=\beta_c`$ et ne remplace pas le corridor par une autre
-géométrie critique.
+L'inégalité (3.3) est **fausse en général** pour une fusion multiport à
+gagnante marginalisée. Elle reste vraie dans le surrogate produit mono-bit.
+Le transfert T2 doit donc employer directement $`\beta_v`$ ou $`q_v`$ ; voir
+le contre-exemple exact du fichier 29.
 
 ## 4. Calibration exacte au point $`p_0`$
 
@@ -442,8 +459,9 @@ brut. Deux formes restent réalistes :
 
 1. (5.5) sur une classe de messages explicitement tronquée, avec la masse
    extérieure payée par une erreur ou un drift ;
-2. une normalisation commune donnant $`|U_r|\le K_r`$, puis un déficit
-   transitionnel $`d_r=-\log(d|U_r|/dK_r)`$ composé par Feynman--Kac.
+2. le transformé de Doob rétrograde donnant automatiquement une chaîne de
+   masse finie, puis un déficit transitionnel
+   $`d_r=-\log(d|U_r|/dK_r)`$ composé par Feynman--Kac.
 
 La seconde forme est désormais prioritaire.
 
@@ -468,7 +486,8 @@ l'état ou déplacer cette borne vers un lemme Palm explicite.
 
 ### T2 — bande triangulaire de largeur deux
 
-Construire le plus petit bloc contenant :
+Construire ce bloc **seulement après** la fermeture de la jauge. Il doit
+contenir :
 
 - deux bras possibles ;
 - une route latérale de contournement ;
@@ -483,6 +502,10 @@ Deux implémentations sont obligatoires :
    internes.
 
 Elles doivent coïncider état par état avant toute optimisation spectrale.
+
+Si l'état de sortie conserve le twist, le test attendu est $`d=0`$ et non
+une marge numérique. Si une projection donne $`d>0`$ sans mettre à jour
+exactement $`\Psi_B`$, elle est rejetée comme non composable.
 
 ### T3 — potentiel extérieur continu
 
@@ -505,8 +528,8 @@ Le workstream T est fermé seulement si l'on possède :
 
 - la définition exacte du bloc et de son état ;
 - deux constructions concordantes du noyau ;
-- une normalisation commune et soit un poids sur une classe tronquée, soit
-  un déficit de Feynman--Kac dépendant de l'état ;
+- un transformé de Doob rétrograde et soit un poids sur une classe tronquée,
+  soit un déficit de Feynman--Kac dépendant de l'état ;
 - une marge ou un déficit certifié à $`p_0`$ ;
 - une borne explicite des erreurs de troncature ;
 - le motif géométrique précis auquel le certificat s'applique.
@@ -698,9 +721,10 @@ distinctes.
 |---|---|---|---|
 | E0 | certifier $`q_c,\beta_c,s_c,h_c`$ à $`p_0`$ | intervalles rationnels ou dirigés | Certificat |
 | E1 | reproduire le cactus et le bucket $`m=2`$ | tests unitaires état par état | Certificat |
-| E2 | double énumération de la bande largeur deux | matrices identiques | Certificat |
+| E2G | jauge de ports : fermeture de $`\Psi_B`$ et non-mesurabilité du twist | quotient exact ou certificat de no-go | Établi ou No-go |
+| E2 | double énumération de la bande largeur deux, conditionnelle à E2G | matrices identiques | Certificat |
 | E3 | recherche adversariale sur $`\Psi_B`$ et les attaches | pire mode et pire état de bord | Diagnostic |
-| E4 | normalisation commune et carte du déficit selon $`\Psi_B`$ | marge locale ou densité de Feynman--Kac à $`p_0`$ | Diagnostic |
+| E4 | Doob rétrograde et carte du déficit selon $`\Psi_B`$, seulement après E2G | marge locale ou densité de Feynman--Kac à $`p_0`$ | Composition abstraite établie ; quotient ouvert |
 | E5 | rationalisation des poids, déficits et boîtes de message | (5.5) sur la classe tronquée ou domination de Feynman--Kac | Certificat |
 | E6 | contre-audit Campbell dans les mêmes fines fenêtres autour de $`q_c`$ : intensité pré-saut (8.2) contre nœuds réalisés pondérés par $`N_\rho`$ ; corridor final analysé séparément | compatibilité fenêtre par fenêtre, puis histogrammes propres au corridor final | Diagnostic |
 | E7 | test d'échelle de $`D_{ij}`$ | croissance compatible avec $`\log L`$ ou plus | Diagnostic |
@@ -717,11 +741,11 @@ $`Q_L`$.
 |---|---|---|---|
 | H0 | critère pairwise $`Q_L\le\mathbb E[A_{I_LJ_L}]`$ | Établi | invariance jointe, Jensen |
 | H1 | paires sous-critiques négligeables et racines distinctes effacées | Établi | décroissance sous-critique, flips de racine |
-| H2 | criticalisation Blackwell sur le squelette réel | Établi | tailles et incidences fixées |
+| H2 | criticalisation Blackwell sur le squelette réel | Faux globalement ; lemme mono-bit établi | le corridor réel exige un transfert direct |
 | H3 | loi des frontières, charge $`mh^2`$ et équivalence locale entre l'intensité pré-saut $`u_ps_p(\beta)mN_\rho\,d\beta`$ et les nœuds réalisés pondérés par $`N_\rho`$ dans la même fenêtre | Établi | conditionnement par la partition, Campbell |
 | T0 | fermeture d'un état de bloc fini ou tronqué | Ouvert | objets de la section 5 |
 | T1 | contraction tordue certifiée à $`p_0`$ | Ouvert | T0, E2--E5 |
-| C0 | normalisation commune, composition Feynman--Kac et erreur sommable | Ouvert sur le corridor ; lemme fini établi | T1 |
+| C0 | Doob rétrograde, composition Feynman--Kac et erreur sommable | normalisation finie établie ; identification au corridor ouverte | T1 |
 | P0 | divergence du déficit sous la loi marquée | Ouvert | motif de T1, formule Palm H3 |
 | Z0 | clôture $`Q_L(p_0)\to0`$ | Formel après les précédents | H0--H3, C0, P0 |
 
@@ -811,25 +835,29 @@ uniquement une nouvelle borne d'impossibilité.
 
 ## 13. Ordre d'exécution recommandé
 
-1. **Figer les conventions.** État de bord, orientation, jauge des deux
-   répliques, mesure Palm et règle de découpage.
-2. **Fermer E0--E2.** Constantes, cactus, bucket $`m=2`$ et bande largeur
-   deux par deux implémentations.
-3. **Chercher le pire bord.** E3 avant toute preuve symbolique.
-4. **Certifier le transfert.** E4--E5 avec un poids commun et une marge à
-   $`p_0`$.
-5. **Établir la composition.** Fermer C0, y compris l'overflow et les
-   attaches en peigne.
-6. **Diagnostiquer la Palm réelle.** E6--E7 en croisant les deux estimateurs
-   dans les mêmes fenêtres fines autour de $`q_c`$ : intensité (8.2) sur les
-   coupes candidates pré-saut, ou $`N_\rho`$ sur les nœuds de fusion déjà
-   réalisés. Échantillonner ensuite le corridor final séparément.
-7. **Prouver seulement le lemme géométrique nécessaire.** Fermer P0 sans
+1. **Figer les conventions.** Filtration collapsed, orientations intégrées,
+   mesure de paire et rangs réalisés.
+2. **D1, effectué.** La seconde perte est positive sur un witness réel, mais
+   la marge uniforme s'annule sur les potentiels extérieurs de bord.
+3. **D2, effectué.** À distance maximale sur $`L=4`$, la dissipation est
+   dominée par peu de paquets et la seconde perte par une queue rare.
+4. **D1-pop, effectué.** L'audit non sélectionné confirme une queue rare,
+   mais localise une part disproportionnée de sa dissipation dans
+   $`|q-q_c|\le0.02`$.
+5. **Certifier une cellule critique blindée.** Dériver la formule locale de
+   variance et une minoration cible-spécifique sous pondération énergétique.
+6. **Diagnostiquer la Palm réelle.** Pondérer les bons motifs par
+   $`M_{k-1}^2`$, pas seulement par leur abondance ; garder les conventions
+   $`mN_\rho`$ pré-saut et $`N_\rho`$ événement réalisé.
+7. **Prouver seulement le lemme géométrique nécessaire.** Produire un nombre
+   divergent de cellules critiques actives sur des annuli séparés, sans
    classifier tout le dendrogramme.
-8. **Assembler Z0.** Décomposition des paires, criticalisation,
-   composition, abondance, puis théorème pairwise.
-9. **Optimiser après clôture.** Tester $`0.81`$, puis augmenter la profondeur
-   du bloc en suivant le mode propre presque persistant.
+8. **Garder E2G en parallèle secondaire.** Chercher une compression spéciale
+   de la jauge ; ne relancer T2--E5 que si elle est Markov-fermée.
+9. **Assembler Z0.** Décomposition des paires, dissipation collapsed,
+   occupation énergétique, puis théorème pairwise.
+10. **Optimiser après clôture.** Tester d'autres valeurs de $`p`$ uniquement
+    après la fermeture du lemme critique à une valeur donnée.
 
 ## 14. Checklist de clôture à $`p_0=161/200`$
 
@@ -840,25 +868,36 @@ uniquement une nouvelle borne d'impossibilité.
 - [ ] Les paires proches sont retirées avec le bon ordre des limites.
 - [ ] Les paires sous-critiques ont une contribution $`o(1)`$.
 - [ ] Les racines distinctes ont une persistance exactement nulle.
-- [ ] La criticalisation conserve squelette, tailles, incidences et attaches.
+- [ ] Chaque cellule conserve son rang réalisé, ses tailles, incidences et attaches.
 
-### Transfert
+### Dissipation collapsed
 
+- [ ] Les tribus collapsed sont réellement imbriquées et
+  $`M_0=f_{ij}`$ sur la classe même-racine.
+- [ ] Chaque identité de Pythagore est vérifiée par le calcul indépendant de
+  $`\|M_{k-1}-M_k\|_2^2`$.
+- [ ] La seconde perte est calculée sur la fonction propagée, pas sur
+  $`f_{ij}`$ réinitialisée.
 - [ ] Le même environnement est partagé par les deux répliques.
 - [ ] Les quatre $`\Lambda_v^{ab}`$ ancestraux sont présents.
 - [ ] L'arête gagnante de chaque fusion est incluse.
 - [ ] Le secteur certifié est $`\chi\otimes\chi`$, pas le mode constant.
-- [ ] Deux implémentations indépendantes donnent le même noyau.
-- [ ] Le potentiel extérieur continu est couvert par intervalles.
-- [ ] Une normalisation commune donne un déficit composable à
-  $`161/200`$ ; toute marge uniforme annoncée précise sa classe de messages.
-- [ ] L'overflow produit une erreur sommable ou un drift certifié.
+- [ ] La minoration porte sur l'énergie de la famille entrante accessible,
+  jamais sur tout $`L^2`$ qui contient les constantes.
+- [ ] Les bords extrêmes restent dans la moyenne annealed ou produisent une
+  erreur amortie explicitement contrôlée.
+
+### Branche locale optionnelle
+
+- [ ] Toute jauge T2 annoncée met à jour exactement $`\Psi_B`$.
+- [ ] Si le twist est mesurable, le déficit local est déclaré nul.
+- [ ] Deux implémentations indépendantes donnent le même quotient.
 
 ### Composition
 
 - [ ] La sélection des blocs est mesurable et edge-disjoint.
 - [ ] Les blocs mauvais et les histoires en peigne sont conservés.
-- [ ] Les jauges de Doob se composent sans facteur exponentiel caché.
+- [ ] Les pertes relatives télescopent sur la même filtration collapsed.
 - [ ] L'inégalité globale majore bien le heat bath collapsed.
 - [ ] La somme des erreurs de troncature est $`o(1)`$.
 
@@ -876,8 +915,12 @@ uniquement une nouvelle borne d'impossibilité.
 - [ ] Les buckets $`m=1`$ ne sont jamais comptés comme contractants.
 - [ ] Les ports et routes latérales de l'événement géométrique correspondent
   exactement à ceux du transfert certifié.
-- [ ] Le déficit cumulé diverge sous la loi marquée, ou son exponentielle a
-  une espérance tendant vers zéro.
+- [ ] Les fenêtres near-critical sont définies par des probabilités de
+  traversée et non par un exposant importé sans preuve.
+- [ ] Un nombre divergent de cellules critiques blindées reste actif sous la
+  mesure inclinée par $`M_{k-1}^2`$.
+- [ ] La somme des pertes relatives diverge sous la loi marquée, ou son
+  exponentielle a une espérance tendant vers zéro.
 
 ### Conclusion
 
@@ -885,23 +928,30 @@ uniquement une nouvelle borne d'impossibilité.
   une Palm rare conditionnelle.
 - [ ] Toutes les erreurs sont uniformes dans l'ordre des limites annoncé.
 - [ ] On obtient $`Q_L(p_0)\to0`$.
-- [ ] La dégradation BSC étend l'impossibilité à tout $`p\le p_0`$.
+- [ ] La dégradation BSC étend l'impossibilité à tout
+  $`p\in[1/2,p_0]`$.
 - [ ] Le résultat est annoncé comme
   $`p_{\mathrm{WR}}\ge161/200>0.8`$, sans prétention de seuil exact.
 
 ## Conclusion opérationnelle
 
-Le chantier se résume à trois inconnues réellement nouvelles :
+Le chantier hiérarchique se résume désormais à trois inconnues réellement
+nouvelles :
 
-1. un bloc fini dont le transfert tordu contracte à $`p_0`$ avec tous les
-   messages ancestraux ;
-2. une composition stable de ces blocs dans le heat bath collapsed ;
-3. une abondance suffisante sous la loi LCA-Palm, évaluée par l'un des deux
-   estimateurs équivalents sans double comptage du facteur $`m`$.
+1. une marge locale sur une cellule consécutive critique et blindée ;
+2. une occupation énergétique multiscalaire suffisante sous la Palm
+   d'événement ;
+3. un contrôle amorti des bords extrêmes et des erreurs de découpage.
 
-La criticalisation à squelette réel, le critère pairwise, la loi des
-frontières et la charge $`mh^2`$ sont déjà disponibles. La décision
-scientifique la plus rentable est donc de fermer d'abord le certificat fini.
-Une marge positive donne un événement précis à chercher par la géométrie
-planaire ; une marge absente évite d'engager un programme Palm sur un motif
-qui ne peut pas produire la borne $`0.805`$.
+Le critère pairwise, la loi des frontières, la charge $`mh^2`$ et la
+normalisation finie sont disponibles ; la criticalisation multiport et le
+déficit sur état fidèle sont réfutés. D1 prouve que la seconde dissipation est
+algébriquement possible sur un witness, mais sa marge globale est nulle au
+bord ; D2 montre une concentration dans peu de paquets et une queue rare.
+D1-pop montre que 14 cellules proches de $`q_c`$ portent $`34.1\%`$ de la
+perte pour $`4.13\%`$ de l'énergie entrante sur deux graines poolées. Ce
+signal de petit volume ouvre uniquement la [sous-feuille
+critique](33_SOUS_FEUILLE_ROUTE_CELLULES_CRITIQUES_L2.md). Si le blindage ne
+dépolarise pas la mesure énergétique ou si le nombre de cellules actives
+reste tendu, il faut arrêter l'accumulation collapsed. E2G reste un
+contre-test secondaire.

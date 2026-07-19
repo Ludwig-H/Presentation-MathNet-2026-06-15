@@ -861,7 +861,8 @@ vu depuis la paire. La réduire à une fonction de $`p`$ seul demande :
 2. la limite, ou une domination suffisante, de $`B_L/M_L`$ ;
 3. pour un taux exponentiel moyen, une grande déviation jointe ;
 4. pour une conclusion de weak recovery, la masse non conditionnelle des
-   paires concernées ou le lemme de domination HF du fichier 12.
+   paires concernées et le transfert multiport à leurs rangs réalisés ;
+   l'ancienne domination HF est fausse en général.
 
 ## 8. Prochaine étape rigoureuse
 

@@ -770,14 +770,14 @@ Les résultats de percolation proche-critique et de MSF indiquent plutôt que la
 2. étudier une fenêtre autour de $`\beta_c`$ pour les goulots macroscopiques ;
 3. conserver toute la mesure $`\mathcal M_n(dt)`$ pour les paires ponctuelles.
 
-Une autre réduction, adaptée à une preuve d'impossibilité, est désormais
-formulée dans le
-[fichier 12](12_FAVORABLE_HIERARCHICAL_REDUCTION.md). Au lieu de prétendre que
-la mesure des temps se concentre, elle compare les **canaux hiérarchiques** :
-si le log-rapport complet de toute paire postcritique est dominé par celui de
-l'oracle où une paire lointaine du même arbre se sépare au seuil, toute
-l'intégrale ci-dessus est majorée par la seule fiabilité critique. Ce lemme HF
-porte sur tous les $`\Lambda_v^{ab}`$ ancestraux et reste à prouver.
+Le [fichier 12](12_FAVORABLE_HIERARCHICAL_REDUCTION.md) formalise aussi une
+ancienne réduction conditionnelle HF : si le log-rapport complet de toute
+paire postcritique était dominé par celui de l'oracle critique, l'intégrale
+ci-dessus serait majorée par la seule fiabilité critique. Le contre-exemple
+multiport du [fichier 29](29_AUDIT_FROID_PIVOT_RANGS_REELS.md) montre que cet
+ordre **uniforme est faux**. Seule une comparaison cible-spécifique sous une
+loi de bord déjà contrôlée peut encore être recherchée ; elle ne remplace pas
+le transfert direct aux rangs réalisés.
 
 ### Échelle de fenêtre à tester en volume fini
 
@@ -857,7 +857,7 @@ Si une contraction de bloc peut être encadrée par un enhancement local monoton
 | Loi multinomiale conditionnelle au squelette non marqué | Établie ; le biais restant porte sur la géométrie du squelette |
 | Fiabilité locale d'une fusion exactement critique | Établie ; bord oracle $`p_{\mathrm{SW}}`$ et fenêtre $`m^{-1/2}`$ |
 | Masse informative d'une fenêtre critique | Majorée exactement par $`S_n(\beta_c+\delta)-S_n(\beta_c)`$ |
-| Domination de toute l'expérience postcritique par l'oracle critique HF | À prouver ; formulation exacte dans le fichier 12 |
+| Domination de toute l'expérience postcritique par l'oracle critique HF | Fausse en général pour une fusion multiport ; seule une comparaison cible-spécifique sous la vraie loi de bord reste ouverte |
 | Capacité de quotient pondérée par une contraction non oracle | À construire |
 | Seuil strictement supérieur à $`0.794659\ldots`$ | À prouver |
 
@@ -875,7 +875,7 @@ Si une contraction de bloc peut être encadrée par un enhancement local monoton
 - [Aizenman--Grimmett](https://doi.org/10.1007/BF01029985) : déplacement strict sous enhancement essentiel.
 
 La prochaine étape mathématique n'est donc pas de tester une connectivité
-brute supplémentaire. Pour la voie hiérarchique, elle consiste à calculer
-$`\eta_u`$ avec tous les $`\Lambda_v`$ au-dessus du LCA critique et à prouver
-HF. La contraction de bloc marginalisée sur le quotient reste la voie
-complémentaire non oracle.
+brute supplémentaire. Pour la voie hiérarchique, elle consiste à calculer le
+transfert multiport $`K,U`$ avec tous les $`\Lambda_v`$ aux rangs réalisés,
+puis à prouver une décroissance annealed de Feynman--Kac. La bande critique
+reste un benchmark local, pas une enveloppe globale.

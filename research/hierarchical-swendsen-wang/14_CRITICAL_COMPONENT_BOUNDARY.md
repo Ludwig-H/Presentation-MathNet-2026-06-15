@@ -40,8 +40,9 @@ La formalisation sépare trois niveaux.
 Tous les énoncés probabilistes ci-dessous sont sous la loi annealed de
 Nishimori, conditionnellement au squelette non marqué lorsque ce
 conditionnement est indiqué. Aucune conclusion globale de weak recovery
-n'est déduite sans tenir compte de la masse de l'événement de paire et sans
-le lemme de domination HF du fichier 12.
+n'est déduite sans tenir compte de la masse de l'événement de paire. L'ancien
+lemme de domination HF est faux en général multiport ; l'alternative active
+est le transfert Feynman--Kac aux rangs réels.
 
 ## 1. Modèle, horloges et domaine critique
 
@@ -1070,10 +1071,10 @@ peut être très informative, mais sa contribution brute au score est
 \qquad\text{(8.2)}
 ```
 
-Supprimer le premier facteur est un biais de sélection. Inversement, pour
-utiliser la **loi conditionnelle** comme expérience favorable dominant les
-paires postcritiques, il faut le théorème HF du fichier 12 ; la petitesse de
-sa masse typique ne réfute pas à elle seule une telle comparaison.
+Supprimer le premier facteur est un biais de sélection. La loi conditionnelle
+reste un benchmark, mais elle ne domine pas en général les paires
+postcritiques multiports. La petitesse de sa masse typique ne suffit donc ni
+à la promouvoir en oracle, ni à la réfuter comme cas-test local.
 
 Les seuils scalaires gardent seulement la portée suivante :
 
@@ -1125,7 +1126,7 @@ géométrique et hiérarchique.
 | La fusion critique a les liens de meilleure qualité. | Vrai parmi les temps postcritiques, à coupe fixée. | Faux parmi les fusions déjà présentes à $`\beta_c`$ ; les fusions plus précoces ont un $`h_p`$ plus grand. |
 | Tous les ancêtres ont la qualité critique. | Faux : seul $`\beta_v>\beta_u`$ est automatique. | Les ancêtres de la fenêtre gauche peuvent avoir $`h_p(\beta_v)\ge h_c`$ ; ceux après le seuil ont $`h_p(\beta_v)\le h_c`$. |
 | Une majorité conforme dans chaque coupe suffit. | Une majorité globale par ancêtre ne suffit pas. | La majorité locale stricte et les deux majorités **groupées** non négatives suffisent sous a priori uniforme, par le théorème 7.1. |
-| Conditionner par la paire critique donne une borne globale. | Faux sans le facteur de masse dans (8.2). | Une utilisation comme oracle dominant reste possible, mais c'est exactement le lemme HF encore ouvert. |
+| Conditionner par la paire critique donne une borne globale. | Faux sans le facteur de masse dans (8.2). | La domination HF uniforme est en outre réfutée en multiport ; une comparaison cible-spécifique exige une loi de bord contrôlée. |
 | Le seuil de majorité est un seuil de weak recovery. | Faux. | Les deux seuils de majorité sont locaux et inférieurs à $`p_{\mathrm{info}}`$. |
 
 ## 10. Verrous mathématiques désormais isolés
@@ -1168,20 +1169,23 @@ Les difficultés restantes sont les suivantes.
 6. **Coins nuls et queues.** Traiter exactement les états
    $`\Lambda_v^{ab}=0`$, puis montrer la sommabilité de la queue des facteurs
    dont $`m_{v,r}h_p(\beta_v)^2`$ reste petit.
-7. **Domination HF.** Prouver que l'expérience conditionnelle critique
-   domine, au sens requis par la parité, les expériences postcritiques que
-   l'on veut majorer. La monotonie de $`h_p`$ ne suffit pas.
-8. **Retour au score global.** Réinsérer soit la masse (8.2), soit le coût
-   exact de la comparaison HF, avant toute conclusion de weak recovery.
+7. **Transfert aux rangs réalisés.** Construire directement l'expérience
+   multiport avec son état de bord. La domination HF uniforme étant fausse,
+   une comparaison cible-spécifique ne peut servir qu'après contrôle explicite
+   de cette loi de bord.
+8. **Retour au score global.** Réinsérer la masse (8.2) et la composition du
+   transfert réel avant toute conclusion de weak recovery.
 9. **Seuil numérique.** Calculer le critère quatre états, puis seulement
    chercher une racine en $p$. Ni $`p_{\partial,\mathrm{late}}`$ ni
    $`p_{\mathrm N}^{(0)}`$ ne peut être déclaré seuil global par analogie.
 
 ### Programme de calcul certifiable
 
-Le premier calcul doit être effectué sur un cactus de triangles, puis sur une
-bande triangulaire de largeur fixée. Sous **une même loi de paire**, il doit
-comparer :
+Historiquement, le premier calcul proposé était un cactus de triangles, puis
+une bande triangulaire de largeur fixée. Le cactus reste un test unitaire ; la
+bande n'est active qu'après construction d'une jauge de ports Markov-fermée.
+Sans cette fermeture, l'état fidèle donne un déficit local nul. Sous **une
+même loi de paire**, un éventuel calcul de bande doit comparer :
 
 1. le critère exact (7.5) ;
 2. le certificat groupé du théorème 7.1 ;

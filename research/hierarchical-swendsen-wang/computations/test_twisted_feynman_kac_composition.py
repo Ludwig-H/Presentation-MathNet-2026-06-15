@@ -10,13 +10,131 @@ from twisted_feynman_kac_composition import (
     canonical_fraction_lift_audit,
     canonical_lift_from_mass_and_twist,
     direct_fraction_lift_audit,
+    dominated_transfer,
     finite_composition_certificate,
+    finite_horizon_doob_certificate,
     normalize_lifted_transfer,
     triangular_neutral_power_diagnostic,
+    unnormalized_fraction_doob_audit,
 )
 
 
 class TwistedFeynmanKacCompositionTests(unittest.TestCase):
+    def test_unnormalized_doob_identity_matches_independent_path_enumeration(
+        self,
+    ) -> None:
+        first = dominated_transfer(
+            (
+                (Fraction(2), Fraction(1), Fraction(0)),
+                (Fraction(1, 2), Fraction(3, 2), Fraction(1)),
+            ),
+            (
+                (Fraction(1), Fraction(-1, 2), Fraction(0)),
+                (Fraction(-1, 4), Fraction(1), Fraction(1, 2)),
+            ),
+        )
+        second = dominated_transfer(
+            (
+                (Fraction(1), Fraction(2)),
+                (Fraction(3), Fraction(1)),
+                (Fraction(0), Fraction(5)),
+            ),
+            (
+                (Fraction(1, 2), Fraction(-1)),
+                (Fraction(-2), Fraction(1, 2)),
+                (Fraction(0), Fraction(3)),
+            ),
+        )
+        terminal = (Fraction(2), Fraction(1))
+        reference = (Fraction(3), Fraction(3))
+        certificate = finite_horizon_doob_certificate(
+            (first, second), terminal, reference
+        )
+
+        brute_signed = []
+        brute_envelope = []
+        for source in range(first.source_size):
+            signed = Fraction(0)
+            envelope = Fraction(0)
+            for middle in range(first.target_size):
+                for target in range(second.target_size):
+                    signed += (
+                        first.twisted[source][middle]
+                        * second.twisted[middle][target]
+                        * terminal[target]
+                    )
+                    envelope += (
+                        first.mass[source][middle]
+                        * first.ratio[source][middle]
+                        * second.mass[middle][target]
+                        * second.ratio[middle][target]
+                        * abs(terminal[target])
+                    )
+            brute_signed.append(signed)
+            brute_envelope.append(envelope)
+
+        self.assertEqual(certificate.signed_values, tuple(brute_signed))
+        self.assertEqual(
+            certificate.feynman_kac_envelope,
+            tuple(brute_envelope),
+        )
+        self.assertEqual(
+            tuple(
+                potential * expectation
+                for potential, expectation in zip(
+                    certificate.backward_potentials[0],
+                    certificate.doob_expectation,
+                    strict=True,
+                )
+            ),
+            tuple(brute_envelope),
+        )
+
+    def test_backward_doob_transform_closes_unnormalized_composition_exactly(
+        self,
+    ) -> None:
+        certificate = unnormalized_fraction_doob_audit()
+        self.assertTrue(certificate.is_exact)
+        self.assertTrue(certificate.active_rows_are_stochastic)
+        self.assertTrue(certificate.normalization_identity_holds)
+        self.assertTrue(certificate.inequality_holds)
+        self.assertEqual(
+            certificate.doob_expectation,
+            certificate.normalized_feynman_kac_envelope,
+        )
+        self.assertTrue(
+            all(sum(row) == 1 for kernel in certificate.doob_kernels for row in kernel)
+        )
+        self.assertTrue(all(slack >= 0 for slack in certificate.normalized_slacks))
+
+    def test_backward_doob_transform_retains_impossible_rows_as_inactive(
+        self,
+    ) -> None:
+        step = dominated_transfer(
+            (
+                (Fraction(1), Fraction(0)),
+                (Fraction(0), Fraction(2)),
+                (Fraction(0), Fraction(0)),
+            ),
+            (
+                (Fraction(1, 2), Fraction(0)),
+                (Fraction(0), Fraction(-1)),
+                (Fraction(0), Fraction(0)),
+            ),
+        )
+        certificate = finite_horizon_doob_certificate(
+            (step,),
+            (Fraction(1), Fraction(0)),
+            (Fraction(1), Fraction(0)),
+        )
+        self.assertEqual(certificate.active_states[0], (True, False, False))
+        self.assertEqual(
+            certificate.doob_kernels[0][2],
+            (Fraction(0), Fraction(0)),
+        )
+        self.assertEqual(certificate.normalized_absolute_values[2], 0)
+        self.assertEqual(certificate.doob_expectation[2], 0)
+
     def test_direct_fraction_lift_matches_exhaustive_paths_exactly(self) -> None:
         audit = direct_fraction_lift_audit()
         self.assertTrue(audit.matches_exactly)
@@ -52,9 +170,7 @@ class TwistedFeynmanKacCompositionTests(unittest.TestCase):
         certificate = finite_composition_certificate(
             (step,), (Fraction(7, 9), Fraction(-2, 5))
         )
-        brute = brute_force_path_expansion(
-            (step,), (Fraction(7, 9), Fraction(-2, 5))
-        )
+        brute = brute_force_path_expansion((step,), (Fraction(7, 9), Fraction(-2, 5)))
         self.assertEqual(certificate.signed_values, brute[0])
         self.assertEqual(certificate.feynman_kac_envelope, brute[1])
 
@@ -152,9 +268,7 @@ class TwistedFeynmanKacCompositionTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             normalize_lifted_transfer(((1,),))
         with self.assertRaises(ValueError):
-            canonical_lift_from_mass_and_twist(
-                ((Fraction(1),),), ((Fraction(5, 4),),)
-            )
+            canonical_lift_from_mass_and_twist(((Fraction(1),),), ((Fraction(5, 4),),))
         with self.assertRaises(ValueError):
             canonical_lift_from_mass_and_twist(
                 ((Fraction(1),),), ((Fraction(0), Fraction(0)),)
@@ -165,6 +279,14 @@ class TwistedFeynmanKacCompositionTests(unittest.TestCase):
             triangular_neutral_power_diagnostic(())
         with self.assertRaises(ValueError):
             triangular_neutral_power_diagnostic((True,))
+        with self.assertRaises(ValueError):
+            dominated_transfer(((Fraction(1),),), ((Fraction(2),),))
+        with self.assertRaises(ValueError):
+            finite_horizon_doob_certificate(
+                (dominated_transfer(((Fraction(1),),), ((Fraction(0),),)),),
+                (Fraction(2),),
+                (Fraction(1),),
+            )
 
 
 if __name__ == "__main__":

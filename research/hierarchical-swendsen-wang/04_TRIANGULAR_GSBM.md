@@ -476,17 +476,23 @@ Les démonstrations générales et la distinction entre couplage depuis la véri
 
 1. **Arbre fini à degrés bornés.** Kruskal n'introduit aucun cycle ; comparer exactement capacité hiérarchique et reconstruction broadcast.
 2. **Cactus de triangles.** Premier modèle avec interactions triangulaires mais dépendances contrôlables.
-3. **Bandes triangulaires de largeur fixe.** Matrice de transfert et seuils numériques certifiables.
-4. **Tore triangulaire fini.** Énumération exacte pour petites tailles, puis bornes avec conditions de bord périodiques.
-5. **Limite planaire.** Seulement après une domination uniforme et un contrôle des effets de bord.
+3. **Deux updates emboîtés.** Calculer la dissipation $`L^2`$ cible-spécifique avec le bord exact.
+4. **Tore triangulaire $`L=4`$.** Énumérer $`\pi_D`$ et les projections collapsed imbriquées aux rangs réels.
+5. **Bandes de largeur fixe.** Seulement comme contre-test d'une compression Markov-fermée spéciale.
+6. **Limite planaire.** Après une inégalité annealed pondérée par l'énergie et un contrôle des effets de bord, sans postuler de domination uniforme.
 
-## 9. Objectif quantitatif
+## 9. Objectif quantitatif initial, maintenant dépassé
 
-Le premier succès non trivial est une constante $`p_\star`$ telle que
+L'objectif initial était une constante $`p_\star`$ telle que
+
 ```math
 p_\star>0.794659\ldots
 ```
-et une preuve que $`p<p_\star`$ interdit la weak recovery. Une condition nécessaire et suffisante explicite sur toute la grille triangulaire toucherait au point multicritique de Nishimori et constitue un objectif de long terme.
+
+et une preuve que $`p<p_\star`$ interdit la weak recovery. Le certificat
+rationnel de la section suivante atteint désormais $`0.809439`$. Une condition
+nécessaire et suffisante explicite sur toute la grille triangulaire toucherait
+au point multicritique de Nishimori et constitue un objectif de long terme.
 
 ## 10. Audit du canal de triangle
 
@@ -524,23 +530,28 @@ moins bon que la baseline par arêtes.
 
 Le [calcul multi-état complet](11_TRIANGLE_BLOCK_SDPI.md) conserve séparément
 le triangle plein, chacune des trois relations révélées et l'état vide. Il
-produit le candidat algébrique
+donne maintenant le certificat rationnel exact
+
+```math
+p_{\mathrm{WR}}\ge0.809439,
+```
+
+par la comparaison less-noisy du [fichier
+34](34_CERTIFICAT_RATIONNEL_P809439.md), information-percolation et le régime
+sous-critique de Chayes--Lei. Il produit aussi le candidat algébrique
 
 ```math
 p_\star^{\mathrm{cond}}=0.8099092892\ldots,
 ```
 
-mais seulement sous un lemme less-noisy encore ouvert pour les a priori ayant
-un atome de masse $`>1/2`$. Ce lemme est réduit à la positivité d'une matrice
-rationnelle $`3\times3`$ au seul point algébrique critique. Le gain numérique
-n'est donc pas encore une borne rigoureuse. La fonction exacte $`c_q(t)`$ de
-ce fichier isole un problème de polarisation pour un facteur physique, mais ne
-transforme pas la difficulté des $`\Lambda_v`$ ancestraux. La voie
-hiérarchique prioritaire est le
-[corridor collapsed critique](20_COLLAPSED_CORRIDOR_BLACKWELL.md) : paire
-lointaine dans une même composante critique macroscopique, LCA dans la
-fenêtre gauche du seuil, puis calcul du message formé par tous les ancêtres et
-tensorisation de la domination de Blackwell à squelette fixé. La
+dont les marges s'annulent sur des faces ; le point tangent lui-même reste
+ouvert. La fonction exacte $`c_q(t)`$ isole le problème de polarisation pour
+un facteur physique, mais ne transforme pas la difficulté des
+$`\Lambda_v`$ ancestraux. La voie hiérarchique prioritaire est le
+[corridor collapsed aux rangs réels](29_AUDIT_FROID_PIVOT_RANGS_REELS.md),
+resserré aux [cellules critiques
+pondérées](33_SOUS_FEUILLE_ROUTE_CELLULES_CRITIQUES_L2.md). La tensorisation
+de Blackwell à squelette fixé est réfutée en dehors du surrogate mono-bit. La
 [calibration entropique par horloges](13_NISHIMORI_HIERARCHICAL_CLOCKS.md)
 retrouve exactement l'équation de Nishimori--Ohzeki au niveau d'une face. Le
 [calcul des frontières critiques](14_CRITICAL_COMPONENT_BOUNDARY.md)
@@ -553,5 +564,7 @@ déjà son seuil à $`(2+q_c)/3=0.782432\ldots<p_{\mathrm{info}}`$. Le
 [certificat cactus](21_CACTUS_COLLAPSED_CERTIFICATE.md) calcule désormais le
 critère de parité exact sans réduire les buckets à cette majorité. Il montre
 une perte exponentielle à $`p=0.8`$, mais sa factorisation par articulations
-ne s'étend pas encore à la grille ; le prochain objet est une bande
-triangulaire de largeur deux.
+ne s'étend pas encore à la grille. Avant toute bande de largeur deux, il faut
+construire un quotient de ports Markov-fermé, ou un bloc multi-update qui
+élimine une orientation après sa dernière interaction ; l'état complet donne
+le déficit nul du fichier 29.

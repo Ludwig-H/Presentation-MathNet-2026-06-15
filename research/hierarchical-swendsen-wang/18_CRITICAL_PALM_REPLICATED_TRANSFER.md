@@ -1,5 +1,12 @@
 # Transfert répliqué sous Palm critique et obstruction spectrale
 
+> [!IMPORTANT]
+> Le [fichier 30](30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md) remplace la
+> construction d'un transfert local borné comme priorité. L'état fidèle donne
+> $`d=0`$ et la jauge exacte générale a une frontière croissante. Les identités
+> répliquées de cette note restent valides ; elles sont désormais exploitées
+> par des projections collapsed $`L^2`$ cible-spécifiques.
+
 Cette note pousse la voie du parcours complet de la hiérarchie jusqu'à
 l'objet qui peut réellement interdire la weak recovery. Le point principal
 est une correction de niveau logique : la probabilité **annealed** qu'une
@@ -16,9 +23,10 @@ Le programme obtenu est précis.
 3. Pour la weak recovery, le bon objet est le **transfert tordu répliqué** :
    les deux copies ont le même environnement $`(O,D)`$, mais des aléas de
    heat bath indépendants.
-4. Une contraction de ce transfert sous la loi de Palm critique, complétée
-   par une domination favorable des paires postcritiques, entraîne
-   $`\mathbb E[\lambda_{\max}(H_S)/n]\to0`$.
+4. Le programme initial cherchait une contraction sous Palm critique puis
+   une domination favorable des paires postcritiques. Cette domination est
+   fausse pour le canal multiport ; le programme actif doit composer le
+   transfert aux rangs réalisés sous la Palm d'événement réelle.
 
 La première cible numérique recommandée est
 
@@ -399,7 +407,13 @@ $`\mathbb E H_S^2`$. Il faut soit :
 - une estimation de grandes déviations conjointe du nombre de blocs et de
   leur contraction.
 
-## 6. Du cas critique favorable à toutes les paires
+## 6. Ancienne réduction critique, conservée comme no-go
+
+> [!CAUTION]
+> L'hypothèse HF-S2 ci-dessous est fausse en général multiport. Le théorème
+> 6.1 reste une implication logique sous cette hypothèse, mais il ne constitue
+> plus une route de preuve. Le remplacement actif est le transfert aux rangs
+> réels du fichier 29.
 
 La domination HF du fichier 12 porte sur le LLR d'un unique heat bath au LCA.
 Elle ne suffit pas pour un sweep complet. Il faut la remplacer par une
@@ -428,7 +442,7 @@ H_S(I_L,J_L)^2
 \right].
 ```
 
-### Hypothèse HF-S2 — domination favorable du sweep
+### Hypothèse historique HF-S2 — fausse en général multiport
 
 Pour les paires lointaines fusionnant dans $`(\beta_c,1]`$, on demande
 
@@ -448,13 +462,11 @@ a_{L,\varepsilon}^{S}(p)
 
 avec $`\delta_{L,\varepsilon}^{S}(p)\to0`$ dans l'ordre de limites retenu.
 
-Cette hypothèse formalise exactement « la paire critique est le cas le plus
-favorable pour garder une corrélation ». Elle est plus forte qu'une
-comparaison des moyennes de $`\Lambda_v`$ et distincte de HF-LCA. Elle doit
-être démontrée sur le vecteur d'état-frontière complet ou directement sur le
-transfert répliqué.
+Cette hypothèse formalisait « la paire critique est le cas le plus favorable
+pour garder une corrélation ». Le contre-exemple multiport du fichier 29 la
+réfute comme principe uniforme, même à squelette et tailles fixés.
 
-### Théorème 6.1 — réduction globale au transfert critique, statut : établi sous HF-S2
+### Théorème 6.1 — implication historique, établie sous l'hypothèse fausse HF-S2
 
 Supposons :
 
@@ -511,24 +523,29 @@ s_c(p)
 
 est la probabilité résiduelle qu'une arête fermée au seuil soit satisfaite.
 
-Définissons, lorsqu'une limite de transfert existe,
+L'ancien seuil $`p_{\mathrm{HT}}`$ imposait HF-S2 et n'est plus une cible
+valide. Pour le programme réparé, définissons seulement comme notation de
+travail, lorsqu'une limite de transfert réel existe,
 
 ```math
 \boxed{
-p_{\mathrm{HT}}
+p_{\mathrm{HT}}^{\mathrm{réel}}
 =
 \sup\left\{
-p:\min_{S\in\{\mathrm{BU},\mathrm{TD}\}}
-\rho_{2,S}(p)<1
-\text{ et HF-S2 est vraie}
+p:
+\mathbb E_{\mathrm{ann},P^h}
+\left[e^{-D_{N_L}(p)}\right]
+\longrightarrow0
+\text{ avec les erreurs de bord contrôlées}
 \right\}.
 }
 ```
 
-Une preuve de $`p_{\mathrm{HT}}\ge0.8`$ serait déjà une amélioration
-rigoureuse. Une égalité formelle avec Nishimori n'a de valeur que si la loi
-Palm et HF-S2 sont dérivées indépendamment ; ajuster une constante de
-géométrie après coup ne constitue pas une dérivation.
+Une preuve de $`p_{\mathrm{HT}}^{\mathrm{réel}}\ge0.805`$ donnerait
+l'amélioration visée. Une égalité formelle avec Nishimori n'a de valeur que
+si la loi Palm, la mesure de Doob et les erreurs de bord sont dérivées
+indépendamment ; ajuster une constante géométrique après coup ne constitue
+pas une dérivation.
 
 ## 8. Diagnostic géométrique PATH-FAC
 
@@ -679,50 +696,62 @@ blocs exacts et leur spectre avant de lancer des simulations plus grandes.
 | $`\mathbb E H_S\to0`$ interdit la weak recovery | Faux | il faut $`\mathbb E H_S^2\to0`$ |
 | Le transfert répliqué utilise deux environnements indépendants | Faux | même environnement, deux aléas de sweep |
 | Une contraction pairwise $`L^2`$ moyenne contrôle le spectre global | Établi | théorème 4.1 |
-| HF-LCA implique HF-S2 | Non établi | le sweep complet demande un nouveau lemme |
+| HF-LCA implique HF-S2 sur le corridor multiport | Faux en général | contre-exemple du fichier 29 ; garder les rangs réels |
 | Un nombre divergent de buckets $`m=2`$ tue PATH-FAC | Établi | borne $`p^{N_2}`$ |
 | PATH-FAC décrit la vraie dynamique | Réfuté numériquement et non démontré théoriquement | conserver l'état-frontière |
 | Bottom-up est toujours meilleur que top-down | Faux en général | comparer les deux rayons spectraux |
 | Les données finies prouvent une borne à $`p=0.8`$ | Faux | elles choisissent la bonne cible de preuve |
-| Certifier $`\rho_{2,S}(0.8)<1`$ suffit seul | Faux | il faut aussi HF-S2 et le contrôle des états rares |
+| Certifier $`\rho_{2,S}(0.8)<1`$ suffit seul | Faux | il faut le transfert aux rangs réels et le contrôle des états rares |
 
 ## 11. Ordre de travail recommandé
 
-1. **Cactus de triangles.** Construire exactement le transfert répliqué pour
-   les deux ordres et vérifier l'implémentation par énumération complète.
-2. **Blocs de deux à quatre niveaux.** Calculer
-   $`\kappa_B^{(\infty)}`$ et identifier les états qui forcent la norme à
-   un. Cela dira quelle information de frontière manque.
-3. **Jalon $`p=4/5`$.** Chercher un certificat rationnel ou par arithmétique
-   d'intervalles avec marge, avant toute optimisation en $`p`$.
-4. **Géométrie Palm.** Prouver ou réfuter
-   $`N_{2,L}\to\infty`$, puis mesurer la fréquence des blocs réellement
-   contractants pour le transfert joint, et pas seulement pour PATH-FAC.
-5. **HF-S2.** Coupler les environnements critique et postcritique au niveau
-   de l'état répliqué ; une monotonie des seuls temps ou des seuls
-   $`\Lambda_v^{00}`$ est insuffisante.
-6. **Globalisation.** Appliquer le théorème 6.1, puis utiliser la dégradation
-   du BSC pour étendre le résultat à tout $`p\le p_0`$.
-7. **Montée du seuil.** Répéter à $`0.81`$, puis approcher
+1. **No-go de mesurabilité.** Sur l'état microscopique fidèle, vérifier
+   d'abord si le twist se lit dans la transition. Si oui, $`|U|=K`$ et le
+   déficit local est exactement nul ; enrichir encore cet état ne peut pas
+   aider.
+2. **Quotient fermé.** Construire, ou réfuter, une jauge de ports qui agrège
+   des signes opposés tout en mettant à jour exactement la partition locale
+   et le potentiel projectif aux rangs réalisés.
+3. **Dernière incidence.** Ne marginaliser une orientation qu'après sa
+   dernière incidence possible. Le diagnostic du fichier 29 montre que les
+   petites attaches peuvent sortir localement, mais que l'union portant
+   l'orientation globale a encore une incidence jusqu'à la racine dans
+   environ $`94`$--$`96\%`$ des cas aux tailles testées. Des cancellations
+   peuvent avancer son dernier usage fonctionnel ; elles doivent être
+   calculées dans le quotient, pas supposées.
+4. **Jointure Palm conditionnelle.** Seulement si le quotient précédent est
+   Markov-fermé, mesurer sur les mêmes nœuds la géométrie, le message et son
+   déficit, avec erreurs par environnement.
+5. **Occupation modérée.** Contrôler une transformée de Laplace du nombre de
+   retours contractants, sans exiger $`\max|\Psi|`$ borné.
+6. **Globalisation.** Appliquer directement le théorème H et Feynman--Kac,
+   puis utiliser la dégradation
+   du BSC pour étendre le résultat à tout $`p\in[1/2,p_0]`$.
+7. **Montée du seuil.** Fermer $`p=0.805`$, répéter à $`0.81`$, puis approcher
    $`p_{\mathrm N}^{(0)}`$ seulement si les marges de contraction restent
    visibles.
 
-Le verdict actuel est donc double. La géométrie du chemin critique est très
-favorable à une perte locale accumulée, mais un sweep joint transporte un
-état global que PATH-FAC supprime. La meilleure chance de battre les seuils
-connus consiste à certifier la disparition de ce mode global dans le
-**transfert répliqué**, d'abord à $`p=4/5`$.
+Le verdict actuel est donc double. Le chemin critique reste un benchmark
+utile pour une perte locale accumulée, mais un sweep joint transporte un état
+global que PATH-FAC supprime. L'état fidèle conserve ce mode et donne un
+déficit local nul ; la projection locale testée n'est pas Markov-fermée. La
+seule continuation locale crédible consiste donc à construire une jauge de
+ports exacte. Si elle conserve elle aussi l'orientation globale jusqu'à la
+racine, la voie du déficit local doit être arrêtée.
 
 La [représentation du sweep par projections](19_FAVORABLE_SWEEP_PROJECTIONS.md)
 donne ensuite une identité $`L^2`$ exacte, prouve l'annulation des racines
-distinctes et prouve l'ordre de Blackwell critique/postcritique à taille de
-bucket fixée. Le transport à la géométrie et à l'état-frontière reste ouvert.
+distinctes et prouve l'ordre de Blackwell critique--postcritique pour un
+bucket mono-bit à taille fixée. Cet ordre ne se transporte pas au canal
+multiport ; celui-ci doit rester à ses rangs réels avec son état-frontière.
 
 Le [corridor collapsed](20_COLLAPSED_CORRIDOR_BLACKWELL.md) renforce cette
-étape : il est $`L^2`$-optimal parmi les sweeps des mêmes nœuds et tensorise
-Blackwell sur tout corridor fixé, même avec un prior corrélé des parités.
-La priorité passe ainsi du feedback d'un sweep arbitraire au transfert fini
-de l'état de bord sous la loi Palm critique.
+étape par son optimalité $`L^2`$ parmi les sweeps des mêmes nœuds. La
+tensorisation Blackwell ne vaut que dans le surrogate mono-bit ; le
+[fichier 29](29_AUDIT_FROID_PIVOT_RANGS_REELS.md) donne un contre-exemple
+multiport. La priorité n'est plus d'enrichir aveuglément le transfert : elle
+est de décider l'existence d'un quotient de ports Markov-fermé aux rangs
+réalisés sous la loi Palm.
 
 Les références primaires utilisées pour la localisation critique, les lois
 Palm/IIC et le positionnement par rapport à la synchronisation sur grille

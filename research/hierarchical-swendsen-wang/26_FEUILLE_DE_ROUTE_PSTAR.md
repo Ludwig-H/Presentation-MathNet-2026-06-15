@@ -1,15 +1,35 @@
 # Feuille de route réaliste vers une borne $`p_{\mathrm{WR}}>0.8`$
 
 > [!IMPORTANT]
-> Le premier objectif strict doit être une impossibilité de weak recovery à
-> un point rationnel $`p_0>0.8`$, par exemple $`p_0=0.805`$. Une preuve au
-> seul point $`p=0.8`$ donnerait $`p_{\mathrm{WR}}\ge0.8`$, mais pas une
-> borne strictement supérieure à $`0.8`$.
+> Le premier objectif strict est maintenant atteint : l'impossibilité de weak
+> recovery est établie au point rationnel $`p_1=0.809439`$, donc
+> $`p_{\mathrm{WR}}\ge0.809439>0.8`$. Le programme restant sépare l'optimisation
+> du canal rationnel et la recherche d'une preuve proprement hiérarchique.
+
+> [!CAUTION]
+> Le [fichier 29](29_AUDIT_FROID_PIVOT_RANGS_REELS.md) corrige cette feuille
+> de route : la criticalisation globale du corridor multiport est réfutée.
+> Toutes les étapes ci-dessous doivent désormais conserver les rangs réalisés.
+> Il établit aussi un second no-go : sur tout état fidèle où le twist est
+> mesurable depuis la transition, $`|U|=K`$ et le déficit local vaut zéro.
+> Une jauge exacte générale transporte un potentiel de dimension croissante ;
+> elle reste un dernier contre-test local. La
+> [dissipation $`L^2`$ du secteur impair](30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md)
+> possède une identité exacte, mais ses diagnostics D1--D2 mettent
+> l'accumulation brute sérieusement en doute. D1-pop isole néanmoins un
+> enrichissement de la perte dans une fenêtre étroite autour de $`q_c`$ ; la
+> seule branche hiérarchique active est donc la [sous-feuille des cellules
+> critiques](33_SOUS_FEUILLE_ROUTE_CELLULES_CRITIQUES_L2.md). Pour obtenir
+> d'abord une borne
+> $`p_{\mathrm{WR}}>0.8`$, la route rationnelle du fichier 34 a maintenant
+> produit $`p_{\mathrm{WR}}\ge0.809439`$. La bande T2 et Feynman--Kac sont
+> conditionnels à une
+> compression spéciale Markov-fermée qui n'est pas construite.
 
 Cette note resserre le
 [programme prioritaire](00_RESEARCH_PROGRAM.md) et la
 [feuille de route technique](05_PROOF_ROADMAP.md). Elle conserve l'idée
-centrale — paire lointaine, corridor réel criticalisé et dynamique
+centrale — paire lointaine, corridor réel et dynamique
 hiérarchique — tout en retirant trois objectifs qui ne doivent pas être des
 prérequis :
 
@@ -18,11 +38,10 @@ prérequis :
 3. une domination de toute géométrie postcritique par une géométrie critique
    abstraite.
 
-Le noyau recommandé est le **heat bath collapsed du corridor**. La réduction
-favorable doit **criticaliser les temps sur le squelette réel**, sans
-supprimer ses attaches postcritiques. Le calcul quantitatif recommandé est un
-**transfert répliqué à nombre borné de ports**, certifié par arithmétique
-d'intervalles.
+Pour la branche hiérarchique, le noyau recommandé reste le **heat bath
+collapsed du corridor** aux rangs réalisés. Pour le premier gain quantitatif,
+la branche A0 compare directement le canal physique du triangle à un canal
+de connectivité multi-état ; les deux contributions doivent rester séparées.
 
 ## 1. Cible et positionnement
 
@@ -60,9 +79,9 @@ La progression quantitative doit être :
 
 | jalon | conclusion recherchée | rôle |
 |---|---|---|
-| $`p_0=0.805`$ | pas de weak recovery | première borne rigoureuse strictement supérieure à $`0.8`$ |
-| $`p_1=0.81`$ | pas de weak recovery | validation que le gain n'est pas un artefact infinitésimal |
-| $`p_2\in[0.82,0.83]`$ | pas de weak recovery | test réel de la profondeur hiérarchique |
+| $`p_1=0.809439`$ | pas de weak recovery | établi exactement par la voie rationnelle non hiérarchique |
+| $`p_2=0.81`$ | pas de weak recovery | prochaine optimisation au-delà du certificat actuel |
+| $`p_3\in[0.82,0.83]`$ | pas de weak recovery | test réel de la profondeur hiérarchique |
 | $`0.8358\ldots`$ | calibration seulement | cible physique de long terme |
 
 La valeur $`0.835805792367\ldots`$ provient de la condition principale de
@@ -319,10 +338,9 @@ L'ordre est d'abord $`L\to\infty`$ à $`\delta`$ fixé, puis
 $`\delta\downarrow0`$. La deuxième classe conserve les LCA critiques, les
 LCA tardifs et toutes leurs attaches.
 
-### 5.2 Criticaliser les canaux sur le squelette réel
+### 5.2 Conserver les canaux multiports aux rangs réalisés
 
-Conditionnellement au squelette, à ses incidences, à ses tailles de coupes et
-à son état de bord, remplacer
+Pour un bucket mono-bit isolé, remplacer
 
 ```math
 \beta_v
@@ -331,18 +349,18 @@ Conditionnellement au squelette, à ses incidences, à ses tailles de coupes et
 \qquad\text{(5.2)}
 ```
 
-rend chaque canal de bucket plus informatif au sens de Blackwell. Cette
-domination se tensorise même si les parités latentes sont corrélées.
+rend son canal plus informatif au sens de Blackwell. Cette observation ne se
+tensorise pas sur le heat bath collapsed multiport.
 
-Il faut conserver les tailles de coupes. Deux buckets de tailles différentes
-peuvent être incomparables au sens de Blackwell. La feuille de route ne
-demande donc jamais de remplacer un corridor postcritique par un corridor
-critique indépendant ayant une autre géométrie.
+Deux relations variant séparément dans un bucket $`m=2`$ suffisent à produire
+un noyau candidat de dégradation de masse négative. Sous un bord polarisé, le
+second moment de la parité cible est même plus grand au temps tardif. Fixer
+les tailles, incidences et le squelette ne répare donc pas l'argument.
 
-Cette opération est la version rigoureuse de « supposer la fusion à
-$`\beta_c`$ » : elle place chaque canal tardif au seuil **sur son squelette
-réel**, attaches comprises. Le transfert de la section 6 doit ensuite être
-uniforme, ou moyenné avec contrôle des queues, sur la loi de ces squelettes.
+La voie correcte prend $`\beta_v`$ ou $`q_v`$ comme coordonnée de l'état et
+calcule $`K_v,U_v,d_v`$ au rang observé. Une criticalisation ne peut servir
+que de benchmark ou après une domination cible-spécifique prouvée sous la
+véritable loi de bord. Le contre-exemple est détaillé dans le fichier 29.
 
 ### 5.3 Pourquoi l'élagage naïf n'est pas un raccourci
 
@@ -359,6 +377,12 @@ ancres sous le biais LCA-Palm, proche des questions d'invasion-percolation.
 Elle est conservée comme piste secondaire, pas comme maillon de la preuve.
 
 ## 6. Le calcul local qui peut réellement donner $`p_0>0.8`$
+
+> [!NOTE]
+> Cette section décrit désormais la **branche locale conditionnelle**. La
+> fermeture exacte générale de $`\Psi_B`$ a une dimension croissante et
+> l'état fidèle donne $`d=0`$. Le calcul prioritaire est la cellule à deux
+> projections $`L^2`$ du [fichier 30](30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md).
 
 Une coupe critique de grande taille est très informative. À $`p=0.805`$,
 avec $`s_c=(p-q_c)/(1-q_c)`$ et $`h_c=2s_c-1`$,
@@ -403,6 +427,12 @@ deux copies ; seules leurs orientations internes tirées par le heat bath sont
 conditionnellement indépendantes. Deux dendrogrammes indépendants
 calculeraient la mauvaise quantité.
 
+Cet état fidèle définit correctement le transfert levé, mais il ne constitue
+pas encore l'état quotient recherché. Si $`\epsilon`$ se lit dans
+$`(z_B,z'_B)`$, alors $`\mathscr U=\epsilon\mathscr T^{(0)}`$ sur chaque
+transition et aucune contraction Feynman--Kac locale n'est possible. Ajouter
+des coordonnées fidèles ne résout pas ce problème.
+
 ### 6.2 Transfert de masse et secteur de parité répliqué
 
 Pour un bloc à nombre borné de ports, soit
@@ -426,6 +456,13 @@ Le premier est le transfert non tordu de masse ; le second est le transfert
 signé dans le secteur de Walsh $`\chi\otimes\chi`$. Sur le lift
 $`(z,s)`$ avec $`s'=s\epsilon`$, ce secteur est simplement formé des
 fonctions $`F(z,s)=s g(z)`$.
+
+Avant tout calcul spectral, il faut donc exhiber un quotient qui agrège
+plusieurs signes $`\epsilon`$ dans la même transition **et** met à jour
+exactement $`\Psi_B`$. La projection testée sur la seule orientation relative
+donne une cancellation positive, mais n'est pas Markov-fermée. Le diagnostic
+de dernière incidence réduit certaines petites attaches ; il ne certifie pas
+l'élimination locale de l'orientation globale porteuse du twist.
 
 Il ne faut pas tenter de contracter le transfert positif complet : son mode
 constant transporte la masse et garde valeur propre $`1`$ après
@@ -472,8 +509,8 @@ Le [premier calcul E1+](28_FIRST_CORRIDOR_P0805_RESULTS.md) montre que (6.5)
 ne peut pas être uniforme sur tous les potentiels extérieurs non bornés pour
 le second moment brut : sous un champ polarisant, celui-ci tend vers un. Il
 faut donc soit restreindre (6.5) à une classe tronquée et payer sa queue, soit
-utiliser après normalisation commune la domination $`|U_r|\le K_r`$ et un
-déficit de Feynman--Kac dépendant de l'état. Cette seconde option est
+utiliser la domination $`|U_r|\le K_r`$, le transformé de Doob rétrograde et
+un déficit de Feynman--Kac dépendant de l'état. Cette seconde option est
 prioritaire pour la cellule T2-Kruskal.
 
 Pour comparer des blocs de profondeurs différentes, suivre le taux par
@@ -530,48 +567,60 @@ Trois voies sont distinguées. A0 est le plan de secours court, B est la voie
 hiérarchique principale, et A1 ne mérite un investissement lourd qu'après
 fermeture exacte de sa loi cellulaire.
 
-### Voie A0 — certificat de triangle, plan de secours non hiérarchique
+### Voie A0 — certificat de triangle, borne non hiérarchique établie
 
-Le canal physique d'un triangle peut être comparé directement à une
-expérience de connectivité multi-état, puis traité par
-information-percolation. Le candidat conditionnel est
+Le canal physique d'un triangle est comparé directement à une expérience de
+connectivité multi-état, puis traité par information-percolation. Le candidat
+tangent reste
 
 ```math
 p=0.809909289251\ldots.
 ```
 
-Pour le premier point strict, le candidat rationnel à certifier est
+Un point rationnel strict est maintenant certifié :
 
 ```math
-p_0=\frac{161}{200},
-\qquad q_0=2p_0-1=\frac{61}{100},
+p_1=\frac{809439}{10^6},
+\qquad q_1=\frac{309439}{500000},
 \qquad
-(a,s,e)=\left(\frac{13}{40},\frac9{80},\frac{27}{80}\right).
+(a,s,e)
+=
+\frac1{5\times10^8}(166642280,55571811,166642287).
 \qquad\text{(7.0)}
 ```
 
-Il vérifie exactement
-$`a+3s+e=1`$, $`2a+3s=79/80<1`$,
-$`ae-2s^2=27/320>0`$ et
-$`a+e=53/80>6\sqrt2-8`$. Le secteur des a priori non polarisés est déjà
-réduit à un polynôme cubique dont les coefficients de Bernstein sont
-strictement positifs après subdivision en deux intervalles.
+Il vérifie exactement $`a+3s+e=1`$, $`a<e`$, $`2a+3s<1`$,
+$`ae>2s^2`$ et
+$`a+e>2\sqrt2/(3+2\sqrt2)`$. Quatre suites de Sturm et une annulation de
+dominance diagonale donnent, pour tous les a priori et toutes les fonctions,
 
-Il reste une certification finie : pour les a priori polarisés
-$`\mu_0>1/2`$, prouver la positivité semi-définie d'une matrice rationnelle
-$`M(\mu)`$. Après traitement symbolique des faces, cela revient à la
-positivité uniforme de sept polynômes rationnels — trois diagonales, trois
-mineurs principaux d'ordre deux et un déterminant — sur un simplexe compact.
-La bonne méthode est une subdivision adaptative de Bernstein en arithmétique
-rationnelle ; un certificat SOS rationalisé est le plan de repli. Les audits
-numériques n'ont trouvé aucun contre-exemple, mais ils ne remplacent pas ce
-dernier certificat.
+```math
+Q_E(\mu,f)-Q_{Y_{q_1}}(\mu,f)
+\ge
+\frac1{5\times10^7}\,\mathrm{Var}_\mu(f).
+\qquad\text{(7.0a)}
+```
 
-Cette tâche est finie et constitue le chemin le plus court vers une borne
-strictement supérieure à $`0.8`$. Elle n'utilise cependant pas le
-dendrogramme hiérarchique ni les $`\Lambda_v`$ ancestraux. Elle doit être
-présentée comme benchmark ou résultat auxiliaire, pas comme résolution du
-programme demandé ici.
+Le relèvement du quotient quatre états aux facteurs de trois spins est exact.
+Le théorème 3 de Polyanskiy--Wu tensorise la comparaison malgré les sommets
+partagés, puis Chayes--Lei donne la sous-criticalité du canal auxiliaire. Le
+passage au tore contrôle aussi les connexions qui s'enroulent. Ainsi,
+
+```math
+p\in\left[\frac12,\frac{809439}{10^6}\right]
+\quad\Longrightarrow\quad
+\text{pas de weak recovery},
+\qquad
+p_{\mathrm{WR}}\ge0.809439.
+\qquad\text{(7.0b)}
+```
+
+Le certificat et le pont global sont autonomes dans le [fichier
+34](34_CERTIFICAT_RATIONNEL_P809439.md). Le point tangent
+$`0.809909\ldots`$ reste ouvert parce que ses marges s'annulent sur certaines
+faces. Cette voie n'utilise ni le dendrogramme hiérarchique ni les
+$`\Lambda_v`$ ancestraux ; elle doit être présentée comme résultat parallèle,
+pas comme résolution du programme hiérarchique.
 
 ### Voie A1 — supercellules : embranchement à ne pas confondre
 
@@ -617,14 +666,13 @@ traitée.
 
 ### Voie B — transfert annealed sur le corridor réel, voie hiérarchique principale
 
-Sur le corridor réel criticalisé à squelette fixé, choisir des blocs disjoints
-et noter $`A_{ij}^{\rm fav}`$ la persistance après cette expérience favorable,
-qui majore la persistance originale. La cible est une
+Sur le corridor réel aux rangs réalisés, choisir des blocs disjoints et noter
+$`A_{ij}^{\rm actual}`$ leur persistance exacte. La cible est une
 quasi-multiplicativité **marquée** :
 
 ```math
 \mathbb E[
-A_{ij}^{\rm fav}\mid i\stackrel{\Pi_1}{\leftrightarrow}j
+A_{ij}^{\rm actual}\mid i\stackrel{\Pi_1}{\leftrightarrow}j
 ]
 \le
 C\,\mathbb E[
@@ -650,9 +698,11 @@ probabilité d'un bon bloc pour toute histoire Palm. Une borne moyennée comme
 (7.1) est la cible.
 
 La voie B est la réalisation la plus fidèle de l'idée de paire fusionnée au
-seuil. Son premier sous-problème n'est pas une limite d'échelle complète :
-c'est un transfert de largeur deux qui inclut explicitement un état
-`attache/peigne`, puis une preuve de composition pour la loi annealed réelle.
+seuil. Son premier sous-problème n'est plus une bande de largeur deux : il
+faut construire, ou réfuter, une jauge de ports de dimension contrôlée qui
+transporte exactement $`\Psi_B`$ tout en rendant le twist non mesurable. La
+bande `attache/peigne` et sa composition annealed ne commencent qu'après ce
+test de fermeture.
 
 ## 8. Paquets de travail et critères d'arrêt
 
@@ -666,13 +716,13 @@ c'est un transfert de largeur deux qui inclut explicitement un état
 
 **Critère de sortie :** preuve finie sans hypothèse de mélange.
 
-### WP1 — fermer la porte critique/postcritique
+### WP1 — fermer la porte postcritique aux rangs réels
 
 - éliminer les paires uniformément sous-critiques ;
 - annuler exactement les racines distinctes ;
-- criticaliser les temps tardifs sans changer tailles ni incidences ;
-- faire entrer les attaches postcritiques et le biais $`mN_\rho`$ dans
-  l'état du transfert.
+- conserver les temps tardifs, tailles et incidences dans l'état T2 ;
+- faire entrer les attaches postcritiques, avec $`mN_\rho`$ pour l'intensité
+  pré-saut et $`N_\rho`$ pour un événement réalisé.
 
 **Critère d'arrêt :** si une réduction exige de rerouter les endpoints vers
 des ancres dont la loi complète est inconnue, revenir au transfert direct sur
@@ -680,14 +730,19 @@ le corridor réel.
 
 ### WP2 — construire le transfert fini
 
-- commencer par largeur deux et trois ports ;
-- conserver les quatre $`\Lambda_v^{ab}`$ et le message extérieur ;
-- construire le transfert répliqué avant toute projection scalaire ;
-- vérifier cactus et petits graphes par énumération exhaustive.
+- établir le lemme $`\epsilon`$ mesurable $`\Longrightarrow |U|=K`$ comme
+  test unitaire automatique ;
+- chercher une jauge de ports qui transporte exactement les quatre
+  $`\Lambda_v^{ab}`$ et le message extérieur sans conserver le twist ;
+- ne marginaliser une orientation qu'après une dernière incidence certifiée,
+  en tenant compte des cancellations éventuelles ;
+- vérifier fermeture et cancellation par deux éliminations indépendantes sur
+  cactus et petits graphes.
 
-**Critère d'arrêt :** si la contraction n'apparaît qu'après avoir imposé
-$`|B|\le B_0`$, ajouter la polarisation au transfert au lieu de postuler un
-screening uniforme.
+**Critère d'arrêt :** si tout quotient Markov-fermé de taille contrôlable
+conserve le twist jusqu'à la racine, ou si la contraction n'apparaît qu'après
+un bornage gratuit du bord, classer la voie du déficit local comme une
+impasse.
 
 ### WP3 — certificat strict à $`p_0=0.805`$
 
@@ -696,10 +751,9 @@ screening uniforme.
 - certifier tous les signes par intervalles ;
 - répéter le calcul à $`p=0.81`$ seulement après la globalisation.
 
-**Critère d'arrêt :** si les largeurs deux et trois n'admettent aucun poids
-commun satisfaisant (6.5) à $`p=0.805`$ dans le secteur de parité, ne pas
-investir dans une preuve Palm lourde avant d'avoir identifié le mode
-persistant.
+**Statut hiérarchique :** ce paquet par transfert local reste bloqué par WP2.
+Le certificat A0 non hiérarchique est, lui, exact au point rationnel ; il ne
+doit pas être attribué à ce paquet.
 
 ### WP4 — théorème de composition
 
@@ -771,9 +825,10 @@ le premier gain au-dessus de $`0.8`$.
 |---|---|
 | « le LCA ponctuel est à $`\beta_c`$ » | faux à cause des attaches locales tardives |
 | « même composante critique » est typique | faux pour deux points uniformes à criticité |
-| « critique domine postcritique » sans condition | établi seulement à squelette et tailles fixés |
+| « critique domine postcritique » sans condition | faux en multiport, même à squelette et tailles fixés ; vrai pour un bucket mono-bit |
 | utiliser uniquement le LCA | ne transforme pas la distance en contraction accumulée |
 | multiplier des fiabilités locales | faux sans état de bord ou transfert répliqué |
+| enrichir l'état fidèle jusqu'à voir une contraction locale | si le twist reste mesurable, $`|U|=K`$ exactement |
 | imposer un message extérieur borné | peut supprimer précisément le mode reconstructible |
 | prouver le mélange global | inutile pour le théorème H et probablement hors de portée |
 | importer les exposants de percolation de sites | le modèle géométrique est ici une percolation par arêtes |
@@ -781,25 +836,35 @@ le premier gain au-dessus de $`0.8`$.
 
 ## Conclusion opérationnelle
 
-La chaîne de preuve recommandée est
+Les deux chaînes doivent maintenant être séparées :
 
 ```mermaid
 flowchart TD
-    Q["Weak recovery implique Q_L non nul"] --> H["Théorème H pair-spécifique"]
-    H --> C["Heat bath collapsed du corridor"]
-    C --> B["Criticalisation à squelette fixé"]
-    B --> T["Transfert répliqué à ports bornés"]
-    T --> P["Certificat p=0.805"]
-    P --> G["Composition annealed sur le corridor réel"]
-    G --> W["Pas de weak recovery, donc p_WR > 0.8"]
+    O["Objectif p_WR > 0.8"] --> A0["P809439 : PSD less-noisy rationnelle"]
+    A0 --> E["Percolation multi-état sous-critique"]
+    E --> W["Théorème : pas de weak recovery à p = 0.809439"]
+    O --> H["B : théorème H pair-spécifique"]
+    H --> C["Heat bath collapsed du corridor réel"]
+    C --> F["Filtration collapsed imbriquée"]
+    F --> D["Dissipation L2 du secteur impair"]
+    D --> G["Cellules critiques pondérées par l'énergie"]
+    G --> WH["Borne hiérarchique encore ouverte"]
 ```
 
-Chaque flèche après le théorème H est un lemme à établir. En particulier, un
-bloc local contractant, le diagnostic spectral (6.4) ou le seul lemme M ne
+Dans la branche B, chaque flèche après le théorème H est un lemme à établir.
+L'identité
+pythagoricienne de la filtration est finie et exacte ; le verrou est la
+minoration énergétique sur un nombre croissant d'échelles. En particulier,
+un bloc local contractant, le diagnostic spectral (6.4) ou le seul lemme M ne
 suffit pas : la conclusion exige la globalisation complète
 $`\mathbb E[A_{I_LJ_L}]\to0`$.
 
-Le premier résultat publiable ne doit pas être « le seuil de Nishimori est
-exact ». Il doit être : un théorème hiérarchique pairwise propre, un bloc
-répliqué certifié avec tous les messages ancestraux, et une borne
-$`p_{\mathrm{WR}}\ge0.805`$ obtenue sans hypothèse géométrique cachée.
+Le résultat rationnel ne doit pas être annoncé comme « le seuil de Nishimori
+est exact » : il s'agit de la borne $`p_{\mathrm{WR}}\ge0.809439`$. Dans la branche
+hiérarchique, D1 montre une seconde perte sur un witness, D2 une queue rare,
+et D1-pop un enrichissement d'environ un facteur huit de la perte dans
+$`|q-q_c|\le0.02`$ sur deux graines poolées. Ce signal ne valide que le
+programme critique du [fichier
+33](33_SOUS_FEUILLE_ROUTE_CELLULES_CRITIQUES_L2.md). Si le blindage critique
+ne contrôle pas la mesure énergétiquement inclinée, cette branche doit être
+arrêtée plutôt que prolongée artificiellement.

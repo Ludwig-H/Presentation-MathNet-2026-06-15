@@ -1,5 +1,12 @@
 # Projections de heat bath et comparaison favorable à $`p=4/5`$
 
+> [!CAUTION]
+> Le théorème 4.2 reste exact pour un bucket binaire **mono-bit**. Il ne
+> s'étend pas à une fusion multiport dont plusieurs relations varient sous
+> les flips descendants. L'ancienne conclusion de tensorisation sur tout le
+> corridor collapsed est réfutée dans le
+> [fichier 29](29_AUDIT_FROID_PIVOT_RANGS_REELS.md).
+
 Cette note poursuit le programme du transfert répliqué avec un objectif
 précis : séparer ce qui est désormais démontré du travail encore nécessaire
 pour obtenir une impossibilité de weak recovery à
@@ -20,13 +27,13 @@ Le bilan est le suivant.
 4. La monotonie point par point sans cette exception est fausse, y compris à
    $`p=0.8`$ pour un squelette admissible.
 5. Sous la loi complète du compte et à taille fixée, le bucket critique
-   domine pourtant tout bucket tardif au sens de Blackwell.
+   **mono-bit** domine tout bucket tardif au sens de Blackwell.
 6. Sur les petits tores, la moyenne du second moment est également plus
-   grande pour la fenêtre critique que pour les fusions tardives. Cela
-   soutient HF-S2, sans la prouver.
+   grande pour la fenêtre critique que pour les fusions tardives. Ce constat
+   fini est historique et ne rétablit pas HF-S2, fausse en général multiport.
 7. Le verrou restant pour $`p=0.8`$ se décompose en deux lemmes quantitatifs :
-   domination critique/postcritique et accumulation de blocs critiques
-   contractants.
+   transfert multiport aux rangs réels et accumulation annealed de blocs à
+   déficit positif.
 
 ## 1. Un sweep est un produit de projections
 
@@ -240,8 +247,8 @@ Pour une paire lointaine, les quatre classes sont :
 
 La première classe a une masse qui disparaît lorsque la distance diverge et
 que la fenêtre est ensuite resserrée, par décroissance sous-critique et RSW.
-La dernière a un transfert nul par le lemme 2.1. Le problème global est donc
-réduit à
+La dernière a un transfert nul par le lemme 2.1. L'ancienne réduction
+proposait alors
 
 ```math
 \boxed{
@@ -259,7 +266,8 @@ A_{L,S}^{\mathrm c}(p)
 \mathbb E[H_S(I_L,J_L)^2\mid\text{classe critique}],
 ```
 
-et $`A_{L,S}^{\mathrm{late}}(p)`$ de même. La forme minimale de HF-S2 est
+et $`A_{L,S}^{\mathrm{late}}(p)`$ de même. La forme minimale de l'hypothèse
+historique HF-S2 était
 
 ```math
 A_{L,S}^{\mathrm{late}}(p)
@@ -269,6 +277,11 @@ A_{L,S}^{\mathrm c}(p)+\varepsilon_{L,S}^{\mathrm{HF}}(p),
 \varepsilon_{L,S}^{\mathrm{HF}}(p)\longrightarrow0.
 \qquad\text{(3.3)}
 ```
+
+Le contre-exemple T2 multiport du fichier 29 montre que cette comparaison ne
+peut pas servir d'ordre uniforme. Le programme actif conserve la partition
+précoce/racines, mais traite toutes les fusions réalisées intermédiaires par
+leur transfert direct aux rangs réels.
 
 ## 4. Comparaison exacte d'un nœud critique et tardif
 
@@ -476,13 +489,12 @@ de $`X\mid B`$,
 \qquad\text{(4.11)}
 ```
 
-Conditionnellement à un squelette non marqué fixé, les buckets disjoints ont
-des marques indépendantes. Ainsi (4.11) enlève complètement la queue
-d'anti-alignement pour un update top-down dont l'état latéral n'a utilisé que
-les buckets ancestraux. Elle ne compare pas encore deux géométries de
-Kruskal différentes et ne suffit pas à composer le sweep : après l'update,
-les descendants utilisent le bucket courant dans leurs propres messages
-ancestraux.
+Conditionnellement à un squelette non marqué fixé, les arêtes de buckets
+distincts ont des marques indépendantes. Cela ne résout pas la dépendance
+**interne** d'un bucket ancestral multiport, où plusieurs caractères du
+vecteur de flips apparaissent dans la même gagnante marginalisée. La
+conséquence (4.11) s'applique à un update dont les relations descendantes sont
+figées ou révélées ; elle ne compose pas automatiquement le corridor.
 
 La restriction à taille fixée est essentielle : le contre-lemme 4.2 du
 fichier 20 certifie qu'à $`p=t=4/5`$ un bucket critique $`m=4`$ et un bucket
@@ -552,9 +564,10 @@ Par conséquent,
 La fusion tardive est ici plus persistante parce que le renforcement local
 critique annule presque exactement un ancêtre opposé. Le script
 [`favorable_time_comparison.py`](computations/favorable_time_comparison.py)
-reproduit ces valeurs. Ce contre-exemple ne réfute pas HF-S2 **en moyenne** ;
-il réfute seulement toute preuve pathwise ignorant la loi du message
-ancestral. Il ne contredit pas non plus le théorème 4.2 : celui-ci moyenne
+reproduit ces valeurs. Pris seul, ce contre-exemple à compte figé réfute une
+preuve pathwise ignorant la loi du message ancestral. Le fichier 29 fournit
+en plus une inversion multiport du second moment, qui élimine l'ordre
+uniforme. Le calcul présent ne contredit pas le théorème 4.2 : celui-ci moyenne
 $`K`$ sous les deux lois de (4.6), alors que (5.1) fige le même compte
 anti-aligné dans les deux expériences.
 
@@ -628,7 +641,8 @@ Ainsi la partie « comparaison critique/tardive » d'un bloc $`m=2`$ est
 entièrement résolue. Ce noyau n'efface pas le verrou de composition : un
 descendant voit aussi ce compte comme message ancestral.
 
-Cela donne un objectif vérifiable. Si l'on peut extraire sous Palm critique
+Cela donnait un objectif scalaire vérifiable. Si l'on pouvait extraire sous
+Palm critique
 un nombre $`N_L^{(b)}\to\infty`$ de blocs de taille deux :
 
 1. dont le message-frontière est borné par $`b`$ dans les deux répliques ;
@@ -649,7 +663,7 @@ L'indépendance des marques de buckets disjoints sachant le squelette aide
 pour (6.1), mais elle ne donne pas seule les points 1--3 : le sweep modifie
 l'état-frontière et les ancêtres sont partagés.
 
-## 7. Diagnostic fini de HF-S2 à $`p=0.8`$
+## 7. Diagnostic historique de HF-S2 à $`p=0.8`$
 
 Le script
 [`pair_favorability_diagnostic.py`](computations/pair_favorability_diagnostic.py)
@@ -691,10 +705,10 @@ ce volume ne fournit donc pas une évidence séparée forte. La classe
 « racines distinctes » donne un second moment compatible avec zéro ; sa
 valeur théorique est exactement zéro par le corollaire 2.2.
 
-Ce diagnostic soutient le sens de HF-S2, mais il révèle aussi le second
-verrou : le second moment critique ne décroît pas encore avec $`L`$ sur ces
-tailles. La comparaison favorable paraît donc plus accessible que la
-contraction critique elle-même.
+Ce diagnostic comparait deux classes finies, mais ne soutient plus une
+domination universelle : celle-ci est réfutée sur une cellule multiport. Le
+second moment critique ne décroît pas non plus avec $`L`$ sur ces tailles.
+Les données sont conservées comme contre-audit historique.
 
 ## 8. Arbre de preuve pour atteindre $`p=0.8`$
 
@@ -712,23 +726,28 @@ La masse des paires lointaines fusionnant sous
 $`q_\triangle-\delta_q`$ disparaît. Il faut ensuite prendre
 $`\delta_q\downarrow0`$ dans l'ordre annoncé.
 
-### C2 — domination HF-S2, statut : ouvert mais réduit
+### C2 — transfert aux rangs réels, statut : ouvert mais réduit
 
 Le sweep top-down est la route séquentielle la plus propre. Pour la preuve
 d'impossibilité, le [corridor collapsed](20_COLLAPSED_CORRIDOR_BLACKWELL.md)
-est désormais prioritaire : il tensorise exactement le théorème 4.2 à
-squelette fixé et marginalise le feedback des descendants. Il reste à
-construire un couplage critique/tardif des corridors et à montrer que
+était proposé comme priorité, mais le contre-exemple multiport montre qu'il
+ne tensorise pas automatiquement le théorème 4.2. Il faut désormais calculer
+le transfert T2 directement aux rangs réalisés et marginaliser exactement le
+feedback des descendants. Il reste à identifier le noyau réel et à montrer
+que
 
 ```math
-\varepsilon_{L}^{\mathrm{geom}}
-+\varepsilon_L^{\mathrm{frontière}}.
+\mathbb E\!\left[
+\exp\!\left(-\sum_r d_r(Z_{r-1},Z_r)\right)
+\right]
++\varepsilon_L^{\mathrm{frontière}}
+\longrightarrow0.
 \qquad\text{(8.1)}
 ```
 
-tend vers zéro. Le premier terme compare les géométries et les tailles de
-groupes ; le second compresse et transporte l'état-frontière du transfert
-répliqué. Pour le sweep top-down non collapsed, il faut ajouter une erreur de
+Le premier terme compose le déficit aux rangs réalisés ; le second compresse
+et transporte l'état-frontière du transfert répliqué. Pour le sweep top-down
+non collapsed, il faut ajouter une erreur de
 dépendance dynamique ; à défaut, (4.4) fournit une route plus faible par les
 queues d'anti-alignement.
 
@@ -737,15 +756,15 @@ sans hypothèse HF-S2 : les coefficients connecté et pivotal décroissent
 explicitement avec le rang de fusion. Ce résultat ne couple pas encore les
 corridors de la grille.
 
-### C3 — contraction critique, établie sur cactus, ouverte sur la grille
+### C3 — déficit sous la Palm réelle, établi sur cactus, ouvert sur la grille
 
-Extraire des blocs Palm critiques dont le transfert signé répliqué possède
-un coefficient strictement inférieur à un. Les buckets $`m=2`$ screenés
-donnent le premier candidat avec les constantes (6.1). Le certificat final
-doit porter sur un bloc collapsed complet, pas sur une fiabilité marginale.
-Le fichier 20 donne la formule produit exacte lorsque les parités du corridor
-sont factorisées et isole l'état de bord comme unique obstruction à cette
-factorisation. Le fichier 21 résout cette obstruction sur le cactus : sous la
+Extraire sous la Palm d'événement réelle des blocs dont le transfert signé
+répliqué possède un déficit positif. Les petits buckets screenés donnent les
+premiers candidats. Le certificat final doit porter sur un bloc collapsed
+complet aux rangs réalisés, pas sur une fiabilité marginale.
+Le fichier 20 donne la formule produit exacte dans le surrogate factorisé.
+Dans le vrai bloc, la gagnante marginalisée, l'état multiport et le bord sont
+des obstructions distinctes. Le fichier 21 les évite sur le cactus : sous la
 densité Palm fixant le LCA au rang $`q`$,
 
 ```math
@@ -773,28 +792,29 @@ $`p=0.8`$ et, par dégradation BSC, pour tout $`p\le0.8`$.
 
 Le prochain objet fini n'est pas une nouvelle simulation de grande taille.
 Le cactus est maintenant calculé exactement dans le fichier 21. Il faut
-construire, sur une bande triangulaire de largeur deux, le noyau de bloc
+d'abord construire un séparateur quotient où le twist n'est plus mesurable
+mais où le potentiel extérieur reste Markov-fermé. Son noyau local a la forme
 
 ```math
-Q_B(x,\epsilon,dy),
+Q_{q,\Pi,\Psi}(z,\epsilon,dz'),
 ```
 
-où $`x,y`$ contiennent la partition de frontière et
-$`\epsilon\in\{-1,+1\}`$ la parité transmise. Pour chaque bloc critique et
-tardif, deux calculs indépendants sont requis.
+où $`\Pi`$ contient la partition signée des ports locaux, $`\Psi`$ le
+potentiel extérieur et $`\epsilon\in\{-1,+1\}`$ la parité éliminée. Si
+$`\epsilon`$ reste lisible depuis $`(z,z')`$, alors $`|U|=K`$ et le test
+échoue avec déficit nul. Pour chaque rang réel et signature admissible, deux
+calculs indépendants sont requis.
 
-1. Énumération directe de toutes les marques et de toutes les sorties des
-   heat baths.
-2. Projection collapsed du corridor, recalculée par matrice de transfert et
-   arithmétique d'intervalles à $`p=4/5`$ ; son rayon spectral doit être
-   certifié strictement inférieur à un.
+1. Énumération directe d'un bloc multi-update jusqu'à la dernière interaction
+   de l'orientation interne.
+2. Élimination groupée de la gagnante et de cette orientation, puis calcul
+   des transferts $`K,U`$ sur le séparateur restant.
 
-La domination peut alors être cherchée comme une dégradation du canal de
-parité : conditionnellement à la frontière, la sortie tardive doit s'obtenir
-en passant la sortie critique dans un BSC supplémentaire de fiabilité dans
-$`[0,1]`$. Cette propriété est un programme linéaire fini. Si elle échoue,
-le certificat doit être agrandi à deux ou trois niveaux ; elle ne doit pas
-être remplacée par une comparaison des seules moyennes.
+Le test décisif n'est plus une dégradation critique--tardive. Il demande
+d'abord si la transition de $`\Psi`$ ferme exactement sur ce quotient, puis
+si le déficit reste positif sur un compact projectif malgré les ports
+extérieurs. Sans fermeture, le déficit projeté n'est pas composable ; sans
+marge, la bande plus large ne doit pas être lancée.
 
 Les inégalités de censoring pour systèmes attractifs suggèrent cette forme
 de comparaison, mais elles ne s'appliquent pas automatiquement ici : les
@@ -807,16 +827,16 @@ signes frustrés et le contre-exemple (5.1) détruisent la monotonie globale.
 | Deux racines finales donnent $`1/2,1/2`$ | Établi exactement pour les deux ordres | le sweep doit contenir le heat bath de chaque racine |
 | Le transfert répliqué exige toujours une matrice tensorielle | Faux | après moyenne stationnaire en $`\sigma`$, il vaut $`\|Kf\|_2^2`$ |
 | Le niveau critique est meilleur que tout niveau tardif à coupe fixée | Vrai sans message opposé | faux point par point avec ancêtres |
-| Le bucket critique domine le tardif sous sa loi complète | Établi à taille fixée par Blackwell | exige $`B\perp K\mid X`$ ; le sweep réutilise ensuite $`K`$ |
+| Le bucket critique mono-bit domine le tardif sous sa loi complète | Établi à taille fixée par Blackwell | exige un unique caractère latent et $`B\perp K\mid X`$ |
 | Le niveau critique compense tout changement de taille | Faux | contre-certificat cross-size exact dans le fichier 20 |
-| Blackwell se compose sur le corridor collapsed | Établi dans le fichier 20 | même squelette ; la géométrie Palm reste à coupler |
+| Blackwell se compose sur le corridor collapsed multiport | Faux en général | contre-exemple exact au même squelette et à la même taille dans le fichier 29 |
 | Le LCA critique est le cas favorable sur le cactus | Établi dans le fichier 21 | repose sur les articulations |
 | La conformité Nishimori du cactus tend vers $`1/2`$ | Établi dans le fichier 21 | ne prouve pas la grille |
 | Le LCA seul suffit à exploiter la distance | Faux | coefficient $`\kappa_{\rm flux}`$ constant, fichier 22 |
 | Le corridor complet contracte plus que le LCA seul | Établi pour le collapsed | comparaison top-down en un passage non automatique |
 | Toute violation vient d'un anti-alignement quantifiable | Établi pour un nœud fixé | le sweep demande l'état-frontière dynamique |
-| Les petits tores prouvent HF-S2 | Faux | ils donnent six tests compatibles avec son sens |
-| HF-S2 suffit à $`p=0.8`$ | Faux | il faut aussi faire tendre le second moment critique vers zéro |
+| Les petits tores prouvent HF-S2 | Faux | ils donnent six comparaisons historiques sans ordre universel |
+| HF-S2 fournit la route à $`p=0.8`$ | Faux | l'ordre est réfuté ; garder les rangs réels |
 | Un bucket $`m=2`$ screené contracte strictement | Établi localement | sa multiplication le long du vrai sweep reste à certifier |
 | Ajouter des updates améliore toujours la contraction | Faux hors systèmes monotones | comparer chaque programme par (1.1) |
 

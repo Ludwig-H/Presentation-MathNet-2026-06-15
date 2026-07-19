@@ -50,7 +50,7 @@ To render math as a centered block on its own line, use double-dollar delimiters
         ````
 
 *   **Block-layout rules:** Leave a blank line before and after every display expression. Never combine a fenced `math` block with double-dollar delimiters, place a display block inside a Markdown table cell, or indent it accidentally as an ordinary code block. Move long formulas out of tables and refer to them from the relevant cell.
-*   **Context rules:** Do not put TeX delimiters inside Mermaid labels, URLs, HTML attributes, or ordinary fenced code blocks and expect GitHub to render them as mathematics. In lists and callouts, preserve the blank lines and indentation required for GitHub to recognize the math block.
+*   **Context rules:** Do not put TeX delimiters inside Mermaid labels, URLs, HTML attributes, or ordinary fenced code blocks and expect GitHub to render them as mathematics. Never indent or nest a fenced `math` block inside a list item, blockquote, or callout: GitHub renders an indented `math` fence as ordinary `<pre>` code instead of MathJax. End or restructure the surrounding construct, place both fences at column 1, then resume the prose or list.
 
 ### C. Escaping Dollar Signs on the Same Line
 If you need to use a literal dollar sign in the same line as a math expression:
@@ -80,7 +80,7 @@ When adding mathematical equations, ensure:
 3.  Any newline in multiline equations (like inside `align` or `substack` environments) uses `\\` properly and the equation is wrapped in a fenced `math` block.
 4.  No `\operatorname` or `\tag` is used in markdown equations.
 5.  Inline dollar and dollar-backtick delimiters use one exact GitHub-supported form, are adjacent to their delimiter characters, and close on the same line.
-6.  Display blocks are separated from prose by blank lines, are not embedded in table cells, and are not accidentally parsed as ordinary code.
+6.  Display blocks are separated from prose by blank lines, are not embedded in table cells, and every fenced `math` opener and closer begins at column 1; fenced math is never nested in a list or callout.
 7.  Every edited formula is inspected in context for collisions with lists, blockquotes, HTML, links, code fences, and Mermaid diagrams.
 
 ---

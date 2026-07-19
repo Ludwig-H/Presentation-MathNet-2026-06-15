@@ -3,10 +3,13 @@
 > **Position actuelle.** Ce fichier contient la première réduction favorable
 > au niveau du LCA. Les fichiers
 > [19](19_FAVORABLE_SWEEP_PROJECTIONS.md) et
-> [20](20_COLLAPSED_CORRIDOR_BLACKWELL.md) la renforcent respectivement par
-> l'ordre de Blackwell des buckets et sa tensorisation sur un corridor
-> collapsed. La géométrie Palm formulée ici reste nécessaire ; HF n'est plus
-> utilisé comme une boîte noire lorsque le squelette est fixé.
+> [20](20_COLLAPSED_CORRIDOR_BLACKWELL.md) établissent respectivement l'ordre
+> de Blackwell mono-bit et sa tensorisation dans un surrogate produit. Le
+> [fichier 29](29_AUDIT_FROID_PIVOT_RANGS_REELS.md) réfute cette
+> tensorisation pour le corridor multiport réel. La géométrie Palm formulée
+> ici reste nécessaire, mais HF est fausse comme domination uniforme. Une
+> comparaison cible-spécifique n'est admissible que sous une loi de bord déjà
+> contrôlée ; la stratégie active traite directement les rangs réalisés.
 
 Ce fichier formalise la première étape de la voie prioritaire. On suit deux
 sommets lointains $`i,j`$ dans le dendrogramme d'horloges exponentielles. Le
@@ -634,11 +637,13 @@ seulement rester borné. S'il renforce le signal local au lieu de le contracter,
 cette mise à jour LCA à un pas ne pourra pas améliorer la borne ; ce résultat
 négatif serait lui-même exact.
 
-## 8. Comment prouver HF avec les $`\Lambda_v`$
+## 8. Ancienne stratégie HF et remplacement aux rangs réels
 
-HF ne doit pas être attaquée par une monotonie informelle en $`\beta_u`$.
-L'objet à comparer est le vecteur quatre états complet. Une stratégie
-certifiable est la suivante.
+Le contre-exemple multiport du fichier 29 montre que HF est faux comme ordre
+uniforme. L'objet pertinent reste le vecteur quatre états complet, mais il
+doit être transporté à son rang réel sous la vraie loi de bord. La liste
+suivante ne constitue plus une stratégie globale ; elle reste un calcul
+cible-spécifique possible sur cactus ou sous une loi de bord déjà contrôlée.
 
 1. Tronquer les deux chaînes à $`K`$ ancêtres et conserver exactement les
    configurations où un taux vaut zéro.
@@ -647,17 +652,15 @@ certifiable est la suivante.
 3. Utiliser le même aléa de gagnante et les mêmes uniformes pour les marques
    résiduelles, puis transporter ce couplage vers les quatre
    $`\Lambda_v^{ab}`$.
-4. Calculer les deux log-rapports par `log-sum-exp` et certifier
-   $`|L^{\mathrm{post}}|\le|L^{\mathrm c}|+\zeta_K`$ par arithmétique
-   d'intervalles.
+4. Calculer les deux log-rapports par `log-sum-exp` et tester, sans la
+   supposer, une comparaison cible-spécifique sous la loi couplée.
 5. Ajouter les deux queues avec le lemme 6.1 et faire tendre $`K`$ vers
    l'infini.
 
-Sur un cactus de triangles, l'étape 2 relève d'une récurrence finie. Sur une
-bande de largeur fixée, elle relève d'une matrice de transfert. Sur la grille
-entière, elle demande des estimations multi-bras pour les trois interfaces
-ancestrales. Ce sont ces objets géométriques, et non un canal de triangle
-isolé, qui déterminent la voie hiérarchique demandée.
+Sur un cactus de triangles, l'étape 2 relève d'une récurrence finie et l'ordre
+favorable peut effectivement tenir. Sur la grille entière, l'ordre uniforme
+est réfuté ; la stratégie active construit plutôt $`K_r,U_r,d_r`$ aux rangs
+réels, puis contrôle leur composition annealed par Feynman--Kac.
 
 Le [fichier 21](21_CACTUS_COLLAPSED_CERTIFICATE.md) réalise maintenant cette
 récurrence sur une chaîne de cactus : le cas critique y est exactement le
@@ -701,9 +704,10 @@ sur la grille.
 | Noyau conditionnel des marques ancestrales | Établi, volume fini | calcule tout préfixe fini de la chaîne |
 | Transport de la queue vers $`\eta_u`$ | Établi | donne une erreur certifiée sur la fiabilité |
 | Nécessité pointwise d'une compensation $`B_u\simeq-\ell_u^{\mathrm{crit}}`$ si l'oracle contracte | Établi | diagnostic local ; pas une annulation moyenne du score collapsed |
-| Domination favorable HF | À prouver | autorise le remplacement de toutes les paires par le cas critique |
-| Convergence du squelette critique et sommabilité | À prouver | ferme la limite ancestrale |
-| Nouvelle borne triangulaire $`p_\star>0.794659\ldots`$ | Ouvert | conséquence seulement après fermeture des deux lignes précédentes |
+| Domination favorable HF uniforme | Réfutée en multiport | ne peut pas remplacer toutes les paires par le cas critique |
+| Comparaison favorable cible-spécifique | Ouverte | utile seulement sous une loi de bord déjà contrôlée |
+| Convergence du squelette critique et sommabilité | Ouverte pour l'oracle conditionnel | ne globalise pas seule la weak recovery |
+| Nouvelle borne triangulaire $`p_\star>0.794659\ldots`$ | Ouverte | exige le transfert direct aux rangs réalisés ou une autre réduction valide |
 
 ## 11. Calibration entropique et qualité postcritique
 
@@ -744,7 +748,9 @@ $`p=(2+q_c)/3=0.782432\ldots`$, avant la baseline
 $`p_{\mathrm{info}}=0.794659\ldots`$. Une meilleure borne ne peut donc pas
 venir du seul signe de cette majorité. Elle doit exploiter, sous une même
 loi, les amplitudes des quatre $`\Lambda_v^{ab}`$, les deux majorités
-groupées par ancêtre et le critère pair contre impair du heat bath, puis HF.
+groupées par ancêtre et le critère pair contre impair du heat bath. Une
+comparaison HF cible-spécifique ne pourrait intervenir qu'après contrôle de
+la loi de bord ; HF uniforme est exclue.
 La convexité des facteurs hiérarchiques prouve que les majorités groupées,
 avec la majorité locale, constituent un certificat suffisant ; le critère
 exact peut être favorable au-delà de ce certificat.

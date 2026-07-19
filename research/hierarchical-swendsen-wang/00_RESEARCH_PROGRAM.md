@@ -1,18 +1,30 @@
-# Programme prioritaire : oracle critique et corridor hiérarchique
+# Programme prioritaire : corridor hiérarchique aux rangs réels
 
 > [!IMPORTANT]
-> La [feuille de route resserrée](26_FEUILLE_DE_ROUTE_PSTAR.md) remplace
-> l'oracle « LCA ponctuel critique » comme réduction principale. Elle traite
-> le corridor réel, criticalise seulement les canaux tardifs à squelette et
-> tailles fixés, et conserve les attaches postcritiques. L'oracle critique de
-> cette page reste un test favorable et un catalogue de lemmes, pas une
-> hypothèse typique sur toutes les paires.
+> L'[audit à froid](29_AUDIT_FROID_PIVOT_RANGS_REELS.md) remplace la
+> criticalisation comme réduction principale. Celle-ci est fausse pour une
+> fusion multiport, même à squelette et tailles fixés. Le programme actif
+> traite le corridor réel à ses rangs réalisés. L'oracle critique reste un
+> benchmark et le lemme de Blackwell reste valide pour un bucket mono-bit.
+> Le no-go $`|U|=K`$ sur l'état fidèle rend en outre la fermeture locale
+> bornée improbable. Le pivot prioritaire est la
+> [dissipation $`L^2`$ du secteur impair](30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md),
+> désormais restreinte aux [cellules critiques
+> consécutives](33_SOUS_FEUILLE_ROUTE_CELLULES_CRITIQUES_L2.md).
+
+> [!NOTE]
+> Le premier gain quantitatif est maintenant établi par une route parallèle :
+> le canal triangulaire rationnel du [fichier
+> 34](34_CERTIFICAT_RATIONNEL_P809439.md) donne
+> $`p_{\mathrm{WR}}\ge0.809439`$. Cette route n'utilise pas le dendrogramme et ne
+> doit pas être comptée comme un succès de la dynamique hiérarchique.
 
 Cette page sépare les lemmes déjà prouvés, les réductions conditionnelles et
 les verrous qui doivent encore être fermés pour obtenir une nouvelle borne de
 weak recovery. Pour l'ordre actuel des travaux, partir de la
-[sous-feuille de route](27_SUBROADMAP_CORRIDOR_P0805.md), puis des
-[premiers résultats à 0,805](28_FIRST_CORRIDOR_P0805_RESULTS.md).
+[feuille corrigée](29_AUDIT_FROID_PIVOT_RANGS_REELS.md), puis consulter la
+[sous-feuille historique](27_SUBROADMAP_CORRIDOR_P0805.md) et les
+[premiers résultats](28_FIRST_CORRIDOR_P0805_RESULTS.md).
 
 ## 1. Question cible
 
@@ -33,26 +45,23 @@ $`\mathrm{Exp}(u_p)`$ ; une arête insatisfaite reçoit l'horloge infinie. Les
 arêtes sonnées avant $`\beta`$ engendrent une partition $`\Pi_\beta`$ et un
 dendrogramme de Kruskal.
 
-Le premier pré-certificat quantitatif est :
+La meilleure borne rationnelle désormais établie dans ce dossier est :
 
 ```math
 \boxed{
-p_0=\frac45
+p\in\left[\frac12,\frac{809439}{10^6}\right]
 \quad\Longrightarrow\quad
-\text{absence de weak recovery sur le GSBM triangulaire.}
+\text{absence de weak recovery sur le GSBM triangulaire},
 }
 \qquad\text{(1.2)}
 ```
 
-Par dégradation BSC, une preuve à $`p_0`$ donnerait aussi l'impossibilité pour
-tout $`p\le p_0`$. Ce résultat améliorerait la borne de référence
-$`0.794659\ldots`$, mais il n'est pas encore démontré.
-
-Une preuve au seul point $`p_0=4/5`$ ne donnerait toutefois pas encore un
-seuil strictement supérieur à $`0.8`$. Le premier objectif publiable renforcé
-est de prolonger le certificat, par continuité avec marge ou directement, au
-point rationnel $`p_1=0.805`$. Voir la
-[feuille de route resserrée](26_FEUILLE_DE_ROUTE_PSTAR.md).
+donc $`p_{\mathrm{WR}}\ge0.809439>0.8`$. La preuve combine un certificat
+less-noisy exact, information-percolation et la percolation triangulaire
+corrélée sous-critique ; elle est indépendante de la hiérarchie. Le programme
+ci-dessous cherche désormais à expliquer ou améliorer cette borne par la
+dynamique hiérarchique. Voir la [feuille de route
+resserrée](26_FEUILLE_DE_ROUTE_PSTAR.md).
 
 ## 2. Expérience favorable canonique
 
@@ -99,32 +108,34 @@ donc soit avec (2.3), soit avec la désintégration Palm du flux de fusions.
 > $`\beta_c`$ » désigne une composante critique macroscopique ou traversante
 > sur le tore fini, avec le LCA de la paire localisé dans la fenêtre (2.3).
 
-### Pourquoi ce cas est favorable
+### Pourquoi ce cas reste un benchmark utile
 
-Trois mécanismes complémentaires le justifient.
+Trois mécanismes expliquent son intérêt, avec une restriction essentielle.
 
 1. Une paire macroscopiquement éloignée ne peut pas fusionner à une distance
    fixe sous le seuil avec une probabilité non négligeable.
-2. À taille et squelette fixés, avancer un niveau postcritique vers
-   $`\beta_c`$ améliore exactement le canal au sens de Blackwell.
+2. Pour un bucket mono-bit à taille fixée, avancer un niveau postcritique vers
+   $`\beta_c`$ améliore exactement le canal au sens de Blackwell. Cette
+   affirmation est fausse pour une fusion multiport du corridor collapsed.
 3. Si les deux sommets ne sont même pas connectés à $`\beta=1`$, les
    recolorations indépendantes de leurs racines effacent exactement leur
    parité.
 
-Ainsi, l'oracle critique concentre les situations les plus favorables à la
-conservation de la corrélation : connexion aussi précoce que la géométrie
-macroscopique le permet, marques résiduelles de meilleure qualité et absence
-d'effacement par racines séparées.
+Ainsi, l'oracle critique est un benchmark de connexion précoce et de qualité
+locale des marques. Il n'est pas une enveloppe informationnelle du corridor
+multiport réel.
 
-## 3. Théorème favorable réellement établi
+## 3. Lemme scalaire et contre-exemple multiport
 
 Il faut distinguer deux énoncés.
 
-### Théorème F — criticalisation à squelette fixé, établi
+### Lemme F-scalaire — produit de buckets mono-bit, établi
 
-Fixons le corridor d'une paire, toutes ses incidences, ses tailles de coupe
-$`m_r`$, ses états de bord et une loi arbitrairement corrélée de ses parités
-latentes. Pour chaque niveau postcritique $`t_r\ge\beta_c`$, posons
+Fixons une expérience artificielle dans laquelle chaque bucket $`r`$ dépend
+d'un unique bit latent $`X_r`$, toutes ses arêtes se complémentant ensemble.
+Les observations de buckets sont conditionnellement indépendantes sachant le
+vecteur $`X`$, dont le prior peut être arbitrairement corrélé. Pour chaque
+niveau postcritique $`t_r\ge\beta_c`$, posons
 
 ```math
 t_r^{\mathrm{fav}}=\beta_c,
@@ -148,18 +159,31 @@ postérieur est plus grand :
 
 Ce résultat est prouvé par l'ordre de Blackwell à taille fixée, puis par
 tensorisation conditionnelle au vecteur complet des parités. Il formalise
-rigoureusement :
+uniquement :
 
 ```math
 \boxed{
-\text{à géométrie fixée, la fusion critique est le cas postcritique
-le plus favorable.}
+\text{dans le surrogate produit mono-bit, le canal critique est le plus
+informatif.}
 }
 \qquad\text{(3.3)}
 ```
 
 Références : [19](19_FAVORABLE_SWEEP_PROJECTIONS.md) et
 [20](20_COLLAPSED_CORRIDOR_BLACKWELL.md).
+
+### Contre-théorème F-multiport — statut : certifié
+
+Dans le corridor collapsed réel, un bucket ancestral peut porter plusieurs
+relations variant séparément sous les flips descendants. Avec deux relations,
+une gagnante marginalisée et la cible $`F(x)=x_1x_2`$, le canal tardif peut
+avoir un second moment postérieur strictement supérieur au canal critique.
+Il n'existe alors aucun noyau de dégradation de Blackwell.
+
+Le certificat exact à $`p=0.805`$ et la cellule T2-Kruskal sont dans le
+[fichier 29](29_AUDIT_FROID_PIVOT_RANGS_REELS.md). Une criticalisation ne
+peut être réintroduite qu'après une domination cible-spécifique démontrée
+sous la véritable loi de bord.
 
 ### Conjecture GF — domination de la géométrie critique, ouverte sur la grille
 
@@ -175,8 +199,8 @@ Cette domination est :
 - ouverte sur le tore triangulaire bidimensionnel.
 
 Le programme ne suppose jamais GF sans la marquer comme hypothèse. La voie
-robuste cherche plutôt une contraction uniforme après criticalisation du
-squelette réellement observé.
+robuste cherche désormais une contraction annealed directement aux rangs
+réalisés du squelette observé.
 
 ## 4. Les lemmes structurants
 
@@ -188,9 +212,9 @@ squelette réellement observé.
 | L3 | conditionnellement à $`\Pi_\beta`$, les marques de frontière sont i.i.d. résiduelles | établi exactement | [14](14_CRITICAL_COMPONENT_BOUNDARY.md), [25](25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md) |
 | L4 | la charge d'une coupe instantanée est gouvernée par $`m h_p(\beta)^2`$ | établi | [25](25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md) |
 | L5 | une coupe fusionnante possède une correction Palm par l'arête gagnante | établi exactement | [09](09_CRITICAL_MERGER_ORACLE.md), [25](25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md) |
-| L6 | la loi LCA-Palm repondère une coupe par $`mN_\rho`$ | établi en volume fini | [25](25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md) |
-| L7 | à taille fixée, le canal critique Blackwell-domine le canal tardif | établi | [19](19_FAVORABLE_SWEEP_PROJECTIONS.md) |
-| L8 | les dégradations se tensorisent sur un corridor fixé, même sous un prior corrélé | établi | [20](20_COLLAPSED_CORRIDOR_BLACKWELL.md) |
+| L6 | l'intensité LCA pré-saut vaut $`mN_\rho`$ et un événement de fusion déjà réalisé se pondère par $`N_\rho`$ | établi en volume fini | [27](27_SUBROADMAP_CORRIDOR_P0805.md), [28](28_FIRST_CORRIDOR_P0805_RESULTS.md) |
+| L7 | à taille fixée, le canal critique mono-bit Blackwell-domine le canal tardif | établi | [19](19_FAVORABLE_SWEEP_PROJECTIONS.md) |
+| L8 | les dégradations se tensorisent dans le surrogate produit mono-bit, même sous un prior corrélé | établi abstraitement ; faux comme description générale du corridor réel | [20](20_COLLAPSED_CORRIDOR_BLACKWELL.md), [29](29_AUDIT_FROID_PIVOT_RANGS_REELS.md) |
 | L9 | le corridor collapsed est au plus persistant qu'un sweep des mêmes nœuds | établi | [20](20_COLLAPSED_CORRIDOR_BLACKWELL.md), [22](22_LCA_VS_FULL_HIERARCHY.md) |
 | L10 | une chaîne de cactus critique perd exponentiellement la corrélation avec la profondeur | établi exactement | [21](21_CACTUS_COLLAPSED_CERTIFICATE.md) |
 | L11 | beaucoup de coupes screenées uniformément contractantes impliquent une obstruction pairwise | conditionnel à la géométrie | [23](23_OPTIMAL_WEAK_RECOVERY_OBSTRUCTION.md), [24](24_SIMPLE_RESIDUAL_BALANCE_OBSTRUCTION.md) |
@@ -337,7 +361,7 @@ F_v(x)=xe^{(1-\beta_v)x},
 car $`F_v`$ est non linéaire. Une majorité scalaire sur la coupe ne détermine
 donc pas le signe du message ancestral.
 
-La variable minimale à contrôler sous Palm critique est
+La variable minimale à contrôler sous la Palm d'événement aux rangs réels est
 
 ```math
 \left(
@@ -362,27 +386,30 @@ H_{\mathcal C}(I_L,J_L)^2
 \qquad\text{(8.1)}
 ```
 
-Après le premier audit à $`p=0.805`$, une preuve suffisante suivrait la
-chaîne suivante.
+Pour la branche hiérarchique, après les contre-audits à $`p=0.805`$, la
+chaîne conditionnelle est la suivante.
 
-1. **Réduction favorable.** Les paires précoces ont masse $`o(1)`$, les
-   racines distinctes ont persistance nulle et les corridors postcritiques
-   sont criticalisés à squelette fixé.
-2. **Transfert complet.** Une cellule T2-Kruskal conserve la fusion, les
-   ports, les attaches, le potentiel extérieur et les
-   $`\Lambda_v^{ab}`$ ancestraux.
-3. **Composition tordue.** Après une normalisation commune, chaque transition
-   porte un déficit $`d_r(z,z')\ge0`$ dans une représentation de
-   Feynman--Kac.
-4. **Lemme géométrique annealed.** Sous la loi marquée du corridor final, le
-   déficit cumulé diverge, sans supposer un screening uniforme.
-5. **Clôture.** La composition donne
+1. **Décomposition exacte.** Les paires précoces ont masse $`o(1)`$, les
+   racines distinctes ont persistance nulle et les autres corridors gardent
+   leurs rangs effectivement réalisés.
+2. **Filtration collapsed.** Intégrer des ensembles croissants
+   d'orientations du corridor et poser
+   $`M_k=\mathbb E[f_{ij}\mid\mathcal F_k]`$.
+3. **Dissipation exacte.** Utiliser l'identité pythagoricienne
+   $`\|M_{k-1}\|_2^2-\|M_k\|_2^2=\|M_{k-1}-M_k\|_2^2`$.
+4. **Cellule cible-spécifique.** Certifier une perte au second update sur la
+   fonction réellement produite, sans norme uniforme sur les constantes.
+5. **Lemme géométrique annealed.** Sous la loi marquée du corridor final,
+   minorer la perte en proportion de l'énergie entrante sur un nombre
+   croissant de cellules consécutives dans des fenêtres near-critical. Les
+   annuli génériques ne sont plus une cible.
+6. **Clôture.** La composition donne
 
 ```math
 \mathbb E[H_{\mathcal C}^2]
 \le
 \mathbb E\left[
-\exp\left(-\sum_{r=1}^{N_L}d_r(Z_{r-1},Z_r)\right)
+\exp\!\left(-\sum_{k=1}^{K_L}\alpha_{k,L}\right)
 \right]+o(1)
 \longrightarrow0.
 \qquad\text{(8.2)}
@@ -394,33 +421,44 @@ weak recovery.
 
 ## 9. Ordre de travail
 
-### Priorité 1 — composition finie tordue
+### Priorité 1 — borne rationnelle, fermée
 
-Pour un transfert positif levé, séparer le noyau de masse $`K_r`$ du secteur
-signé $`U_r`$, puis exploiter $`|U_r|\le K_r`$. Le but est une formule de
-Feynman--Kac avec déficit dépendant de la transition, sans demander une
-marge uniforme sur tous les messages.
+À $`p=809439/10^6`$, la PSD uniforme du canal
+$`(a,s,e)=(166642280,55571811,166642287)/(5\times10^8)`$ est certifiée
+exactement, avec la marge $`Q_E-Q_Y\ge\mathrm{Var}/(5\times10^7)`$. Le
+relèvement aux facteurs, la
+tensorisation et le passage au tore sont fermés dans le [fichier
+34](34_CERTIFICAT_RATIONNEL_P809439.md). Le point tangent
+$`0.809909\ldots`$ reste une optimisation ouverte.
 
-### Priorité 2 — cellule T2-Kruskal
+### Priorité 2 — D1 et D2, effectués
 
-Étendre la cellule E1+ certifiée au cas d'une fusion réelle avec partition
-ouverte, trois ports au moins, une attache en peigne, potentiel extérieur et
-quatre $`\Lambda_v^{ab}`$. Deux implémentations indépendantes doivent
-coïncider avant toute optimisation.
+D1 exhibe une seconde perte réelle après propagation sur un witness, mais la
+marge uniforme s'annule sur les potentiels de bord. D2, pour des paires à
+distance maximale du tore $`L=4`$, montre une dissipation dominée par un petit
+nombre de paquets et une queue rare.
 
-### Priorité 3 — diagnostic Palm enrichi
+### Priorité 3 — population effectuée, pivot critique
 
-Le corridor final réalisé utilise le poids $`N_\rho`$ sur ses nœuds ; le
-facteur $`m`$ est déjà dans la course de Kruskal. Le poids $`mN_\rho`$
-s'applique aux coupes candidates pré-saut, dans la même fenêtre de rang.
-Ajouter aux petites coupes déjà comptées les ports, contournements et boîtes
-de potentiel requis par T2.
+L'audit non sélectionné de 302 cellules confirme la queue rare, mais les 14
+cellules dans $`|q-q_c|\le0.02`$ portent $`34.1\%`$ de la perte pour
+$`4.13\%`$ de l'énergie entrante. La seule suite justifiée est la
+[sous-feuille critique](33_SOUS_FEUILLE_ROUTE_CELLULES_CRITIQUES_L2.md) :
+prouver une inégalité locale pondérée sur un compact de potentiels intérieurs,
+puis une occupation énergétique répétée de ces cellules.
 
-### Priorité 4 — abondance du déficit
+### Priorité 4 — outlets critiques seulement après le lemme local
 
-Prouver seulement que l'espérance exponentielle de (8.2) s'annule sous la
-loi marquée réelle. Une loi limite complète du dendrogramme et un gap
-spectral global ne sont pas requis.
+Ne construire des outlets épaissis que si le lemme local critique donne une
+marge énergétique robuste. Les annuli collapsed à rang arbitraire sont
+abandonnés. Si la mesure énergétiquement inclinée se polarise encore sous un
+blindage critique, arrêter la branche hiérarchique.
+
+### Priorité 5 — dernier contre-test T2
+
+Conserver la jauge locale comme test d'une éventuelle compression spéciale
+des potentiels atteignables. Si elle n'est pas Markov-fermée, ne pas relancer
+R2--R4 du fichier 29.
 
 ## 10. Calibration à $`p=0.8`$
 
@@ -467,8 +505,8 @@ composition sur la grille.
 
 | raccourci tentant | verdict correct |
 |---|---|
-| « même composante à $`\beta_c`$ » suffit à prouver la weak recovery | faux : il faut contrôler la masse de l'événement ou établir une domination favorable |
-| le LCA critique est globalement le plus favorable sur la grille | ouvert : établi seulement à squelette fixé et sur le cactus |
+| « même composante à $`\beta_c`$ » suffit à prouver la weak recovery | faux : il faut contrôler la loi d'événement réelle et son transfert multiport |
+| le LCA critique est globalement le plus favorable sur la grille | faux en général même à squelette, taille et incidences fixés ; vrai dans le surrogate mono-bit et sur le cactus d'articulations |
 | les fausses arêtes internes aux clusters votent au nœud courant | faux : elles s'annulent dans le flip relatif |
 | une grande coupe critique perd son information | faux à $`p=0.8`$ : sa charge croît comme $`0.149896m`$ |
 | une coupe tardive est automatiquement peu informative | faux sans connaître sa taille |
@@ -479,6 +517,7 @@ composition sur la grille.
 | un nœud de Kruskal réalisé doit encore être pondéré par $`mN_\rho`$ | faux : il faut seulement $`N_\rho`$ ; sinon on crée $`m^2N_\rho`$ |
 | le benchmark snapshot à $`q_c`$ Blackwell-domine le corridor final | faux : il change le squelette |
 | la marge E1+ inférieure à $`0.3`$ est uniforme en potentiel extérieur | faux : le second moment brut tend vers un sous un champ polarisant |
+| conserver davantage de micro-état aide à produire un déficit local | faux : si l'état révèle le twist, $`|U|=K`$ et $`d=0`$ |
 
 ## 12. Parcours de lecture recommandé
 
@@ -490,8 +529,8 @@ composition sur la grille.
    — géométrie conditionnée et loi Palm.
 5. [08 — chaîne ancestrale](08_ANCESTRAL_LAMBDA_CHAIN.md) — calcul des
    $`\Lambda_v^{ab}`$.
-6. [20 — corridor collapsed](20_COLLAPSED_CORRIDOR_BLACKWELL.md) — dynamique
-   prioritaire et tensorisation.
+6. [20 — corridor collapsed](20_COLLAPSED_CORRIDOR_BLACKWELL.md) — projection
+   exacte et tensorisation scalaire restreinte.
 7. [21 — certificat cactus](21_CACTUS_COLLAPSED_CERTIFICATE.md) — premier
    modèle exact.
 8. [05 — feuille de route](05_PROOF_ROADMAP.md) — dépendances techniques.
@@ -499,6 +538,10 @@ composition sur la grille.
    falsifiable et portes go/no-go.
 10. [28 — premiers résultats](28_FIRST_CORRIDOR_P0805_RESULTS.md) — audits
     Palm, cellule E1+ et prochaine cellule T2-Kruskal.
+11. [29 — audit à froid](29_AUDIT_FROID_PIVOT_RANGS_REELS.md) —
+    contre-exemple multiport, T2 réel et feuille de route corrigée.
+12. [30 — dissipation du secteur impair](30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md) —
+    pivot opératoriel, critère annealed et diagnostic exact.
 
 Les calculs et commandes de validation sont documentés dans
 [computations/README.md](computations/README.md).

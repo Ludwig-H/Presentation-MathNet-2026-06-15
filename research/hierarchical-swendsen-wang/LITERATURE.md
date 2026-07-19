@@ -1,6 +1,6 @@
 # État de l'art ciblé
 
-Recherche ciblée effectuée jusqu'au 18 juillet 2026. Elle ne constitue pas une preuve exhaustive de nouveauté.
+Recherche ciblée effectuée jusqu'au 19 juillet 2026. Elle ne constitue pas une preuve exhaustive de nouveauté.
 
 ## Positionnement prudent
 
@@ -42,6 +42,7 @@ Des morceaux importants existent séparément. La nouveauté défendable n'est d
 - [Smirnov–Werner, *Critical exponents for two-dimensional percolation*](https://arxiv.org/abs/math/0109120). Calcule les exposants d'arms pour la percolation critique de sites sur le réseau triangulaire. Ces exposants ne sont pas transférés automatiquement à la percolation par arêtes triangulaire du présent dossier ; le programme annulaire du fichier 23 vise d'abord RSW et quasi-multiplicativité sans invoquer cette universalité.
 - [Nolin, *Near-critical percolation in two dimensions*](https://arxiv.org/abs/0711.4948), [DOI](https://doi.org/10.1214/EJP.v13-565). Présente les estimées de longueur de corrélation et les relations d'échelle nécessaires pour choisir une fenêtre $`\delta_n`$ autour du seuil.
 - [Damron–Sapozhnikov, *Outlets of 2D invasion percolation and multiple-armed incipient infinite clusters*](https://arxiv.org/abs/0903.4496), [DOI](https://doi.org/10.1007/s00440-010-0274-y). Montre que les goulots d'invasion approchent le seuil tout en conservant une structure d'outlets ; cette distinction avertit que $`\beta_{ij}`$ ne doit pas être supposé concentré exactement en $`\beta_c`$ pour une paire ponctuelle.
+- [Damron–Sapozhnikov, *Limit theorems for 2D invasion percolation*](https://arxiv.org/abs/1005.5696), [DOI](https://doi.org/10.1214/10-AOP641). Établit une structure de renouvellement et un mélange exponentiel pour le nombre d'outlets dans des boîtes dyadiques. C'est le modèle technique le plus proche du programme d'outlets T2 protégés, sans fournir directement la Palm de paire, le gadget épaissi ni le potentiel projectif.
 - [Duminil-Copin–Raoufi–Tassion, *Sharp phase transition for the random-cluster and Potts models via decision trees*](https://arxiv.org/abs/1705.03104), [DOI](https://doi.org/10.4007/annals.2019.189.1.2). Donne décroissance exponentielle sous le seuil et densité supercritique sur les graphes transitifs pour le random-cluster $`q\ge1`$. Ces résultats justifient les dichotomies géométriques de référence, mais ne s'appliquent pas directement à la postérieure frustrée conditionnelle.
 - [Aizenman–Barsky, *Sharpness of the Phase Transition in Percolation Models*](https://projecteuclid.org/journals/communications-in-mathematical-physics/volume-108/issue-3/Sharpness-of-the-phase-transition-in-percolation-models/cmp/1104116538.full), [DOI](https://doi.org/10.1007/BF01210689). Fournit la décroissance exponentielle sous-critique utilisée pour localiser le LCA d'une paire conditionnée à être connectée au seuil.
 - [Köhler-Schindler–Tassion, *Crossing probabilities for planar percolation*](https://arxiv.org/abs/2011.04618). Forme robuste de RSW et extensions de volume fini ; combinée à la décroissance sous-critique, elle donne la séparation exponentielle/polynomiale du lemme de localisation critique.
@@ -101,9 +102,11 @@ Dans l'échelle des horloges, cette baseline se réécrit $`t_\chi>\beta_c`$, o�
 
 ## Heat baths, projections et censoring
 
-- [Blackwell, *Equivalent Comparisons of Experiments*](https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-24/issue-2/Equivalent-Comparisons-of-Experiments/10.1214/aoms/1177729032.full), [DOI](https://doi.org/10.1214/aoms/1177729032). Pour deux états, la domination des courbes ROC équivaut à une dégradation par noyau stochastique. Le fichier 19 l'applique à un bucket ; le fichier 20 tensorise les noyaux de dégradation sur un corridor fixé avec un prior latent arbitrairement corrélé.
+- [Blackwell, *Equivalent Comparisons of Experiments*](https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-24/issue-2/Equivalent-Comparisons-of-Experiments/10.1214/aoms/1177729032.full), [DOI](https://doi.org/10.1214/aoms/1177729032). Pour deux états, la domination des courbes ROC équivaut à une dégradation par noyau stochastique. Le fichier 19 l'applique à un bucket mono-bit ; le fichier 20 tensorise ces noyaux dans une expérience produit abstraite. Le fichier 29 montre pourquoi cette tensorisation ne décrit pas une fusion multiport.
 - [Diaconis–Khare–Saloff-Coste, *Stochastic alternating projections*](https://projecteuclid.org/journals/illinois-journal-of-mathematics/volume-54/issue-3/Stochastic-alternating-projections/10.1215/ijm/1336568522.full), [DOI](https://doi.org/10.1215/ijm/1336568522). Relie explicitement Gibbs sampler, espérances conditionnelles et produits de projections ; c'est le cadre opératoriel de l'identité palindromique du fichier 19 et de l'enveloppe collapsed du fichier 20.
 - [Dyer–Greenhill–Ullrich, *Structure and eigenvalues of heat-bath Markov chains*](https://arxiv.org/abs/1301.4055), [DOI](https://doi.org/10.1016/j.laa.2014.04.018). Caractérise les opérateurs de heat bath et leur positivité ; le produit systématique de plusieurs projections n'est toutefois pas lui-même une projection.
+- [Peyrard et al., *Exact and approximate inference in graphical models: variable elimination and beyond*](https://arxiv.org/abs/1506.08544). Explique pourquoi le coût de l'élimination exacte est gouverné par l'ordre d'élimination et la treewidth. C'est le contre-audit algorithmique de la jauge de ports : transporter un potentiel général sur une frontière croissante n'est pas une fermeture locale de dimension fixe.
+- [Anshu–Arad–Vidick, *A simple proof of the detectability lemma and spectral gap amplification*](https://arxiv.org/abs/1602.01210). Relie un produit de projecteurs locaux à la projection sur leur intersection sous une hypothèse de gap. Pour le présent problème, cet outil ne contrôle pas l'overlap de $`f_{ij}`$ avec l'intersection, qui est précisément la corrélation cherchée ; il reste secondaire au critère $`L^2`$ cible-spécifique du fichier 30.
 - [Peres–Winkler, *Can extra updates delay mixing?*](https://arxiv.org/abs/1112.0603), [DOI](https://doi.org/10.1007/s00220-013-1776-0). Inégalité de censoring pour systèmes de spins monotones démarrés d'un état extrémal. Le modèle frustré conditionnel du présent dossier ne satisfait pas automatiquement ces hypothèses.
 - [Holroyd, *Some circumstances where extra updates can delay mixing*](https://arxiv.org/abs/1101.4690). Contre-exemples hors du cadre monotone ; ils imposent de certifier chaque programme hiérarchique au lieu de supposer qu'ajouter des heat baths améliore toujours la contraction.
 
@@ -123,8 +126,16 @@ Ordre recommandé :
 6. Chayes–Lei, Nishimori–Ohzeki puis Ohzeki pour le cas triangulaire et les corrections de blocs.
 
 La synthèse mathématique et les implications exactes pour la weak recovery sont centralisées dans [Bande critique et transmission de l'information](07_CRITICAL_BAND_CRITERION.md).
-La stratégie de clôture actuellement privilégiée est détaillée dans
-[Stratégie optimale pour une obstruction de weak recovery](23_OPTIMAL_WEAK_RECOVERY_OBSTRUCTION.md).
+L'audit qui ferme la route de transfert local est détaillé dans
+[Audit froid et pivot aux rangs réels](29_AUDIT_FROID_PIVOT_RANGS_REELS.md).
+La stratégie hiérarchique active, encore soumise à un test go/no-go, est la
+[dissipation $`L^2`$ du secteur impair](30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md),
+resserrée aux [cellules critiques pondérées par
+l'énergie](33_SOUS_FEUILLE_ROUTE_CELLULES_CRITIQUES_L2.md). La borne
+non hiérarchique rigoureuse $`p_{\mathrm{WR}}\ge0.809439`$ est démontrée dans
+le [certificat rationnel P809439](34_CERTIFICAT_RATIONNEL_P809439.md).
+Le fichier 23 reste l'historique conditionnel de l'ancienne obstruction
+locale.
 
 ## Critère de nouveauté à viser
 

@@ -491,7 +491,7 @@ Définissons la fiabilité oracle sans message extérieur
 ```math
 \Gamma_m(\beta;p)
 =
-\mathbb Eleft[
+\mathbb E\left[
 \tanh^2\left(\frac{\ell_{m,K}(\beta;p)}2\right)
 \right].
 \qquad\text{(8.1)}
@@ -734,16 +734,16 @@ complète de tous les buckets.
 
 ### Hypothèse SB — buckets bornés screenés
 
-Sous la loi Palm d'une paire lointaine dont le LCA est dans la fenêtre
-critique, il existe sur les deux bras descendants un nombre $`N_L`$ de blocs
-disjoints tels que :
+Sous la Palm d'événement réelle d'une paire lointaine fusionnant avant la
+censure finale et hors de la classe uniformément sous-critique, il existe sur
+les deux bras descendants un nombre $`N_L`$ de blocs disjoints tels que :
 
 1. chaque bloc contient un bucket séparant la parité de l'endpoint, avec
    $`2\le m\le M`$ pour un $`M`$ fixe ;
 2. les routes latérales sont screenées par l'état de bord du bloc ;
 3. le message extérieur satisfait $`|B_r|\le B_0`$ ;
-4. le transfert répliqué conditionnel de chaque bloc a un coefficient
-   $`\chi^2`$ au plus $`\kappa(p,M,B_0)<1`$ ;
+4. le transfert répliqué conditionnel de chaque bloc, à son rang réalisé, a
+   un coefficient $`\chi^2`$ au plus $`\kappa(p,M,B_0)<1`$ ;
 5. $`N_L\to\infty`$ en probabilité.
 
 Pour le sous-cas $`m=2`$, le coefficient de la ligne 4 est explicitement
@@ -751,10 +751,10 @@ majoré par (9.4).
 
 ### Théorème 10.1 — obstruction sous SB, statut : conditionnel
 
-Sous SB et sous une réduction favorable contrôlant les paires postcritiques,
+Sous SB,
 
 ```math
-\mathbb E[A_{I_LJ_L}]longrightarrow0,
+\mathbb E[A_{I_LJ_L}]\longrightarrow0,
 ```
 
 donc la weak recovery est impossible.
@@ -809,7 +809,7 @@ d'une bande, il faut essayer de prouver :
 
 ```math
 \boxed{
-\text{sous Palm critique, le corridor contient }
+\text{sous la Palm d'événement réelle, le corridor contient }
 N_L\to\infty
 \text{ coupes de charge bornée et screenées.}
 }
@@ -861,7 +861,9 @@ Deux mécanismes simples et rigoureux restent disponibles :
    corridor descendant.
 
 Pour attaquer $`p=0.8`$, le second est le plus prometteur. Le scénario où
-$`i,j`$ fusionnent dès $`\beta_c`$ reste le test favorable le plus sévère : le
-bucket du LCA y est fortement informatif, mais la distance peut encore être
+$`i,j`$ fusionnent dès $`\beta_c`$ reste un benchmark sévère, et un oracle
+favorable exact sur le cactus seulement. Sur la grille, il ne majore pas le
+corridor multiport réel. Le bucket du LCA y est fortement informatif, mais la
+distance peut encore être
 exploitée si le corridor contient un nombre divergent de motifs ambigus
 screenés.
