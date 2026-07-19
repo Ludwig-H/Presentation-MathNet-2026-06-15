@@ -468,6 +468,14 @@ de Doob doivent alors être communes ou se composer en un cocycle dont les
 rapports de bord sont explicitement bornés ; normaliser séparément chaque
 matrice puis multiplier les rapports ne serait pas valide.
 
+Le [premier calcul E1+](28_FIRST_CORRIDOR_P0805_RESULTS.md) montre que (6.5)
+ne peut pas être uniforme sur tous les potentiels extérieurs non bornés pour
+le second moment brut : sous un champ polarisant, celui-ci tend vers un. Il
+faut donc soit restreindre (6.5) à une classe tronquée et payer sa queue, soit
+utiliser après normalisation commune la domination $`|U_r|\le K_r`$ et un
+déficit de Feynman--Kac dépendant de l'état. Cette seconde option est
+prioritaire pour la cellule T2-Kruskal.
+
 Pour comparer des blocs de profondeurs différentes, suivre le taux par
 couche $`\mathrm{depth}(B)^{-1}\log\kappa_B`$, jamais la marge brute
 $`1-\kappa_B`$ : bloquer deux couches remplace naturellement $`\kappa`$ par

@@ -25,8 +25,20 @@ $`0.8`$ vise $`p_0=0.805`$. La stratégie resserrée est donnée dans le
 [programme prioritaire](00_RESEARCH_PROGRAM.md) ·
 [feuille de route](05_PROOF_ROADMAP.md) ·
 [feuille de route vers une borne strictement supérieure à 0,8](26_FEUILLE_DE_ROUTE_PSTAR.md) ·
+[sous-feuille de route à p0 = 0,805](27_SUBROADMAP_CORRIDOR_P0805.md) ·
+[premiers résultats à p0 = 0,805](28_FIRST_CORRIDOR_P0805_RESULTS.md) ·
 [calculs reproductibles](computations/README.md) ·
 [slides du 16 juillet](../../beamer-presentation-reunion-2026-07-16/Presentation_2026-07-16_LouisHauseux_ReunionLouisNahuelKonstantin.pdf)
+
+> [!NOTE]
+> Le premier cycle à $`p_0=0.805`$ donne deux décisions. Le nombre de
+> petites coupes de charge bornée croît nettement dans les corridors finis,
+> mais le seul motif $`m=2`$ est trop étroit. Une cellule neutre répliquée a
+> un coefficient tordu certifié inférieur à $`0.3`$, tandis qu'un potentiel
+> extérieur non borné fait tendre son second moment brut vers un. Le prochain
+> transfert doit donc suivre la polarisation et accumuler un déficit
+> dépendant de l'état ; aucune borne de weak recovery nouvelle n'est encore
+> revendiquée.
 
 ## 1. L'idée en une page
 
@@ -200,20 +212,25 @@ enfants. Toute analyse géométrique doit inclure ce facteur.
 | corridor complet au plus persistant que le LCA seul | établi | [22](22_LCA_VS_FULL_HIERARCHY.md) |
 | perte exponentielle sur un cactus triangulaire LCA-Palm | établie exactement | [21](21_CACTUS_COLLAPSED_CERTIFICATE.md) |
 | obstruction par une abondance de blocs screenés contractants | conditionnelle | [23](23_OPTIMAL_WEAK_RECOVERY_OBSTRUCTION.md), [24](24_SIMPLE_RESIDUAL_BALANCE_OBSTRUCTION.md) |
+| conventions Campbell $`mN_\rho`$ pré-saut / $`N_\rho`$ événement réalisé | établies et contre-auditées | [27](27_SUBROADMAP_CORRIDOR_P0805.md), [28](28_FIRST_CORRIDOR_P0805_RESULTS.md) |
+| secteur $`\chi\otimes\chi`$ E1+ neutre à $`p=0.805`$, coefficient inférieur à $`0.3`$ | certifié sur la cellule finie seulement | [28](28_FIRST_CORRIDOR_P0805_RESULTS.md) |
+| domination de Feynman--Kac des produits tordus après normalisation stochastique commune | établie en dimension finie | [28](28_FIRST_CORRIDOR_P0805_RESULTS.md), [calculs](computations/README.md) |
+| croissance du proxy de petites coupes sur le corridor réel | diagnostic fini, sans screening | [28](28_FIRST_CORRIDOR_P0805_RESULTS.md) |
 
 ## 4. Verrous prioritaires
 
-1. **Transfert tordu.** Construire le secteur
-   $`\chi\otimes\chi`$ avec potentiel extérieur complet, incidences, tailles
-   et temps ; ne pas contracter le mode constant.
-2. **Troncature.** Contrôler les ports et messages rares par une erreur
+1. **Cellule T2-Kruskal.** Ajouter à la cellule répliquée une fusion réelle,
+   la partition ouverte, les ports, une attache en peigne, le potentiel
+   extérieur et les quatre $`\Lambda_v^{ab}`$ ancestraux.
+2. **Composition tordue.** Le lemme fini de Feynman--Kac est établi ; il faut
+   maintenant construire une normalisation de Doob commune et identifier ses
+   noyaux au heat bath du corridor réel.
+3. **Troncature.** Contrôler les ports et messages rares par une erreur
    additive $`o(1)`$ ou un drift pondéré, sans overflow absorbant.
-3. **Composition annealed.** Composer les blocs sur les corridors réels,
-   histoires en peigne et attaches tardives comprises.
-4. **Abondance.** Montrer que le nombre effectif de blocs contractants diverge
-   sous la loi marquée pertinente, sans classifier toute la Palm critique.
-5. **Certificat quantitatif.** Établir un poids commun et une marge rigoureuse
-   à $`p=0.805`$, puis seulement optimiser le seuil.
+4. **Abondance annealed.** Montrer que le déficit cumulé diverge sous la loi
+   marquée pertinente, sans classifier toute la Palm critique.
+5. **Certificat quantitatif.** Rationaliser le transfert à $`p=0.805`$
+   seulement après fermeture de la composition et de l'état de bord.
 
 À $`p=0.8`$,
 
@@ -240,6 +257,8 @@ exploiter la profondeur du corridor et non le seul bucket du LCA.
 | [03_HIERARCHICAL_WEAK_RECOVERY.md](03_HIERARCHICAL_WEAK_RECOVERY.md) | lien avec la weak recovery |
 | [25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md](25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md) | coupes, charge et Palm géométrique |
 | [05_PROOF_ROADMAP.md](05_PROOF_ROADMAP.md) | dépendances techniques de la preuve |
+| [27_SUBROADMAP_CORRIDOR_P0805.md](27_SUBROADMAP_CORRIDOR_P0805.md) | chantier falsifiable et portes go/no-go à $`p_0=0.805`$ |
+| [28_FIRST_CORRIDOR_P0805_RESULTS.md](28_FIRST_CORRIDOR_P0805_RESULTS.md) | résultats Palm, cellule E1+ et ordre de travail révisé |
 
 ### Voie active
 

@@ -8,10 +8,11 @@
 > cette page reste un test favorable et un catalogue de lemmes, pas une
 > hypothèse typique sur toutes les paires.
 
-Cette page sépare les
-lemmes déjà prouvés, les réductions conditionnelles et les verrous qui doivent
-encore être fermés pour obtenir une nouvelle borne de weak recovery. Pour
-l'ordre actuel des travaux, le point d'entrée est le fichier 26.
+Cette page sépare les lemmes déjà prouvés, les réductions conditionnelles et
+les verrous qui doivent encore être fermés pour obtenir une nouvelle borne de
+weak recovery. Pour l'ordre actuel des travaux, partir de la
+[sous-feuille de route](27_SUBROADMAP_CORRIDOR_P0805.md), puis des
+[premiers résultats à 0,805](28_FIRST_CORRIDOR_P0805_RESULTS.md).
 
 ## 1. Question cible
 
@@ -361,24 +362,28 @@ H_{\mathcal C}(I_L,J_L)^2
 \qquad\text{(8.1)}
 ```
 
-Une preuve suffisante suivrait la chaîne suivante.
+Après le premier audit à $`p=0.805`$, une preuve suffisante suivrait la
+chaîne suivante.
 
 1. **Réduction favorable.** Les paires précoces ont masse $`o(1)`$, les
    racines distinctes ont persistance nulle et les corridors postcritiques
    sont criticalisés à squelette fixé.
-2. **Lemme géométrique.** Sous la Palm critique favorable, le corridor
-   contient $`N_L\to\infty`$ coupes ou blocs disjoints de charge contrôlée.
-3. **Screening.** Leurs états de bord isolent la parité des routes latérales
-   et gardent $`|B_v|`$ sous contrôle.
-4. **Contraction locale.** Chaque transfert répliqué exact vérifie
-   $`\eta_v\le\kappa<1`$.
-5. **Composition.** Les coefficients se multiplient ou satisfont une borne
-   sous-multiplicative :
+2. **Transfert complet.** Une cellule T2-Kruskal conserve la fusion, les
+   ports, les attaches, le potentiel extérieur et les
+   $`\Lambda_v^{ab}`$ ancestraux.
+3. **Composition tordue.** Après une normalisation commune, chaque transition
+   porte un déficit $`d_r(z,z')\ge0`$ dans une représentation de
+   Feynman--Kac.
+4. **Lemme géométrique annealed.** Sous la loi marquée du corridor final, le
+   déficit cumulé diverge, sans supposer un screening uniforme.
+5. **Clôture.** La composition donne
 
 ```math
 \mathbb E[H_{\mathcal C}^2]
 \le
-\mathbb E[\kappa^{N_L}]+o(1)
+\mathbb E\left[
+\exp\left(-\sum_{r=1}^{N_L}d_r(Z_{r-1},Z_r)\right)
+\right]+o(1)
 \longrightarrow0.
 \qquad\text{(8.2)}
 ```
@@ -389,40 +394,33 @@ weak recovery.
 
 ## 9. Ordre de travail
 
-### Priorité 1 — loi géométrique LCA-Palm
+### Priorité 1 — composition finie tordue
 
-Estimer sous (2.3) la loi jointe de
+Pour un transfert positif levé, séparer le noyau de masse $`K_r`$ du secteur
+signé $`U_r`$, puis exploiter $`|U_r|\le K_r`$. Le but est une formule de
+Feynman--Kac avec déficit dépendant de la transition, sans demander une
+marge uniforme sur tous les messages.
 
-```math
-(m_v,\beta_v,Z_v,B_v)
-```
+### Priorité 2 — cellule T2-Kruskal
 
-et le nombre de coupes vérifiant
+Étendre la cellule E1+ certifiée au cas d'une fusion réelle avec partition
+ouverte, trois ports au moins, une attache en peigne, potentiel extérieur et
+quatre $`\Lambda_v^{ab}`$. Deux implémentations indépendantes doivent
+coïncider avant toute optimisation.
 
-```math
-m_vh_p(\beta_v)^2\le J_0.
-\qquad\text{(9.1)}
-```
+### Priorité 3 — diagnostic Palm enrichi
 
-Le facteur de repondération $`m_vN_\rho`$ doit être présent dans toute
-énumération ou simulation.
+Le corridor final réalisé utilise le poids $`N_\rho`$ sur ses nœuds ; le
+facteur $`m`$ est déjà dans la course de Kruskal. Le poids $`mN_\rho`$
+s'applique aux coupes candidates pré-saut, dans la même fenêtre de rang.
+Ajouter aux petites coupes déjà comptées les ports, contournements et boîtes
+de potentiel requis par T2.
 
-### Priorité 2 — screening et $`\Lambda_v`$
+### Priorité 4 — abondance du déficit
 
-Construire des blocs finis dont les ports latéraux suffisent à calculer les
-quatre $`\Lambda_v^{ab}`$ et à borner le message extérieur.
-
-### Priorité 3 — certificat de bande
-
-Si les coupes simples ne se composent pas, construire le transfert répliqué
-exact d'une bande triangulaire de largeur deux, avec une seconde
-implémentation indépendante et un certificat d'intervalles.
-
-### Priorité 4 — globalisation postcritique
-
-Prouver une borne uniforme sur les corridors réels criticalisés ou établir
-la conjecture GF par un couplage qui contrôle explicitement les changements
-de taille et d'état de bord.
+Prouver seulement que l'espérance exponentielle de (8.2) s'annule sous la
+loi marquée réelle. Une loi limite complète du dendrogramme et un gap
+spectral global ne sont pas requis.
 
 ## 10. Calibration à $`p=0.8`$
 
@@ -478,6 +476,9 @@ composition sur la grille.
 | le LCA seul exploite la distance entre $`i,j`$ | faux : il ignore la profondeur des deux bras |
 | un message local nul annule la corrélation globale | faux sans screening des ancêtres et routes latérales |
 | le certificat cactus prouve le résultat sur la grille | faux : les cycles chevauchants et l'état de bord restent ouverts |
+| un nœud de Kruskal réalisé doit encore être pondéré par $`mN_\rho`$ | faux : il faut seulement $`N_\rho`$ ; sinon on crée $`m^2N_\rho`$ |
+| le benchmark snapshot à $`q_c`$ Blackwell-domine le corridor final | faux : il change le squelette |
+| la marge E1+ inférieure à $`0.3`$ est uniforme en potentiel extérieur | faux : le second moment brut tend vers un sous un champ polarisant |
 
 ## 12. Parcours de lecture recommandé
 
@@ -494,6 +495,10 @@ composition sur la grille.
 7. [21 — certificat cactus](21_CACTUS_COLLAPSED_CERTIFICATE.md) — premier
    modèle exact.
 8. [05 — feuille de route](05_PROOF_ROADMAP.md) — dépendances techniques.
+9. [27 — sous-feuille P0805](27_SUBROADMAP_CORRIDOR_P0805.md) — ordre
+   falsifiable et portes go/no-go.
+10. [28 — premiers résultats](28_FIRST_CORRIDOR_P0805_RESULTS.md) — audits
+    Palm, cellule E1+ et prochaine cellule T2-Kruskal.
 
 Les calculs et commandes de validation sont documentés dans
 [computations/README.md](computations/README.md).

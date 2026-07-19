@@ -35,6 +35,9 @@ Les scripts n'ont pas de dépendance scientifique externe.
 | `pair_favorability_diagnostic.py` | comparaison pondérée critique/tardive par classes de paires |
 | `collapsed_corridor_transfer.py` | transfert collapsed exact pour un corridor et un prior corrélé |
 | `cactus_collapsed_certificate.py` | canal cactus exact, LCA seul contre corridor complet et certificat $`p=0.8`$ |
+| `lca_palm_corridor_diagnostic.py` | benchmark snapshot critique, corridor final réel et criticalisation à squelette fixé |
+| `triangular_band_collapsed_certificate.py` | premier secteur répliqué E1+ sur une cellule triangulaire neutre à quatre ports |
+| `twisted_feynman_kac_composition.py` | composition finie du secteur tordu par un déficit de Feynman--Kac |
 
 Chaque module actif possède un fichier `test_*.py` associé.
 
@@ -86,6 +89,116 @@ neutral m=2 blocks=40 bound=4.4047181845e-07
 
 Ces nombres valident l'énumération sur un corridor fixé ; ils ne représentent
 pas la loi du tore triangulaire.
+
+## Diagnostic LCA-Palm du corridor réel à $`p=0.805`$
+
+```bash
+python3 \
+  research/hierarchical-swendsen-wang/computations/lca_palm_corridor_diagnostic.py \
+  --side 12 --repetitions 50 --p 0.805 \
+  --distance-fraction 0.25 --maximum-bucket-size 8 \
+  --maximum-charge 1.0 --seed 20260719
+```
+
+Le module sépare deux expériences qui ne sont pas interchangeables.
+
+1. Dans le benchmark snapshot à $`q_c`$, les coupes candidates sont
+   pondérées par l'intensité pré-saut $`mN_\rho`$.
+2. Dans l'arbre final réalisé jusqu'à $`q_1=2p-1`$, chaque nœud est pondéré
+   seulement par $`N_\rho`$ ; la course de Kruskal a déjà introduit $`m`$.
+
+Le contre-audit détecte explicitement le faux poids $`m^2N_\rho`$ et vérifie
+que la somme des $`N_\rho`$ sur les LCA réalisés est exactement le nombre de
+paires ordonnées lointaines connectées. Le benchmark snapshot change le
+squelette et ne constitue pas une domination de Blackwell. Seul le corridor
+final applique la criticalisation favorable
+$`q_v\mapsto\min(q_v,q_c)`$ sur un squelette inchangé.
+
+À $`L=12`$, avec les paramètres ci-dessus, le corridor final contient en
+moyenne jackknife
+
+```text
+all corridor cuts:       19.002 +/- 0.328
+bucket size exactly 2:    2.929 +/- 0.143
+favourable proxy G_8,1:   8.687 +/- 0.281
+```
+
+Le proxy impose $`2\le m\le8`$ et
+$`m h_p(q_v^{\mathrm{fav}})^2\le1`$. Il ne calcule ni le screening, ni les
+ports latéraux, ni le potentiel extérieur. Les erreurs sont des jackknives
+par environnement de rang, jamais des erreurs i.i.d. par nœud. Le tableau
+d'échelle complet et ses limites sont dans le
+[fichier 28](../28_FIRST_CORRIDOR_P0805_RESULTS.md).
+
+## Cellule triangulaire répliquée E1+
+
+```bash
+python3 \
+  research/hierarchical-swendsen-wang/computations/triangular_band_collapsed_certificate.py
+```
+
+La cellule possède deux ports gauches, deux ports droits et un triangle. Ses
+quatre arêtes sont conditionnées fermées à $`q_c`$. Le programme construit
+$`\mathbb E_Z[K_Z\otimes K_Z]`$ avec le même environnement résiduel dans les
+deux répliques, puis sépare le bloc de masse et le secteur
+$`\chi\otimes\chi`$.
+
+La sortie de référence à $`p=0.805`$ commence par :
+
+```text
+scope=E1+ neutral all-closed cell sector test
+shared chi-x-chi uniform coefficient=0.293993788340
+rational upper bound <0.293993788341 strict=True
+independent-environment counterfactual coefficient=0.086432347583
+```
+
+Le majorant strictement inférieur à $`0.3`$ est certifié par intervalles
+rationnels. Le contre-factuel à environnements indépendants montre pourquoi
+les deux répliques doivent partager $`Z`$.
+
+Un champ extérieur non borné donne cependant un no-go exact : le second
+moment brut passe de $`0.293993788340`$ à $`B=0`$ à
+$`0.998663483928`$ à $`B=8`$, puis tend vers un. Le certificat E1+ ne vaut
+donc pas uniformément sur tous les potentiels extérieurs. Ce résultat
+n'exclut pas une norme centrée ou annealed avec la polarisation dans l'état.
+
+Cette cellule n'est pas encore E2/T2 : l'arête gagnante, la partition
+ouverte, les $`\Lambda`$ ancestraux, les attaches en peigne et la loi Palm
+sont absents.
+
+## Composition tordue de Feynman--Kac
+
+```bash
+python3 \
+  research/hierarchical-swendsen-wang/computations/twisted_feynman_kac_composition.py
+```
+
+Pour chaque transfert positif levé déjà placé dans une normalisation
+stochastique commune, le module construit
+
+```math
+K=\sum_\epsilon T_\epsilon,
+\qquad
+U=\sum_\epsilon\epsilon T_\epsilon,
+\qquad
+r=\frac{|U|}{K}\in[0,1].
+```
+
+Il certifie en dimension finie l'enveloppe du produit tordu par l'espérance
+de $`\prod r`$ sous la chaîne de masse $`K`$. Deux exemples en `Fraction`
+comparent exactement la récurrence dynamique à une énumération indépendante
+de tous les chemins.
+
+Pour la cellule E1+ à $`p=0.805`$, la sortie contient :
+
+```text
+depth= 2 signed=0.0649753038062 FK=0.0738919329503 uniform=0.0864323475826
+depth=10 signed=1.89285427006e-07 FK=1.08695758136e-06 uniform=4.82371394009e-06
+```
+
+La normalisation de Doob commune à tous les blocs du corridor et
+l'identification au transfert LCA-Palm réel restent ouvertes. Le module
+certifie le lemme de composition fini, pas ces deux étapes.
 
 ## Certificat cactus collapsed
 
@@ -170,23 +283,23 @@ une erreur standard : il ne faut pas surinterpréter les six signes positifs.
 
 ## Prochaine étape
 
-Le fichier 25 demande d'abord d'estimer sous Palm critique la loi jointe de
-$`(m_v,\beta_v,Z_v,B_v)`$, en tenant compte de la repondération exacte
-$`m_vN_\rho`$. Il faut ensuite compter des coupes disjointes et screenées de
-charge $`m_vh_p(\beta_v)^2\le J_0`$. Les buckets
-$`2\le m\le M`$ restent un sous-cas. Le module de bande suivant ne devient
-prioritaire que si cette réduction finie échoue.
+La cellule E1+ a rempli son rôle de test de secteur et a révélé le verrou de
+polarisation. Le prochain module doit être une cellule **T2-Kruskal**, et non
+une simple bande neutre plus large. Il devra :
 
-## Module de bande, plan B
+1. inclure une fusion réelle et marginaliser correctement l'arête gagnante ;
+2. encoder la partition ouverte, au moins trois ports et une attache en
+   peigne ;
+3. conserver le potentiel extérieur et les quatre
+   $`\Lambda_v^{ab}`$ d'un ancêtre ;
+4. construire les deux répliques dans le même environnement ;
+5. produire un déficit tordu dépendant de l'état, composable par une formule
+   de Feynman--Kac ;
+6. fournir deux implémentations concordantes avant tout certificat
+   d'intervalles.
 
-L'ajout serait `triangular_band_collapsed_certificate.py`. Il devra :
-
-1. encoder les partitions de bord d'une bande triangulaire de largeur deux ;
-2. conserver les deux parités répliquées et le statut pivotal ;
-3. calculer le noyau collapsed sans projection scalaire prématurée ;
-4. comparer critique et tardif sur l'état complet ;
-5. fournir une seconde implémentation indépendante sur deux cellules ;
-6. certifier le rayon spectral à $`p=4/5`$ par intervalles.
-
-Aucune nouvelle simulation de grand tore n'est prioritaire avant ce
-certificat de largeur deux.
+Le diagnostic Palm doit ensuite enregistrer exactement les ports et états
+requis par cette cellule. Il est inutile de lancer une preuve multiscale
+d'abondance avant d'avoir identifié ce motif fini. L'ordre détaillé est dans
+la [sous-feuille de route](../27_SUBROADMAP_CORRIDOR_P0805.md) et les
+[premiers résultats](../28_FIRST_CORRIDOR_P0805_RESULTS.md).
