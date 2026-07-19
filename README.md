@@ -2,47 +2,76 @@
 
 [![Research checks](https://github.com/Ludwig-H/Presentation-MathNet-2026-06-15/actions/workflows/research-checks.yml/badge.svg)](https://github.com/Ludwig-H/Presentation-MathNet-2026-06-15/actions/workflows/research-checks.yml)
 
-Présentations, notes de recherche et calculs reproductibles autour de la
-détection de communautés dans les graphes signés, des couplages MCMC et de la
-weak recovery.
+Ce dépôt réunit trois présentations, le chapitre de thèse qui les motive et
+un cahier de recherche reproductible sur la weak recovery dans les graphes
+signés.
 
 > [!IMPORTANT]
-> La voie de recherche active est la dynamique de Swendsen--Wang
-> hiérarchique par horloges exponentielles. Commencer par le
-> [programme prioritaire](research/hierarchical-swendsen-wang/00_RESEARCH_PROGRAM.md)
-> ou par sa
-> [présentation pédagogique](research/hierarchical-swendsen-wang/README.md).
+> **Résultat rigoureux actuel.** Sur le tore triangulaire, le dépôt établit
+> l'absence de weak recovery pour tout
+> $`p\in[1/2,0.809439]`$, soit
+> $`p_{\mathrm{WR}}\ge0.809439`$. La
+> [preuve canonique](research/hierarchical-swendsen-wang/results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md)
+> utilise un canal triangulaire multi-état. Elle est rigoureuse, mais elle
+> **ne provient pas** encore de la dynamique hiérarchique.
 
-## Axe de recherche prioritaire
+## Par où commencer ?
 
-L'objectif intermédiaire est de montrer l'impossibilité de weak recovery à
+Choisissez le parcours qui correspond à votre objectif.
 
-```math
-p=\frac45
+| Je veux… | Première lecture | Puis… |
+|---|---|---|
+| comprendre le résultat en cinq minutes | [statut scientifique actuel](research/hierarchical-swendsen-wang/CURRENT_STATUS.md) | [certificat à p = 0,809439](research/hierarchical-swendsen-wang/results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md) |
+| comprendre la dynamique hiérarchique | [présentation pédagogique du projet](research/hierarchical-swendsen-wang/README.md) | [programme entropie–distance](research/hierarchical-swendsen-wang/active/35_DISTANCE_ENTROPIE_ERGODICITE.md) |
+| retrouver une note précise | [index exhaustif des notes](research/hierarchical-swendsen-wang/INDEX.md) | dossier indiqué par son statut |
+| reproduire les preuves assistées par calcul | [guide des calculs](research/hierarchical-swendsen-wang/computations/README.md) | commandes de validation ci-dessous |
+| consulter les supports de séminaire | [table des présentations](#présentations) | source et PDF dans chaque dossier |
+
+## Les deux voies scientifiques
+
+Le dépôt sépare désormais explicitement deux axes qui ne doivent pas être
+confondus.
+
+| voie | acquis | question ouverte |
+|---|---|---|
+| canal triangulaire multi-état | borne rigoureuse $`p_{\mathrm{WR}}\ge0.809439`$ | pousser le certificat vers le point tangent candidat |
+| dynamique hiérarchique | mesure jointe exacte, projections collapsed, certificat cactus et plusieurs no-go | démontrer une contraction multiscalaire sur la grille triangulaire |
+
+La voie hiérarchique suit une paire de sommets lointains sur les deux bras de
+son dendrogramme. La piste active combine un compteur symétrique de cellules
+géométriquement admissibles candidates, une grande déviation sous une loi de
+paire ordinaire et un changement de mesure entropique. Son statut est
+**programme de preuve**, pas théorème.
+
+## Carte du dépôt
+
+| chemin | rôle |
+|---|---|
+| [`research/`](research/) | porte d'entrée de la recherche |
+| [`research/hierarchical-swendsen-wang/`](research/hierarchical-swendsen-wang/) | projet principal, organisé par statut scientifique |
+| [`beamer-presentation/`](beamer-presentation/) | séminaire MathNet du 15 juin 2026 |
+| [`beamer-presentation-neo/`](beamer-presentation-neo/) | séminaire NEO du 25 juin 2026 |
+| [`beamer-presentation-reunion-2026-07-16/`](beamer-presentation-reunion-2026-07-16/) | réunion de recherche du 16 juillet 2026 |
+| [`ChapII.tex`](ChapII.tex) | source du chapitre 11 utilisé comme point de départ |
+| [`Manuscrit_de_these.pdf`](Manuscrit_de_thèse.pdf) | manuscrit de thèse complet |
+
+Dans le projet de recherche, les dossiers ont un sens précis :
+
+```text
+hierarchical-swendsen-wang/
+├── CURRENT_STATUS.md   état de l'art interne et prochaine étape
+├── INDEX.md            catalogue complet des notes
+├── foundations/        identités et cadres réutilisables
+├── results/            théorèmes et certificats établis
+├── active/             unique programme hiérarchique encore poursuivi
+├── diagnostics/        expériences finies, benchmarks et no-go
+├── archive/            anciennes feuilles de route et jalons subsumés
+├── computations/       scripts et tests reproductibles
+└── references/         littérature et bibliographie
 ```
 
-pour le GSBM binaire homogène sur la grille triangulaire. L'expérience
-favorable centrale suit deux sommets lointains dont le LCA hiérarchique se
-situe juste au seuil de percolation. La preuve cherche ensuite à exploiter le
-corridor complet entre les feuilles et ce LCA, plutôt que le seul nœud de
-fusion.
-
-Le statut mathématique est explicite dans les notes : la criticalisation est
-prouvée à géométrie fixée, le cactus triangulaire fournit un premier
-certificat exact, et la domination de la géométrie Palm critique sur la
-grille reste ouverte.
-
-## Navigation
-
-| dossier ou fichier | contenu |
-|---|---|
-| [`research/`](research/) | index des projets de recherche |
-| [`research/hierarchical-swendsen-wang/`](research/hierarchical-swendsen-wang/) | programme actif, preuves, audits et calculs |
-| [`beamer-presentation/`](beamer-presentation/) | séminaire MathNet, 15 juin 2026 |
-| [`beamer-presentation-neo/`](beamer-presentation-neo/) | séminaire NEO, 25 juin 2026 |
-| [`beamer-presentation-reunion-2026-07-16/`](beamer-presentation-reunion-2026-07-16/) | réunion du 16 juillet 2026 et slides de dynamique hiérarchique |
-| [`ChapII.tex`](ChapII.tex) | source du chapitre de référence |
-| [`Manuscrit_de_these.pdf`](Manuscrit_de_thèse.pdf) | manuscrit de thèse |
+Les numéros `00` à `35` gardent la chronologie du cahier. Ils ne définissent
+plus l'ordre de lecture.
 
 ## Présentations
 
@@ -52,13 +81,15 @@ grille reste ouverte.
 | 25 juin 2026 | Séminaire NEO | [`beamer-presentation-neo/`](beamer-presentation-neo/) | [`PresentationNIM_2026-06-25.pdf`](beamer-presentation-neo/PresentationNIM_2026-06-25_LouisHauseux_ABayesianFrameworkForCommunityDetectionOnSignedGraphs.pdf) |
 | 16 juillet 2026 | Réunion de recherche | [`beamer-presentation-reunion-2026-07-16/`](beamer-presentation-reunion-2026-07-16/) | [`Presentation_2026-07-16.pdf`](beamer-presentation-reunion-2026-07-16/Presentation_2026-07-16_LouisHauseux_ReunionLouisNahuelKonstantin.pdf) |
 
-Chaque présentation se compile depuis son dossier avec :
+Chaque présentation est un instantané autonome : son thème, ses images et sa
+bibliographie restent dans son propre dossier. Pour la compiler :
 
 ```bash
+cd beamer-presentation
 make
 ```
 
-## Reproductibilité de la recherche
+## Reproduire et valider
 
 Depuis la racine du dépôt :
 
@@ -68,22 +99,25 @@ python3 .agents/check_markdown_links.py
 python3 -m unittest discover \
   -s research/hierarchical-swendsen-wang/computations \
   -p 'test_*.py'
+python3 -m compileall -q \
+  research/hierarchical-swendsen-wang/computations
 ```
 
-Les scripts de recherche n'ont pas de dépendance scientifique externe. Les
-résultats numériques ne sont utilisés comme preuves que lorsqu'un certificat
-exact, rationnel ou par intervalles est explicitement fourni.
+Les calculs n'ont pas de dépendance scientifique externe. Une valeur
+flottante n'est traitée comme une preuve que lorsqu'elle est accompagnée
+d'un certificat exact, rationnel ou par intervalles.
 
-## Convention de statut
-
-Les notes distinguent toujours :
+## Lire les statuts sans ambiguïté
 
 - **établi** : preuve complète dans les hypothèses annoncées ;
-- **conditionnel** : implication prouvée sous un lemme nommé ;
-- **diagnostic** : calcul fini ou simulation ;
-- **conjecture** : cible non utilisée en aval comme un fait.
+- **conditionnel** : implication prouvée sous un lemme explicitement nommé ;
+- **diagnostic** : calcul fini ou simulation, sans extrapolation en volume ;
+- **no-go** : raccourci réfuté ou fermeture démontrée inadéquate ;
+- **actif** : objectif de recherche non encore démontré ;
+- **archivé** : document conservé pour l'historique, mais non directeur.
 
-> [!NOTE]
-> Aucune nouvelle borne d'impossibilité à $`p=0.8`$ n'est encore revendiquée.
-> Le dépôt documente un programme de preuve audité, ses certificats exacts et
-> les verrous restant à fermer.
+Quelques fichiers historiques restent volontairement à la racine afin de
+préserver les liens existants : les figures `LargestComp*` et `Overlap_*`, le
+gabarit Beamer Inria, le PDF Sankararaman–Baccelli, la bibliographie de thèse
+et les sources du chapitre. Les présentations n'en dépendent pas : elles
+contiennent leurs propres copies compilables.

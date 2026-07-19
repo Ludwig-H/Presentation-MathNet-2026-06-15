@@ -35,7 +35,7 @@ Le thème Beamer Inria est inclus dans [`theme/`](theme/).
 2. consulter la
    [présentation pédagogique](../research/hierarchical-swendsen-wang/README.md) ;
 3. poursuivre avec le
-   [programme prioritaire](../research/hierarchical-swendsen-wang/00_RESEARCH_PROGRAM.md) ;
+   [statut scientifique actuel](../research/hierarchical-swendsen-wang/CURRENT_STATUS.md) ;
 4. utiliser la
-   [chaîne ancestrale des $`\Lambda_v`$](../research/hierarchical-swendsen-wang/08_ANCESTRAL_LAMBDA_CHAIN.md)
+[chaîne ancestrale des taux Lambda](../research/hierarchical-swendsen-wang/foundations/ancestral/08_ANCESTRAL_LAMBDA_CHAIN.md)
    pour la formalisation complète.

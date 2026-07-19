@@ -1,11 +1,16 @@
 # Calculs reproductibles
 
-Ce dossier contient les contre-audits finis des énoncés mathématiques. Une
-sortie numérique est toujours étiquetée comme diagnostic tant qu'elle n'est
-pas accompagnée d'une preuve ou d'un certificat d'intervalles.
+Ce dossier contient à la fois des certificats exacts, des briques de calcul
+et des diagnostics de volume fini. Leur statut dépend de la sortie produite,
+pas du fait qu'ils possèdent un test automatisé.
 
-Le contexte, l'ordre de travail et les lemmes servis par ces calculs sont
-résumés dans l'[audit à froid](../29_AUDIT_FROID_PIVOT_RANGS_REELS.md).
+> [!IMPORTANT]
+> Une valeur flottante reste un diagnostic. Elle devient un ingrédient de
+> preuve seulement lorsqu'un certificat rationnel, symbolique ou par
+> intervalles contrôle toutes les erreurs pertinentes.
+
+Le [statut scientifique](../CURRENT_STATUS.md) fixe l'ordre de travail.
+L'[index des notes](../INDEX.md) indique quel énoncé chaque calcul sert.
 
 ## Validation complète
 
@@ -13,6 +18,7 @@ Depuis la racine du dépôt :
 
 ```bash
 python3 .agents/check_math.py
+python3 .agents/check_markdown_links.py
 python3 -m unittest discover \
   -s research/hierarchical-swendsen-wang/computations \
   -p 'test_*.py' -v
@@ -22,35 +28,54 @@ python3 -m compileall -q \
 
 Les scripts n'ont pas de dépendance scientifique externe.
 
-## Voie active
+## Choisir le bon calcul
 
-| module | fonction |
+### Certificats utilisés dans des théorèmes
+
+| module | ce qu'il certifie | note canonique |
+|---|---|---|
+| `rational_a0_less_noisy_certificate.py` | Sturm, dominance diagonale et marge exacte jusqu'à $`p=0.809439`$ | [34](../results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md) |
+| `cactus_collapsed_certificate.py` | contraction exacte sur le cactus | [21](../results/hierarchical/21_CACTUS_COLLAPSED_CERTIFICATE.md) |
+| `ancestral_lambda_chain.py` | quatre taux ancestraux sur un squelette fini | [08](../foundations/ancestral/08_ANCESTRAL_LAMBDA_CHAIN.md) |
+| `critical_component_boundary.py` | loi de frontière, charge et taux Palm | [14](../foundations/ancestral/14_CRITICAL_COMPONENT_BOUNDARY.md), [25](../foundations/25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md) |
+
+### Calculs directement utiles au programme actif
+
+| module | question testée | limite actuelle |
+|---|---|---|
+| `nested_projection_l2_diagnostic.py` | où les projections collapsed dissipent-elles l'énergie ? | énumération exacte à $`L=4`$ |
+| `two_step_l2_population_diagnostic.py` | les cellules à deux updates sont-elles enrichies près du critique ? | population finie, cellules recouvrantes |
+| `two_step_projective_l2_cell.py` | une cellule possède-t-elle une marge sur les potentiels atteints ? | witness exact, marge uniforme nulle au bord |
+| `critical_pair_path_geometry.py` | comment explorer symétriquement le corridor d'une paire ? | brique géométrique, pas grande déviation |
+
+### Diagnostics et no-go
+
+| module | verdict principal |
 |---|---|
-| `ancestral_lambda_chain.py` | quatre taux ancestraux et message exact sur un squelette fini |
-| `ancestral_lambda_estimation.py` | moments pondérés et certificat de queue des ancêtres |
-| `critical_component_boundary.py` | marques de frontière, canal instantané, charge géométrique, taux Palm et critères quatre états |
-| `hierarchical_flip_probabilities.py` | probabilités racine, feuille, nœud interne et transfert tordu |
-| `joint_hierarchical_sweep.py` | sweep exact top-down/bottom-up sur petits tores |
-| `favorable_time_comparison.py` | anti-alignement, Blackwell à taille fixe et incomparabilité cross-size certifiée à $`p=4/5`$ |
-| `pair_favorability_diagnostic.py` | comparaison pondérée critique/tardive par classes de paires |
-| `collapsed_corridor_transfer.py` | surrogate produit mono-bit avec prior corrélé ; ce n'est pas le corridor multiport réel |
-| `cactus_collapsed_certificate.py` | canal cactus exact, LCA seul contre corridor complet et certificat $`p=0.8`$ |
-| `lca_palm_corridor_diagnostic.py` | benchmark snapshot critique, corridor final réel et rang tronqué diagnostique sans ordre informationnel |
-| `multiport_blackwell_counterexample.py` | contre-exemple exact à la criticalisation d'une fusion à deux incidences |
-| `kruskal_fusion_t2_transfer.py` | cellule quotient T2-Kruskal à rangs paramétrés, gagnantes marginalisées et bord polarisé |
-| `corridor_t2_signature_diagnostic.py` | attaches en peigne, ports géométriques et audits Palm sur le corridor final |
-| `ancestral_polarization_palm_diagnostic.py` | messages ancestraux exacts aux rangs réalisés sous la Palm d'événement |
-| `joint_real_rank_t2_palm_diagnostic.py` | filtre conjoint rang réel, petite attache et message ancestral sur les mêmes nœuds Palm |
-| `real_rank_t2_deficit_prototype.py` | no-go $`|U|=K`$ sur l'état complet et projection en un pas non composable |
-| `last_use_attachment_palm_diagnostic.py` | borne supérieure structurelle par dernière incidence des attaches et de l'union, sans fermeture Markov ni déficit |
-| `nested_projection_l2_diagnostic.py` | énumération exacte de $`\pi_D`$ à $`L=4`$ et dissipation pythagoricienne des projections collapsed imbriquées |
-| `rational_a0_less_noisy_certificate.py` | certificats exhaustifs par Sturm et dominance diagonale de $`p=0.805`$ à $`p=0.809439`$ |
-| `two_step_l2_population_diagnostic.py` | audit non sélectionné de toutes les cellules strict-arm consécutives d'une paire à distance maximale |
-| `two_step_projective_l2_cell.py` | witness D1 exact à deux projections, potentiels extérieurs atteints et échec de la marge uniforme au bord |
-| `triangular_band_collapsed_certificate.py` | premier secteur répliqué E1+ sur une cellule triangulaire neutre à quatre ports |
-| `twisted_feynman_kac_composition.py` | composition finie et transformé de Doob rétrograde pour des transferts non normalisés |
+| `multiport_blackwell_counterexample.py` | la criticalisation multiport uniforme est fausse |
+| `kruskal_fusion_t2_transfer.py` | l'inversion persiste dans une cellule T2-Kruskal exacte |
+| `real_rank_t2_deficit_prototype.py` | l'état fidèle donne $`\lvert U\rvert=K`$ et un déficit nul |
+| `last_use_attachment_palm_diagnostic.py` | la dernière incidence libère rarement l'orientation assez tôt |
+| `lca_palm_corridor_diagnostic.py` | distingue Palm pré-saut, fusion réalisée et faux poids $`m^2N_\rho`$ |
+| `corridor_t2_signature_diagnostic.py` | mesure les petites attaches sans certifier le screening |
+| `ancestral_polarization_palm_diagnostic.py` | mesure les messages ancestraux sans les convertir en déficit |
+| `joint_real_rank_t2_palm_diagnostic.py` | combine rang réel, attache et message sur les mêmes nœuds |
 
-Chaque module actif possède un fichier `test_*.py` associé.
+### Briques et oracles historiques
+
+| module | rôle conservé |
+|---|---|
+| `ancestral_lambda_estimation.py` | moments pondérés et certificat de queue des ancêtres |
+| `hierarchical_flip_probabilities.py` | probabilités de flip racine, feuille et nœud interne |
+| `joint_hierarchical_sweep.py` | sweep exact top-down/bottom-up sur petits tores |
+| `favorable_time_comparison.py` | comparaison Blackwell à taille fixée et contre-tests cross-size |
+| `pair_favorability_diagnostic.py` | comparaison critique/tardive par classes de paires |
+| `collapsed_corridor_transfer.py` | surrogate produit mono-bit, distinct du corridor réel |
+| `triangular_band_collapsed_certificate.py` | secteur répliqué E1+ d'une cellule neutre |
+| `twisted_feynman_kac_composition.py` | algèbre finie des transferts tordus |
+
+Chaque module appelé par la recherche possède un fichier `test_*.py`
+associé.
 
 Le module `critical_component_boundary.py` contient aussi le contre-audit
 des bilans résiduels et les nouveaux calculs conditionnés par une coupe :
@@ -58,7 +83,7 @@ moments du vote instantané, charge de Chernoff, fiabilité $`L^2`$ et taux de
 fusion $`m u_ps_p(\beta)`$. La fiabilité est recalculée indépendamment à
 partir des deux expériences binomiales symétriques dans les tests.
 
-## Calculs auxiliaires conservés
+## Autres calculs auxiliaires conservés
 
 | module | rôle de contre-audit |
 |---|---|
@@ -140,7 +165,7 @@ $`m h_p(q_v^{\mathrm{fav}})^2\le1`$. Il ne calcule ni le screening, ni les
 ports latéraux, ni le potentiel extérieur. Les erreurs sont des jackknives
 par environnement de rang, jamais des erreurs i.i.d. par nœud. Le tableau
 d'échelle complet et ses limites sont dans le
-[fichier 28](../28_FIRST_CORRIDOR_P0805_RESULTS.md).
+[fichier 28](../diagnostics/finite_volume/28_FIRST_CORRIDOR_P0805_RESULTS.md).
 
 ## Contre-exemples multiports à $`p=0.805`$
 
@@ -198,7 +223,7 @@ frontière globale les écrase. Cette tendance de volume fini n'est pas une
 loi d'échelle. Le second calcule le vrai message externe de tous les ancêtres stricts aux rangs
 réalisés. Un message borné n'est pas un certificat de screening. Les tables
 et les erreurs par environnement sont dans le
-[fichier 29](../29_AUDIT_FROID_PIVOT_RANGS_REELS.md).
+[fichier 29](../diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md).
 
 Le troisième diagnostic réunit ces filtres sur les mêmes nœuds et utilise en
 premier lieu la charge au **rang réel**. Le nombre moyen de candidats passe
@@ -430,9 +455,9 @@ self_dual_slack: 7/500000000
 Les tests reconstruisent aussi les formes quadratiques du canal physique et
 du canal auxiliaire sur l'intérieur et les faces du simplexe. Le certificat
 local exact et sa conséquence globale sont détaillés dans les [fichiers
-31](../31_CERTIFICAT_RATIONNEL_A0.md),
-[32](../32_CERTIFICAT_RATIONNEL_P809.md) et
-[34](../34_CERTIFICAT_RATIONNEL_P809439.md).
+31](../archive/certificates/31_CERTIFICAT_RATIONNEL_A0.md),
+[32](../archive/certificates/32_CERTIFICAT_RATIONNEL_P809.md) et
+[34](../results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md).
 
 ## Cellule triangulaire répliquée E1+
 
@@ -594,25 +619,22 @@ cible-spécifique historique.
 
 ## Prochaine étape
 
-Deux raccourcis sont désormais fermés : l'état microscopique fidèle donne
-$`d_r=0`$, tandis que la projection sur la seule orientation relative donne
-un déficit positif non Markov-fermé. Le diagnostic de dernière utilisation
-montre en outre qu'on ne peut presque jamais certifier, par la seule absence
-d'incidences, l'élimination de l'orientation globale dans une fenêtre
-ancestrale bornée aux tailles testées.
+Le prochain calcul doit servir l'une des deux portes du
+[programme distance–entropie](../active/35_DISTANCE_ENTROPIE_ERGODICITE.md) :
 
-Le prochain calcul n'est donc **pas** une T2 plus riche suivie d'un déficit
-par rang, et l'audit de population demandé est maintenant effectué. Il
-confirme la queue rare à rang arbitraire, mais montre un enrichissement net
-de la dissipation dans la fenêtre critique. La prochaine étape est
-analytique : isoler un événement de cellule critique mesurable par la
-géométrie et prouver une minoration annealed pondérée par l'énergie, puis
-établir que le corridor d'une paire macroscopique rencontre un nombre
-divergent de telles cellules énergétiquement actives.
+1. **porte géométrique** : tester une définition mesurable de cellule
+   admissible et son abondance sur des annuli espacés ;
+2. **porte analytique** : évaluer une contraction de bloc sous la loi des
+   potentiels réellement atteints.
 
-La jauge de ports reste un dernier contre-test d'une compression spéciale.
-Les annuli génériques restent gelés tant que ce lemme critique n'est pas
-fermé. L'ordre détaillé est dans les [fichiers
-29](../29_AUDIT_FROID_PIVOT_RANGS_REELS.md),
-[30](../30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md) et la
-[sous-feuille critique](../33_SOUS_FEUILLE_ROUTE_CELLULES_CRITIQUES_L2.md).
+Une T2 plus riche, un nouveau scan de criticalisation uniforme ou une chaîne
+de bord fidèle ne sont pas prioritaires : les contre-exemples existants ont
+déjà fermé ces raccourcis. Aucun grand scan n'est justifié avant la
+formalisation exacte de la loi de paire et de la variable auxiliaire.
+
+Le socle opératoriel reste le
+[fichier 30](../active/30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md) ; la cellule
+locale est développée dans le
+[fichier 33](../active/33_SOUS_FEUILLE_ROUTE_CELLULES_CRITIQUES_L2.md) ; les
+deux no-go sont conservés dans le
+[fichier 29](../diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md).
