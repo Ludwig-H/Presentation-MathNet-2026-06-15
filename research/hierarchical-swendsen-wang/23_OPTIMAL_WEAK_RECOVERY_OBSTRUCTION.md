@@ -1,5 +1,10 @@
 # Stratégie optimale pour une obstruction de weak recovery
 
+> [!NOTE]
+> La version synthétique et l'ordre de travail courant sont dans le
+> [programme prioritaire](00_RESEARCH_PROGRAM.md). Cette note développe le
+> théorème conditionnel et l'architecture annulaire complète.
+
 Cette note répond à la question suivante : parmi toutes les façons d'utiliser
 la dynamique hiérarchique, quelle architecture de preuve a le plus de chances
 de transformer la fusion critique d'une paire lointaine en une impossibilité

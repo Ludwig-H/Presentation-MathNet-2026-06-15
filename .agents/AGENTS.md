@@ -17,7 +17,8 @@ Refer to [agents.md](file:///workspaces/Presentation-MathNet-2026-06-15/agents.m
 To verify that all math formulas in the workspace are valid, run:
 ```bash
 python3 .agents/check_math.py
+python3 .agents/check_markdown_links.py
 ```
-This script checks for balanced braces, correct delimiter escaping, and invalid LaTeX commands across all Markdown files.
-
+The first script checks balanced braces, correct delimiter escaping, and
+invalid LaTeX commands. The second checks every relative Markdown link.
 

@@ -1,0 +1,47 @@
+name: Research checks
+
+on:
+  push:
+    paths:
+      - "**/*.md"
+      - ".agents/**"
+      - ".github/workflows/research-checks.yml"
+      - "research/**"
+      - "README.md"
+  pull_request:
+    paths:
+      - "**/*.md"
+      - ".agents/**"
+      - ".github/workflows/research-checks.yml"
+      - "research/**"
+      - "README.md"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate Markdown mathematics
+        run: python3 .agents/check_math.py
+
+      - name: Validate relative Markdown links
+        run: python3 .agents/check_markdown_links.py
+
+      - name: Run research tests
+        run: >-
+          python3 -m unittest discover
+          -s research/hierarchical-swendsen-wang/computations
+          -p 'test_*.py'
+
+      - name: Compile Python modules
+        run: python3 -m compileall -q research/hierarchical-swendsen-wang/computations

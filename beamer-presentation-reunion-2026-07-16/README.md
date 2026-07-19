@@ -1,27 +1,41 @@
-# Thème Inria pour LaTeX, supports de présentation Beamer
+# Réunion de recherche — 16 juillet 2026
 
-Ce style beamer correspond à la mise à jour des 
-[gabarits](https://intranet.inria.fr/Vie-pratique/Informer-Communiquer/Identite-l-essentiel/Gabarits-mis-a-disposition)
-proposés par Inria pour l'édition de présentations.
+Support de la réunion Louis Hauseux, Nahuel Soprano-Loto et Konstantin
+Avrachenkov consacrée à la dynamique hiérarchique de Swendsen--Wang.
 
-![Page de titre](theme/page-titre.png)
+> [!IMPORTANT]
+> Les slides décrivant la dynamique, les coupes de fusion et la chaîne des
+> $`\Lambda_v`$ sont regroupées dans
+> [`hierarchical_sw_frames.tex`](hierarchical_sw_frames.tex). Leur programme
+> mathématique actualisé se trouve dans le
+> [dossier de recherche](../research/hierarchical-swendsen-wang/).
 
-![Page simple](theme/page-simple.png)
+- [PDF compilé](Presentation_2026-07-16_LouisHauseux_ReunionLouisNahuelKonstantin.pdf)
+- [Source principale](main.tex)
+- [Frames hiérarchiques](hierarchical_sw_frames.tex)
+- [Bibliographie](referencesThesis.bib)
 
-Pour utiliser le style rapidement, il suffit de copier les fichiers et modifier le
-fichier `main.tex`.
+## Compilation
 
-Le thème intègre directement l'utilisation possible des fontes Inria si
-celles-ci sont disponibles via le paquet
-[inriafonts](https://gitlab.inria.fr/gabarits/latex-inria-fonts).
-L'utilisation des fontes Inria nécessite une compilation avec
-XeLaTeX/LuaLaTeX. 
-
-Pour utiliser ces fontes, il suffit de rajouter le paquer à la racine
-s'il n'est pas déjà installé.
-
-``` shell
-$ git clone https://gitlab.inria.fr/gabarits/latex-inria-fonts
+```bash
+make
 ```
 
+Pour supprimer les auxiliaires :
 
+```bash
+make clean
+```
+
+Le thème Beamer Inria est inclus dans [`theme/`](theme/).
+
+## Parcours conseillé
+
+1. lire les slides 31--33 dans le PDF ;
+2. consulter la
+   [présentation pédagogique](../research/hierarchical-swendsen-wang/README.md) ;
+3. poursuivre avec le
+   [programme prioritaire](../research/hierarchical-swendsen-wang/00_RESEARCH_PROGRAM.md) ;
+4. utiliser la
+   [chaîne ancestrale des $`\Lambda_v`$](../research/hierarchical-swendsen-wang/08_ANCESTRAL_LAMBDA_CHAIN.md)
+   pour la formalisation complète.

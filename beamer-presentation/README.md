@@ -1,27 +1,32 @@
-# Thème Inria pour LaTeX, supports de présentation Beamer
+# Séminaire MathNet — 15 juin 2026
 
-Ce style beamer correspond à la mise à jour des 
-[gabarits](https://intranet.inria.fr/Vie-pratique/Informer-Communiquer/Identite-l-essentiel/Gabarits-mis-a-disposition)
-proposés par Inria pour l'édition de présentations.
+**Community Detection on Signed Graphs: A Bayesian MCMC Coupling Approach**
 
-![Page de titre](theme/page-titre.png)
+Présentation de Louis Hauseux au séminaire de l'équipe MathNet, Inria Paris.
 
-![Page simple](theme/page-simple.png)
+- [PDF compilé](main.pdf)
+- [Source principale](main.tex)
+- [Bibliographie](referencesThesis.bib)
+- [Images](imgs/)
 
-Pour utiliser le style rapidement, il suffit de copier les fichiers et modifier le
-fichier `main.tex`.
+## Compilation
 
-Le thème intègre directement l'utilisation possible des fontes Inria si
-celles-ci sont disponibles via le paquet
-[inriafonts](https://gitlab.inria.fr/gabarits/latex-inria-fonts).
-L'utilisation des fontes Inria nécessite une compilation avec
-XeLaTeX/LuaLaTeX. 
-
-Pour utiliser ces fontes, il suffit de rajouter le paquer à la racine
-s'il n'est pas déjà installé.
-
-``` shell
-$ git clone https://gitlab.inria.fr/gabarits/latex-inria-fonts
+```bash
+make
 ```
 
+Le `Makefile` utilise `latexmk`. Pour supprimer les auxiliaires de
+compilation :
 
+```bash
+make clean
+```
+
+Le thème Beamer Inria utilisé par la présentation est inclus dans
+[`theme/`](theme/).
+
+## Recherche associée
+
+La continuation consacrée à la dynamique hiérarchique de Swendsen--Wang est
+documentée dans le
+[dossier de recherche](../research/hierarchical-swendsen-wang/).

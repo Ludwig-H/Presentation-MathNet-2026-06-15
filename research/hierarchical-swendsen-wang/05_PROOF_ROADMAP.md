@@ -1,5 +1,10 @@
 # Feuille de route des preuves
 
+> [!IMPORTANT]
+> Le [programme prioritaire](00_RESEARCH_PROGRAM.md) donne l'exposé
+> pédagogique et le statut des lemmes. Cette page conserve le graphe technique
+> détaillé des dépendances.
+
 Cette feuille de route remplace l'ancien inventaire chronologique. Elle ne
 contient que les dépendances nécessaires à la voie privilégiée : corridor
 collapsed, criticalisation à squelette fixé et contraction multiscale à
@@ -39,7 +44,7 @@ flowchart TD
     P --> R["R — réduction aux paires critiques"]
     B["B — Blackwell sur buckets"] --> C["C — tensorisation corridor fixé"]
     R --> G["G — géométrie Palm"]
-    C --> S["S — buckets bornés screenés"]
+    C --> S["S — coupes de faible charge screenées"]
     G --> S
     S --> T["T — impossibilité à p=0.8"]
     S -. "si échec" .-> X["X — transfert annulaire"]

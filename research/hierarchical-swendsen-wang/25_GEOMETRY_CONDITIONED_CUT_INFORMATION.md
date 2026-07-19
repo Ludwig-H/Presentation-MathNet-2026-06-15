@@ -1,5 +1,10 @@
 # Information portée par les coupes conditionnées par la géométrie
 
+> [!NOTE]
+> Cette note fournit les lemmes de coupe utilisés par le
+> [programme prioritaire](00_RESEARCH_PROGRAM.md). La feuille de route
+> technique complète est le [fichier 05](05_PROOF_ROADMAP.md).
+
 Cette note corrige le niveau de conditionnement de la voie « épuisement du
 signal ». Un bilan sur toutes les arêtes du graphe, ou même sur toutes les
 arêtes internes à une composante, ne mesure pas le taux $`\Lambda_u`$ d'un

@@ -4,6 +4,9 @@ Ce dossier contient les contre-audits finis des énoncés mathématiques. Une
 sortie numérique est toujours étiquetée comme diagnostic tant qu'elle n'est
 pas accompagnée d'une preuve ou d'un certificat d'intervalles.
 
+Le contexte, l'ordre de travail et les lemmes servis par ces calculs sont
+résumés dans le [programme prioritaire](../00_RESEARCH_PROGRAM.md).
+
 ## Validation complète
 
 Depuis la racine du dépôt :
