@@ -189,6 +189,21 @@ Le noyau marginal ainsi obtenu laisse $`\mu_O`$ invariante.
 
 Attention : faire mélanger uniquement la chaîne en $\sigma$ à $D$ fixé produit un tirage de $`\nu_O(\cdot\mid D)`$, pas une réplique indépendante de $`\mu_O`$. Pour obtenir une réplique postérieure indépendante, il faut faire mélanger la chaîne alternée qui rafraîchit aussi $D\mid\sigma$.
 
+Pour calculer exactement un carré postérieur, il faut deux copies
+indépendantes de la mesure jointe conditionnellement à $O$ :
+
+```math
+(\sigma^{(1)},D^{(1)}),
+(\sigma^{(2)},D^{(2)})
+\overset{\mathrm{i.i.d.}}{\sim}
+\nu_O.
+```
+
+Partager le même $D$ entre les deux répliques donne en général une enveloppe
+de Jensen strictement plus grande. La
+[cible répliquée sur la double géante](../active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md)
+formalise cette distinction.
+
 ## 6. Deux extrémités de la hiérarchie
 
 - **Orientations globales des arbres.** Sous a priori uniforme, le heat bath de l'orientation globale de chaque composante de $`\Pi_1`$ est uniforme ; on retrouve la recoloration Swendsen–Wang. Cette mise à jour à deux états est distincte du heat bath à quatre états d'un nœud interne supérieur.

@@ -81,6 +81,22 @@ Puisque $`0\le R_n^2\le1`$, une borne $`Q_n\ge q>0`$ implique par exemple
 ```
 Ce critère est la cible nécessaire et suffisante. La percolation n'est qu'une manière de majorer $`Q_n`$.
 
+Dans la mesure augmentée, la représentation exacte de $`Q_n`$ emploie deux
+copies indépendantes conditionnellement à l'observation :
+
+```math
+(\sigma^{(1)},D^{(1)}),
+(\sigma^{(2)},D^{(2)})
+\overset{\mathrm{i.i.d.}}{\sim}
+\nu_O.
+```
+
+Employer un dendrogramme commun remplace le produit de deux moyennes
+conditionnelles par un second moment conditionnel et crée une enveloppe de
+Jensen. La [cible sur la double géante](../active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md)
+exploite la représentation indépendante sans attendre une preuve uniforme
+de mélange temporel.
+
 ## 2. Obstruction fournie par un parcours hiérarchique
 
 Partons de $`\sigma\sim\mu_O`$, tirons $D\mid\sigma$, puis appliquons à $D$ fixé un programme $S$ de heat baths internes. Soit $\sigma'$ la configuration obtenue. Comme le programme conserve $`\nu_O(\cdot\mid D)`$, $\sigma'$ a encore pour marginale $`\mu_O`$.

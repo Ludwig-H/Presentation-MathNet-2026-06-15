@@ -1,13 +1,12 @@
 # Statut scientifique actuel
 
-**Dernière mise à jour : 19 juillet 2026.** Cette page est la source de
+**Dernière mise à jour : 26 juillet 2026.** Cette page est la source de
 vérité du projet. Les anciennes feuilles de route restent consultables dans
 [`archive/roadmaps/`](archive/roadmaps/), mais ne fixent plus les priorités.
 
-## 1. Réponse courte
+## 1. Résultat rigoureux et programme ouvert
 
-Le dépôt contient déjà une amélioration rigoureuse de la borne de référence
-du chapitre 11 :
+Le résultat quantitatif actuel est
 
 ```math
 p_{\mathrm{WR}}
@@ -18,250 +17,477 @@ p_{\mathrm{WR}}
 \qquad\text{(1.1)}
 ```
 
-Cette borne est obtenue par le
-[canal triangulaire multi-état](results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md).
-Elle ne valide pas encore la stratégie hiérarchique.
+Il est démontré par le
+[canal triangulaire multi-état](results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md),
+pas par la dynamique hiérarchique.
 
-La voie hiérarchique reste plausible, mais seulement sous une forme
-resserrée :
+La cible hiérarchique prioritaire est désormais
 
 ```math
-\text{grande déviation géométrique sous une loi ordinaire enracinée dans une paire}
-\quad+
-\text{budget d'entropie du tilt énergétique}
-\quad+
-\text{contraction collapsed par blocs}.
+\text{deux dendrogrammes complets indépendants}
+\ \longrightarrow\
+\text{deux Gibbs exacts sur tous leurs arbres}
+\ \longrightarrow\
+\text{deux coupes à }\beta_c(p)
+\ \longrightarrow\
+\text{overlap sur la double géante}.
 \qquad\text{(1.2)}
 ```
 
-## 2. Ce qui est définitivement acquis
+Aucun facteur postcritique n'est supprimé, contracté ou remplacé par un
+canal moins informatif. La coupe critique sert de séparateur exact pour
+l'élimination du Gibbs entier.
 
-### Voie non hiérarchique
+## 2. Ce que le chapitre 11 impose
 
-- un canal rationnel à quatre états est less-noisy que le canal physique à
-  $`p=0.809439`$ pour tout a priori ;
-- les quatre contrôles polynomiaux sont certifiés par Sturm ;
-- les hypothèses de sous-criticité du modèle de comparaison sont strictes ;
-- information-percolation ferme le passage du canal local à l'absence de
-  weak recovery.
+Le [chapitre 11 du manuscrit](../../ChapII.tex) fournit deux contraintes
+méthodologiques.
 
-La preuve canonique unique est le
-[fichier 34](results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md).
-Les certificats à $`0.805`$ et $`0.809`$ sont des jalons désormais subsumés,
-classés dans [`archive/certificates/`](archive/certificates/).
+1. Une transition construite à partir de la vérité ne peut remplacer une
+   réplique postérieure que si elle laisse exactement la postérieure
+   invariante.
+2. La borne de percolation du chapitre utilise davantage que l'invariance :
+   elle exige le recoloriage indépendant et uniforme des clusters
+   conditionnellement à l'objet gelé.
 
-### Voie hiérarchique
+Le projet actif pousse ces idées plus loin. La mise à jour par le Gibbs
+entier de chaque arbre final reste invariante ; après la coupe critique, ses
+blocs ne sont toutefois pas indépendants lorsque leurs séparateurs sont
+marginalisés. Le théorème de percolation du chapitre ne s'applique donc pas
+mécaniquement.
 
-- la loi jointe observation–réplique–dendrogramme est définie exactement en
-  volume fini ;
-- chaque update est un heat bath exact de cette loi ;
-- la weak recovery se ramène à une corrélation spin–spin pairwise ;
-- les taux ancestraux et la loi résiduelle des marques de frontière sont
-  calculés sous les conditionnements annoncés ;
-- les projections collapsed donnent une identité pythagoricienne exacte de
-  dissipation ;
-- le corridor complet ne conserve pas plus d'énergie $`L^2`$ que le LCA seul ;
-- une chaîne de cactus triangulaires fournit un certificat hiérarchique exact.
+La nouveauté recherchée n'est pas une nouvelle règle locale de recoloriage.
+Elle consiste à conserver le dendrogramme complet comme variable auxiliaire,
+à calculer exactement le Gibbs joint de chacun de ses arbres, puis à
+répliquer indépendamment cette augmentation pour accéder au carré de la
+corrélation postérieure. L'objet géométrique qui en résulte est une double
+géante munie de deux corridors ancestraux ; il n'apparaît pas dans le
+chapitre 11.
 
-Ces résultats sont des briques de preuve. Aucun ne donne encore une borne
-hiérarchique nouvelle sur la grille triangulaire.
+## 3. Verdict du pilote broadcast du SBM
 
-## 3. Les deux no-go qui ont changé le programme
-
-Le [fichier 29](diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md) ferme deux
-raccourcis importants.
-
-1. **Criticalisation multiport.** Avancer une fusion réelle vers le niveau
-   critique n'est pas une domination de Blackwell uniforme dès que plusieurs
-   relations de bord réagissent différemment aux flips descendants.
-2. **État local fidèle.** Si l'état de transfert contient assez
-   d'information pour rendre le twist mesurable, le déficit Feynman--Kac
-   local est exactement nul.
-
-Conséquence : on ne cherche plus une chaîne Markovienne de bord de dimension
-fixe ni une contraction uniforme fusion par fusion. On étudie la fonction de
-paire effectivement propagée par des projections collapsed.
-
-## 4. L'objet géométrique prioritaire
-
-On tire $`I_L`$ et $`J_L`$ indépendamment et uniformément. Pour ne garder que
-des paires lointaines sans perdre une fraction macroscopique de la moyenne,
-on peut conditionner par $`d(I_L,J_L)\ge r_L`$, où $`r_L\to\infty`$ et
-$`r_L/L\to0`$. On explore symétriquement les deux bras du dendrogramme
-jusqu'à leur LCA.
-
-Pour la paire $`\{i,j\}`$, une règle déterministe, symétrique et mesurable
-depuis le dendrogramme non marqué sélectionne au plus une arête d'ancrage par
-cellule **géométriquement admissible**. Si $`\mathcal A_D(i,j)`$ désigne ces
-ancrages et $`\mathcal P_D(i,j)`$ le chemin unique entre les deux feuilles,
-le compteur utile est
+Pour le SBM symétrique à deux communautés, posons
 
 ```math
-N_D^{\mathrm{geo}}(i,j)
+d
 =
-\sum_{e\in\mathcal P_D(i,j)}
-\mathbf 1_{\{e\in\mathcal A_D(i,j)\}}.
+\frac{a+b}{2},
+\qquad
+\theta
+=
+\frac{a-b}{a+b},
+\qquad
+\lambda
+=
+d\theta^2.
+\qquad\text{(3.1)}
+```
+
+Le benchmark exact est le broadcast binaire sur
+$`\mathrm{PGW}(d)`$. Le seuil exact de reconstruction est
+
+```math
+\lambda=1.
+\qquad\text{(3.2)}
+```
+
+Le [pilote détaillé](active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md) donne quatre
+conclusions locales et isole un verrou supplémentaire sur le SBM fini.
+
+### 3.1 Un dendrogramme figé échoue sur le broadcast
+
+Sur un arbre local, chaque fusion est portée par une arête unique.
+Conditionner par le dendrogramme complet impose alors toutes les parités
+internes. Le Gibbs d'une racine finale ne conserve qu'un flip global. Cette
+version voit la percolation Swendsen--Wang $`d\theta=1`$, pas
+Kesten--Stigum. La contrainte de balance du SBM fini interdit de transposer
+ce no-go sans un terme global supplémentaire.
+
+### 3.2 La stratégie impose toujours la coupe à $\beta_c$
+
+Avec
+
+```math
+p
+=
+\frac{1+\theta}{2},
+\qquad
+u
+=
+\log\frac p{1-p},
+\qquad
+q_p(\beta)
+=
+p(1-e^{-u\beta}),
+\qquad\text{(3.3)}
+```
+
+la coupe physique critique vérifie
+
+```math
+dq_p(\beta_c)=1.
+\qquad\text{(3.4)}
+```
+
+Elle produit des blocs critiques de degré moyen un et fournit l'échelle de
+décomposition demandée. Elle n'est pas sélectionnée par l'information :
+après marginalisation exacte, le Jacobien répliqué vaut $`\theta^2`$ pour
+tout niveau de coupe.
+
+### 3.3 Partager la coupe donne trop d'information
+
+Si la même coupe critique est révélée aux deux copies, son transfert
+quadratique vaut
+
+```math
+\eta_{\mathrm{partagée}}
+=
+\theta^2
++
+\frac{
+(1/d)(1-\theta)^2
+}{
+1-1/d
+}
+>
+\theta^2.
+\qquad\text{(3.5)}
+```
+
+Pour $`d=3`$ et $`\theta=1/2`$,
+
+```math
+d\theta^2=0.75,
+\qquad
+d\eta_{\mathrm{partagée}}=1.125.
+\qquad\text{(3.6)}
+```
+
+Une hiérarchie commune créerait donc un faux régime supercritique sous le
+vrai seuil.
+
+### 3.4 Deux Gibbs entiers indépendants donnent le bon Jacobien à l'équilibre
+
+Tirons deux répliques postérieures et deux dendrogrammes complets
+indépendamment conditionnellement à la seule observation. Chaque message
+Gibbs transmet $\theta$ au premier ordre ; le message overlap transmet
+$`\theta^2`$. Le nombre moyen de branches vaut $d$, donc
+
+```math
+\mathcal L_{\mathrm{SBM}}^{(2)}
+=
+d\theta^2.
+\qquad\text{(3.7)}
+```
+
+La densité d'évolution exacte du broadcast, complétée par le sandwich global
+
+```math
+\left(
+\sum_{s=0}^{t}\lambda^{-s}
+\right)^{-1}
+\le
+q_t
+\le
+r_t,
+\qquad
+r_{t+1}
+=
+1-e^{-\lambda r_t},
+\qquad\text{(3.8)}
+```
+
+retrouve le seuil exact du broadcast, égalité comprise. Cette fermeture
+emploie des bornes classiques de reconstruction ; elle n'est pas produite par
+$`\beta_c`$.
+
+Ce résultat est une validation du bookkeeping à l'équilibre de la stratégie
+répliquée. Il
+ne prouve pas encore :
+
+- que le seuil temporel d'un nombre fixé de sweeps hiérarchiques est
+  Kesten--Stigum ;
+- le transfert du broadcast au graphe SBM fini ;
+- un seuil nouveau pour le GSBM triangulaire.
+
+Sur le SBM fini, les deux formulations usuelles ont chacune un port global.
+Dans le planted bisection, la contrainte $`\sum_iX_i=0`$ couple les
+orientations des racines finales. Avec des labels i.i.d., les non-arêtes
+créent un potentiel proportionnel à $`(\sum_iX_i)^2`$. L'indépendance par
+arbres reste donc à justifier sur le graphe, même si elle est exacte sur le
+broadcast.
+
+## 4. Gibbs exact sur un arbre complet
+
+Pour une observation $O$, la mesure augmentée est
+
+```math
+\nu_O(d\sigma,dD)
+=
+\mu_O(d\sigma)R_O(dD\mid\sigma).
 \qquad\text{(4.1)}
 ```
 
-Ce compteur est symétrique et mesurable depuis le dendrogramme non marqué. Il
-n'est pas appelé distance, car la sélection peut dépendre de la paire. Il
-compte seulement les occasions géométriques candidates. Leur activité
-énergétique est l'objet d'un lemme séparé ; l'ultramétrique de coalescence
-seule localise le LCA, mais ne mesure pas leur accumulation.
-
-Le premier objectif géométrique crédible est une grande déviation de la
-forme
+À $D$ fixé et sous l'a priori produit uniforme du GSBM triangulaire ou du
+broadcast edge-only, la Gibbs se factorise entre racines finales. Cette
+phrase n'inclut pas le port global du SBM fini décrit plus haut. Dans une
+racine, tous les facteurs du dendrogramme restent présents. Si
+$`A\in\Pi_{\beta_c}(D)`$ et
+$`\partial_D^+A`$ est son ensemble de ports postcritiques, on élimine
+exactement son intérieur pour produire un message
 
 ```math
-\mathbb P_{\mathrm{pair}}
-\left(
-N_D^{\mathrm{geo}}(i,j)<cK
-\right)
-\le
-e^{-\kappa K},
-\qquad
-K\asymp\log d(i,j).
+Z_{D,A}(s_A)
+=
+\sum_{\substack{
+\sigma_A\\
+\sigma_{\partial_D^+A}=s_A
+}}
+\prod_{\substack{
+u\subseteq A\\
+\beta_u\le\beta_c
+}}
+F_{u,p}^{D}(\sigma_A).
 \qquad\text{(4.2)}
 ```
 
-Il faut tenter de la démontrer avec RSW, séparation de bras, circuits et un
-vrai lemme de découplage ou de domination conditionnelle. Les labels bruts
-sur des annuli disjoints sont indépendants ; les événements d'admissibilité,
-après enracinement dans une paire et exploration de Kruskal, ne le sont pas
-automatiquement. Un théorème ergodique seul ne donne pas le taux exponentiel
-de (4.2).
+Les messages internes sont ensuite multipliés par **tous** les facteurs
+$`F_{u,p}^{D}`$ tels que $`\beta_u>\beta_c`$, puis les ports sont tirés
+conjointement. Les intérieurs de blocs peuvent utiliser des hasards
+indépendants seulement conditionnellement à tous leurs ports.
 
-## 5. Le changement de mesure entropique
+## 5. Décomposition exacte et cible de la double géante
 
-Soit
-$`W_{\mathrm{in}}=\|M_{\mathrm{in}}\|_{L^2(\pi_D)}^2\in[0,1]`$ l'énergie
-de paire à l'entrée du macrobloc. Si
-$`a=\mathbb E_{\mathbb P}[W_{\mathrm{in}}]=0`$, la corrélation est déjà
-nulle. Supposons donc $`a>0`$ et posons
+Conditionnellement à $O$, tirons
 
 ```math
-a=\mathbb E_{\mathbb P}[W_{\mathrm{in}}],
-\qquad
-\frac{d\mathbb Q}{d\mathbb P}=\frac{W_{\mathrm{in}}}{a}.
+(\sigma^{(1)},D^{(1)}),
+(\sigma^{(2)},D^{(2)})
+\overset{\mathrm{i.i.d.}}{\sim}
+\nu_O.
 \qquad\text{(5.1)}
 ```
 
-La mesure $`\mathbb Q`$ est exactement la loi inclinée par l'énergie que voit
-le quotient de dissipation. Elle n'est appelée Palm énergétique qu'après la
-construction d'une mesure aléatoire stationnaire appropriée. Comme
-$`\log W_{\mathrm{in}}\le0`$,
+Pour $`f_{ij}(\sigma)=\sigma_i\sigma_j`$,
 
 ```math
-D(\mathbb Q\Vert\mathbb P)
-\le
-\log\frac1a.
+\mu_O(f_{ij})^2
+=
+\mathbb E
+\left[
+\pi_{O,D^{(1)}}(f_{ij})
+\pi_{O,D^{(2)}}(f_{ij})
+\mid O
+\right].
 \qquad\text{(5.2)}
 ```
 
-Pour l'événement mauvais
-$`A_K=\{N_D^{\mathrm{geo}}(i,j)<cK\}`$, la contraction de l'entropie relative vers
-l'indicatrice de $`A_K`$ donne
+Soit $`R_{r,\star}`$ la racine géante de la réplique $r$. La seule
+intersection susceptible d'être macroscopique est
 
 ```math
-\mathbb Q(A_K)
-\le
-\frac{\log(1/a)+\log2}{\kappa K},
-\qquad
-\text{si }\mathbb P(A_K)\le e^{-\kappa K}.
+G_{12}^\star
+=
+R_{1,\star}\cap R_{2,\star}.
 \qquad\text{(5.3)}
 ```
 
-En particulier, si $`a>e^{-\varepsilon\kappa K}`$,
+À la coupe critique, les cellules sont
 
 ```math
-\mathbb Q(A_K)
-\le
-\varepsilon+\frac{\log2}{\kappa K}.
+C_{A_1,A_2}
+=
+A_1\cap A_2\cap G_{12}^\star.
 \qquad\text{(5.4)}
 ```
 
-La preuve visée repose alors sur une dichotomie.
-
-- Si $`a`$ est déjà exponentiellement petit en $`K`$, la corrélation est
-  détruite sans autre argument.
-- Sinon, le budget d'entropie du tilt est insuffisant pour concentrer toute
-  l'énergie sur les corridors géométriquement exceptionnels.
-
-Cette idée remplace la minoration directe, très fragile, de la fréquence des
-bons blocs sous une loi inclinée par l'énergie d'entrée. Elle ne permet pas
-d'assembler automatiquement des pertes micro-locales dont le tilt changerait
-de $`M_k^2`$ à $`M_{k+1}^2`$.
-
-## 6. Le lemme analytique encore manquant
-
-La géométrie et l'entropie ne suffisent que si les $`K`$ échelles produisent
-une contraction qui tend vers zéro, mesurée avec le **même tilt d'entrée**.
-Posons $`G_K=A_K^c`$ et
-$`W_{\mathrm{out}}=\|M_{\mathrm{out}}\|_{L^2(\pi_D)}^2`$. Une cible
-minimale est : il existe $`\lambda>0`$ tel que
+Leur contribution diagonale vérifie
 
 ```math
-\mathbb E_{\mathbb P}[W_{\mathrm{out}}]
+\sum_{A_1,A_2}
+|C_{A_1,A_2}|^2
 \le
-\mathbb E_{\mathbb P}
-\left[W_{\mathrm{in}}\mathbf1_{A_K}\right]
+\min
+\left\{
+\sum_{A_1}|A_1|^2,
+\sum_{A_2}|A_2|^2
+\right\}.
+\qquad\text{(5.5)}
+```
+
+Les intersections hors double géante vérifient aussi l'inégalité
+déterministe
+
+```math
+\sum_{(a,b)\ne(\star,\star)}
+|R_{1,a}\cap R_{2,b}|^2
+\le
+\sum_{a\ne\star}|R_{1,a}|^2
 +
-e^{-\lambda K}
-\mathbb E_{\mathbb P}
-\left[W_{\mathrm{in}}\mathbf1_{G_K}\right].
+\sum_{b\ne\star}|R_{2,b}|^2.
+\qquad\text{(5.6)}
+```
+
+Les faits marginaux de percolation supercritique et critique font tendre les
+membres droits de (5.5) et (5.6), divisés par $`n_L^2`$, vers zéro. La
+[note prioritaire](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) en déduit la
+réduction exacte
+
+```math
+Q_L(p)
+=
+\mathcal E_{\mathrm{off},L}^{(2),\star}(p)
++
+o(1),
+\qquad\text{(5.7)}
+```
+
+où le reste est le produit **signé** des deux corrélations Gibbs entre
+cellules critiques distinctes de la double géante. Ainsi, améliorer la borne
+jusqu'à $`p=0.81`$ équivaut maintenant à montrer
+$`\mathcal E_{\mathrm{off},L}^{(2),\star}(0.81)\to0`$.
+
+La [note 36](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) reste un diagnostic
+exact à un dendrogramme fixé ; sa quantité quenched est une enveloppe de
+Jensen plus forte, non la cible finale.
+
+## 6. Stratégie analytique pour la géante
+
+Le programme ne cherche pas la loi globale de tout l'arbre géant. Il tire
+une paire dans $`G_{12}^\star`$ avec le biais quadratique exact et conserve
+seulement les deux corridors ancestraux complets entre ses endpoints.
+
+L'état local contient :
+
+- les deux partitions critiques ;
+- leurs cellules d'intersection ;
+- les deux systèmes de ports ;
+- les rangs réels et les buckets multiports ;
+- les messages extérieurs issus de tous les facteurs postcritiques.
+
+Les deux corridors ne sont pas indépendants sous la loi annealed : ils sont
+couplés par l'observation commune. L'opérateur linéarisé candidat est encore
+une notation schématique,
+
+```math
+(\mathcal L_p^{(2)}h)(s_1,s_2)
+=
+\mathbb E_{\mathrm{Palm}}^{(2),\star}
+\left[
+\sum_c
+J_c^{(1)}J_c^{(2)}
+h(s_{1,c},s_{2,c})
+\ \middle|\
+s_1,s_2
+\right].
 \qquad\text{(6.1)}
 ```
 
-Après division par $`a`$, (6.1) donne exactement
+Il reste à définir sa Palm jointe sans supposer déjà l'overlap petit, son
+espace de messages extérieurs, sa normalisation et le produit **signé** des
+Jacobiennes. Une valeur absolue après révélation des corridors détruirait les
+cancellations qui réparent le no-go SBM.
+
+La première porte numérique est donc l'enveloppe single-$D$ plus forte mais
+déjà définie dans la note 36 :
 
 ```math
-\frac{\mathbb E[W_{\mathrm{out}}]}a
-\le
-\mathbb Q(A_K)+e^{-\lambda K}.
+\frac1{n_L}
+\lambda_{\max}
+\left(
+W_{R_L^\star}^{1/2}
+M_{R_L^\star}^c
+W_{R_L^\star}^{1/2}
+\right)
+\longrightarrow0
+\quad\text{à }p=0.81.
 \qquad\text{(6.2)}
 ```
 
-Cette formulation regroupe les updates avant le changement de mesure. Une
-marge uniforme sur tous les potentiels extérieurs est fausse ; le lemme doit
-porter sur les potentiels atteints ou moyenner leur queue polarisée. Une
-autre option serait une suite explicite de macroblocs dont les tilts sont
-contrôlés, mais un unique facteur fixe $`1-\eta`$ ne suffit pas.
+Si elle échoue, la route à deux dendrogrammes devient nécessaire. Après
+construction non circulaire de $`\mathcal L_p^{(2)}`$, la question suivante
+sera
 
-## 7. Portes go/no-go
+```math
+\rho(\mathcal L_{0.81}^{(2)})<1.
+\qquad\text{(6.3)}
+```
 
-| porte | énoncé falsifiable | décision si échec |
+Une réponse négative arrête cette famille de blocs. Une réponse positive
+avec marge demande encore une enveloppe non linéaire, puis la fermeture du
+reste signé (5.7).
+
+## 7. Almost exact et exact recovery
+
+Sur le tore triangulaire de degré six, almost exact et exact recovery sont
+impossibles pour tout $`p<1`$ fixé. Même avec les six labels voisins révélés,
+l'erreur locale optimale vaut
+
+```math
+\varepsilon_6(p)
+=
+\sum_{k=0}^{2}
+\binom6k p^k(1-p)^{6-k}
++
+10p^3(1-p)^3
+>
+0.
+\qquad\text{(7.1)}
+```
+
+Elle vaut $`0.0505275\ldots`$ à $`p=0.81`$. Une version triangulaire
+non triviale de ces objectifs doit faire tendre $p$ vers un, augmenter le
+degré ou répéter les observations.
+
+Pour le SBM divergent, la même géométrie peut organiser les calculs mais le
+lift probabiliste change :
+
+| régime | fonctionnel pilote | cible SBM |
 |---|---|---|
-| G0 — variable auxiliaire | le compteur symétrique et les cellules géométriques sont mesurables depuis le dendrogramme non marqué | redériver explicitement le heat bath marqué avant tout calcul |
-| G1 — géométrie | obtenir (4.2) avec $`K\asymp\log d(i,j)`$ | abandonner la simple distance de comptage |
-| G2 — bloc | obtenir (6.1), ou une itération équivalente, sous une classe atteignable de potentiels | abandonner cette famille de cellules |
-| G3 — tilt | utiliser le même tilt d'entrée dans G1 et G2 | regrouper davantage les updates ou construire un calendrier explicite de tilts |
-| G4 — fermeture | transformer la décroissance pairwise en absence de weak recovery | vérifier les moyennes de paire et les composantes distinctes avant toute annonce de seuil |
+| weak | $`\mathbb E[M^2]`$ | $`d\theta^2=1`$ |
+| almost exact | $`\mathbb E[e^{-L/2}]`$ | exposant local tendant vers l'infini |
+| exact | $`n\,\mathbb P(LX\le0)`$ | $`(\sqrt A-\sqrt B)^2=2`$ dans le régime logarithmique |
 
-On ne lance un grand programme numérique qu'après G0. On ne lance une preuve
-multiscalaire complète qu'après un témoin robuste pour G2.
+Le lift Hellinger marginalise séparément les deux fonctions de partition
+hiérarchiques avant leur moyenne géométrique. Ces seuils SBM sont des
+benchmarks ultérieurs ; la contraction quadratique ne les démontre pas.
 
-## 8. Priorités immédiates
+## 8. Portes go/no-go
 
-1. formaliser l'exploration symétrique enracinée dans une paire ;
-2. fixer une définition mesurable des cellules critiques blindées ;
-3. prouver une version pilote de G1 sur des annuli dyadiques espacés ;
-4. dériver la formule de variance locale pour un bloc, puis chercher G2 ;
-5. assembler le lemme entropique seulement après les deux validations
-   précédentes ;
-6. convertir le résultat en seuil numérique si et seulement si les constantes
-   restent strictes.
+| porte | test | verdict requis |
+|---|---|---|
+| SBM0 | Gibbs d'un dendrogramme figé sur le broadcast | reproduire le no-go Swendsen--Wang |
+| SBM1 | deux Gibbs entiers et deux coupes marginalisées séparément sur le broadcast | obtenir $`d\theta^2`$ pour toute coupe |
+| SBM2 | fermeture non linéaire sur le broadcast | retrouver (3.8) sans l'attribuer à la coupe physique |
+| SBM-F | intégrer balance ou non-arêtes comme port global | aucune factorisation par racines revendiquée avant ce transfert |
+| TRI0 | réduire à l'énergie inter-cellules signée | établi par (5.5)–(5.7) |
+| TRI0b | tester l'enveloppe single-$D$ (6.2) | employer la route double seulement si nécessaire |
+| TRI1 | construire la Palm jointe de deux corridors | conserver tous les ports, facteurs postcritiques et cancellations signées |
+| TRI2 | certifier (6.3) | abandonner cette famille si le rayon dépasse un |
+| TRI3 | fermer le régime non linéaire et la moyenne pairwise | n'annoncer un seuil qu'après cette étape |
 
-La construction d'une mesure invariante complète « vue depuis l'ancêtre »
-n'est pas prioritaire : le passage à l'ancêtre est plusieurs-vers-un et le
-tilt énergétique varie avec le niveau. Cette construction risque de recréer
-les mêmes difficultés sous un formalisme plus lourd.
+## 9. Priorités immédiates
 
-## 9. Références de navigation
+1. écrire le port global exact du SBM fini, puis comparer son overlap au
+   broadcast ;
+2. mesurer à $`p=0.81`$ l'enveloppe spectrale single-$D$ (6.2) sur des
+   volumes croissants ;
+3. auditer sur $`L=4`$ la réduction exacte à deux dendrogrammes, sans
+   extrapoler cette taille ;
+4. mesurer directement le reste signé (5.7) sur le raffinement commun des
+   deux coupes ;
+5. définir la Palm jointe des deux corridors sans hypothèse produit ni
+   circularité ;
+6. estimer les produits signés de Jacobiennes sous le bon biais de paire ;
+7. ne lancer la fermeture multiscalaire que si le test spectral possède une
+   marge robuste et une enveloppe non linéaire compatible.
 
-- [programme actif détaillé](active/35_DISTANCE_ENTROPIE_ERGODICITE.md) ;
-- [socle de dissipation quadratique](active/30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md) ;
-- [cellules critiques à deux updates](active/33_SOUS_FEUILLE_ROUTE_CELLULES_CRITIQUES_L2.md) ;
-- [audit multiport et état local](diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md) ;
-- [bibliographie commentée](references/LITERATURE.md) ;
-- [catalogue de toutes les notes](INDEX.md).
+## 10. Références de navigation
+
+- [cible prioritaire à deux Gibbs entiers](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) ;
+- [pilote SBM et contre-test de coupe partagée](active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md) ;
+- [diagnostic à un dendrogramme géant fixé](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) ;
+- [cadre mathématique de la mesure jointe](foundations/01_MATHEMATICAL_FRAMEWORK.md) ;
+- [critère pairwise](foundations/03_HIERARCHICAL_WEAK_RECOVERY.md) ;
+- [moteur distance–entropie, désormais subordonné au test spectral](active/35_DISTANCE_ENTROPIE_ERGODICITE.md) ;
+- [certificat rigoureux à $`0.809439`$](results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md).

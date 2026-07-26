@@ -31,7 +31,10 @@ Son statut tient en quatre lignes :
 | borne $`p_{\mathrm{WR}}\ge0.809439`$ | **établie**, voie non hiérarchique |
 | mesure jointe et heat baths hiérarchiques | **établis** en volume fini |
 | criticalisation uniforme des fusions multiports | **réfutée** par contre-exemple exact |
-| route distance–entropie–ergodicité | **active**, sans nouveau seuil prouvé |
+| réduction au Gibbs inter-blocs d'un arbre géant fixé | **établie** en volume fini, diagnostic oracle |
+| dendrogramme commun aux deux répliques | **réfuté comme cible exacte** par le pilote SBM |
+| réduction à un reste signé inter-cellules sur la double géante | **établie** géométriquement |
+| annulation de ce reste à $`p=0.81`$ | **prioritaire**, sans nouveau seuil prouvé |
 
 ## Trois parcours de lecture
 
@@ -39,7 +42,9 @@ Son statut tient en quatre lignes :
 
 1. [Vue d'ensemble pédagogique](hierarchical-swendsen-wang/README.md)
 2. [Statut scientifique canonique](hierarchical-swendsen-wang/CURRENT_STATUS.md)
-3. [Programme actif entropie–distance](hierarchical-swendsen-wang/active/35_DISTANCE_ENTROPIE_ERGODICITE.md)
+3. [Cible exacte sur la double géante](hierarchical-swendsen-wang/active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md)
+4. [Calibration broadcast et verrou du SBM fini](hierarchical-swendsen-wang/active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md)
+5. [Diagnostic à un dendrogramme géant](hierarchical-swendsen-wang/active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md)
 
 ### 2. Vérifier la borne rigoureuse
 
@@ -56,7 +61,10 @@ Son statut tient en quatre lignes :
 4. [Projections de heat bath](hierarchical-swendsen-wang/foundations/19_FAVORABLE_SWEEP_PROJECTIONS.md)
 5. [Projection collapsed du corridor](hierarchical-swendsen-wang/foundations/20_COLLAPSED_CORRIDOR_BLACKWELL.md)
 6. [Deux no-go qui imposent le pivot](hierarchical-swendsen-wang/diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md)
-7. [Programme actif entropie–distance](hierarchical-swendsen-wang/active/35_DISTANCE_ENTROPIE_ERGODICITE.md)
+7. [Pilote SBM](hierarchical-swendsen-wang/active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md)
+8. [Double géante et Gibbs répliqué exact](hierarchical-swendsen-wang/active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md)
+9. [Diagnostic à un arbre fixé](hierarchical-swendsen-wang/active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md)
+10. [Moteur distance–entropie](hierarchical-swendsen-wang/active/35_DISTANCE_ENTROPIE_ERGODICITE.md)
 
 L'[index exhaustif](hierarchical-swendsen-wang/INDEX.md) classe toutes les
 notes, y compris les diagnostics et les anciennes feuilles de route.

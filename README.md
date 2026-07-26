@@ -22,7 +22,7 @@ Choisissez le parcours qui correspond à votre objectif.
 | Je veux… | Première lecture | Puis… |
 |---|---|---|
 | comprendre le résultat en cinq minutes | [statut scientifique actuel](research/hierarchical-swendsen-wang/CURRENT_STATUS.md) | [certificat à p = 0,809439](research/hierarchical-swendsen-wang/results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md) |
-| comprendre la dynamique hiérarchique | [présentation pédagogique du projet](research/hierarchical-swendsen-wang/README.md) | [programme entropie–distance](research/hierarchical-swendsen-wang/active/35_DISTANCE_ENTROPIE_ERGODICITE.md) |
+| comprendre la dynamique hiérarchique | [cible prioritaire répliquée](research/hierarchical-swendsen-wang/active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) | [calibration exacte sur le broadcast SBM](research/hierarchical-swendsen-wang/active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md) |
 | retrouver une note précise | [index exhaustif des notes](research/hierarchical-swendsen-wang/INDEX.md) | dossier indiqué par son statut |
 | reproduire les preuves assistées par calcul | [guide des calculs](research/hierarchical-swendsen-wang/computations/README.md) | commandes de validation ci-dessous |
 | consulter les supports de séminaire | [table des présentations](#présentations) | source et PDF dans chaque dossier |
@@ -35,13 +35,22 @@ confondus.
 | voie | acquis | question ouverte |
 |---|---|---|
 | canal triangulaire multi-état | borne rigoureuse $`p_{\mathrm{WR}}\ge0.809439`$ | pousser le certificat vers le point tangent candidat |
-| dynamique hiérarchique | mesure jointe exacte, projections collapsed, certificat cactus et plusieurs no-go | démontrer une contraction multiscalaire sur la grille triangulaire |
+| dynamique hiérarchique | mesure jointe exacte, Gibbs d'arbre entier et calibration broadcast | annuler le reste signé inter-cellules de deux hiérarchies |
 
-La voie hiérarchique suit une paire de sommets lointains sur les deux bras de
-son dendrogramme. La piste active combine un compteur symétrique de cellules
-géométriquement admissibles candidates, une grande déviation sous une loi de
-paire ordinaire et un changement de mesure entropique. Son statut est
-**programme de preuve**, pas théorème.
+La cible triangulaire utilise chaque arbre associé à une composante géante,
+coupé au niveau $`\beta_c(p)=q_p^{-1}(q_c)`$, mais conserve le Gibbs exact
+de l'arbre entier. Pour calculer le carré postérieur, il faut deux
+dendrogrammes indépendants conditionnellement à l'observation : partager un
+dendrogramme gonfle artificiellement l'overlap. Le pilote dérive le jacobien
+$`d\theta^2`$ et retrouve le seuil du broadcast après marginalisation
+exacte, pour toute coupe ; il ne prouve ni une contraction dynamique ni le
+transfert au SBM fini, où balance ou non-arêtes recouplent les racines. Sur
+la grille, les contributions hors double géante et la diagonale critique sont
+désormais éliminées. La cible exacte est le reste signé entre cellules
+distinctes de l'intersection des deux géantes. Son statut est **programme de
+preuve**, pas théorème. Ce programme ne répète pas la borne par recoloriage du
+chapitre 11 : il remplace son unique objet gelé par deux Gibbs conditionnels
+exacts sur deux dendrogrammes complets.
 
 ## Carte du dépôt
 
@@ -63,14 +72,14 @@ hierarchical-swendsen-wang/
 ├── INDEX.md            catalogue complet des notes
 ├── foundations/        identités et cadres réutilisables
 ├── results/            théorèmes et certificats établis
-├── active/             unique programme hiérarchique encore poursuivi
+├── active/             programme hiérarchique prioritaire et outils associés
 ├── diagnostics/        expériences finies, benchmarks et no-go
 ├── archive/            anciennes feuilles de route et jalons subsumés
 ├── computations/       scripts et tests reproductibles
 └── references/         littérature et bibliographie
 ```
 
-Les numéros `00` à `35` gardent la chronologie du cahier. Ils ne définissent
+Les numéros `00` à `38` gardent la chronologie du cahier. Ils ne définissent
 plus l'ordre de lecture.
 
 ## Présentations

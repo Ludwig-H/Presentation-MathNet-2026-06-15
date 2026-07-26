@@ -43,10 +43,59 @@ Les scripts n'ont pas de dépendance scientifique externe.
 
 | module | question testée | limite actuelle |
 |---|---|---|
+| `sbm_broadcast_density_evolution.py` | la Gibbs exacte du broadcast possède-t-elle le seuil $`d\theta^2=1`$ ? | le sandwich $`\ell_t\le q_t\le r_t`$ certifie $`\mathrm{PGW}(d)`$ pour toute élimination exacte ; il ne prouve ni un rôle informationnel de $`\beta_c`$, ni un seuil temporel, ni le transfert arbre–graphe |
+| `sbm_critical_cut_replica_diagnostic.py` | que coûte le partage de la coupe physique entre deux répliques ? | identité d'arête exacte ; elle distingue le Jacobien marginal $`\theta^2`$ du transfert oracle gonflé |
+| `double_giant_replicated_gibbs_diagnostic.py` | la décomposition exacte par intersections de deux racines ferme-t-elle sur $`L=4`$ ? | les Gibbs conditionnels sont énumérés exactement, mais observations et hiérarchies restent Monte-Carlo ; aucune tendance asymptotique |
+| `giant_component_quotient_diagnostic.py` | quelle géométrie voit une paire lointaine dans l'arbre de la géante finale, après contraction des blocs critiques ? | diagnostic conditionnel aux environnements ayant une paire admissible, dont le nombre est exposé ; PATH-FAC reste un oracle local factorisé non probant |
+| `critical_cut_collective_gibbs_diagnostic.py` | quelle persistance collective exacte subsiste entre blocs critiques d'une même racine finale ? | énumération exponentielle sur petits tores ; tout cutoff de blocs est signalé comme biais de sélection |
 | `nested_projection_l2_diagnostic.py` | où les projections collapsed dissipent-elles l'énergie ? | énumération exacte à $`L=4`$ |
 | `two_step_l2_population_diagnostic.py` | les cellules à deux updates sont-elles enrichies près du critique ? | population finie, cellules recouvrantes |
 | `two_step_projective_l2_cell.py` | une cellule possède-t-elle une marge sur les potentiels atteints ? | witness exact, marge uniforme nulle au bord |
 | `critical_pair_path_geometry.py` | comment explorer symétriquement le corridor d'une paire ? | brique géométrique, pas grande déviation |
+
+L'ordre de lancement est impératif :
+
+1. utiliser le [pilote SBM](../active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md)
+   pour contre-auditer la coupe partagée, sans attribuer $`d\theta^2`$ au
+   choix de $`\beta_c`$ ;
+2. tester à $`p=0.81`$ l'enveloppe spectrale à
+   [un dendrogramme fixé](../active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) ;
+3. passer à la
+   [double géante triangulaire](../active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md)
+   si cette enveloppe reste macroscopique, en conservant les produits signés.
+
+```bash
+python3 \
+  research/hierarchical-swendsen-wang/computations/sbm_broadcast_density_evolution.py \
+  --degree 3 --lambdas 0.8 0.95 1 1.05 1.2 \
+  --depth 30 --particles 50000 --batches 8 --seed 20260726
+python3 \
+  research/hierarchical-swendsen-wang/computations/sbm_critical_cut_replica_diagnostic.py \
+  --degree 3 --theta 0.5
+python3 \
+  research/hierarchical-swendsen-wang/computations/double_giant_replicated_gibbs_diagnostic.py \
+  --side 4 --observations 1 --replica-pairs 2 --seed 3801
+python3 \
+  research/hierarchical-swendsen-wang/computations/giant_component_quotient_diagnostic.py \
+  --sides 16,32,64 --repetitions 20 --pairs 100 \
+  --p 0.809439 --distance-fraction 0.25 --seed 20260726
+python3 \
+  research/hierarchical-swendsen-wang/computations/critical_cut_collective_gibbs_diagnostic.py \
+  --side 4 --repetitions 8 --p 0.809439 \
+  --maximum-block-count 16 --seed 20260726
+```
+
+Le premier JSON affiche $`\widehat q_t`$, l'écart de Nishimori, les bornes
+$`\ell_t,r_t`$ et un statut de cohérence empirique. Le seuil du broadcast
+est certifié par les bornes déterministes, pas par ce statut Monte-Carlo.
+Le deuxième vérifie exactement qu'à $`d=3,\theta=1/2`$ le facteur marginal
+vaut $`0.75`$ tandis qu'une coupe commune donne $`1.125`$. Le troisième
+audite la décomposition par intersections de racines et accepte une double
+géante vide. Le quatrième conserve les rangs postcritiques réels, compte les
+environnements sans paire admissible et étiquette explicitement PATH-FAC
+comme non-preuve. Le cinquième énumère les orientations collectives exactes
+des blocs retenus ; si le cutoff en exclut une réalisation, ses moyennes
+Gibbs sont conditionnelles et ne doivent pas être extrapolées.
 
 ### Diagnostics et no-go
 
@@ -609,8 +658,9 @@ cible-spécifique historique.
   lorsque la taille d'état le permet.
 - Les tests utilisent des exemples déterministes ou des graines explicites.
 - Un estimateur de carré de moyenne doit enlever les termes diagonaux.
-- Les deux répliques partagent le même environnement ; seuls leurs aléas de
-  heat bath sont indépendants.
+- Les deux répliques partagent la même observation physique, mais leurs
+  dendrogrammes auxiliaires et leurs tirages Gibbs sont indépendants
+  conditionnellement à cette observation.
 - Le bucket d'une fusion contient toutes les arêtes physiques de la coupe.
 - L'identité de l'arête gagnante de Kruskal est oubliée dans le dendrogramme
   non marqué.
@@ -619,22 +669,20 @@ cible-spécifique historique.
 
 ## Prochaine étape
 
-Le prochain calcul doit servir l'une des deux portes du
-[programme distance–entropie](../active/35_DISTANCE_ENTROPIE_ERGODICITE.md) :
+Le [pilote SBM](../active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md) sépare trois
+objets : dendrogramme figé, coupe partagée et deux Gibbs entiers
+indépendants. Seul le troisième donne le Jacobien marginal
+$`d\theta^2`$. Le
+[transfert GSBM](../active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) porte ensuite
+sur la double géante et conserve tous les facteurs postcritiques. Le
+[fichier 36](../active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) reste un diagnostic
+à un dendrogramme fixé.
 
-1. **porte géométrique** : tester une définition mesurable de cellule
-   admissible et son abondance sur des annuli espacés ;
-2. **porte analytique** : évaluer une contraction de bloc sous la loi des
-   potentiels réellement atteints.
-
-Une T2 plus riche, un nouveau scan de criticalisation uniforme ou une chaîne
-de bord fidèle ne sont pas prioritaires : les contre-exemples existants ont
-déjà fermé ces raccourcis. Aucun grand scan n'est justifié avant la
-formalisation exacte de la loi de paire et de la variable auxiliaire.
-
-Le socle opératoriel reste le
-[fichier 30](../active/30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md) ; la cellule
-locale est développée dans le
-[fichier 33](../active/33_SOUS_FEUILLE_ROUTE_CELLULES_CRITIQUES_L2.md) ; les
-deux no-go sont conservés dans le
-[fichier 29](../diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md).
+Dans ce transfert, le [programme distance–entropie](../active/35_DISTANCE_ENTROPIE_ERGODICITE.md)
+reste un moteur analytique conditionnel : il ne sera assemblé qu'après une
+marge spectrale sur l'opérateur overlap répliqué. Le
+[fichier 30](../active/30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md)
+fournit le socle opératoriel et le
+[fichier 33](../active/33_SOUS_FEUILLE_ROUTE_CELLULES_CRITIQUES_L2.md) la
+cellule locale. Une T2 plus riche ou une nouvelle criticalisation uniforme
+ne redevient pas prioritaire.

@@ -1,6 +1,6 @@
 # État de l'art ciblé
 
-Recherche ciblée effectuée jusqu'au 19 juillet 2026. Elle ne constitue pas une preuve exhaustive de nouveauté.
+Recherche ciblée effectuée jusqu'au 26 juillet 2026. Elle ne constitue pas une preuve exhaustive de nouveauté.
 
 ## Positionnement prudent
 
@@ -89,6 +89,26 @@ construction préalable d'une mesure complète vue depuis l'ancêtre.
 11. [Saade–Krzakala–Lelarge–Zdeborová, *Spectral Detection in the Censored Block Model*](https://arxiv.org/abs/1502.00163). Seuil de reconstruction dans un modèle signé localement arborescent ; comparaison naturelle avec Kesten–Stigum.
 12. [Abbe–Massoulié–Montanari–Sly–Srivastava, *Group Synchronization on Grids*](https://arxiv.org/abs/1706.08561). Récupération multiscale sur des grilles et lien avec la ligne de Nishimori.
 
+### Benchmarks SBM
+
+- [Mossel–Neeman–Sly, *Stochastic Block Models and Reconstruction*](https://arxiv.org/abs/1202.1499). Impossibilité sous Kesten--Stigum et lien rigoureux avec le broadcast sur arbre.
+- [Mossel–Neeman–Sly, *A Proof of the Block Model Threshold Conjecture*](https://arxiv.org/abs/1311.4115). Achievabilité au-dessus du seuil pour deux communautés équilibrées.
+- [Massoulié, *Community Detection Thresholds and the Weak Ramanujan Property*](https://arxiv.org/abs/1311.3085). Preuve indépendante de l'achievabilité spectrale.
+- [Abbe–Bandeira–Hall, *Exact Recovery in the Stochastic Block Model*](https://arxiv.org/abs/1405.3267). Frontière exacte $`(\sqrt A-\sqrt B)^2=2`$ dans le régime logarithmique symétrique.
+- [Abbe–Sandon, *Recovering communities in the general stochastic block model without knowing the parameters*](https://arxiv.org/abs/1506.03729). Accuracy tendant vers un en degré divergent et exact recovery optimale dans le régime logarithmique.
+
+**Portée du benchmark hiérarchique.** Le seuil
+$`d((a-b)/(a+b))^2=1`$ se lit exactement sur le broadcast
+$`\mathrm{PGW}(d)`$ après marginalisation de deux coupes indépendantes, et
+ce pour tout niveau de coupe admissible : la criticité de percolation organise
+le calcul mais ne sélectionne pas le seuil informationnel. Ce calcul ne prouve
+pas encore le résultat sur le SBM fini. Dans la bisection plantée, la contrainte
+de balance couple les racines finales ; sous un prior i.i.d., les non-arêtes
+créent à la place un facteur quadratique global. Le
+[pilote SBM](../active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md) sépare donc
+explicitement la calibration sur arbre, ce port global de volume fini et les
+tests oracle de Hellinger pour l'almost exact et l'exact recovery.
+
 ## Information-percolation et SDPI
 
 13. [Polyanskiy–Wu, *Application of Information-Percolation Method to Reconstruction Problems on Graphs*](https://arxiv.org/abs/1806.04195). Domination de l'information par une percolation dont les probabilités sont des contractions de canaux.
@@ -152,8 +172,11 @@ La synthèse mathématique et les implications exactes pour la weak recovery son
 L'audit qui ferme la route de transfert local est détaillé dans
 [Audit froid et pivot aux rangs réels](../diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md).
 La stratégie hiérarchique active, encore soumise à des portes go/no-go, est
-le [programme distance–entropie](../active/35_DISTANCE_ENTROPIE_ERGODICITE.md).
-Il s'appuie sur la
+le [Gibbs exact répliqué sur la double géante](../active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md).
+Le [pilote SBM](../active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md) en fixe le
+benchmark. Après une marge spectrale, elle pourra s'appuyer sur le
+[programme distance–entropie](../active/35_DISTANCE_ENTROPIE_ERGODICITE.md)
+et sur la
 [dissipation quadratique du secteur impair](../active/30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md)
 et les [cellules critiques pondérées par
 l'énergie](../active/33_SOUS_FEUILLE_ROUTE_CELLULES_CRITIQUES_L2.md). La borne

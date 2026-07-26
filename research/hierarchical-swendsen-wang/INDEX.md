@@ -1,7 +1,7 @@
 # Index raisonné des notes
 
 Cet index classe les documents par **statut scientifique actuel**. Les numéros
-`00` à `35` indiquent seulement leur ordre de création.
+`00` à `38` indiquent seulement leur ordre de création.
 
 > [!TIP]
 > Pour une première lecture, ne parcourez pas les fichiers dans l'ordre
@@ -13,7 +13,10 @@ Cet index classe les documents par **statut scientifique actuel**. Les numéros
 |---|---|
 | [README](README.md) | introduction pédagogique et parcours de lecture |
 | [CURRENT_STATUS](CURRENT_STATUS.md) | source de vérité, acquis, verrous et priorités |
-| [35 — distance, entropie et ergodicité](active/35_DISTANCE_ENTROPIE_ERGODICITE.md) | unique programme de preuve actif |
+| [38 — double géante et Gibbs exact répliqué](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) | cible prioritaire réduite à un reste signé |
+| [37 — pilote SBM](active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md) | calibration broadcast, contre-test de coupe partagée et verrou fini |
+| [36 — arbre géant à $D$ fixé](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) | diagnostic oracle à un dendrogramme |
+| [35 — distance, entropie et ergodicité](active/35_DISTANCE_ENTROPIE_ERGODICITE.md) | moteur conditionnel après le test spectral |
 | [calculs reproductibles](computations/README.md) | correspondance entre scripts, preuves et diagnostics |
 | [littérature](references/LITERATURE.md) | sources primaires et limites de transfert |
 
@@ -67,7 +70,10 @@ Cet index classe les documents par **statut scientifique actuel**. Les numéros
 |---|---|---|
 | [30 — dissipation quadratique](active/30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md) | identités exactes + diagnostic fini | socle opératoriel ; accumulation générique abandonnée |
 | [33 — cellules critiques](active/33_SOUS_FEUILLE_ROUTE_CELLULES_CRITIQUES_L2.md) | sous-programme conditionnel | géométrie et cellule à deux updates |
-| [35 — distance–entropie](active/35_DISTANCE_ENTROPIE_ERGODICITE.md) | programme canonique | assemble grande déviation, tilt entropique et contraction de bloc |
+| [35 — distance–entropie](active/35_DISTANCE_ENTROPIE_ERGODICITE.md) | moteur conditionnel | seulement après une marge spectrale sur la double géante |
+| [36 — arbre géant à $D$ fixé](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) | réduction finie exacte, mais oracle | diagnostics de rangs, buckets et Gibbs quenched |
+| [37 — pilote SBM](active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md) | calibration exacte du broadcast, transfert fini ouvert | sépare équilibre, dynamique, coupe partagée et port global |
+| [38 — double géante répliquée](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) | réduction exacte au reste inter-cellules signé, seuil ouvert | programme prioritaire sur deux Gibbs d'arbres entiers |
 
 ## Diagnostics, benchmarks et no-go
 
@@ -123,4 +129,4 @@ cités comme preuves d'un seuil en volume infini.
    le document qui l'a remplacé.
 5. Pour la stratégie en cours, citer
    [`CURRENT_STATUS.md`](CURRENT_STATUS.md) et le
-   [programme 35](active/35_DISTANCE_ENTROPIE_ERGODICITE.md).
+   [programme 38](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md).

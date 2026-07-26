@@ -11,8 +11,11 @@ obstruction rigoureuse de weak recovery.
 
 > [!WARNING]
 > **Ce qui reste ouvert.** La dynamique hiérarchique n'a pas encore produit
-> de seuil supplémentaire sur la grille triangulaire. Sa piste active est le
-> programme distance–entropie décrit ci-dessous.
+> de seuil supplémentaire sur la grille triangulaire. Le broadcast SBM
+> calibre exactement le bookkeeping à deux répliques, mais pas la dynamique
+> ni le SBM fini. La cible prioritaire est maintenant le reste signé entre
+> cellules critiques de la double géante triangulaire, après deux Gibbs
+> exacts et deux dendrogrammes entiers.
 
 Pour une photographie exacte et datée, consulter
 [`CURRENT_STATUS.md`](CURRENT_STATUS.md). Pour retrouver une note précise,
@@ -80,8 +83,11 @@ flowchart LR
     M["GSBM triangulaire"] --> C["Canal triangulaire multi-état"]
     C --> R["Borne rigoureuse 0,809439"]
     M --> D["Dendrogramme de Kruskal"]
-    D --> P["Projections collapsed"]
-    P --> E["Programme distance–entropie"]
+    D --> S["Broadcast SBM : calibration répliquée"]
+    S --> G["Deux arbres géants indépendants sachant O"]
+    G --> B["Deux coupes critiques beta_c"]
+    B --> P["Tous les facteurs postcritiques conservés"]
+    P --> E["Reste signé inter-cellules sur la double géante"]
     E --> O["Seuil hiérarchique encore ouvert"]
 ```
 
@@ -94,54 +100,118 @@ la fermeture par information-percolation sont tous exacts.
 
 ### Programme hiérarchique
 
-Le but est de faire décroître la corrélation de paire en exploitant plusieurs
-échelles du corridor entre $`i,j`$ et leur plus proche ancêtre commun. Le LCA
-seul est généralement trop informatif : la profondeur des deux bras doit
-créer les pertes répétées.
+Le [pilote SBM](active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md) donne le test
+décisif. Figer tout le dendrogramme postcritique verrouille les parités sur
+ses buckets unitaires et produit le transfert Swendsen--Wang. À l'inverse,
+deux Gibbs postérieurs exacts, avec deux hiérarchies indépendantes
+conditionnellement à l'observation, ont un Jacobien overlap égal à
+$`\theta^2`$ par branche. La densité d'évolution du broadcast retrouve alors
+$`d\theta^2=1`$. Cette identité vaut pour toute coupe exactement
+marginalisée : elle ne vient pas de $`\beta_c`$. Ce benchmark ne prouve
+encore ni le mélange temporel du noyau ni le transfert au graphe SBM, où la
+balance ou les non-arêtes constituent un port global.
 
-## 4. La piste active, étape par étape
+La [cible prioritaire](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) porte cette
+version sans perte sur deux arbres géants triangulaires. Chaque arbre est
+coupé à $`\beta_c`$ comme ordre d'élimination, mais son Gibbs conserve tous
+les facteurs supérieurs. Les racines finales se factorisent à dendrogramme
+fixé ; les sous-arbres d'une même racine ne le font que conditionnellement à
+leurs ports. Les intersections hors double géante et les cellules diagonales
+ont une masse quadratique négligeable ; le seul verrou exact restant est
+l'énergie **signée** entre cellules distinctes de la double géante.
 
-La route actuelle unit les deux idées les plus prometteuses : une distance
-adaptée au dendrogramme et un changement de mesure entropique.
+## 4. Du pilote SBM à la double géante
 
-1. **Enraciner l'expérience dans une paire.** Tirer d'abord une paire
-   non ordonnée lointaine, puis explorer symétriquement ses deux bras. Le
-   biais du LCA est alors porté par la loi de la paire elle-même.
-2. **Définir un compteur utile.** Compter sur les deux bras les cellules
-   géométriquement admissibles candidates, sans présupposer leur contraction.
-3. **Travailler sous la loi ordinaire de la paire.** Prouver qu'un corridor
-   pauvre en cellules candidates a une probabilité exponentiellement petite.
-4. **Contracter un bloc.** Établir une perte pour la fonction de paire
-   effectivement propagée, et non une marge uniforme sur tous les potentiels
-   de bord.
-5. **Changer de mesure par l'entropie.** Montrer que le biais par l'énergie
-   entrante ne peut pas concentrer toute sa masse sur les rares mauvais
-   corridors, sauf si la corrélation est déjà petite.
-6. **Fermer le critère pairwise.** Sommer les pertes sur les échelles, puis
-   appliquer (1.1).
-
-Soit $`\mathcal P_D(i,j)`$ l'ensemble des arêtes du chemin unique entre les
-deux feuilles dans le dendrogramme. Une règle déterministe et symétrique,
-mesurable depuis le dendrogramme non marqué, sélectionne au plus une arête
-d'ancrage par cellule candidate ; l'ensemble obtenu est
-$`\mathcal A_D(i,j)\subseteq\mathcal P_D(i,j)`$. Le compteur est
+Le niveau de coupe est explicite :
 
 ```math
-N_D^{\mathrm{geo}}(i,j)
+\beta_c(p)
 =
-\sum_{e\in\mathcal P_D(i,j)}
-\mathbf 1_{\{e\in\mathcal A_D(i,j)\}}.
+-\frac{
+\log(1-q_c/p)
+}{
+\log(p/(1-p))
+}.
 \qquad\text{(4.1)}
 ```
 
-Cet objet est symétrique, mais il n'est pas encore une distance : la sélection
-des ancrages peut dépendre de la paire. Il deviendrait une pseudo-distance
-d'arbre si une même famille globale d'arêtes, indépendante de $`(i,j)`$,
-convenait. Dans les deux cas, il compte seulement des occasions
-**candidates** ; leur contraction énergétique est un lemme séparé.
+La coupe triangulaire appartient au dendrogramme dès
+$`p\ge p_{\mathrm{SW}}=(1+q_c)/2`$. La
+[note 38](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) tire deux Gibbs
+postérieurs exacts avec deux dendrogrammes complets
+$`D^{(1)},D^{(2)}`$, indépendants conditionnellement à l'observation. Si
+$`R_{r,\star}`$ est la racine géante de la réplique $r$, l'objet
+macroscopique exact est
 
-Le [programme détaillé](active/35_DISTANCE_ENTROPIE_ERGODICITE.md) donne les
-lemmes, les portes go/no-go et les limites exactes de l'argument.
+```math
+G_{12}^\star
+=
+R_{1,\star}\cap R_{2,\star}.
+\qquad\text{(4.2)}
+```
+
+Chaque arbre est coupé à $`\beta_c`$. Les cellules critiques sont les
+intersections $`A_1\cap A_2\cap G_{12}^\star`$, tandis que tous les facteurs
+postcritiques restent présents dans chacun des deux Gibbs. La cible pairwise
+est l'énergie overlap entre cellules distinctes de la double géante.
+
+La [note 36](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) établit encore, pour la
+variante diagnostique à un dendrogramme fixé,
+
+```math
+Q_L
+\le
+F_L^{\mathrm{fin}}(p)
++
+S_L^c
++
+\Xi_L^\star(p),
+\qquad\text{(4.3)}
+```
+
+où les deux premiers termes sont les masses quadratiques des racines finales
+non géantes et des blocs critiques, tandis que
+
+```math
+\Xi_L^\star(p)
+=
+\frac1{n_L^2}
+\mathbb E
+\sum_{\substack{
+i,j\in R_L^\star\\
+A(i)\ne A(j)
+}}
+\pi_D(\sigma_i\sigma_j)^2
+\qquad\text{(4.4)}
+```
+
+est l'unique terme Gibbs nouveau de cette enveloppe quenched. Partager ce
+dendrogramme entre les deux copies produit une borne de Jensen, pas le carré
+postérieur exact.
+
+1. **Fermer le SBM fini.** Ajouter le port global de balance ou des
+   non-arêtes à la calibration broadcast $`d\theta^2`$.
+2. **Tester l'enveloppe simple.** Mesurer d'abord à $`p=0.81`$ le rayon
+   spectral du Gibbs inter-blocs à un dendrogramme fixé.
+3. **Construire le raffinement critique exact.** Couper les deux arbres à
+   $`\beta_c`$, conserver les deux systèmes de ports, tous les rangs réels
+   et tous les buckets postcritiques.
+4. **Mesurer le reste signé.** Calculer directement le produit des deux
+   corrélations entre cellules distinctes ; les autres termes sont déjà
+   géométriquement négligeables.
+5. **Définir l'opérateur overlap.** Construire sa Palm jointe sans supposer
+   les deux corridors indépendants sous la loi annealed et sans prendre de
+   valeur absolue prématurée.
+6. **Fermer le régime non linéaire.** Construire alors une enveloppe de
+   percolation d'information ou une contraction par macroblocs ; employer
+   distance–entropie seulement à cette étape.
+
+Le heat bath collectif des seules orientations à la coupe critique est un
+diagnostic exact conditionnellement à un dendrogramme. La cible prioritaire
+est le Gibbs joint de chaque arbre entier, sans canal intermédiaire
+contracté. Le
+[programme distance–entropie](active/35_DISTANCE_ENTROPIE_ERGODICITE.md)
+reste un moteur possible après le test spectral, pas un substitut à celui-ci.
 
 ## 5. Ce qui est établi dans la voie hiérarchique
 
@@ -155,6 +225,8 @@ lemmes, les portes go/no-go et les limites exactes de l'argument.
 | corridor au plus persistant que le LCA seul | établi | [22](results/hierarchical/22_LCA_VS_FULL_HIERARCHY.md) |
 | perte exponentielle sur un cactus triangulaire | établie dans ce modèle | [21](results/hierarchical/21_CACTUS_COLLAPSED_CERTIFICATE.md) |
 | identité pythagoricienne de dissipation | établie en volume fini | [30](active/30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md) |
+| factorisation par racines et réduction inter-blocs d'un $D$ fixé | établie en volume fini, diagnostic oracle | [36](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) |
+| identité à deux Gibbs entiers et réduction au reste inter-cellules signé | établie algébriquement et géométriquement ; contrôle du reste ouvert | [38](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) |
 
 Ces briques ne composent pas encore une preuve sur la grille triangulaire.
 
@@ -190,7 +262,10 @@ n'interdisent pas à eux seuls une preuve en volume infini.
 4. [Projections](foundations/19_FAVORABLE_SWEEP_PROJECTIONS.md)
 5. [Corridor collapsed](foundations/20_COLLAPSED_CORRIDOR_BLACKWELL.md)
 6. [Audit et no-go](diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md)
-7. [Programme distance–entropie](active/35_DISTANCE_ENTROPIE_ERGODICITE.md)
+7. [Pilote SBM à deux répliques](active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md)
+8. [Double géante et Gibbs exact](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md)
+9. [Diagnostic à un arbre fixé](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md)
+10. [Moteur distance–entropie](active/35_DISTANCE_ENTROPIE_ERGODICITE.md)
 
 ### Parcours C — détails avancés
 
@@ -212,8 +287,8 @@ et les résultats hiérarchiques [21](results/hierarchical/21_CACTUS_COLLAPSED_C
 - [`computations/`](computations/) : scripts, certificats et tests ;
 - [`references/`](references/) : bibliographie commentée et fichier BibTeX.
 
-L'[`INDEX.md`](INDEX.md) donne le rôle exact des 36 notes numérotées de `00`
-à `35`.
+L'[`INDEX.md`](INDEX.md) donne le rôle exact des 39 notes numérotées de `00`
+à `38`.
 
 ## 9. Reproductibilité
 

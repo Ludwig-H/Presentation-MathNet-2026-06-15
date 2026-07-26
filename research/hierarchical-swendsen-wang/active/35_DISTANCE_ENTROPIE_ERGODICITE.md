@@ -1,6 +1,17 @@
-# Programme actif : distance, entropie et ergodicité
+# Moteur conditionnel : distance, entropie et ergodicité
 
-**Statut : actif, conditionnel, aucun nouveau seuil revendiqué.**
+**Statut : actif mais subordonné à la réduction signée sur la double géante
+et au premier test spectral à un dendrogramme, aucun nouveau seuil
+revendiqué.**
+
+> [!IMPORTANT]
+> La [cible prioritaire](38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) emploie deux
+> Gibbs exacts sur deux dendrogrammes entiers indépendants. Avant d'adapter le
+> présent moteur, il faut d'abord mesurer l'enveloppe spectrale à un
+> dendrogramme, puis — seulement si elle ne suffit pas — le reste signé
+> inter-cellules de la double géante. Un opérateur à deux dendrogrammes ne
+> devient une cible légitime qu'après avoir spécifié sa loi jointe sans
+> réinjecter l'overlap à démontrer.
 
 **Rôle :** transformer l'intuition « beaucoup d'occasions critiques de
 mélange le long des deux bras » en une suite de lemmes falsifiables.
@@ -17,7 +28,7 @@ ni une nouvelle borne de weak recovery.
 
 L'ergodicité de la grille triangulaire est utile, mais elle ne remplace pas
 à elle seule le contrôle sous la mesure inclinée par l'énergie. La combinaison
-prioritaire est
+candidate est
 
 ```math
 \boxed{
