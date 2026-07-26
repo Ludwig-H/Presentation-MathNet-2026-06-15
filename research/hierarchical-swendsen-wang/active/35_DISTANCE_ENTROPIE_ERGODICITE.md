@@ -9,7 +9,7 @@ $`L=4`$ ; aucun nouveau seuil revendiqué.**
 > Gibbs exacts sur deux dendrogrammes entiers indépendants. Avant d'adapter le
 > présent moteur, il fallait d'abord mesurer l'enveloppe spectrale à un
 > dendrogramme. Le
-> [diagnostic à $`p=0.81`$](../diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md)
+> [diagnostic à p = 0,81](../diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md)
 > la trouve macroscopique à $`L=4`$ ; la cible expérimentale devient donc le
 > reste signé inter-cellules de la double géante. Un opérateur à deux
 > dendrogrammes ne devient une cible légitime qu'après avoir spécifié sa loi

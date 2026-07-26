@@ -118,7 +118,7 @@ exclut une réalisation, ses moyennes sont conditionnelles. Le huitième mesure
 le reste signé à deux dendrogrammes et clusterise les erreurs standards du
 résumé par observation.
 
-Le [premier protocole à $`p=0.81`$](../diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md)
+Le [premier protocole à p = 0,81](../diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md)
 donne, à $`L=4`$,
 
 ```text

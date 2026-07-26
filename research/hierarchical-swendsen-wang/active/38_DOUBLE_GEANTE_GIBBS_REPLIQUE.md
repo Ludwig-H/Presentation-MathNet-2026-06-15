@@ -786,7 +786,7 @@ hiérarchiques séparément avant de prendre leur moyenne géométrique ; la
 1. comparer le [port global exact](39_PORT_GLOBAL_SBM_RECOVERY.md) du SBM
    fini au broadcast ;
 2. prolonger en volume le
-   [diagnostic single-$D$](../diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md),
+   [diagnostic single-D](../diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md),
    défavorable à $`L=4`$, avec audit de mélange si l'énumération exacte
    devient impossible ;
 3. prolonger le diagnostic signé à deux dendrogrammes au-delà de $`L=4`$ :

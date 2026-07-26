@@ -16,8 +16,8 @@ Cet index classe les documents par **statut scientifique actuel**. Les numéros
 | [38 — double géante et Gibbs exact répliqué](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) | cible prioritaire réduite à un reste signé |
 | [37 — pilote SBM](active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md) | calibration broadcast, contre-test de coupe partagée et verrou fini |
 | [39 — port global du SBM fini](active/39_PORT_GLOBAL_SBM_RECOVERY.md) | convolution exacte des racines et benchmarks weak/almost/exact |
-| [40 — test fini à $`p=0.81`$](diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md) | enveloppe single-$D$ défavorable et reste signé mesuré à $`L=4`$ |
-| [36 — arbre géant à $D$ fixé](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) | diagnostic oracle à un dendrogramme |
+| [40 — test fini à p = 0,81](diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md) | enveloppe single-$D$ défavorable et reste signé mesuré à $`L=4`$ |
+| [36 — arbre géant à D fixé](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) | diagnostic oracle à un dendrogramme |
 | [35 — distance, entropie et ergodicité](active/35_DISTANCE_ENTROPIE_ERGODICITE.md) | moteur conditionnel après le test spectral |
 | [calculs reproductibles](computations/README.md) | correspondance entre scripts, preuves et diagnostics |
 | [littérature](references/LITERATURE.md) | sources primaires et limites de transfert |
@@ -73,7 +73,7 @@ Cet index classe les documents par **statut scientifique actuel**. Les numéros
 | [30 — dissipation quadratique](active/30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md) | identités exactes + diagnostic fini | socle opératoriel ; accumulation générique abandonnée |
 | [33 — cellules critiques](active/33_SOUS_FEUILLE_ROUTE_CELLULES_CRITIQUES_L2.md) | sous-programme conditionnel | géométrie et cellule à deux updates |
 | [35 — distance–entropie](active/35_DISTANCE_ENTROPIE_ERGODICITE.md) | moteur conditionnel | seulement après une marge spectrale sur la double géante |
-| [36 — arbre géant à $D$ fixé](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) | réduction finie exacte, mais oracle | diagnostics de rangs, buckets et Gibbs quenched |
+| [36 — arbre géant à D fixé](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) | réduction finie exacte, mais oracle | diagnostics de rangs, buckets et Gibbs quenched |
 | [37 — pilote SBM](active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md) | calibration exacte du broadcast, transfert fini ouvert | sépare équilibre, dynamique, coupe partagée et port global |
 | [38 — double géante répliquée](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) | réduction exacte au reste inter-cellules signé, seuil ouvert | programme prioritaire sur deux Gibbs d'arbres entiers |
 | [39 — port global SBM](active/39_PORT_GLOBAL_SBM_RECOVERY.md) | identité finie exacte, comparaison asymptotique ouverte | remplace l'indépendance fausse des racines par une convolution scalaire |
@@ -92,7 +92,7 @@ cités comme preuves d'un seuil en volume infini.
 | [24 — bilan résiduel](diagnostics/24_SIMPLE_RESIDUAL_BALANCE_OBSTRUCTION.md) | test d'une fermeture simple | remplacé par le conditionnement géométrique de 25 |
 | [28 — premier cycle P0805](diagnostics/finite_volume/28_FIRST_CORRIDOR_P0805_RESULTS.md) | audits Palm et petites cellules | historique de volume fini |
 | [29 — audit aux rangs réels](diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md) | contre-exemple multiport et déficit local nul | lecture obligatoire avant toute nouvelle route |
-| [40 — Gibbs critique à $`p=0.81`$](diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md) | $`\lambda_{\max}/n=0.9507\ldots`$ à $`L=4`$ et reste signé positif en moyenne | passer aux deux corridors sans extrapoler le petit volume |
+| [40 — Gibbs critique à p = 0,81](diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md) | $`\lambda_{\max}/n=0.9507\ldots`$ à $`L=4`$ et reste signé positif en moyenne | passer aux deux corridors sans extrapoler le petit volume |
 
 ## Archives
 

@@ -516,9 +516,9 @@ benchmarks ultérieurs ; la contraction quadratique ne les démontre pas.
 - [cible prioritaire à deux Gibbs entiers](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) ;
 - [pilote SBM et contre-test de coupe partagée](active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md) ;
 - [port global exact et régimes de recovery du SBM fini](active/39_PORT_GLOBAL_SBM_RECOVERY.md) ;
-- [premier test spectral et signé à $`p=0.81`$](diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md) ;
+- [premier test spectral et signé à p = 0,81](diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md) ;
 - [diagnostic à un dendrogramme géant fixé](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) ;
 - [cadre mathématique de la mesure jointe](foundations/01_MATHEMATICAL_FRAMEWORK.md) ;
 - [critère pairwise](foundations/03_HIERARCHICAL_WEAK_RECOVERY.md) ;
 - [moteur distance–entropie, désormais subordonné au test spectral](active/35_DISTANCE_ENTROPIE_ERGODICITE.md) ;
-- [certificat rigoureux à $`0.809439`$](results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md).
+- [certificat rigoureux à 0,809439](results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md).
