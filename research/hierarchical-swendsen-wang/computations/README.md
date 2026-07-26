@@ -45,9 +45,12 @@ Les scripts n'ont pas de dépendance scientifique externe.
 |---|---|---|
 | `sbm_broadcast_density_evolution.py` | la Gibbs exacte du broadcast possède-t-elle le seuil $`d\theta^2=1`$ ? | le sandwich $`\ell_t\le q_t\le r_t`$ certifie $`\mathrm{PGW}(d)`$ pour toute élimination exacte ; il ne prouve ni un rôle informationnel de $`\beta_c`$, ni un seuil temporel, ni le transfert arbre–graphe |
 | `sbm_critical_cut_replica_diagnostic.py` | que coûte le partage de la coupe physique entre deux répliques ? | identité d'arête exacte ; elle distingue le Jacobien marginal $`\theta^2`$ du transfert oracle gonflé |
-| `double_giant_replicated_gibbs_diagnostic.py` | la décomposition exacte par intersections de deux racines ferme-t-elle sur $`L=4`$ ? | les Gibbs conditionnels sont énumérés exactement, mais observations et hiérarchies restent Monte-Carlo ; aucune tendance asymptotique |
+| `sbm_global_port_convolution.py` | comment contracter exactement balance ou non-arêtes entre les racines d'un full-$D$ SBM ? | convolution exacte conditionnelle aux tailles de racines fournies ; elle ne génère ni $D$, ni sa loi, ni un seuil |
+| `sbm_recovery_regimes_diagnostic.py` | quels sont les benchmarks weak, almost exact et exact du SBM classique ? | affinité binomiale finie exacte et constantes de seuil ; oracle seulement, aucune achievability hiérarchique |
+| `triangular_recovery_regimes_diagnostic.py` | almost exact ou exact recovery sont-ils possibles à degré six fixé ? | erreur oracle exacte ; nécessités $`p_n\to1`$ et $`n\varepsilon_6(p_n)\to0`$, sans suffisance |
+| `double_giant_replicated_gibbs_diagnostic.py` | la décomposition exacte par intersections et cellules ferme-t-elle sur $`L=4`$ ? | le reste hors-diagonale est conservé signé et les Gibbs sont exacts ; observations et hiérarchies restent Monte-Carlo, sans tendance asymptotique |
 | `giant_component_quotient_diagnostic.py` | quelle géométrie voit une paire lointaine dans l'arbre de la géante finale, après contraction des blocs critiques ? | diagnostic conditionnel aux environnements ayant une paire admissible, dont le nombre est exposé ; PATH-FAC reste un oracle local factorisé non probant |
-| `critical_cut_collective_gibbs_diagnostic.py` | quelle persistance collective exacte subsiste entre blocs critiques d'une même racine finale ? | énumération exponentielle sur petits tores ; tout cutoff de blocs est signalé comme biais de sélection |
+| `critical_cut_collective_gibbs_diagnostic.py` | quelle persistance collective et quelle enveloppe spectrale single-$D$ subsistent entre blocs critiques ? | énumération exponentielle sur petits tores ; tout cutoff de blocs est signalé comme biais de sélection |
 | `nested_projection_l2_diagnostic.py` | où les projections collapsed dissipent-elles l'énergie ? | énumération exacte à $`L=4`$ |
 | `two_step_l2_population_diagnostic.py` | les cellules à deux updates sont-elles enrichies près du critique ? | population finie, cellules recouvrantes |
 | `two_step_projective_l2_cell.py` | une cellule possède-t-elle une marge sur les potentiels atteints ? | witness exact, marge uniforme nulle au bord |
@@ -58,9 +61,11 @@ L'ordre de lancement est impératif :
 1. utiliser le [pilote SBM](../active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md)
    pour contre-auditer la coupe partagée, sans attribuer $`d\theta^2`$ au
    choix de $`\beta_c`$ ;
-2. tester à $`p=0.81`$ l'enveloppe spectrale à
+2. auditer les trois régimes et le
+   [port global fini](../active/39_PORT_GLOBAL_SBM_RECOVERY.md) ;
+3. tester à $`p=0.81`$ l'enveloppe spectrale à
    [un dendrogramme fixé](../active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) ;
-3. passer à la
+4. passer à la
    [double géante triangulaire](../active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md)
    si cette enveloppe reste macroscopique, en conservant les produits signés.
 
@@ -73,16 +78,26 @@ python3 \
   research/hierarchical-swendsen-wang/computations/sbm_critical_cut_replica_diagnostic.py \
   --degree 3 --theta 0.5
 python3 \
-  research/hierarchical-swendsen-wang/computations/double_giant_replicated_gibbs_diagnostic.py \
-  --side 4 --observations 1 --replica-pairs 2 --seed 3801
+  research/hierarchical-swendsen-wang/computations/sbm_global_port_convolution.py \
+  --root-sizes 3 2 1 --a 4 --b 1
+python3 \
+  research/hierarchical-swendsen-wang/computations/sbm_recovery_regimes_diagnostic.py \
+  --n 100000 --a 30 --b 10 \
+  --log-within-coefficient 9 --log-between-coefficient 1
+python3 \
+  research/hierarchical-swendsen-wang/computations/triangular_recovery_regimes_diagnostic.py \
+  --vertices 1000000 --p 0.81
 python3 \
   research/hierarchical-swendsen-wang/computations/giant_component_quotient_diagnostic.py \
   --sides 16,32,64 --repetitions 20 --pairs 100 \
   --p 0.809439 --distance-fraction 0.25 --seed 20260726
 python3 \
   research/hierarchical-swendsen-wang/computations/critical_cut_collective_gibbs_diagnostic.py \
-  --side 4 --repetitions 8 --p 0.809439 \
+  --side 4 --repetitions 256 --p 0.81 \
   --maximum-block-count 16 --seed 20260726
+python3 \
+  research/hierarchical-swendsen-wang/computations/double_giant_replicated_gibbs_diagnostic.py \
+  --side 4 --p 0.81 --observations 4 --replica-pairs 8 --seed 3801
 ```
 
 Le premier JSON affiche $`\widehat q_t`$, l'écart de Nishimori, les bornes
@@ -90,12 +105,30 @@ $`\ell_t,r_t`$ et un statut de cohérence empirique. Le seuil du broadcast
 est certifié par les bornes déterministes, pas par ce statut Monte-Carlo.
 Le deuxième vérifie exactement qu'à $`d=3,\theta=1/2`$ le facteur marginal
 vaut $`0.75`$ tandis qu'une coupe commune donne $`1.125`$. Le troisième
-audite la décomposition par intersections de racines et accepte une double
-géante vide. Le quatrième conserve les rangs postcritiques réels, compte les
-environnements sans paire admissible et étiquette explicitement PATH-FAC
-comme non-preuve. Le cinquième énumère les orientations collectives exactes
-des blocs retenus ; si le cutoff en exclut une réalisation, ses moyennes
-Gibbs sont conditionnelles et ne doivent pas être extrapolées.
+contracte le port global full-$D$ et audite la convolution contre les huit
+orientations directes des racines de tailles $`(3,2,1)`$ ; les facteurs
+internes communs sont omis. Le quatrième calcule l'affinité oracle finie et
+refuse explicitement d'en déduire une achievability. Le cinquième calcule
+l'erreur oracle triangulaire exacte et les seules conditions nécessaires
+qu'elle implique. Le sixième conserve les rangs postcritiques réels, compte
+les environnements sans paire admissible et étiquette explicitement PATH-FAC
+comme non-preuve. Le septième énumère les orientations collectives exactes,
+leur matrice spectrale pondérée et tous les audits de trace ; si le cutoff
+exclut une réalisation, ses moyennes sont conditionnelles. Le huitième mesure
+le reste signé à deux dendrogrammes et clusterise les erreurs standards du
+résumé par observation.
+
+Le [premier protocole à $`p=0.81`$](../diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md)
+donne, à $`L=4`$,
+
+```text
+single-D lambda_max / n       = 0.9507358532 +/- 0.0045624262
+two-D signed off-diagonal     = 0.1998059185 +/- 0.0116327206
+```
+
+La première quantité est défavorable et la seconde reste positive en
+moyenne. Trois des 32 restes signés sont néanmoins négatifs. Ces nombres
+valident les objets calculés, pas leur limite.
 
 ### Diagnostics et no-go
 
@@ -673,6 +706,8 @@ Le [pilote SBM](../active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md) sépare trois
 objets : dendrogramme figé, coupe partagée et deux Gibbs entiers
 indépendants. Seul le troisième donne le Jacobien marginal
 $`d\theta^2`$. Le
+[port global fini](../active/39_PORT_GLOBAL_SBM_RECOVERY.md) est maintenant
+écrit exactement ; sa comparaison au broadcast est ouverte. Le
 [transfert GSBM](../active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) porte ensuite
 sur la double géante et conserve tous les facteurs postcritiques. Le
 [fichier 36](../active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) reste un diagnostic

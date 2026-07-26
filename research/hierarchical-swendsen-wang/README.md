@@ -12,10 +12,12 @@ obstruction rigoureuse de weak recovery.
 > [!WARNING]
 > **Ce qui reste ouvert.** La dynamique hiérarchique n'a pas encore produit
 > de seuil supplémentaire sur la grille triangulaire. Le broadcast SBM
-> calibre exactement le bookkeeping à deux répliques, mais pas la dynamique
-> ni le SBM fini. La cible prioritaire est maintenant le reste signé entre
-> cellules critiques de la double géante triangulaire, après deux Gibbs
-> exacts et deux dendrogrammes entiers.
+> calibre exactement le bookkeeping à deux répliques et le port global du
+> SBM fini est maintenant écrit exactement, mais ni leur comparaison
+> dynamique ni le transfert arbre--graphe ne sont fermés. La cible
+> prioritaire est le reste signé entre cellules critiques de la double géante
+> triangulaire, après deux Gibbs exacts et deux dendrogrammes entiers. À
+> $`L=4,p=0.81`$, ce reste est encore positif en moyenne.
 
 Pour une photographie exacte et datée, consulter
 [`CURRENT_STATUS.md`](CURRENT_STATUS.md). Pour retrouver une note précise,
@@ -109,7 +111,10 @@ $`\theta^2`$ par branche. La densité d'évolution du broadcast retrouve alors
 $`d\theta^2=1`$. Cette identité vaut pour toute coupe exactement
 marginalisée : elle ne vient pas de $`\beta_c`$. Ce benchmark ne prouve
 encore ni le mélange temporel du noyau ni le transfert au graphe SBM, où la
-balance ou les non-arêtes constituent un port global.
+balance ou les non-arêtes constituent un port global. La
+[note 39](active/39_PORT_GLOBAL_SBM_RECOVERY.md) écrit exactement ce port et
+son élimination par convolution ; sa comparaison quantitative avec le
+broadcast reste ouverte.
 
 La [cible prioritaire](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) porte cette
 version sans perte sur deux arbres géants triangulaires. Chaque arbre est
@@ -189,10 +194,10 @@ est l'unique terme Gibbs nouveau de cette enveloppe quenched. Partager ce
 dendrogramme entre les deux copies produit une borne de Jensen, pas le carré
 postérieur exact.
 
-1. **Fermer le SBM fini.** Ajouter le port global de balance ou des
-   non-arêtes à la calibration broadcast $`d\theta^2`$.
-2. **Tester l'enveloppe simple.** Mesurer d'abord à $`p=0.81`$ le rayon
-   spectral du Gibbs inter-blocs à un dendrogramme fixé.
+1. **Comparer le SBM fini au broadcast.** Le port global de balance ou des
+   non-arêtes est maintenant exact ; il faut borner son effet sur l'overlap.
+2. **Prolonger l'enveloppe simple.** Le premier test à $`L=4,p=0.81`$ est
+   défavorable ; mesurer maintenant sa moyenne sur des volumes croissants.
 3. **Construire le raffinement critique exact.** Couper les deux arbres à
    $`\beta_c`$, conserver les deux systèmes de ports, tous les rangs réels
    et tous les buckets postcritiques.
@@ -226,6 +231,7 @@ reste un moteur possible après le test spectral, pas un substitut à celui-ci.
 | perte exponentielle sur un cactus triangulaire | établie dans ce modèle | [21](results/hierarchical/21_CACTUS_COLLAPSED_CERTIFICATE.md) |
 | identité pythagoricienne de dissipation | établie en volume fini | [30](active/30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md) |
 | factorisation par racines et réduction inter-blocs d'un $D$ fixé | établie en volume fini, diagnostic oracle | [36](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) |
+| compression du SBM fini en un port global de magnétisation | établie exactement ; comparaison au broadcast ouverte | [39](active/39_PORT_GLOBAL_SBM_RECOVERY.md) |
 | identité à deux Gibbs entiers et réduction au reste inter-cellules signé | établie algébriquement et géométriquement ; contrôle du reste ouvert | [38](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) |
 
 Ces briques ne composent pas encore une preuve sur la grille triangulaire.
@@ -263,9 +269,11 @@ n'interdisent pas à eux seuls une preuve en volume infini.
 5. [Corridor collapsed](foundations/20_COLLAPSED_CORRIDOR_BLACKWELL.md)
 6. [Audit et no-go](diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md)
 7. [Pilote SBM à deux répliques](active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md)
-8. [Double géante et Gibbs exact](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md)
-9. [Diagnostic à un arbre fixé](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md)
-10. [Moteur distance–entropie](active/35_DISTANCE_ENTROPIE_ERGODICITE.md)
+8. [Port global du SBM fini](active/39_PORT_GLOBAL_SBM_RECOVERY.md)
+9. [Double géante et Gibbs exact](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md)
+10. [Premier test spectral et signé](diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md)
+11. [Diagnostic à un arbre fixé](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md)
+12. [Moteur distance–entropie](active/35_DISTANCE_ENTROPIE_ERGODICITE.md)
 
 ### Parcours C — détails avancés
 
@@ -287,8 +295,8 @@ et les résultats hiérarchiques [21](results/hierarchical/21_CACTUS_COLLAPSED_C
 - [`computations/`](computations/) : scripts, certificats et tests ;
 - [`references/`](references/) : bibliographie commentée et fichier BibTeX.
 
-L'[`INDEX.md`](INDEX.md) donne le rôle exact des 39 notes numérotées de `00`
-à `38`.
+L'[`INDEX.md`](INDEX.md) donne le rôle exact des 41 notes numérotées de `00`
+à `40`.
 
 ## 9. Reproductibilité
 

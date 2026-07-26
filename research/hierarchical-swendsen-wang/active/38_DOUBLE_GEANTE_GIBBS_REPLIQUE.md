@@ -549,6 +549,8 @@ Avant cet investissement, l'enveloppe à un dendrogramme fournit un test
 go/no-go plus fort mais plus tractable :
 
 ```math
+\mathbb E
+\left[
 \frac1{n_L}
 \lambda_{\max}
 \left(
@@ -556,6 +558,7 @@ W_{R_L^\star}^{1/2}
 M_{R_L^\star}^c
 W_{R_L^\star}^{1/2}
 \right)
+\right]
 \longrightarrow0.
 \qquad\text{(7.4)}
 ```
@@ -700,12 +703,44 @@ Numériquement,
 \qquad\text{(10.2)}
 ```
 
+En posant $`\delta=1-p`$, cette erreur s'écrit exactement
+
+```math
+\varepsilon_6(1-\delta)
+=
+10\delta^3
+-15\delta^4
++6\delta^5
+\sim
+10\delta^3.
+\qquad\text{(10.2a)}
+```
+
 L'oracle implique une fraction d'erreur espérée uniformément positive. En
 sélectionnant une famille linéaire de sommets dont les étoiles d'arêtes sont
 disjointes, leurs tests oracle sont indépendants ; la probabilité de les
 classer tous correctement tend vers zéro. Pour poser une question
 almost/exact triangulaire non triviale, il faut donc $`p_n\to1`$, un degré
 divergent ou des observations répétées.
+
+Plus précisément, dans le régime $`p_n\to1`$, cet oracle donne les conditions
+nécessaires
+
+```math
+\text{almost exact}
+\quad\Longrightarrow\quad
+p_n\longrightarrow1,
+\qquad
+\text{exact}
+\quad\Longrightarrow\quad
+n\varepsilon_6(p_n)\longrightarrow0.
+\qquad\text{(10.2b)}
+```
+
+La seconde implication suit d'un packing linéaire d'étoiles disjointes. Par
+(10.2a), elle impose $`1-p_n=o(n^{-1/3})`$. Ce sont des obstructions oracle,
+pas des preuves de suffisance. Elles sont reproduites par
+[`triangular_recovery_regimes_diagnostic.py`](../computations/triangular_recovery_regimes_diagnostic.py).
 
 Le SBM divergent reste un benchmark distinct :
 
@@ -740,7 +775,7 @@ hiérarchiques séparément avant de prendre leur moyenne géométrique ; la
 | R0 — Gibbs entier | vérifier (3.3) avec tous les ports et facteurs postcritiques | refuser toute réduction qui traite les blocs critiques comme indépendants |
 | R1 — deux répliques | échantillonner $`D^{(1)},D^{(2)}`$ indépendamment conditionnellement à $O$ | ne pas employer l'enveloppe à dendrogramme commun comme cible |
 | R2 — réduction géométrique | (5.4)–(6.7), établie sous les faits de percolation marginaux | travailler uniquement sur $`\mathcal E_{\mathrm{off},L}^{(2),\star}`$ |
-| R2b — enveloppe simple | tester (7.4) à $`p=0.81`$ | passer aux cancellations à deux $D$ seulement si elle reste macroscopique |
+| R2b — enveloppe simple | à $`L=4,p=0.81`$, $`\lambda_{\max}/n=0.9507\ldots`$ ; limite ouverte | poursuivre les volumes et les cancellations à deux $D$ |
 | R3 — géométrie locale | construire la Palm jointe de deux corridors sans hypothèse produit ni circularité | ne pas définir $`\mathcal L_p^{(2)}`$ avant cette loi |
 | R4 — linéarisation | estimer puis certifier (7.3) | abandonner cette famille de blocs si le rayon dépasse un |
 | R5 — non-linéaire | dominer les grands messages avec le même biais de paire | ne revendiquer aucun seuil à partir du seul rayon spectral |
@@ -748,20 +783,24 @@ hiérarchiques séparément avant de prendre leur moyenne géométrique ; la
 
 ## 12. Ordre de travail immédiat
 
-1. intégrer le port global de balance/non-arêtes dans le benchmark SBM fini ;
-2. mesurer l'enveloppe spectrale single-$D$ (7.4) à $`p=0.81`$ sur des
-   volumes croissants, avec audit de mélange si l'énumération exacte devient
-   impossible ;
-3. utiliser le diagnostic exact à deux dendrogrammes sur $`L=4`$ pour
-   auditer (6.5), sans lui attribuer de tendance asymptotique ;
-4. construire le raffinement commun des deux partitions à
-   $`\beta_c(0.81)`$ et mesurer le reste signé (6.4) ;
+1. comparer le [port global exact](39_PORT_GLOBAL_SBM_RECOVERY.md) du SBM
+   fini au broadcast ;
+2. prolonger en volume le
+   [diagnostic single-$D$](../diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md),
+   défavorable à $`L=4`$, avec audit de mélange si l'énumération exacte
+   devient impossible ;
+3. prolonger le diagnostic signé à deux dendrogrammes au-delà de $`L=4`$ :
+   l'identité (6.5) y est auditée à l'erreur machine, mais le reste moyen est
+   encore positif et macroscopique ;
+4. estimer conjointement la fréquence des cancellations, le reste signé
+   (6.4) et la masse diagonale du raffinement commun ;
 5. définir la Palm jointe de deux corridors en conservant les messages
    extérieurs comme variables d'état ;
 6. estimer les produits signés $`J_c^{(1)}J_c^{(2)}`$ sous le bon biais de
    paire, sans valeur absolue prématurée ;
-7. ne chercher une preuve multiscalaire que si le test spectral est favorable
-   avec une marge robuste et une enveloppe non linéaire compatible.
+7. ne chercher une preuve multiscalaire que si le test spectral **répliqué**
+   est favorable avec une marge robuste et une enveloppe non linéaire
+   compatible.
 
 ## 13. Verdict
 
@@ -783,8 +822,9 @@ D^{(1)},D^{(2)}\text{ indépendants}
 ```
 
 Le broadcast SBM valide exactement le bookkeeping local
-$`d\theta^2`$, indépendamment du niveau de coupe ; le transfert au SBM fini
-reste ouvert. Sur la grille triangulaire, les termes hors double géante et
+$`d\theta^2`$, indépendamment du niveau de coupe ; le port fini est désormais
+écrit exactement dans la note 39, mais sa comparaison au broadcast reste
+ouverte. Sur la grille triangulaire, les termes hors double géante et
 la diagonale critique sont désormais éliminés par (6.5). La difficulté
 unique est le reste signé
 $`\mathcal E_{\mathrm{off},L}^{(2),\star}(p)`$, c'est-à-dire la loi jointe de

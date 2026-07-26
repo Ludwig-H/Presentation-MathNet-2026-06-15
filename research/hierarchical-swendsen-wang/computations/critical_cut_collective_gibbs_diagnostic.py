@@ -1,9 +1,11 @@
 """Exact collective critical-cut Gibbs persistence on tiny tori.
 
-Fix one realization of the uniform edge ranks.  The forest at the
+Fix one realization of the uniform edge ranks and the all-plus internal
+representative ``y``.  The forest at the
 triangular-lattice critical rank ``q_c`` partitions the vertices into
 critical blocks ``C_a``.  Inside each final Kruskal root, this module
-enumerates all joint block orientations
+enumerates exactly all joint block orientations conditional on that internal
+representative
 
     z = (z_a) in {-1,+1}^k
 
@@ -15,6 +17,19 @@ The resulting matrix ``M_ab = E[z_a z_b]`` gives the collective heat-bath
 persistence
 
     G_L^c = n^-2 sum_R sum_{a,b in R} |C_a| |C_b| M_ab^2.
+
+It also gives the one-dendrogram spectral envelope from notes 36 and 38.
+Writing ``W_R = diag(|C_a|)`` and
+
+    A_R = W_R^(1/2) M_R W_R^(1/2),
+
+the code reports ``lambda_max(A_R)`` for every final root and
+``lambda_max(A_R_star) / n`` for the largest final root.  Since
+``M_R = E[z z^T]``, ``A_R`` is positive semidefinite,
+``trace(A_R) = |R|``, and the already reported unnormalized persistence is
+exactly ``trace(A_R^2)``.  The normalized eigenvalue is a tractable
+single-dendrogram Jensen envelope, not the signed two-dendrogram overlap
+operator.
 
 Correlations between distinct final roots are set to zero, as required by
 their independent fair global recolourings.  The diagonal contribution is
@@ -77,8 +92,16 @@ class RootCollectiveGibbsDiagnostic:
     orientation_state_count: int
     positive_orientation_state_count: int
     correlation_matrix: tuple[tuple[float, ...], ...]
+    size_weighted_correlation_matrix: tuple[tuple[float, ...], ...]
+    size_weighted_correlation_eigenvalues: tuple[float, ...]
+    largest_size_weighted_correlation_eigenvalue: float
+    largest_eigenvalue_normalized_by_vertex_count: float
+    minimum_size_weighted_correlation_eigenvalue: float
+    size_weighted_correlation_trace: float
     unnormalized_persistence: float
     diagonal_unnormalized_persistence: float
+    spectral_trace_identity_error: float
+    spectral_persistence_identity_error: float
     maximum_diagonal_error: float
     maximum_symmetry_error: float
     maximum_global_flip_log_weight_error: float
@@ -92,12 +115,17 @@ class EnvironmentCollectiveGibbsDiagnostic:
     total_critical_block_count: int
     final_root_count: int
     maximum_root_block_count: int
+    largest_final_root_component_index: int
+    largest_final_root_size: int
     used: bool
     skip_reason: str | None
     critical_diagonal_persistence: float
     collective_persistence: float | None
     off_diagonal_persistence: float | None
+    largest_final_root_normalized_spectral_eigenvalue: float | None
     maximum_decomposition_error: float | None
+    maximum_spectral_trace_identity_error: float | None
+    maximum_spectral_persistence_identity_error: float | None
     maximum_diagonal_error: float | None
     maximum_symmetry_error: float | None
     maximum_global_flip_log_weight_error: float | None
@@ -134,10 +162,23 @@ class CriticalCutCollectiveGibbsSummary:
     used_sample_off_diagonal_persistence: ScalarEstimate | None
     used_sample_normalized_off_diagonal_persistence: float | None
     unconditional_normalized_off_diagonal_persistence: float | None
+    used_sample_largest_final_root_normalized_spectral_eigenvalue: (
+        ScalarEstimate | None
+    )
+    unconditional_largest_final_root_normalized_spectral_eigenvalue: (
+        ScalarEstimate | None
+    )
     maximum_decomposition_error: float | None
+    maximum_spectral_trace_identity_error: float | None
+    maximum_spectral_persistence_identity_error: float | None
     maximum_diagonal_error: float | None
     maximum_symmetry_error: float | None
     maximum_global_flip_log_weight_error: float | None
+    spectral_matrix_definition: str
+    normalized_spectral_eigenvalue_definition: str
+    single_dendrogram_spectral_envelope_only: bool
+    spectral_limit_target: str
+    spectral_criterion_equivalent_after_small_root_reduction: bool
     exact_orientation_enumeration_on_used_environments: bool
     maximum_block_count_selection_bias: bool
     selection_bias_warning: str
@@ -241,6 +282,90 @@ def _normalized_weights(log_weights: Sequence[float]) -> tuple[float, ...]:
     return tuple(value / normalizer for value in raw)
 
 
+def symmetric_eigenvalues(
+    matrix: Sequence[Sequence[float]],
+    tolerance: float = 1e-13,
+) -> tuple[float, ...]:
+    """Return the eigenvalues of a finite real symmetric matrix.
+
+    A maximum-pivot Jacobi diagonalization is used to keep this diagnostic
+    free of scientific dependencies.  The values are returned increasingly.
+    """
+
+    dimension = len(matrix)
+    if dimension <= 0 or any(len(row) != dimension for row in matrix):
+        raise ValueError("matrix must be nonempty and square")
+    if tolerance <= 0.0:
+        raise ValueError("tolerance must be positive")
+    maximum_symmetry_error = max(
+        abs(matrix[first][second] - matrix[second][first])
+        for first in range(dimension)
+        for second in range(dimension)
+    )
+    if maximum_symmetry_error > 1e-10:
+        raise ValueError("matrix must be symmetric")
+    work = [
+        [
+            0.5 * (matrix[first][second] + matrix[second][first])
+            for second in range(dimension)
+        ]
+        for first in range(dimension)
+    ]
+    if dimension == 1:
+        return (work[0][0],)
+
+    maximum_iterations = 100 * dimension * dimension
+    for _ in range(maximum_iterations):
+        first, second = max(
+            (
+                (first, second)
+                for first in range(dimension)
+                for second in range(first + 1, dimension)
+            ),
+            key=lambda pair: abs(work[pair[0]][pair[1]]),
+        )
+        off_diagonal = work[first][second]
+        scale = max(
+            1.0,
+            max(abs(work[index][index]) for index in range(dimension)),
+        )
+        if abs(off_diagonal) <= tolerance * scale:
+            break
+
+        first_diagonal = work[first][first]
+        second_diagonal = work[second][second]
+        tau = (
+            (second_diagonal - first_diagonal)
+            / (2.0 * off_diagonal)
+        )
+        tangent = (
+            1.0 / (sqrt(1.0 + tau * tau) + tau)
+            if tau >= 0.0
+            else -1.0 / (sqrt(1.0 + tau * tau) - tau)
+        )
+        cosine = 1.0 / sqrt(1.0 + tangent * tangent)
+        sine = tangent * cosine
+
+        for index in range(dimension):
+            if index in (first, second):
+                continue
+            first_value = work[index][first]
+            second_value = work[index][second]
+            rotated_first = cosine * first_value - sine * second_value
+            rotated_second = sine * first_value + cosine * second_value
+            work[index][first] = rotated_first
+            work[first][index] = rotated_first
+            work[index][second] = rotated_second
+            work[second][index] = rotated_second
+        work[first][first] = first_diagonal - tangent * off_diagonal
+        work[second][second] = second_diagonal + tangent * off_diagonal
+        work[first][second] = 0.0
+        work[second][first] = 0.0
+    else:
+        raise AssertionError("Jacobi diagonalization did not converge")
+    return tuple(sorted(work[index][index] for index in range(dimension)))
+
+
 def _global_flip_log_weight_error(log_weights: Sequence[float]) -> float:
     full_mask = len(log_weights) - 1
     errors = []
@@ -260,7 +385,7 @@ def analyze_final_root(
     partition: CriticalCutPartition,
     final_component_index: int,
 ) -> RootCollectiveGibbsDiagnostic:
-    """Enumerate the exact joint orientation heat bath in one final root."""
+    """Enumerate the exact joint orientation heat bath at fixed internal form."""
 
     if not 0 <= final_component_index < len(partition.final_components):
         raise ValueError("final_component_index is out of range")
@@ -307,6 +432,18 @@ def analyze_final_root(
             )
         )
     matrix = tuple(correlations)
+    weighted_matrix = tuple(
+        tuple(
+            sqrt(block_sizes[first] * block_sizes[second])
+            * matrix[first][second]
+            for second in range(block_count)
+        )
+        for first in range(block_count)
+    )
+    weighted_eigenvalues = symmetric_eigenvalues(weighted_matrix)
+    smallest_eigenvalue = weighted_eigenvalues[0]
+    largest_eigenvalue = weighted_eigenvalues[-1]
+    weighted_trace = fsum(weighted_eigenvalues)
     diagonal = fsum(size * size for size in block_sizes)
     persistence = fsum(
         block_sizes[first]
@@ -328,6 +465,19 @@ def analyze_final_root(
     component = partition.final_components[final_component_index]
     if sum(block_sizes) != len(component):
         raise AssertionError("block sizes disagree with final component size")
+    spectral_trace_error = abs(weighted_trace - len(component))
+    spectral_persistence_error = abs(
+        fsum(value * value for value in weighted_eigenvalues)
+        - persistence
+    )
+    if smallest_eigenvalue < -1e-10:
+        raise AssertionError("the weighted correlation matrix is not PSD")
+    if largest_eigenvalue > len(component) + 1e-10:
+        raise AssertionError("the spectral envelope exceeds the root size")
+    if spectral_trace_error > 1e-9:
+        raise AssertionError("the weighted spectral trace identity failed")
+    if spectral_persistence_error > 1e-8:
+        raise AssertionError("the spectral persistence identity failed")
     if persistence < diagonal - 1e-10:
         raise AssertionError("off-diagonal squared persistence is negative")
     if persistence > len(component) ** 2 + 1e-10:
@@ -343,8 +493,18 @@ def analyze_final_root(
             probability > 0.0 for probability in probabilities
         ),
         correlation_matrix=matrix,
+        size_weighted_correlation_matrix=weighted_matrix,
+        size_weighted_correlation_eigenvalues=weighted_eigenvalues,
+        largest_size_weighted_correlation_eigenvalue=largest_eigenvalue,
+        largest_eigenvalue_normalized_by_vertex_count=(
+            largest_eigenvalue / environment.vertex_count
+        ),
+        minimum_size_weighted_correlation_eigenvalue=smallest_eigenvalue,
+        size_weighted_correlation_trace=weighted_trace,
         unnormalized_persistence=persistence,
         diagonal_unnormalized_persistence=diagonal,
+        spectral_trace_identity_error=spectral_trace_error,
+        spectral_persistence_identity_error=spectral_persistence_error,
         maximum_diagonal_error=maximum_diagonal_error,
         maximum_symmetry_error=maximum_symmetry_error,
         maximum_global_flip_log_weight_error=(
@@ -370,6 +530,16 @@ def diagnose_environment(
         len(indices) for indices in partition.final_component_block_indices
     )
     maximum_root_block_count = max(root_block_counts)
+    largest_final_root_component_index = max(
+        range(len(partition.final_components)),
+        key=lambda index: (
+            len(partition.final_components[index]),
+            -min(partition.final_components[index]),
+        ),
+    )
+    largest_final_root_size = len(
+        partition.final_components[largest_final_root_component_index]
+    )
     vertex_count = environment.vertex_count
     diagonal = fsum(size * size for size in partition.block_sizes) / (
         vertex_count * vertex_count
@@ -387,12 +557,19 @@ def diagnose_environment(
             total_critical_block_count=total_block_count,
             final_root_count=len(partition.final_components),
             maximum_root_block_count=maximum_root_block_count,
+            largest_final_root_component_index=(
+                largest_final_root_component_index
+            ),
+            largest_final_root_size=largest_final_root_size,
             used=False,
             skip_reason=skip_reason,
             critical_diagonal_persistence=diagonal,
             collective_persistence=None,
             off_diagonal_persistence=None,
+            largest_final_root_normalized_spectral_eigenvalue=None,
             maximum_decomposition_error=None,
+            maximum_spectral_trace_identity_error=None,
+            maximum_spectral_persistence_identity_error=None,
             maximum_diagonal_error=None,
             maximum_symmetry_error=None,
             maximum_global_flip_log_weight_error=None,
@@ -403,6 +580,7 @@ def diagnose_environment(
         analyze_final_root(environment, partition, component_index)
         for component_index in range(len(partition.final_components))
     )
+    largest_final_root = roots[largest_final_root_component_index]
     collective = fsum(
         root.unnormalized_persistence for root in roots
     ) / (vertex_count * vertex_count)
@@ -420,12 +598,23 @@ def diagnose_environment(
         total_critical_block_count=total_block_count,
         final_root_count=len(partition.final_components),
         maximum_root_block_count=maximum_root_block_count,
+        largest_final_root_component_index=largest_final_root_component_index,
+        largest_final_root_size=largest_final_root_size,
         used=True,
         skip_reason=None,
         critical_diagonal_persistence=diagonal,
         collective_persistence=collective,
         off_diagonal_persistence=off_diagonal,
+        largest_final_root_normalized_spectral_eigenvalue=(
+            largest_final_root.largest_eigenvalue_normalized_by_vertex_count
+        ),
         maximum_decomposition_error=decomposition_error,
+        maximum_spectral_trace_identity_error=max(
+            root.spectral_trace_identity_error for root in roots
+        ),
+        maximum_spectral_persistence_identity_error=max(
+            root.spectral_persistence_identity_error for root in roots
+        ),
         maximum_diagonal_error=max(root.maximum_diagonal_error for root in roots),
         maximum_symmetry_error=max(root.maximum_symmetry_error for root in roots),
         maximum_global_flip_log_weight_error=max(
@@ -490,6 +679,18 @@ def summarize(
                 if item.off_diagonal_persistence is not None
             )
         )
+        largest_root_spectral = scalar_estimate(
+            tuple(
+                float(
+                    item.largest_final_root_normalized_spectral_eigenvalue
+                )
+                for item in used
+                if (
+                    item.largest_final_root_normalized_spectral_eigenvalue
+                    is not None
+                )
+            )
+        )
         denominator = 1.0 - used_diagonal.mean
         normalized_used = (
             None
@@ -500,6 +701,16 @@ def summarize(
             float(item.maximum_decomposition_error)
             for item in used
             if item.maximum_decomposition_error is not None
+        )
+        maximum_spectral_trace_identity_error = max(
+            float(item.maximum_spectral_trace_identity_error)
+            for item in used
+            if item.maximum_spectral_trace_identity_error is not None
+        )
+        maximum_spectral_persistence_identity_error = max(
+            float(item.maximum_spectral_persistence_identity_error)
+            for item in used
+            if item.maximum_spectral_persistence_identity_error is not None
         )
         maximum_diagonal_error = max(
             float(item.maximum_diagonal_error)
@@ -520,8 +731,11 @@ def summarize(
         collective = None
         used_diagonal = None
         off_diagonal = None
+        largest_root_spectral = None
         normalized_used = None
         maximum_decomposition_error = None
+        maximum_spectral_trace_identity_error = None
+        maximum_spectral_persistence_identity_error = None
         maximum_diagonal_error = None
         maximum_symmetry_error = None
         maximum_global_flip_error = None
@@ -531,17 +745,19 @@ def summarize(
         warning = (
             "WARNING: maximum_block_count excluded "
             f"{len(skipped)}/{len(diagnostics)} environments. Gibbs means and "
-            "the used-sample normalized persistence are conditional on passing "
-            "the cap and are selection-biased; they do not estimate the "
-            "unconditional E[G_L^c]."
+            "the used-sample normalized persistence and spectral eigenvalue "
+            "are conditional on passing the cap and are selection-biased; "
+            "they do not estimate their unconditional targets."
         )
         unconditional_normalized = None
+        unconditional_largest_root_spectral = None
     else:
         warning = (
             "No maximum_block_count exclusion occurred; the sampled-environment "
             "means are unconditional with respect to the cap."
         )
         unconditional_normalized = normalized_used
+        unconditional_largest_root_spectral = largest_root_spectral
 
     return CriticalCutCollectiveGibbsSummary(
         side_length=side_length,
@@ -564,17 +780,47 @@ def summarize(
         unconditional_normalized_off_diagonal_persistence=(
             unconditional_normalized
         ),
+        used_sample_largest_final_root_normalized_spectral_eigenvalue=(
+            largest_root_spectral
+        ),
+        unconditional_largest_final_root_normalized_spectral_eigenvalue=(
+            unconditional_largest_root_spectral
+        ),
         maximum_decomposition_error=maximum_decomposition_error,
+        maximum_spectral_trace_identity_error=(
+            maximum_spectral_trace_identity_error
+        ),
+        maximum_spectral_persistence_identity_error=(
+            maximum_spectral_persistence_identity_error
+        ),
         maximum_diagonal_error=maximum_diagonal_error,
         maximum_symmetry_error=maximum_symmetry_error,
         maximum_global_flip_log_weight_error=maximum_global_flip_error,
+        spectral_matrix_definition=(
+            "For each final root R, A_R = W_R^(1/2) M_R W_R^(1/2), "
+            "where W_R=diag(|C_a|) and M_R[a,b]=E[z_a z_b] under the "
+            "exact joint critical-block orientation Gibbs law conditional "
+            "on the fixed all-plus internal representative."
+        ),
+        normalized_spectral_eigenvalue_definition=(
+            "lambda_max(A_R_star)/n for the largest final root R_star; "
+            "ties are broken by the smallest representative vertex."
+        ),
+        single_dendrogram_spectral_envelope_only=True,
+        spectral_limit_target=(
+            "E[lambda_max(A_R_star)/n] -> 0 over rank environments"
+        ),
+        spectral_criterion_equivalent_after_small_root_reduction=True,
         exact_orientation_enumeration_on_used_environments=True,
         maximum_block_count_selection_bias=selection_bias,
         selection_bias_warning=warning,
         weak_recovery_claimed=False,
         interpretation=(
-            "finite exact collective critical-block heat-bath diagnostic; "
-            "no thermodynamic extrapolation or weak-recovery threshold is claimed"
+            "finite exact collective critical-block orientation heat-bath "
+            "conditional on the fixed all-plus internal representative, and "
+            "single-dendrogram spectral-envelope diagnostic; no thermodynamic "
+            "extrapolation, two-dendrogram contraction, or weak-recovery "
+            "threshold is claimed"
         ),
     )
 

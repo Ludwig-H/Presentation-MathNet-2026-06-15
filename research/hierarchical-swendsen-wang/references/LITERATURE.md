@@ -174,7 +174,10 @@ L'audit qui ferme la route de transfert local est détaillé dans
 La stratégie hiérarchique active, encore soumise à des portes go/no-go, est
 le [Gibbs exact répliqué sur la double géante](../active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md).
 Le [pilote SBM](../active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md) en fixe le
-benchmark. Après une marge spectrale, elle pourra s'appuyer sur le
+benchmark, et la
+[note de volume fini](../active/39_PORT_GLOBAL_SBM_RECOVERY.md) traite
+exactement son port global. Après une marge spectrale, la stratégie pourra
+s'appuyer sur le
 [programme distance–entropie](../active/35_DISTANCE_ENTROPIE_ERGODICITE.md)
 et sur la
 [dissipation quadratique du secteur impair](../active/30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md)

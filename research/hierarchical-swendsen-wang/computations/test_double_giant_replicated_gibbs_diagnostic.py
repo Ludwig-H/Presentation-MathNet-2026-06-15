@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import random
 import unittest
+from dataclasses import asdict
 from math import fsum
 
 from critical_pair_path_geometry import triangular_torus_edges
@@ -165,6 +166,106 @@ class DoubleGiantReplicatedGibbsDiagnosticTests(unittest.TestCase):
             self.pair.common_critical_refinement_diagonal_mass,
             1.0,
         )
+        self.assertAlmostEqual(
+            self.pair.largest_root_intersection_contribution,
+            self.pair.largest_root_intersection_critical_cell_contribution_sum,
+            places=10,
+        )
+        self.assertAlmostEqual(
+            self.pair.largest_root_intersection_critical_cell_contribution_sum,
+            (
+                self.pair
+                .largest_root_intersection_critical_cell_diagonal_contribution
+                + self.pair
+                .largest_root_intersection_critical_cell_off_diagonal_signed_contribution
+            ),
+            places=15,
+        )
+        self.assertLess(
+            self.pair
+            .largest_root_intersection_critical_cell_decomposition_error,
+            5e-11,
+        )
+        self.assertTrue(
+            self.pair
+            .exact_largest_root_intersection_critical_cell_decomposition_passed
+        )
+        self.assertLessEqual(
+            abs(
+                self.pair
+                .largest_root_intersection_critical_cell_diagonal_contribution
+            ),
+            (
+                self.pair
+                .largest_root_intersection_refinement_diagonal_mass
+                + 5e-11
+            ),
+        )
+
+    def test_distinct_critical_cells_keep_the_signed_remainder(self) -> None:
+        def work(
+            replica_index: int,
+            matrix: tuple[tuple[float, ...], ...],
+        ) -> _ReplicaWork:
+            diagnostic = ReplicaHierarchyDiagnostic(
+                replica_index=replica_index,
+                posterior_spin_seed=10 + replica_index,
+                hierarchy_seed=20 + replica_index,
+                reference_state=0,
+                reference_spins=(1, 1),
+                exact_gibbs_state_count=4,
+                positive_gibbs_state_count=4,
+                final_component_sizes=(2,),
+                largest_final_component_index=0,
+                largest_final_component_vertices=(0, 1),
+                critical_component_sizes=(1, 1),
+                pair_correlation_matrix=matrix,
+                maximum_matrix_diagonal_error=0.0,
+                maximum_matrix_symmetry_error=0.0,
+                maximum_cross_final_root_correlation=0.0,
+                conditional_ranks_match_observation_in_reference_gauge=True,
+            )
+            return _ReplicaWork(
+                diagnostic=diagnostic,
+                final_components=((0, 1),),
+                critical_components=((0,), (1,)),
+            )
+
+        pair = analyze_replica_pair(
+            observation_index=0,
+            replica_pair_index=0,
+            first=work(0, ((1.0, 0.5), (0.5, 1.0))),
+            second=work(1, ((1.0, -0.4), (-0.4, 1.0))),
+        )
+        self.assertAlmostEqual(
+            pair.largest_root_intersection_contribution,
+            0.4,
+        )
+        self.assertAlmostEqual(
+            pair.largest_root_intersection_critical_cell_diagonal_contribution,
+            0.5,
+        )
+        self.assertAlmostEqual(
+            pair
+            .largest_root_intersection_critical_cell_off_diagonal_signed_contribution,
+            -0.1,
+        )
+        self.assertLess(
+            pair
+            .largest_root_intersection_critical_cell_off_diagonal_signed_contribution,
+            0.0,
+        )
+        self.assertAlmostEqual(
+            pair.largest_root_intersection_critical_cell_contribution_sum,
+            0.4,
+        )
+        self.assertLess(
+            pair.largest_root_intersection_critical_cell_decomposition_error,
+            5e-11,
+        )
+        self.assertTrue(
+            pair.exact_largest_root_intersection_critical_cell_decomposition_passed
+        )
 
     def test_disjoint_largest_roots_give_an_empty_double_giant(self) -> None:
         def work(
@@ -206,8 +307,90 @@ class DoubleGiantReplicatedGibbsDiagnosticTests(unittest.TestCase):
         self.assertEqual(pair.largest_root_intersection_fraction, 0.0)
         self.assertEqual(pair.largest_root_intersection_contribution, 0.0)
         self.assertEqual(
+            pair.largest_root_intersection_critical_cell_diagonal_contribution,
+            0.0,
+        )
+        self.assertEqual(
+            pair
+            .largest_root_intersection_critical_cell_off_diagonal_signed_contribution,
+            0.0,
+        )
+        self.assertEqual(
+            pair.largest_root_intersection_critical_cell_contribution_sum,
+            0.0,
+        )
+        self.assertTrue(
+            pair.exact_largest_root_intersection_critical_cell_decomposition_passed
+        )
+        self.assertEqual(
             pair.largest_root_intersection_refinement_cell_sizes,
             (),
+        )
+
+    def test_signed_double_giant_aggregates_are_exported(self) -> None:
+        self.assertAlmostEqual(
+            self.observation
+            .largest_root_intersection_contribution_estimate.mean,
+            self.pair.largest_root_intersection_contribution,
+        )
+        self.assertAlmostEqual(
+            self.observation
+            .largest_root_intersection_critical_cell_diagonal_contribution_estimate
+            .mean,
+            self.pair
+            .largest_root_intersection_critical_cell_diagonal_contribution,
+        )
+        self.assertAlmostEqual(
+            self.observation
+            .largest_root_intersection_critical_cell_off_diagonal_signed_contribution_estimate
+            .mean,
+            self.pair
+            .largest_root_intersection_critical_cell_off_diagonal_signed_contribution,
+        )
+        self.assertTrue(
+            self.observation
+            .every_largest_root_intersection_critical_cell_decomposition_passed
+        )
+        self.assertAlmostEqual(
+            self.summary.largest_root_intersection_contribution_estimate.mean,
+            self.pair.largest_root_intersection_contribution,
+        )
+        self.assertAlmostEqual(
+            self.summary
+            .largest_root_intersection_critical_cell_diagonal_contribution_estimate
+            .mean,
+            self.pair
+            .largest_root_intersection_critical_cell_diagonal_contribution,
+        )
+        self.assertAlmostEqual(
+            self.summary
+            .largest_root_intersection_critical_cell_off_diagonal_signed_contribution_estimate
+            .mean,
+            self.pair
+            .largest_root_intersection_critical_cell_off_diagonal_signed_contribution,
+        )
+        self.assertTrue(
+            self.summary
+            .every_largest_root_intersection_critical_cell_decomposition_passed
+        )
+        self.assertTrue(
+            self.summary.summary_standard_errors_clustered_by_observation
+        )
+        self.assertAlmostEqual(
+            self.summary.matched_independent_minus_direct_estimate.mean,
+            (
+                self.summary
+                .mean_replicated_estimate_minus_matched_direct_target
+            ),
+        )
+        summary_json = asdict(self.summary)
+        self.assertIn(
+            "largest_root_intersection_critical_cell_off_diagonal_signed_contribution_estimate",
+            summary_json,
+        )
+        self.assertIn(
+            "maximum_largest_root_intersection_critical_cell_decomposition_error",
+            summary_json,
         )
 
     def test_direct_q_is_exposed_as_the_unbiased_monte_carlo_target(self) -> None:

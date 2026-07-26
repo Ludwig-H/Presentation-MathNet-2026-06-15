@@ -156,8 +156,10 @@ b(1-a/n)
 
 et non exactement $`\log(a/b)`$. Ainsi, on peut éliminer les non-arêtes ou
 avoir un a priori produit, mais pas obtenir gratuitement les deux à la fois.
-La présente note ne prétend pas avoir contrôlé ce port global ni effectué le
-transfert broadcast--graphe.
+La [note de volume fini](39_PORT_GLOBAL_SBM_RECOVERY.md) compresse exactement
+ce couplage en un port scalaire de magnétisation et donne son élimination par
+convolution. La comparaison quantitative de l'overlap avec le broadcast reste
+ouverte.
 
 Le seuil global est le théorème de
 [Mossel--Neeman--Sly](https://arxiv.org/abs/1311.4115), obtenu aussi par
@@ -328,21 +330,25 @@ global : elle tire exactement le Gibbs joint de chaque arbre final, avec des
 hasards indépendants entre racines. À l'intérieur d'une même racine, toutes
 les fusions et tous les facteurs ancêtres sont conservés.
 
-Cette factorisation ne vaut pas telle quelle sur le SBM fini. Si $z_R$ est
-l'orientation d'une racine et $m_R$ sa magnétisation interne, le planted
-bisection porte au minimum le facteur global
+Cette factorisation ne vaut pas telle quelle sur le SBM fini. Écrivons un
+état interne de racine sous la forme $`x_i=z_Ry_i`$, où $`y_R`$ est défini
+modulo flip global, et posons $`m_R(y_R)=\sum_{i\in R}y_i`$. Le planted
+bisection porte le facteur global
 
 ```math
 \mathbf1_{\{
-\sum_R z_Rm_R=0
+\sum_R z_Rm_R(y_R)=0
 \}},
 \qquad\text{(4.2a)}
 ```
 
 tandis que le modèle i.i.d. porte le potentiel mean-field de (1.6). Le
-prochain transfert doit traiter ce facteur comme un port global, ou montrer
-qu'il est asymptotiquement négligeable pour l'observable étudiée ; aucune de
-ces deux étapes n'est encore établie.
+[fichier 39](39_PORT_GLOBAL_SBM_RECOVERY.md) traite exactement ce facteur
+comme un port global et l'élimine par convolution. Sa comparaison
+asymptotique avec le broadcast n'est pas établie. Dans le benchmark
+ferromagnétique full-$D$, chaque racine est monochromatique :
+$`m_R(y_R)=|R|`$ et le port est un weighted subset-sum sur les tailles de
+racines.
 
 Le noyau marginal
 
@@ -854,23 +860,40 @@ Considérons maintenant
 ```
 
 Posons encore $`d_n=(a_n+b_n)/2`$,
-$`p_n=a_n/(a_n+b_n)`$ et $`u_n=\log(a_n/b_n)`$. La coupe imposée par la
-stratégie est
+$`p_n=a_n/(a_n+b_n)`$ et
+$`u_n^{\mathrm{br}}=\log(a_n/b_n)`$. Ce dernier est le taux du canal de
+broadcast. Le taux du facteur d'arête du posterior fini est plutôt
+
+```math
+u_n^{\mathrm{fin}}
+=
+\log
+\frac{
+a_n(1-b_n/n)
+}{
+b_n(1-a_n/n)
+}.
+\qquad\text{(7.2)}
+```
+
+La coupe imposée sur le modèle local de broadcast par la stratégie est
 
 ```math
 d_n p_n
 \left(
-1-e^{-u_n\beta_{c,n}}
+1-e^{-u_n^{\mathrm{br}}\beta_{c,n}^{\mathrm{br}}}
 \right)
 =
 1.
-\qquad\text{(7.2)}
+\qquad\text{(7.2a)}
 ```
 
 Elle produit toujours des composantes critiques de degré moyen un, même
 quand $`d_n\to\infty`$. Le même sum-product groupé par ces composantes reste
 exact après marginalisation des bits de coupe et conservation de tout le
-Gibbs postcritique.
+Gibbs postcritique sur le broadcast. Sur le graphe fini, le port global
+corrèle les satisfactions ; (7.2a) est donc une coupe locale asymptotique,
+pas une équation de percolation i.i.d. exacte du posterior fini.
 
 ### 7.1 Almost exact recovery
 
@@ -892,8 +915,11 @@ e^{-L_v/2}
 Pour un prior i.i.d., révélons les autres labels. Dans le planted bisection,
 révéler tous les autres labels dévoilerait $X_v$ par la contrainte de compte :
 il faut cacher au moins une paire opposée, ou un sous-ensemble résiduel dont
-la taille diverge. Sous l'approximation équilibrée avec $m_n$ labels révélés
-dans chaque groupe, le coefficient de Bhattacharyya exact du test local vaut
+la taille diverge. La paire opposée conduit à une expérience de permutation
+dont l'exposant est doublé ; elle n'est pas identique au test mono-sommet
+ci-dessous. Sous le prior i.i.d. ou une expérience composition-blind avec
+$m_n$ labels révélés dans chaque groupe, le coefficient de Bhattacharyya
+exact du test local vaut
 
 ```math
 H_{v,n}
@@ -1029,12 +1055,23 @@ d'[Abbe--Bandeira--Hall](https://arxiv.org/abs/1405.3267).
 
 Almost exact et exact recovery ne demandent pas simplement deux répliques
 ordinaires. Si $`W_\pm(o,D)`$ est le poids non normalisé de l'observation
-locale $o$ et de son dendrogramme sous les deux hypothèses sur $X_v$, alors
-l'affinité exacte marginale est
+locale $o$ et de son dendrogramme sous les deux hypothèses sur $X_v$, posons
+
+```math
+Z_\pm
+=
+\sum_o
+\int
+W_\pm(o,D)\,dD.
+\qquad\text{(7.11a)}
+```
+
+L'affinité exacte marginale est
 
 ```math
 H_v
 =
+\frac1{\sqrt{Z_+Z_-}}
 \sum_o
 \sqrt{
 \left[
@@ -1055,7 +1092,9 @@ de partition avant la racine carrée. La quantité à dendrogramme partagé,
 \sum_o
 \sqrt{
 W_+(o,D)W_-(o,D)
-}\,dD,
+}\,dD
+\bigg/
+\sqrt{Z_+Z_-},
 \qquad\text{(7.13)}
 ```
 
@@ -1153,7 +1192,8 @@ valide.
 | SBM1 | Gibbs exact du broadcast, groupé à $`\beta_c`$ | doit redonner la récursion (4.18) sans perte |
 | SBM2 | deux hiérarchies indépendantes, jamais une coupe partagée | doit donner exactement $`d\theta^2`$ |
 | SBM3 | fermer le régime non linéaire | doit reproduire le sandwich (5.3) |
-| SBM-F | ajouter le port global de balance ou des non-arêtes sur le graphe fini | doit comparer quantitativement l'overlap fini au broadcast |
+| SBM-F0 | écrire et éliminer exactement le port global de balance ou des non-arêtes | fermé par la note 39 |
+| SBM-F1 | comparer quantitativement l'overlap fini au broadcast avec ce port | encore ouvert |
 | SBM4 | propager le fonctionnel de Hellinger (7.12) | doit retrouver (7.5) puis les frontières almost/exact |
 | TRI0 | définir $`\mathcal L_p`$ sur la paire de quotients critiques géants | aucun mélange global supposé avant cette définition |
 | TRI1 | estimer puis certifier $`\rho(\mathcal L_{0.81})`$ | continuer seulement si la marge est strictement négative |
@@ -1188,9 +1228,25 @@ python3 \
   --theta 0.5
 ```
 
+Le module
+[`sbm_recovery_regimes_diagnostic.py`](../computations/sbm_recovery_regimes_diagnostic.py)
+sépare enfin les trois benchmarks scalaires :
+
+```bash
+python3 \
+  research/hierarchical-swendsen-wang/computations/sbm_recovery_regimes_diagnostic.py \
+  --n 100000 \
+  --a 30 \
+  --b 10 \
+  --log-within-coefficient 9 \
+  --log-between-coefficient 1
+```
+
 Le Monte-Carlo illustre la densité d'évolution ; les bornes
 $`\ell_t,r_t`$ portent la conclusion analytique sur le broadcast. Le second
-diagnostic est une identité d'arête exacte, pas une extrapolation numérique.
+diagnostic est une identité d'arête exacte. Le troisième calcule une affinité
+binomiale finie exacte, mais la qualifie explicitement de benchmark oracle :
+aucun de ces calculs n'est une extrapolation de mélange hiérarchique.
 
 ## 11. Verdict
 
@@ -1217,14 +1273,15 @@ broadcast edge-only, l'indépendance reste pertinente entre branches
 **conditionnellement à leurs séparateurs**, entre racines finales à
 dendrogramme fixé, et entre les deux hiérarchies conditionnellement à
 l'observation. Sur le SBM fini, le port global de (1.6) ou (4.2a) interdit
-encore la factorisation par racines. Ce qui doit être retiré dans tous les
-cas est une coupe commune révélée aux deux répliques : (4.9) montre
-exactement qu'elle donne trop d'information.
+encore la factorisation par racines. La note 39 donne sa convolution exacte,
+mais pas encore sa comparaison asymptotique au broadcast. Ce qui doit être
+retiré dans tous les cas est une coupe commune révélée aux deux répliques :
+(4.9) montre exactement qu'elle donne trop d'information.
 
 Le pilote certifie le Jacobien $`d\theta^2`$ et le seuil d'équilibre du
 broadcast grâce à des bornes classiques, pas grâce à la coupe. Les preuves
 nouvelles encore manquantes sont : contrôler la dynamique pour un nombre de
-sweeps explicite, intégrer le port global du SBM fini, puis transférer un
-calcul réellement hiérarchique au quotient géant triangulaire. Les seuils
-almost/exact restent eux aussi des benchmarks, avec le lift de Hellinger
-(7.12).
+sweeps explicite, comparer le port global du SBM fini au broadcast, puis
+transférer un calcul réellement hiérarchique au quotient géant triangulaire.
+Les seuils almost/exact restent eux aussi des benchmarks, avec le lift de
+Hellinger (7.12).

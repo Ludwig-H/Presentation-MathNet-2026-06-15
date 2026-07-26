@@ -213,9 +213,11 @@ ne prouve pas encore :
 Sur le SBM fini, les deux formulations usuelles ont chacune un port global.
 Dans le planted bisection, la contrainte $`\sum_iX_i=0`$ couple les
 orientations des racines finales. Avec des labels i.i.d., les non-arêtes
-créent un potentiel proportionnel à $`(\sum_iX_i)^2`$. L'indépendance par
-arbres reste donc à justifier sur le graphe, même si elle est exacte sur le
-broadcast.
+créent un potentiel proportionnel à $`(\sum_iX_i)^2`$. La
+[note 39](active/39_PORT_GLOBAL_SBM_RECOVERY.md) compresse exactement ces
+deux couplages en un port de magnétisation et l'élimine par convolution.
+L'indépendance par arbres est fausse sur le graphe ; la comparaison
+asymptotique de ce port avec le broadcast reste à prouver.
 
 ## 4. Gibbs exact sur un arbre complet
 
@@ -392,6 +394,8 @@ La première porte numérique est donc l'enveloppe single-$D$ plus forte mais
 déjà définie dans la note 36 :
 
 ```math
+\mathbb E
+\left[
 \frac1{n_L}
 \lambda_{\max}
 \left(
@@ -399,6 +403,7 @@ W_{R_L^\star}^{1/2}
 M_{R_L^\star}^c
 W_{R_L^\star}^{1/2}
 \right)
+\right]
 \longrightarrow0
 \quad\text{à }p=0.81.
 \qquad\text{(6.2)}
@@ -416,6 +421,12 @@ sera
 Une réponse négative arrête cette famille de blocs. Une réponse positive
 avec marge demande encore une enveloppe non linéaire, puis la fermeture du
 reste signé (5.7).
+
+Le [premier diagnostic](diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md)
+donne $`0.9507359\pm0.0045624`$ à $`L=4,p=0.81`$ sur 256 environnements
+sans exclusion. L'enveloppe est donc très macroscopique à cette taille. Ce
+résultat rend la route à deux dendrogrammes nécessaire pour le diagnostic ;
+il ne détermine pas la limite de (6.2).
 
 ## 7. Almost exact et exact recovery
 
@@ -439,6 +450,23 @@ Elle vaut $`0.0505275\ldots`$ à $`p=0.81`$. Une version triangulaire
 non triviale de ces objectifs doit faire tendre $p$ vers un, augmenter le
 degré ou répéter les observations.
 
+Avec $`\delta=1-p`$,
+
+```math
+\varepsilon_6(1-\delta)
+=
+10\delta^3-15\delta^4+6\delta^5
+\sim10\delta^3.
+\qquad\text{(7.2)}
+```
+
+L'almost exact exige donc au minimum $`p_n\to1`$. Un packing linéaire
+d'étoiles disjointes montre que l'exact recovery exige
+$`n\varepsilon_6(p_n)\to0`$, donc $`1-p_n=o(n^{-1/3})`$. Ces conditions sont
+seulement nécessaires. Le module
+[`triangular_recovery_regimes_diagnostic.py`](computations/triangular_recovery_regimes_diagnostic.py)
+audite exactement l'identité polynomiale et ces échelles.
+
 Pour le SBM divergent, la même géométrie peut organiser les calculs mais le
 lift probabiliste change :
 
@@ -459,33 +487,36 @@ benchmarks ultérieurs ; la contraction quadratique ne les démontre pas.
 | SBM0 | Gibbs d'un dendrogramme figé sur le broadcast | reproduire le no-go Swendsen--Wang |
 | SBM1 | deux Gibbs entiers et deux coupes marginalisées séparément sur le broadcast | obtenir $`d\theta^2`$ pour toute coupe |
 | SBM2 | fermeture non linéaire sur le broadcast | retrouver (3.8) sans l'attribuer à la coupe physique |
-| SBM-F | intégrer balance ou non-arêtes comme port global | aucune factorisation par racines revendiquée avant ce transfert |
+| SBM-F0 | écrire et éliminer exactement balance ou non-arêtes comme port global | fermé par la note 39 |
+| SBM-F1 | comparer l'overlap avec port au broadcast | encore ouvert |
 | TRI0 | réduire à l'énergie inter-cellules signée | établi par (5.5)–(5.7) |
-| TRI0b | tester l'enveloppe single-$D$ (6.2) | employer la route double seulement si nécessaire |
+| TRI0b | tester l'enveloppe single-$D$ (6.2) | $`L=4`$ défavorable ; route double nécessaire pour ce diagnostic fini |
 | TRI1 | construire la Palm jointe de deux corridors | conserver tous les ports, facteurs postcritiques et cancellations signées |
 | TRI2 | certifier (6.3) | abandonner cette famille si le rayon dépasse un |
 | TRI3 | fermer le régime non linéaire et la moyenne pairwise | n'annoncer un seuil qu'après cette étape |
 
 ## 9. Priorités immédiates
 
-1. écrire le port global exact du SBM fini, puis comparer son overlap au
-   broadcast ;
-2. mesurer à $`p=0.81`$ l'enveloppe spectrale single-$D$ (6.2) sur des
-   volumes croissants ;
-3. auditer sur $`L=4`$ la réduction exacte à deux dendrogrammes, sans
-   extrapoler cette taille ;
-4. mesurer directement le reste signé (5.7) sur le raffinement commun des
-   deux coupes ;
+1. comparer au broadcast le
+   [port global exact](active/39_PORT_GLOBAL_SBM_RECOVERY.md) du SBM fini ;
+2. prolonger en volume le test spectral single-$D$ : à $`L=4,p=0.81`$, sa
+   valeur normalisée $`0.9507\ldots`$ est défavorable ;
+3. prolonger au-delà de $`L=4`$ la décomposition signée exacte : sur ce
+   volume, le reste moyen est encore positif et macroscopique ;
+4. mesurer conjointement le reste signé (5.7), sa fréquence de changement
+   de signe et la masse diagonale du raffinement commun ;
 5. définir la Palm jointe des deux corridors sans hypothèse produit ni
    circularité ;
 6. estimer les produits signés de Jacobiennes sous le bon biais de paire ;
-7. ne lancer la fermeture multiscalaire que si le test spectral possède une
-   marge robuste et une enveloppe non linéaire compatible.
+7. ne lancer la fermeture multiscalaire que si le test spectral **répliqué**
+   possède une marge robuste et une enveloppe non linéaire compatible.
 
 ## 10. Références de navigation
 
 - [cible prioritaire à deux Gibbs entiers](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) ;
 - [pilote SBM et contre-test de coupe partagée](active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md) ;
+- [port global exact et régimes de recovery du SBM fini](active/39_PORT_GLOBAL_SBM_RECOVERY.md) ;
+- [premier test spectral et signé à $`p=0.81`$](diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md) ;
 - [diagnostic à un dendrogramme géant fixé](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) ;
 - [cadre mathématique de la mesure jointe](foundations/01_MATHEMATICAL_FRAMEWORK.md) ;
 - [critère pairwise](foundations/03_HIERARCHICAL_WEAK_RECOVERY.md) ;

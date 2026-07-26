@@ -22,7 +22,7 @@ Choisissez le parcours qui correspond à votre objectif.
 | Je veux… | Première lecture | Puis… |
 |---|---|---|
 | comprendre le résultat en cinq minutes | [statut scientifique actuel](research/hierarchical-swendsen-wang/CURRENT_STATUS.md) | [certificat à p = 0,809439](research/hierarchical-swendsen-wang/results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md) |
-| comprendre la dynamique hiérarchique | [cible prioritaire répliquée](research/hierarchical-swendsen-wang/active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) | [calibration exacte sur le broadcast SBM](research/hierarchical-swendsen-wang/active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md) |
+| comprendre la dynamique hiérarchique | [cible prioritaire répliquée](research/hierarchical-swendsen-wang/active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) | [pilote SBM et port global fini](research/hierarchical-swendsen-wang/active/39_PORT_GLOBAL_SBM_RECOVERY.md) |
 | retrouver une note précise | [index exhaustif des notes](research/hierarchical-swendsen-wang/INDEX.md) | dossier indiqué par son statut |
 | reproduire les preuves assistées par calcul | [guide des calculs](research/hierarchical-swendsen-wang/computations/README.md) | commandes de validation ci-dessous |
 | consulter les supports de séminaire | [table des présentations](#présentations) | source et PDF dans chaque dossier |
@@ -45,12 +45,18 @@ dendrogramme gonfle artificiellement l'overlap. Le pilote dérive le jacobien
 $`d\theta^2`$ et retrouve le seuil du broadcast après marginalisation
 exacte, pour toute coupe ; il ne prouve ni une contraction dynamique ni le
 transfert au SBM fini, où balance ou non-arêtes recouplent les racines. Sur
-la grille, les contributions hors double géante et la diagonale critique sont
-désormais éliminées. La cible exacte est le reste signé entre cellules
-distinctes de l'intersection des deux géantes. Son statut est **programme de
-preuve**, pas théorème. Ce programme ne répète pas la borne par recoloriage du
-chapitre 11 : il remplace son unique objet gelé par deux Gibbs conditionnels
-exacts sur deux dendrogrammes complets.
+le graphe fini, ce recouplage est désormais écrit exactement comme un port
+scalaire de magnétisation, sans que sa comparaison au broadcast soit encore
+prouvée. Sur la grille, les contributions hors double géante et la diagonale
+critique sont désormais éliminées. La cible exacte est le reste signé entre
+cellules distinctes de l'intersection des deux géantes. Son statut est
+**programme de preuve**, pas théorème. Ce programme ne répète pas la borne
+par recoloriage du chapitre 11 : il remplace son unique objet gelé par deux
+Gibbs conditionnels exacts sur deux dendrogrammes complets.
+
+Le premier audit à $`L=4,p=0.81`$ trouve l'enveloppe à un dendrogramme
+macroscopique ($`0.9507\ldots`$) et le reste signé à deux dendrogrammes encore
+positif en moyenne. Il valide la décomposition, pas une tendance en volume.
 
 ## Carte du dépôt
 
@@ -79,7 +85,7 @@ hierarchical-swendsen-wang/
 └── references/         littérature et bibliographie
 ```
 
-Les numéros `00` à `38` gardent la chronologie du cahier. Ils ne définissent
+Les numéros `00` à `40` gardent la chronologie du cahier. Ils ne définissent
 plus l'ordre de lecture.
 
 ## Présentations

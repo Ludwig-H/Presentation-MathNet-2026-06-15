@@ -415,6 +415,8 @@ W_R^{1/2}M_R^cW_R^{1/2}
 En particulier, après réduction aux petites racines, le critère spectral
 
 ```math
+\mathbb E
+\left[
 \frac1{n_L}
 \lambda_{\max}
 \left(
@@ -422,12 +424,57 @@ W_{R_L^\star}^{1/2}
 M_{R_L^\star}^c
 W_{R_L^\star}^{1/2}
 \right)
+\right]
 \longrightarrow0
 \qquad\text{(4.13)}
 ```
 
-implique $`G_L^c(p)\to0`$, car la trace de la matrice non normalisée vaut au
-plus $n_L$. Ce critère spectral est suffisant, pas nécessaire.
+est équivalent à $`G_L^c(p)\to0`$ après élimination des petites racines.
+En effet, si $`A_R=W_R^{1/2}M_R^cW_R^{1/2}`$ et
+$`\Lambda_R=\lambda_{\max}(A_R)/n_L`$, alors
+
+```math
+\Lambda_R^2
+\le
+\frac{\mathrm{tr}(A_R^2)}{n_L^2}
+\le
+\frac{|R|}{n_L}\Lambda_R
+\le
+\Lambda_R.
+\qquad\text{(4.13a)}
+```
+
+La bornitude permet de passer aux espérances dans les deux sens. Cette
+équivalence concerne l'enveloppe single-$D$ ; celle-ci reste plus forte que
+la cible exacte à deux dendrogrammes.
+
+Le critère est maintenant implémenté dans
+[`critical_cut_collective_gibbs_diagnostic.py`](../computations/critical_cut_collective_gibbs_diagnostic.py).
+Le [premier protocole](../diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md)
+donne
+
+```math
+\widehat{\mathbb E}_{256}
+\left[
+\frac1{n_L}
+\lambda_{\max}
+\left(
+W_{R_L^\star}^{1/2}
+M_{R_L^\star}^c
+W_{R_L^\star}^{1/2}
+\right)
+\right]
+=
+0.9507359\pm0.0045624
+\qquad\text{à }L=4,\ p=0.81.
+\qquad\text{(4.14)}
+```
+
+Cette moyenne empirique sur 256 environnements est très macroscopique au
+seul volume accessible par
+énumération globale. Elle ne ferme donc pas la preuve à $`L=4`$ et motive
+le passage au produit signé de deux dendrogrammes. Elle ne réfute pas la
+limite (4.13).
 
 Un contre-test fini montre que le couplage peut être très fort. À
 $`L=5`$, $`p=0.809439`$ et pour une graine fixée, deux blocs critiques de
@@ -951,9 +998,10 @@ $`0.835805792367\ldots`$.
 
 Le diagnostic PATH-FAC rend (10.2) plausible géométriquement à la borne
 actuelle. Il ne fournit aucune marge rigoureuse à $`0.81`$ et ignore les
-contraintes dures des buckets unitaires. Avant d'attaquer (10.2), la variante
-rafraîchie du fichier 37 doit produire un opérateur overlap de rayon spectral
-strictement inférieur à un.
+contraintes dures des buckets unitaires. Le test (4.14) est au contraire
+défavorable au petit volume. La cible numérique prioritaire n'est donc plus
+de renforcer cette enveloppe quenched, mais de mesurer les cancellations
+signées entre deux hiérarchies indépendantes comme dans le fichier 38.
 
 Définissons le seuil certifiable de la méthode par
 
@@ -984,14 +1032,14 @@ pour la quantité oracle $`\Xi_L^\star`$.
 
 ## 12. Ordre de travail immédiat
 
-1. terminer le benchmark SBM du fichier 37 ;
+1. comparer au broadcast le port global fini du fichier 39 ;
 2. tirer deux dendrogrammes complets indépendants conditionnellement à
    l'observation, comme dans le fichier 38 ;
 3. former la double géante et le raffinement commun des deux coupes
    critiques ;
-4. dériver l'opérateur linéarisé à deux répliques avec le biais de paire
-   exact ;
-5. estimer puis certifier son rayon spectral à $`p=0.81`$ ;
+4. prolonger au-delà de $`L=4`$ le diagnostic signé du fichier 40 ;
+5. dériver l'opérateur linéarisé à deux répliques avec le biais de paire
+   exact, puis estimer son rayon spectral à $`p=0.81`$ ;
 6. seulement si ce rayon est strictement inférieur à un, construire une
    enveloppe non linéaire et réutiliser le transport entropique du fichier
    35 ;

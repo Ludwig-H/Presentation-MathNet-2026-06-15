@@ -12,6 +12,9 @@ prioritaire : il explique pourquoi la criticalisation multiport et l'état
 local fidèle ont été abandonnés.
 
 Le dossier [`finite_volume/`](finite_volume/) contient les résultats qui ne
-doivent jamais être extrapolés sans une preuve supplémentaire. L'[index
+doivent jamais être extrapolés sans une preuve supplémentaire. Son
+[fichier 40](finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md) contient
+le premier test spectral single-$D$ et la première mesure directe du reste
+signé à deux dendrogrammes à $`p=0.81`$. L'[index
 raisonné](../INDEX.md#diagnostics-benchmarks-et-no-go) précise le rôle de
 chaque note.

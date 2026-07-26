@@ -39,6 +39,21 @@ def _one_critical_component() -> tuple[tuple[float, int, int], ...]:
     )
 
 
+def _size_two_block_merged_with_singleton() -> tuple[
+    tuple[float, int, int], ...
+]:
+    """Build critical block {0,1}, then rigidly merge singleton {2}."""
+
+    ranks = {
+        (0, 1): 0.10,
+        (1, 2): 0.50,
+    }
+    return tuple(
+        (ranks.get(edge, 0.99), *edge)
+        for edge in triangular_torus_edges(SIDE_LENGTH)
+    )
+
+
 class CriticalCutCollectiveGibbsDiagnosticTests(unittest.TestCase):
     def test_partition_groups_critical_blocks_by_final_root(self) -> None:
         ranked_edges = _one_postcritical_edge()
@@ -88,6 +103,64 @@ class CriticalCutCollectiveGibbsDiagnosticTests(unittest.TestCase):
         self.assertLess(result.maximum_symmetry_error, 1e-14)
         self.assertLess(result.maximum_global_flip_log_weight_error, 1e-14)
 
+    def test_size_weighted_spectrum_matches_hand_calculation(self) -> None:
+        result = diagnose_environment(
+            side_length=SIDE_LENGTH,
+            ranked_edges=_size_two_block_merged_with_singleton(),
+            p=P,
+            maximum_block_count=16,
+        )
+        self.assertTrue(result.used)
+        root = next(
+            root for root in result.roots if root.final_component_size == 3
+        )
+        self.assertEqual(root.block_sizes, (2, 1))
+        self.assertEqual(
+            root.correlation_matrix,
+            ((1.0, 1.0), (1.0, 1.0)),
+        )
+        self.assertAlmostEqual(
+            root.size_weighted_correlation_matrix[0][0],
+            2.0,
+        )
+        self.assertAlmostEqual(
+            root.size_weighted_correlation_matrix[0][1],
+            2.0**0.5,
+        )
+        self.assertAlmostEqual(
+            root.size_weighted_correlation_matrix[1][0],
+            2.0**0.5,
+        )
+        self.assertAlmostEqual(
+            root.size_weighted_correlation_matrix[1][1],
+            1.0,
+        )
+        self.assertAlmostEqual(
+            root.size_weighted_correlation_eigenvalues[0],
+            0.0,
+        )
+        self.assertAlmostEqual(
+            root.size_weighted_correlation_eigenvalues[1],
+            3.0,
+        )
+        self.assertAlmostEqual(
+            root.largest_size_weighted_correlation_eigenvalue,
+            3.0,
+        )
+        self.assertAlmostEqual(
+            root.largest_eigenvalue_normalized_by_vertex_count,
+            3.0 / 16.0,
+        )
+        self.assertAlmostEqual(root.size_weighted_correlation_trace, 3.0)
+        self.assertAlmostEqual(root.unnormalized_persistence, 9.0)
+        self.assertLess(root.spectral_trace_identity_error, 1e-12)
+        self.assertLess(root.spectral_persistence_identity_error, 1e-12)
+        self.assertEqual(result.largest_final_root_size, 3)
+        self.assertAlmostEqual(
+            result.largest_final_root_normalized_spectral_eigenvalue,
+            3.0 / 16.0,
+        )
+
     def test_cap_exclusions_are_classified_and_warn_about_bias(self) -> None:
         root_excluded = diagnose_environment(
             side_length=SIDE_LENGTH,
@@ -131,6 +204,9 @@ class CriticalCutCollectiveGibbsDiagnosticTests(unittest.TestCase):
         self.assertIsNone(
             summary.unconditional_normalized_off_diagonal_persistence
         )
+        self.assertIsNone(
+            summary.unconditional_largest_final_root_normalized_spectral_eigenvalue
+        )
 
     def test_uncapped_normalized_off_diagonal_formula_is_exact(self) -> None:
         result = diagnose_environment(
@@ -156,6 +232,29 @@ class CriticalCutCollectiveGibbsDiagnosticTests(unittest.TestCase):
         self.assertAlmostEqual(
             summary.unconditional_normalized_off_diagonal_persistence,
             expected,
+        )
+        used_spectral = (
+            summary
+            .used_sample_largest_final_root_normalized_spectral_eigenvalue
+        )
+        unconditional_spectral = (
+            summary
+            .unconditional_largest_final_root_normalized_spectral_eigenvalue
+        )
+        self.assertIsNotNone(used_spectral)
+        self.assertIsNotNone(unconditional_spectral)
+        self.assertAlmostEqual(used_spectral.mean, 2.0 / 16.0)
+        self.assertAlmostEqual(unconditional_spectral.mean, 2.0 / 16.0)
+        self.assertTrue(summary.single_dendrogram_spectral_envelope_only)
+        self.assertTrue(
+            summary
+            .spectral_criterion_equivalent_after_small_root_reduction
+        )
+        self.assertIn("E[lambda_max", summary.spectral_limit_target)
+        self.assertIn("A_R", summary.spectral_matrix_definition)
+        self.assertIn(
+            "lambda_max",
+            summary.normalized_spectral_eigenvalue_definition,
         )
         self.assertFalse(summary.weak_recovery_claimed)
 

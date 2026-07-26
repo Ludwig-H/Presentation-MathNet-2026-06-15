@@ -1,17 +1,19 @@
 # Moteur conditionnel : distance, entropie et ergodicité
 
-**Statut : actif mais subordonné à la réduction signée sur la double géante
-et au premier test spectral à un dendrogramme, aucun nouveau seuil
-revendiqué.**
+**Statut : actif mais subordonné au contrôle du reste signé sur la double
+géante ; le premier test spectral à un dendrogramme est défavorable à
+$`L=4`$ ; aucun nouveau seuil revendiqué.**
 
 > [!IMPORTANT]
 > La [cible prioritaire](38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) emploie deux
 > Gibbs exacts sur deux dendrogrammes entiers indépendants. Avant d'adapter le
-> présent moteur, il faut d'abord mesurer l'enveloppe spectrale à un
-> dendrogramme, puis — seulement si elle ne suffit pas — le reste signé
-> inter-cellules de la double géante. Un opérateur à deux dendrogrammes ne
-> devient une cible légitime qu'après avoir spécifié sa loi jointe sans
-> réinjecter l'overlap à démontrer.
+> présent moteur, il fallait d'abord mesurer l'enveloppe spectrale à un
+> dendrogramme. Le
+> [diagnostic à $`p=0.81`$](../diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md)
+> la trouve macroscopique à $`L=4`$ ; la cible expérimentale devient donc le
+> reste signé inter-cellules de la double géante. Un opérateur à deux
+> dendrogrammes ne devient une cible légitime qu'après avoir spécifié sa loi
+> jointe sans réinjecter l'overlap à démontrer.
 
 **Rôle :** transformer l'intuition « beaucoup d'occasions critiques de
 mélange le long des deux bras » en une suite de lemmes falsifiables.

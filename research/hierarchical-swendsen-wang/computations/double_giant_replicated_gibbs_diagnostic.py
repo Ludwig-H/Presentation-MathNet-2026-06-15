@@ -14,7 +14,10 @@ The two physical pair-correlation matrices are multiplied entrywise.  The
 diagnostic reports their normalized total, its exact decomposition over
 intersections of final roots, the contribution of the intersection of the
 two largest roots, and the diagonal mass of the common refinement of the
-two critical cuts.
+two critical cuts.  On the intersection of the two largest roots, it also
+splits the signed pair-correlation product into pairs lying in the same
+common critical cell and pairs lying in distinct cells.  The latter term is
+kept signed; no absolute-value envelope is substituted for it.
 
 The direct posterior matrix ``c_ij = mu_O(sigma_i sigma_j)`` and
 ``n^-2 sum_ij c_ij^2`` are also computed.  The independent-hierarchy
@@ -119,7 +122,12 @@ class ReplicaPairDiagnostic:
     common_critical_refinement_diagonal_mass: float
     largest_root_intersection_refinement_cell_sizes: tuple[int, ...]
     largest_root_intersection_refinement_diagonal_mass: float
+    largest_root_intersection_critical_cell_diagonal_contribution: float
+    largest_root_intersection_critical_cell_off_diagonal_signed_contribution: float
+    largest_root_intersection_critical_cell_contribution_sum: float
+    largest_root_intersection_critical_cell_decomposition_error: float
     exact_root_intersection_decomposition_passed: bool
+    exact_largest_root_intersection_critical_cell_decomposition_passed: bool
 
 
 @dataclass(frozen=True)
@@ -137,6 +145,11 @@ class ObservationDiagnostic:
     replica_pairs: tuple[ReplicaPairDiagnostic, ...]
     replicated_hierarchy_estimate: ScalarEstimate
     replicated_estimate_minus_direct_target: float
+    largest_root_intersection_contribution_estimate: ScalarEstimate
+    largest_root_intersection_critical_cell_diagonal_contribution_estimate: ScalarEstimate
+    largest_root_intersection_critical_cell_off_diagonal_signed_contribution_estimate: ScalarEstimate
+    maximum_largest_root_intersection_critical_cell_decomposition_error: float
+    every_largest_root_intersection_critical_cell_decomposition_passed: bool
     equality_with_direct_target_expected_per_sample: bool
     independent_hierarchy_estimator_targets_direct_persistence: bool
 
@@ -161,14 +174,21 @@ class DoubleGiantReplicatedGibbsSummary:
     direct_posterior_pair_persistence: ScalarEstimate
     independent_hierarchy_pair_product_estimate: ScalarEstimate
     mean_replicated_estimate_minus_matched_direct_target: float
+    matched_independent_minus_direct_estimate: ScalarEstimate
+    largest_root_intersection_contribution_estimate: ScalarEstimate
+    largest_root_intersection_critical_cell_diagonal_contribution_estimate: ScalarEstimate
+    largest_root_intersection_critical_cell_off_diagonal_signed_contribution_estimate: ScalarEstimate
     maximum_root_intersection_decomposition_error: float
+    maximum_largest_root_intersection_critical_cell_decomposition_error: float
     maximum_separated_pair_product_absolute_value: float
     every_root_intersection_decomposition_passed: bool
+    every_largest_root_intersection_critical_cell_decomposition_passed: bool
     every_separated_pair_product_zero_within_tolerance: bool
     exact_mu_o_enumeration: bool
     exact_pi_o_d_enumeration: bool
     posterior_reference_draws_are_monte_carlo: bool
     hierarchy_draws_are_monte_carlo: bool
+    summary_standard_errors_clustered_by_observation: bool
     two_hierarchies_independent_conditional_on_observation_and_references: bool
     shared_hierarchy_used: bool
     independent_hierarchy_estimator_targets_q_direct: bool
@@ -707,8 +727,48 @@ def analyze_replica_pair(
     largest_critical_diagonal = fsum(
         size * size for size in largest_critical_sizes
     ) / normalization
+    if sum(largest_critical_sizes) != len(largest_vertices):
+        raise AssertionError(
+            "common critical cells do not partition the largest-root intersection"
+        )
+    largest_critical_cell_diagonal_contribution = fsum(
+        product[first_vertex][second_vertex]
+        for cell in largest_critical_cells
+        for first_vertex in cell
+        for second_vertex in cell
+    ) / normalization
+    largest_critical_cell_off_diagonal_signed_contribution = fsum(
+        product[first_vertex][second_vertex]
+        for first_cell_index, first_cell in enumerate(largest_critical_cells)
+        for second_cell_index, second_cell in enumerate(largest_critical_cells)
+        if first_cell_index != second_cell_index
+        for first_vertex in first_cell
+        for second_vertex in second_cell
+    ) / normalization
+    largest_critical_cell_contribution_sum = (
+        largest_critical_cell_diagonal_contribution
+        + largest_critical_cell_off_diagonal_signed_contribution
+    )
+    largest_total_contribution = (
+        largest_contribution.normalized_pair_product_contribution
+        if largest_contribution is not None
+        else 0.0
+    )
+    largest_critical_cell_decomposition_error = abs(
+        largest_total_contribution - largest_critical_cell_contribution_sum
+    )
+    if (
+        abs(largest_critical_cell_diagonal_contribution)
+        > largest_critical_diagonal + tolerance
+    ):
+        raise AssertionError(
+            "signed same-cell contribution exceeds its geometric mass bound"
+        )
     maximum_separated = max(separated_values, default=0.0)
     passed = decomposition_error <= tolerance
+    largest_critical_cell_passed = (
+        largest_critical_cell_decomposition_error <= tolerance
+    )
     return ReplicaPairDiagnostic(
         observation_index=observation_index,
         replica_pair_index=replica_pair_index,
@@ -733,11 +793,7 @@ def analyze_replica_pair(
         largest_root_intersection_fraction=(
             len(largest_vertices) / vertex_count
         ),
-        largest_root_intersection_contribution=(
-            largest_contribution.normalized_pair_product_contribution
-            if largest_contribution is not None
-            else 0.0
-        ),
+        largest_root_intersection_contribution=largest_total_contribution,
         common_critical_refinement_cell_sizes=critical_sizes,
         common_critical_refinement_diagonal_mass=critical_diagonal,
         largest_root_intersection_refinement_cell_sizes=(
@@ -746,7 +802,22 @@ def analyze_replica_pair(
         largest_root_intersection_refinement_diagonal_mass=(
             largest_critical_diagonal
         ),
+        largest_root_intersection_critical_cell_diagonal_contribution=(
+            largest_critical_cell_diagonal_contribution
+        ),
+        largest_root_intersection_critical_cell_off_diagonal_signed_contribution=(
+            largest_critical_cell_off_diagonal_signed_contribution
+        ),
+        largest_root_intersection_critical_cell_contribution_sum=(
+            largest_critical_cell_contribution_sum
+        ),
+        largest_root_intersection_critical_cell_decomposition_error=(
+            largest_critical_cell_decomposition_error
+        ),
         exact_root_intersection_decomposition_passed=passed,
+        exact_largest_root_intersection_critical_cell_decomposition_passed=(
+            largest_critical_cell_passed
+        ),
     )
 
 
@@ -831,6 +902,17 @@ def analyze_observation(
     pair_values = tuple(
         item.normalized_pair_correlation_product for item in pairs
     )
+    largest_root_values = tuple(
+        item.largest_root_intersection_contribution for item in pairs
+    )
+    largest_root_diagonal_values = tuple(
+        item.largest_root_intersection_critical_cell_diagonal_contribution
+        for item in pairs
+    )
+    largest_root_off_diagonal_values = tuple(
+        item.largest_root_intersection_critical_cell_off_diagonal_signed_contribution
+        for item in pairs
+    )
     estimate = scalar_estimate(pair_values)
     return ObservationDiagnostic(
         observation_index=observation_index,
@@ -845,6 +927,23 @@ def analyze_observation(
         replicated_hierarchy_estimate=estimate,
         replicated_estimate_minus_direct_target=(
             estimate.mean - direct_persistence
+        ),
+        largest_root_intersection_contribution_estimate=scalar_estimate(
+            largest_root_values
+        ),
+        largest_root_intersection_critical_cell_diagonal_contribution_estimate=(
+            scalar_estimate(largest_root_diagonal_values)
+        ),
+        largest_root_intersection_critical_cell_off_diagonal_signed_contribution_estimate=(
+            scalar_estimate(largest_root_off_diagonal_values)
+        ),
+        maximum_largest_root_intersection_critical_cell_decomposition_error=max(
+            item.largest_root_intersection_critical_cell_decomposition_error
+            for item in pairs
+        ),
+        every_largest_root_intersection_critical_cell_decomposition_passed=all(
+            item.exact_largest_root_intersection_critical_cell_decomposition_passed
+            for item in pairs
         ),
         equality_with_direct_target_expected_per_sample=False,
         independent_hierarchy_estimator_targets_direct_persistence=True,
@@ -896,13 +995,35 @@ def run_diagnostic(
         observation.direct_posterior_pair_persistence
         for observation in observations
     )
-    pair_values = tuple(
-        pair.normalized_pair_correlation_product for pair in pairs
+    observation_pair_means = tuple(
+        observation.replicated_hierarchy_estimate.mean
+        for observation in observations
+    )
+    observation_largest_root_means = tuple(
+        observation.largest_root_intersection_contribution_estimate.mean
+        for observation in observations
+    )
+    observation_largest_root_diagonal_means = tuple(
+        observation
+        .largest_root_intersection_critical_cell_diagonal_contribution_estimate
+        .mean
+        for observation in observations
+    )
+    observation_largest_root_off_diagonal_means = tuple(
+        observation
+        .largest_root_intersection_critical_cell_off_diagonal_signed_contribution_estimate
+        .mean
+        for observation in observations
     )
     matched_differences = tuple(
         pair.normalized_pair_correlation_product
         - observations[pair.observation_index].direct_posterior_pair_persistence
         for pair in pairs
+    )
+    observation_matched_differences = tuple(
+        observation.replicated_hierarchy_estimate.mean
+        - observation.direct_posterior_pair_persistence
+        for observation in observations
     )
     summary = DoubleGiantReplicatedGibbsSummary(
         side_length=side_length,
@@ -921,12 +1042,30 @@ def run_diagnostic(
             maximum_replica_pairs_per_observation
         ),
         direct_posterior_pair_persistence=scalar_estimate(direct_values),
-        independent_hierarchy_pair_product_estimate=scalar_estimate(pair_values),
+        independent_hierarchy_pair_product_estimate=scalar_estimate(
+            observation_pair_means
+        ),
         mean_replicated_estimate_minus_matched_direct_target=fmean(
             matched_differences
         ),
+        matched_independent_minus_direct_estimate=scalar_estimate(
+            observation_matched_differences
+        ),
+        largest_root_intersection_contribution_estimate=scalar_estimate(
+            observation_largest_root_means
+        ),
+        largest_root_intersection_critical_cell_diagonal_contribution_estimate=(
+            scalar_estimate(observation_largest_root_diagonal_means)
+        ),
+        largest_root_intersection_critical_cell_off_diagonal_signed_contribution_estimate=(
+            scalar_estimate(observation_largest_root_off_diagonal_means)
+        ),
         maximum_root_intersection_decomposition_error=max(
             pair.root_intersection_decomposition_error for pair in pairs
+        ),
+        maximum_largest_root_intersection_critical_cell_decomposition_error=max(
+            pair.largest_root_intersection_critical_cell_decomposition_error
+            for pair in pairs
         ),
         maximum_separated_pair_product_absolute_value=max(
             pair.maximum_separated_pair_product_absolute_value
@@ -935,6 +1074,10 @@ def run_diagnostic(
         every_root_intersection_decomposition_passed=all(
             pair.exact_root_intersection_decomposition_passed for pair in pairs
         ),
+        every_largest_root_intersection_critical_cell_decomposition_passed=all(
+            pair.exact_largest_root_intersection_critical_cell_decomposition_passed
+            for pair in pairs
+        ),
         every_separated_pair_product_zero_within_tolerance=all(
             pair.separated_pair_products_zero_within_tolerance for pair in pairs
         ),
@@ -942,6 +1085,7 @@ def run_diagnostic(
         exact_pi_o_d_enumeration=True,
         posterior_reference_draws_are_monte_carlo=True,
         hierarchy_draws_are_monte_carlo=True,
+        summary_standard_errors_clustered_by_observation=True,
         two_hierarchies_independent_conditional_on_observation_and_references=True,
         shared_hierarchy_used=False,
         independent_hierarchy_estimator_targets_q_direct=True,
@@ -950,7 +1094,8 @@ def run_diagnostic(
         interpretation=(
             "finite L=4 exact posterior and conditional-Gibbs enumerations; "
             "independent posterior-reference and hierarchy draws estimate Q_direct "
-            "only after Monte Carlo averaging, with no asymptotic claim"
+            "only after Monte Carlo averaging; summary standard errors use "
+            "independent observations as clusters, with no asymptotic claim"
         ),
     )
     return summary, observations
