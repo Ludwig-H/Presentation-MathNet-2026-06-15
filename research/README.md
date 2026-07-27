@@ -3,6 +3,16 @@
 Ce dossier est la porte d'entrée des notes mathématiques et des calculs
 reproductibles associés aux présentations.
 
+## Benchmark spécial SBM
+
+Le dossier [SBM](SBM/) donne une présentation autonome et pédagogique du
+SBM symétrique binaire : deux répliques, deux dendrogrammes indépendants
+coupés au même $\beta_c$, calibration exacte
+$\beta_\chi=\beta_c\Longleftrightarrow d\theta^2=1$, puis extensions
+almost exact / exact recovery et limite $\beta\downarrow0$ vers Glauber.
+Il suit pas à pas l'architecture bayésienne du chapitre 11 et sépare les
+identités prouvées des étapes dynamiques encore ouvertes.
+
 ## Le résultat à retenir
 
 Pour le GSBM binaire homogène sur le tore triangulaire, le résultat rigoureux

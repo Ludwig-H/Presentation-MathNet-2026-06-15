@@ -21,6 +21,7 @@ Choisissez le parcours qui correspond à votre objectif.
 
 | Je veux… | Première lecture | Puis… |
 |---|---|---|
+| comprendre le seuil SBM sur deux dendrogrammes | [dossier pédagogique SBM](research/SBM/) | [statut scientifique et no-go](research/SBM/06_STATUT_SCIENTIFIQUE.md) |
 | comprendre le résultat en cinq minutes | [statut scientifique actuel](research/hierarchical-swendsen-wang/CURRENT_STATUS.md) | [certificat à p = 0,809439](research/hierarchical-swendsen-wang/results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md) |
 | comprendre la dynamique hiérarchique | [cible prioritaire répliquée](research/hierarchical-swendsen-wang/active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) | [pilote SBM et port global fini](research/hierarchical-swendsen-wang/active/39_PORT_GLOBAL_SBM_RECOVERY.md) |
 | retrouver une note précise | [index exhaustif des notes](research/hierarchical-swendsen-wang/INDEX.md) | dossier indiqué par son statut |
@@ -63,6 +64,7 @@ positif en moyenne. Il valide la décomposition, pas une tendance en volume.
 | chemin | rôle |
 |---|---|
 | [`research/`](research/) | porte d'entrée de la recherche |
+| [`research/SBM/`](research/SBM/) | benchmark pédagogique : seuil KS, deux dendrogrammes et trois régimes de recovery |
 | [`research/hierarchical-swendsen-wang/`](research/hierarchical-swendsen-wang/) | projet principal, organisé par statut scientifique |
 | [`beamer-presentation/`](beamer-presentation/) | séminaire MathNet du 15 juin 2026 |
 | [`beamer-presentation-neo/`](beamer-presentation-neo/) | séminaire NEO du 25 juin 2026 |
