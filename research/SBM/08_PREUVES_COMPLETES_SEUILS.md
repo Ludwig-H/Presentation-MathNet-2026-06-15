@@ -32,7 +32,11 @@ percolation de la dynamique.
 > rééchantillonnage de Nishimori est, lui, redémontré en I.5). Les deux
 > directions du seuil **sur la limite locale** sont démontrées
 > intégralement (théorèmes I.17 et I.18), ainsi que le volet
-> impossibilité de la partie II (théorème II.6).
+> impossibilité de la partie II (théorème II.6). La comparaison avec la
+> voie d'information-percolation d'Abbe–Boix — qui couvre E2 et E3a d'un
+> coup — est faite en fin de note.
+
+![Architecture des deux démonstrations : la chaîne de la partie I (cadre bayésien, Nishimori, critère à deux répliques, dynamique coupée, deux dendrogrammes, fermeture sur l'arbre) et celle de la partie II (écrasement de la coupe, Glauber, affinité, Le Cam), reliées par la limite beta vers zéro, avec le bandeau des emprunts.](figures/fig08_architecture_preuve.svg)
 
 ---
 
@@ -291,6 +295,8 @@ $`G(n,c/n)`$ n'a pas de composante macroscopique pour $`c\le1`$
 domination par un processus de Galton–Watson de moyenne $`c\le1`$),
 d'où $`\theta^{\max}=0`$ et l'obstruction. $`\square`$
 
+![Le gel Swendsen-Wang du chapitre 11 sur le SBM : les deux types de paires gèlent avec la même probabilité (a moins b) sur n, l'objet gelé est un Erdos-Renyi de degré moyen a moins b, et l'obstruction ne mord que sous a moins b inférieur ou égal à 1.](figures/fig08_gel_sw_percolation.svg)
+
 Le reste de la partie I raffine ce pas unique en une **famille de
 coupes** : c'est là que le carré $`\theta^2`$ apparaît.
 
@@ -510,6 +516,8 @@ Jensen — et cette quantité **est** le $`Q_n`$ du théorème I.7, l'objet
 même que le seuil décide. L'égalité $`\theta\times\theta`$ n'est
 revendiquée que sur la limite locale à arbre fixé.
 
+![Le canal d'une arête coupée : le canal résiduel et sa marginalisation exacte vers theta ; la bonne construction où deux coupes indépendantes donnent theta fois theta ; la mauvaise construction où la coupe partagée donne une moyenne de carré strictement plus grande.](figures/fig08_canal_coupe_repliques.svg)
+
 #### Fait I.15 — calibration : la coupe géométrique rencontre l'information exactement à Kesten–Stigum
 
 Dès que $`\beta_c^{\mathrm{geom}}`$ est défini ($`d\theta\ge1`$),
@@ -539,6 +547,8 @@ de définitions ($`q_{\beta_\chi}=\theta^2`$, $`q_{\beta_c}=1/d`$,
 monotonie) ; aucune borne d'impossibilité ni d'atteignabilité n'en est
 déduite à $`\beta_c`$ — le seuil lui-même est celui des théorèmes
 I.17–I.18 sur la limite locale, transporté par E1 et E3a/E3b.
+
+![La calibration sur l'horloge des coupes pour theta un demi : la courbe q beta, la ligne theta carré définissant beta chi, et trois lignes un sur d pour d égal 3, 4 et 6 montrant les trois régimes ; à d égal 4, beta chi coïncide avec la coupe géométrique, c'est le point de Kesten-Stigum.](figures/fig08_calibration_horloge.svg)
 
 ### I.6 Fermeture sur la limite locale : le théorème de reconstruction
 
@@ -666,6 +676,8 @@ $`I(Y;F)=\mathbb E[\psi(M_F)]`$. Or, par la série du lemme A,
 
 car $`\theta^{2k}\le\theta^2`$ pour tout $`k\ge1`$. $`\square`$
 
+![Les courbes de psi : à gauche la minoration du lemme A, psi de m au-dessus de m carré sur deux ; à droite la SDPI du lemme B — pour theta égal 0,6, la courbe psi de theta m reste sous theta carré fois psi de m.](figures/fig08_sdpi_psi.svg)
+
 **Lemme C (sous-additivité sur les branches).** Si $`A`$ et $`B`$ sont
 conditionnellement indépendantes sachant $`X`$, alors
 $`I(X;A,B)\le I(X;A)+I(X;B)`$.
@@ -704,6 +716,8 @@ En prenant l'espérance sur $`T\sim\mathrm{PGW}(d)`$ :
 $`\mathbb E[I]\le\ln2\,(d\theta^2)^t=\ln2\cdot\lambda^t`$. Enfin, par le
 lemme A, $`q_t=\mathbb E[M^2]\le2\,\mathbb E[\psi(M)]=2\,\mathbb E[I]`$,
 d'où $`q_t\le2\ln2\cdot\lambda^t\to0`$ pour $`\lambda<1`$. $`\square`$
+
+![La fermeture sur l'arbre : à gauche le second moment du théorème I.17 avec la somme des spins des feuilles et la borne ell t ; à droite l'induction d'information du théorème I.18 avec la sous-additivité sur les branches et le facteur theta carré par niveau.](figures/fig08_fermeture_arbre.svg)
 
 **(E2 — cas critique, admis.)** À $`\lambda=1`$ la borne ci-dessus
 stagne ; la non-reconstruction critique est établie par
@@ -827,6 +841,8 @@ corollaire I.6.
 
 **Preuve.** Cas $`\beta=0`$ du théorème I.11 : aucun gel, l'étape (ii)
 restreinte à un site est le bain thermique mono-site. $`\square`$
+
+![À gauche, l'écrasement de la coupe géométrique : les niveaux critiques pour lambda égal 2, 5, 20 et 100 s'accumulent vers zéro ; à droite, l'expérience oracle d'un site avec tous les voisins révélés et l'identité d'affinité exacte.](figures/fig08_ecrasement_glauber.svg)
 
 ### II.2 L'expérience locale à $`\beta=0`$ et son exposant
 
@@ -1043,6 +1059,110 @@ l'unité est le site et le seuil est la divergence de l'exposant
 d'affinité. Faire tendre $`\beta`$ vers $`0`$ dans la famille du théorème
 I.11 fait passer continûment de l'un à l'autre — et le fait II.2 montre
 que le régime divergent effectue ce passage tout seul.
+
+## Comparaison avec la preuve d'information-percolation (Abbe–Boix)
+
+La preuve existante la plus proche du volet impossibilité est la borne
+d'**information-percolation** $`\chi^2`$ d'Abbe–Boix-Adserà
+([REFERENCES](REFERENCES.md)), de la même famille que la méthode
+d'information-percolation de Polyanskiy–Wu (les deux articles sont
+contemporains et présentés en parallèle dans
+[foundations/02](../hierarchical-swendsen-wang/foundations/02_CHAPTER_11_BASELINE.md)) :
+pour tout graphe d'observations à canaux indépendants par paire,
+
+```math
+\mathbb E\bigl[\langle\sigma_i\sigma_j\rangle_W^2\bigr]
+\ \le\
+\mathbb P_{\mathrm{perc}}\bigl[i\leftrightarrow j\bigr],
+```
+
+où la percolation ouvre chaque paire $`e`$ indépendamment avec le
+coefficient de contraction $`\chi^2`$ de son canal, $`\eta_e`$. Pour le
+SBM binaire, exactement,
+
+```math
+\eta_e
+=\frac{(a-b)^2/n^2}{\frac{a+b}n\bigl(2-\frac{a+b}n\bigr)}
+=\frac{(a-b)^2}{(a+b)(2n-a-b)}
+=\frac\lambda{n-d} :
+```
+
+la percolation d'information est un Erdős–Rényi
+$`G(n,\tfrac\lambda{n-d})`$ et
+$`Q_n\le\tfrac1n+\mathbb E[|C(i)|]/n\to0`$ pour **tout**
+$`\lambda\le1`$, point critique compris — à $`\lambda=1`$ le degré
+moyen vaut $`(n-1)\lambda/(n-d)=1+O(1/n)`$, à l'intérieur de la fenêtre
+critique d'Erdős–Rényi, où $`\mathbb E[|C(i)|]=\Theta(n^{1/3})`$ donc
+$`\mathbb E[|C(i)|]/n=\Theta(n^{-2/3})`$ (fait critique classique
+d'Erdős–Rényi, non redémontré ici).
+
+### Même moteur informationnel
+
+Le moteur des deux preuves est identique : une SDPI par paire, dont le
+coefficient vaut $`\theta^2`$ sur l'arbre (contraction $`\chi^2`$ du
+canal binaire symétrique) et $`\eta_e=\lambda/(n-d)`$ sur le graphe —
+deux coefficients différents, mais de même **nombre de branchement**
+$`\lambda`$ : $`d\cdot\theta^2=\lambda`$ sur l'arbre,
+$`(n-1)\eta_e=\lambda(1+o(1))`$ sur le graphe. Notre théorème I.18 est le cas arbre de
+cette philosophie (il remonte à Evans–Kenyon–Peres–Schulman, que la
+méthode d'Abbe–Boix généralise aux graphes), et notre temps informationnel
+**est** leur paramètre de percolation lu sur l'horloge :
+$`q_{\beta_\chi}=\theta^2=\eta_e^{\mathrm{arbre}}`$. À ce niveau, la
+présente démonstration n'est **pas fondamentalement différente** :
+c'est la même famille SDPI/information-percolation.
+
+### Ce que la preuve d'Abbe–Boix fait mieux
+
+Leur borne vit **directement sur le graphe fini**, pour des graphes et
+canaux arbitraires, sans limite locale ni argument de contiguïté. La
+même méthode, appliquée à l'arbre, redonne E2 (la récursion
+$`r_{t+1}=1-e^{-\lambda r_t}`$) ; appliquée directement au graphe fini,
+elle rend E3a **inutile** en court-circuitant le transport
+arbre$`\to`$graphe — la chaîne se referme alors par le critère I.7.
+Pour l'impossibilité **nue**, la voie d'information-percolation est donc
+plus courte et plus générale — c'est d'ailleurs elle que le programme
+triangulaire utilise comme baseline
+([foundations/02](../hierarchical-swendsen-wang/foundations/02_CHAPTER_11_BASELINE.md),
+$`p_{\mathrm{info}}=0.794659\ldots`$ ; pour le SBM le graphe est déjà
+fini, tandis que sur le réseau triangulaire le passage en volume fini
+reste à rédiger, foundations/02 §7).
+
+### Ce que la représentation hiérarchique ajoute
+
+La richesse de la présente construction n'est pas dans la force de la
+borne, mais dans sa **représentation** — quatre apports qu'une borne
+d'information-percolation n'a pas :
+
+1. **un couplage dynamique réel** : le seuil est lu sur une dynamique de
+   Markov invariante pour la postérieure (théorème I.11), dans la
+   continuité exacte du chapitre 11 — le pas Swendsen–Wang en est le cas
+   $`\beta=1`$ (fait I.9) et la famille interpole Glauber $`\leftrightarrow`$
+   Swendsen–Wang ; Abbe–Boix n'ont ni dynamique, ni couplage, ni
+   échantillonneur ;
+2. **la provenance structurelle du carré** : $`\theta^2`$ n'y est pas un
+   coefficient calculé mais le produit de **deux marginalisations
+   indépendantes** (fait I.14), et le contre-exemple de la coupe
+   partagée (fait I.13) montre précisément quel couplage fautif gonfle le
+   transfert — c'est le garde-fou central du programme répliqué ;
+3. **la même molette donne le second seuil** : en poussant $`\beta\to0`$
+   la construction dégénère en Glauber et produit le seuil d'almost
+   exact recovery $`\lambda_n\to\infty`$ (partie II), avec l'écrasement
+   spontané $`\beta_{c,n}\to0`$ (fait II.2) ; le régime divergent est
+   hors de portée d'un simple changement de paramètre dans l'argument de
+   percolation d'information ;
+4. **des identités finies exactes** (gel $`(a-b)/n`$ sur les deux types
+   de paires, canal résiduel $`c_0=\tanh((1-\beta)u/2)`$, calibration
+   I.15) qui font de la note une plateforme pour le programme
+   géométrique (chaîne des $`\Lambda_v`$,
+   [note 42](../hierarchical-swendsen-wang/foundations/ancestral/42_PROBLEME_CENTRAL_FUSION_CRITIQUE.md)).
+
+### Verdict
+
+| question | réponse |
+|---|---|
+| fondamentalement différente ? | **non** pour le moteur (SDPI par paire, même nombre de branchement $`\lambda`$, information-percolation) ; **oui** pour la représentation (dynamique invariante, Nishimori, répliques, horloge) |
+| plus forte pour l'impossibilité ? | **non** : Abbe–Boix est plus directe et plus générale (couvre E2 et E3a sans limite locale) |
+| plus riche ? | **oui** en portée : deux seuils par la même construction, couplages exploitables, contre-exemples de couplage, identités finies, plateforme GSBM |
 
 ## Vérifications reproductibles
 

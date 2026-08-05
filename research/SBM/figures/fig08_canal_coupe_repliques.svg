@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="435" viewBox="0 0 1440 435" role="img" aria-labelledby="title desc">
+  <title id="title">Canal résiduel d'une coupe et provenance du carré theta carré</title>
+  <desc id="desc">Trois panneaux : le canal résiduel d'une arête coupée avec sa marginalisation exacte vers theta ; la bonne construction où deux coupes indépendantes marginalisées séparément donnent theta fois theta ; la mauvaise construction où une coupe partagée donne la moyenne d'un carré, strictement plus grande.</desc>
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+    <marker id="arrl" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrsm" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="10" refX="12" refY="5" orient="auto">
+      <path d="M0,0 L12,5 L0,10 z" fill="#334155"/>
+    </marker>
+    <style>
+      .title { font: 700 26px Inter, Arial, sans-serif; fill: #172033; }
+      .subtitle { font: 500 16px Inter, Arial, sans-serif; fill: #475569; }
+      .panel-title { font: 700 19px Inter, Arial, sans-serif; fill: #172033; }
+      .label { font: 500 15px Inter, Arial, sans-serif; fill: #334155; }
+      .small { font: 500 13px Inter, Arial, sans-serif; fill: #475569; }
+      .tiny { font: 500 11px Inter, Arial, sans-serif; fill: #64748b; }
+      .formula { font: 700 17px Inter, Arial, sans-serif; fill: #172033; }
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; }
+      .boxdark { fill: #ede9fe; stroke: #8b5cf6; stroke-width: 2; }
+      .boxwarn { fill: #fff1f2; stroke: #f3a6aa; stroke-width: 2; }
+      .boxok { fill: #ecfdf3; stroke: #36a269; stroke-width: 2; }
+      .boxblue { fill: #e0f2fe; stroke: #7dd3fc; stroke-width: 2; }
+      .boxamber { fill: #fef3c7; stroke: #fcd34d; stroke-width: 2; }
+      .arrow { fill: none; stroke: #334155; stroke-width: 2.5; marker-end: url(#arr); }
+      .arrowsm { fill: none; stroke: #334155; stroke-width: 2.5; marker-end: url(#arrsm); }
+      .arrowlight { fill: none; stroke: #94a3b8; stroke-width: 2; marker-end: url(#arrl); stroke-dasharray: 6 5; }
+      .axis { stroke: #334155; stroke-width: 2; }
+      .curve { fill: none; stroke: #6d4aff; stroke-width: 3.5; stroke-linecap: round; }
+      .curve2 { fill: none; stroke: #e5484d; stroke-width: 3; stroke-linecap: round; }
+      .curve3 { fill: none; stroke: #36a269; stroke-width: 3; stroke-linecap: round; }
+      .guide { stroke: #e5484d; stroke-width: 2; stroke-dasharray: 8 6; }
+      .guide2 { stroke: #0284c7; stroke-width: 2; stroke-dasharray: 8 6; }
+      .spin { fill: #ffffff; stroke: #334155; stroke-width: 2.5; }
+      .posedge { stroke: #334155; stroke-width: 2.5; }
+      .negedge { stroke: #334155; stroke-width: 2.5; stroke-dasharray: 6 5; }
+      .frozen { stroke: #6d4aff; stroke-width: 4.5; }
+      .tree { fill: none; stroke: #334155; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+  <rect width="1440" height="435" fill="#f8fafc"/>
+  <text x="720" y="42" text-anchor="middle" class="title">Le canal d'une arête coupée, et d'où vient le carré θ²</text>
+  <text x="720" y="70" text-anchor="middle" class="subtitle">faits I.12 (canal résiduel), I.13 (coupe partagée : inflation) et I.14 (deux marginalisations : θ²)</text>
+  <rect x="40" y="100" width="430" height="300" rx="14" class="box"/>
+  <text x="255" y="132" text-anchor="middle" class="panel-title">canal résiduel (fait I.12)</text>
+  <text x="255" y="165" text-anchor="middle" class="small">bit de coupe B de l'arête</text>
+  <rect x="90" y="185" width="150" height="56" rx="14" class="boxblue"/>
+  <text x="165" y="208" text-anchor="middle" class="label">B = 1</text>
+  <text x="165" y="230" text-anchor="middle" class="small">prob. q</text>
+  <rect x="280" y="185" width="150" height="56" rx="14" class="boxamber"/>
+  <text x="355" y="208" text-anchor="middle" class="label">B = 0</text>
+  <text x="355" y="230" text-anchor="middle" class="small">prob. 1 − q</text>
+  <text x="165" y="272" text-anchor="middle" class="formula">c₁ = 1</text>
+  <text x="355" y="272" text-anchor="middle" class="formula">c₀ = (θ−q)/(1−q)</text>
+  <text x="355" y="296" text-anchor="middle" class="small">= tanh((1−β)u/2)</text>
+  <text x="255" y="322" text-anchor="middle" class="small">c₀ est le canal de Gibbs résiduel (th. I.11)</text>
+  <text x="255" y="352" text-anchor="middle" class="formula">marginalisation : q·1 + (1−q)·c₀ = θ</text>
+  <text x="255" y="378" text-anchor="middle" class="small">quel que soit le niveau de coupe q</text>
+  <rect x="505" y="100" width="430" height="300" rx="14" class="boxok"/>
+  <text x="720" y="132" text-anchor="middle" class="panel-title">bonne construction (fait I.14)</text>
+  <text x="720" y="162" text-anchor="middle" class="small">deux jeux d'horloges indépendants, à arbre fixé</text>
+  <rect x="555" y="185" width="150" height="50" rx="14" class="box"/>
+  <text x="630" y="206" text-anchor="middle" class="label">coupe 1</text>
+  <text x="630" y="226" text-anchor="middle" class="small">marginalisée → θ</text>
+  <rect x="745" y="185" width="150" height="50" rx="14" class="box"/>
+  <text x="820" y="206" text-anchor="middle" class="label">coupe 2</text>
+  <text x="820" y="226" text-anchor="middle" class="small">marginalisée → θ</text>
+  <path d="M630 235 L700 285" class="arrowsm"/>
+  <path d="M820 235 L745 285" class="arrowsm"/>
+  <rect x="605" y="285" width="230" height="56" rx="14" class="boxdark"/>
+  <text x="720" y="310" text-anchor="middle" class="formula">θ × θ = θ²</text>
+  <text x="720" y="331" text-anchor="middle" class="small">produit de deux moyennes</text>
+  <text x="720" y="378" text-anchor="middle" class="small">d branches ⟹ nombre de branchement dθ²</text>
+  <rect x="970" y="100" width="430" height="300" rx="14" class="boxwarn"/>
+  <text x="1185" y="132" text-anchor="middle" class="panel-title">mauvaise construction (fait I.13)</text>
+  <text x="1185" y="162" text-anchor="middle" class="small">la même coupe B révélée aux deux copies</text>
+  <rect x="1060" y="185" width="250" height="50" rx="14" class="box"/>
+  <text x="1185" y="206" text-anchor="middle" class="label">coupe commune B</text>
+  <text x="1185" y="226" text-anchor="middle" class="small">→ moyenne d'un carré</text>
+  <path d="M1185 235 L1185 285" class="arrowsm"/>
+  <rect x="1020" y="285" width="330" height="56" rx="14" class="box"/>
+  <text x="1185" y="306" text-anchor="middle" class="small">q·1 + (1−q)c₀² = θ² + q(1−θ)²/(1−q)</text>
+  <text x="1185" y="330" text-anchor="middle" class="formula">&gt; θ²  (Jensen)</text>
+  <text x="1185" y="372" text-anchor="middle" class="small">d = 3, θ = 1/2, q = 1/3 : dθ² = 0.75 mais dη = 1.125</text>
+  <text x="1185" y="392" text-anchor="middle" class="small">un faux régime surcritique sous le vrai seuil</text>
+
+</svg>

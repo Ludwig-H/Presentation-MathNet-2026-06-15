@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="660" viewBox="0 0 1440 660" role="img" aria-labelledby="title desc">
+  <title id="title">Les courbes du lemme B</title>
+  <desc id="desc">Deux panneaux de courbes exactes : à gauche psi de m au-dessus de m carré sur deux ; à droite psi de theta m sous theta carré psi de m pour theta égal 0,6.</desc>
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+    <marker id="arrl" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrsm" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="10" refX="12" refY="5" orient="auto">
+      <path d="M0,0 L12,5 L0,10 z" fill="#334155"/>
+    </marker>
+    <style>
+      .title { font: 700 26px Inter, Arial, sans-serif; fill: #172033; }
+      .subtitle { font: 500 16px Inter, Arial, sans-serif; fill: #475569; }
+      .panel-title { font: 700 19px Inter, Arial, sans-serif; fill: #172033; }
+      .label { font: 500 15px Inter, Arial, sans-serif; fill: #334155; }
+      .small { font: 500 13px Inter, Arial, sans-serif; fill: #475569; }
+      .tiny { font: 500 11px Inter, Arial, sans-serif; fill: #64748b; }
+      .formula { font: 700 17px Inter, Arial, sans-serif; fill: #172033; }
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; }
+      .boxdark { fill: #ede9fe; stroke: #8b5cf6; stroke-width: 2; }
+      .boxwarn { fill: #fff1f2; stroke: #f3a6aa; stroke-width: 2; }
+      .boxok { fill: #ecfdf3; stroke: #36a269; stroke-width: 2; }
+      .boxblue { fill: #e0f2fe; stroke: #7dd3fc; stroke-width: 2; }
+      .boxamber { fill: #fef3c7; stroke: #fcd34d; stroke-width: 2; }
+      .arrow { fill: none; stroke: #334155; stroke-width: 2.5; marker-end: url(#arr); }
+      .arrowsm { fill: none; stroke: #334155; stroke-width: 2.5; marker-end: url(#arrsm); }
+      .arrowlight { fill: none; stroke: #94a3b8; stroke-width: 2; marker-end: url(#arrl); stroke-dasharray: 6 5; }
+      .axis { stroke: #334155; stroke-width: 2; }
+      .curve { fill: none; stroke: #6d4aff; stroke-width: 3.5; stroke-linecap: round; }
+      .curve2 { fill: none; stroke: #e5484d; stroke-width: 3; stroke-linecap: round; }
+      .curve3 { fill: none; stroke: #36a269; stroke-width: 3; stroke-linecap: round; }
+      .guide { stroke: #e5484d; stroke-width: 2; stroke-dasharray: 8 6; }
+      .guide2 { stroke: #0284c7; stroke-width: 2; stroke-dasharray: 8 6; }
+      .spin { fill: #ffffff; stroke: #334155; stroke-width: 2.5; }
+      .posedge { stroke: #334155; stroke-width: 2.5; }
+      .negedge { stroke: #334155; stroke-width: 2.5; stroke-dasharray: 6 5; }
+      .frozen { stroke: #6d4aff; stroke-width: 4.5; }
+      .tree { fill: none; stroke: #334155; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+  <rect width="1440" height="660" fill="#f8fafc"/>
+  <text x="720" y="42" text-anchor="middle" class="title">Le lemme B en images : la série de ψ fait tout</text>
+  <text x="720" y="70" text-anchor="middle" class="subtitle">ψ(m) = Σ m^{2k}/(2k(2k−1)) : coefficients positifs ⟹ minoration quadratique et SDPI terme à terme</text>
+  <rect x="40" y="100" width="660" height="500" rx="14" class="box"/>
+  <text x="370" y="132" text-anchor="middle" class="panel-title">minoration : ψ(m) ≥ m²/2 (lemme A)</text>
+  <path d="M110 520 L662 520" class="axis" marker-end="url(#arr)"/>
+  <path d="M110 520 L110 138" class="axis" marker-end="url(#arr)"/>
+  <text x="666" y="546" text-anchor="end" class="formula">m</text>
+  <text x="96" y="132" text-anchor="end" class="formula">ψ</text>
+  <line x1="650" y1="514" x2="650" y2="526" class="axis"/>
+  <text x="650" y="546" text-anchor="middle" class="small">1</text>
+  <path d="M110.0 520.0 L115.4 520.0 L120.8 519.9 L126.2 519.8 L131.6 519.6 L137.0 519.3 L142.4 519.0 L147.8 518.7 L153.2 518.3 L158.6 517.8 L164.0 517.3 L169.4 516.8 L174.8 516.1 L180.2 515.5 L185.6 514.8 L191.0 514.0 L196.4 513.1 L201.8 512.2 L207.2 511.3 L212.6 510.3 L218.0 509.3 L223.4 508.1 L228.8 507.0 L234.2 505.8 L239.6 504.5 L245.0 503.1 L250.4 501.7 L255.8 500.3 L261.2 498.8 L266.6 497.2 L272.0 495.6 L277.4 493.9 L282.8 492.2 L288.2 490.4 L293.6 488.5 L299.0 486.6 L304.4 484.6 L309.8 482.6 L315.2 480.5 L320.6 478.3 L326.0 476.1 L331.4 473.8 L336.8 471.4 L342.2 469.0 L347.6 466.5 L353.0 464.0 L358.4 461.3 L363.8 458.7 L369.2 455.9 L374.6 453.1 L380.0 450.2 L385.4 447.2 L390.8 444.2 L396.2 441.1 L401.6 437.9 L407.0 434.6 L412.4 431.3 L417.8 427.8 L423.2 424.3 L428.6 420.8 L434.0 417.1 L439.4 413.4 L444.8 409.5 L450.2 405.6 L455.6 401.6 L461.0 397.5 L466.4 393.4 L471.8 389.1 L477.2 384.7 L482.6 380.2 L488.0 375.6 L493.4 371.0 L498.8 366.2 L504.2 361.3 L509.6 356.3 L515.0 351.1 L520.4 345.9 L525.8 340.5 L531.2 335.0 L536.6 329.3 L542.0 323.5 L547.4 317.6 L552.8 311.5 L558.2 305.2 L563.6 298.8 L569.0 292.2 L574.4 285.4 L579.8 278.4 L585.2 271.2 L590.6 263.7 L596.0 256.0 L601.4 248.0 L606.8 239.6 L612.2 231.0 L617.6 221.9 L623.0 212.4 L628.4 202.3 L633.8 191.6 L639.2 179.9 L644.6 166.8 L650.0 150.0" class="curve"/>
+  <path d="M110.0 520.0 L115.4 520.0 L120.8 519.9 L126.2 519.8 L131.6 519.6 L137.0 519.3 L142.4 519.0 L147.8 518.7 L153.2 518.3 L158.6 517.8 L164.0 517.3 L169.4 516.8 L174.8 516.2 L180.2 515.5 L185.6 514.8 L191.0 514.0 L196.4 513.2 L201.8 512.3 L207.2 511.4 L212.6 510.4 L218.0 509.3 L223.4 508.2 L228.8 507.1 L234.2 505.9 L239.6 504.6 L245.0 503.3 L250.4 502.0 L255.8 500.5 L261.2 499.1 L266.6 497.6 L272.0 496.0 L277.4 494.4 L282.8 492.7 L288.2 490.9 L293.6 489.1 L299.0 487.3 L304.4 485.4 L309.8 483.5 L315.2 481.5 L320.6 479.4 L326.0 477.3 L331.4 475.1 L336.8 472.9 L342.2 470.7 L347.6 468.3 L353.0 466.0 L358.4 463.5 L363.8 461.0 L369.2 458.5 L374.6 455.9 L380.0 453.3 L385.4 450.6 L390.8 447.8 L396.2 445.0 L401.6 442.2 L407.0 439.3 L412.4 436.3 L417.8 433.3 L423.2 430.2 L428.6 427.1 L434.0 423.9 L439.4 420.7 L444.8 417.4 L450.2 414.1 L455.6 410.7 L461.0 407.2 L466.4 403.7 L471.8 400.2 L477.2 396.6 L482.6 392.9 L488.0 389.2 L493.4 385.5 L498.8 381.6 L504.2 377.8 L509.6 373.8 L515.0 369.9 L520.4 365.8 L525.8 361.8 L531.2 357.6 L536.6 353.4 L542.0 349.2 L547.4 344.9 L552.8 340.5 L558.2 336.1 L563.6 331.7 L569.0 327.2 L574.4 322.6 L579.8 318.0 L585.2 313.3 L590.6 308.6 L596.0 303.8 L601.4 299.0 L606.8 294.1 L612.2 289.2 L617.6 284.2 L623.0 279.1 L628.4 274.0 L633.8 268.9 L639.2 263.7 L644.6 258.4 L650.0 253.1" class="curve2"/>
+  <line x1="110" y1="543" x2="160" y2="543" stroke="#6d4aff" stroke-width="4"/>
+  <text x="172" y="548" text-anchor="start" class="small">ψ(m) — vaut ln 2 en m = 1</text>
+  <line x1="110" y1="567" x2="160" y2="567" stroke="#e5484d" stroke-width="4"/>
+  <text x="172" y="572" text-anchor="start" class="small">m²/2</text>
+  <rect x="740" y="100" width="660" height="500" rx="14" class="box"/>
+  <text x="1070" y="132" text-anchor="middle" class="panel-title">SDPI : ψ(θm) ≤ θ²ψ(m), ici θ = 0.6 (lemme B)</text>
+  <path d="M810 520 L1362 520" class="axis" marker-end="url(#arr)"/>
+  <path d="M810 520 L810 138" class="axis" marker-end="url(#arr)"/>
+  <text x="1366" y="546" text-anchor="end" class="formula">m</text>
+  <text x="796" y="132" text-anchor="end" class="formula">ψ</text>
+  <line x1="1350" y1="514" x2="1350" y2="526" class="axis"/>
+  <text x="1350" y="546" text-anchor="middle" class="small">1</text>
+  <path d="M810.0 520.0 L815.4 520.0 L820.8 519.9 L826.2 519.8 L831.6 519.6 L837.0 519.3 L842.4 519.0 L847.8 518.7 L853.2 518.3 L858.6 517.8 L864.0 517.3 L869.4 516.8 L874.8 516.1 L880.2 515.5 L885.6 514.8 L891.0 514.0 L896.4 513.1 L901.8 512.2 L907.2 511.3 L912.6 510.3 L918.0 509.3 L923.4 508.1 L928.8 507.0 L934.2 505.8 L939.6 504.5 L945.0 503.1 L950.4 501.7 L955.8 500.3 L961.2 498.8 L966.6 497.2 L972.0 495.6 L977.4 493.9 L982.8 492.2 L988.2 490.4 L993.6 488.5 L999.0 486.6 L1004.4 484.6 L1009.8 482.6 L1015.2 480.5 L1020.6 478.3 L1026.0 476.1 L1031.4 473.8 L1036.8 471.4 L1042.2 469.0 L1047.6 466.5 L1053.0 464.0 L1058.4 461.3 L1063.8 458.7 L1069.2 455.9 L1074.6 453.1 L1080.0 450.2 L1085.4 447.2 L1090.8 444.2 L1096.2 441.1 L1101.6 437.9 L1107.0 434.6 L1112.4 431.3 L1117.8 427.8 L1123.2 424.3 L1128.6 420.8 L1134.0 417.1 L1139.4 413.4 L1144.8 409.5 L1150.2 405.6 L1155.6 401.6 L1161.0 397.5 L1166.4 393.4 L1171.8 389.1 L1177.2 384.7 L1182.6 380.2 L1188.0 375.6 L1193.4 371.0 L1198.8 366.2 L1204.2 361.3 L1209.6 356.3 L1215.0 351.1 L1220.4 345.9 L1225.8 340.5 L1231.2 335.0 L1236.6 329.3 L1242.0 323.5 L1247.4 317.6 L1252.8 311.5 L1258.2 305.2 L1263.6 298.8 L1269.0 292.2 L1274.4 285.4 L1279.8 278.4 L1285.2 271.2 L1290.6 263.7 L1296.0 256.0 L1301.4 248.0 L1306.8 239.6 L1312.2 231.0 L1317.6 221.9 L1323.0 212.4 L1328.4 202.3 L1333.8 191.6 L1339.2 179.9 L1344.6 166.8 L1350.0 150.0" class="curve"/>
+  <path d="M810.0 520.0 L815.4 520.0 L820.8 520.0 L826.2 519.9 L831.6 519.8 L837.0 519.8 L842.4 519.7 L847.8 519.5 L853.2 519.4 L858.6 519.2 L864.0 519.0 L869.4 518.8 L874.8 518.6 L880.2 518.4 L885.6 518.1 L891.0 517.8 L896.4 517.5 L901.8 517.2 L907.2 516.9 L912.6 516.5 L918.0 516.1 L923.4 515.7 L928.8 515.3 L934.2 514.9 L939.6 514.4 L945.0 513.9 L950.4 513.4 L955.8 512.9 L961.2 512.4 L966.6 511.8 L972.0 511.2 L977.4 510.6 L982.8 510.0 L988.2 509.3 L993.6 508.7 L999.0 508.0 L1004.4 507.3 L1009.8 506.5 L1015.2 505.8 L1020.6 505.0 L1026.0 504.2 L1031.4 503.4 L1036.8 502.5 L1042.2 501.6 L1047.6 500.7 L1053.0 499.8 L1058.4 498.9 L1063.8 497.9 L1069.2 496.9 L1074.6 495.9 L1080.0 494.9 L1085.4 493.8 L1090.8 492.7 L1096.2 491.6 L1101.6 490.4 L1107.0 489.3 L1112.4 488.1 L1117.8 486.8 L1123.2 485.6 L1128.6 484.3 L1134.0 483.0 L1139.4 481.6 L1144.8 480.2 L1150.2 478.8 L1155.6 477.4 L1161.0 475.9 L1166.4 474.4 L1171.8 472.9 L1177.2 471.3 L1182.6 469.7 L1188.0 468.0 L1193.4 466.3 L1198.8 464.6 L1204.2 462.9 L1209.6 461.1 L1215.0 459.2 L1220.4 457.3 L1225.8 455.4 L1231.2 453.4 L1236.6 451.4 L1242.0 449.3 L1247.4 447.1 L1252.8 444.9 L1258.2 442.7 L1263.6 440.4 L1269.0 438.0 L1274.4 435.5 L1279.8 433.0 L1285.2 430.4 L1290.6 427.7 L1296.0 424.9 L1301.4 422.1 L1306.8 419.1 L1312.2 416.0 L1317.6 412.7 L1323.0 409.3 L1328.4 405.6 L1333.8 401.8 L1339.2 397.6 L1344.6 392.8 L1350.0 386.8" class="curve3"/>
+  <path d="M810.0 520.0 L815.4 520.0 L820.8 520.0 L826.2 519.9 L831.6 519.8 L837.0 519.8 L842.4 519.7 L847.8 519.5 L853.2 519.4 L858.6 519.2 L864.0 519.0 L869.4 518.8 L874.8 518.6 L880.2 518.4 L885.6 518.1 L891.0 517.8 L896.4 517.5 L901.8 517.2 L907.2 516.9 L912.6 516.5 L918.0 516.1 L923.4 515.8 L928.8 515.3 L934.2 514.9 L939.6 514.4 L945.0 514.0 L950.4 513.5 L955.8 513.0 L961.2 512.4 L966.6 511.9 L972.0 511.3 L977.4 510.7 L982.8 510.1 L988.2 509.5 L993.6 508.8 L999.0 508.1 L1004.4 507.4 L1009.8 506.7 L1015.2 506.0 L1020.6 505.2 L1026.0 504.5 L1031.4 503.7 L1036.8 502.9 L1042.2 502.0 L1047.6 501.2 L1053.0 500.3 L1058.4 499.4 L1063.8 498.5 L1069.2 497.5 L1074.6 496.6 L1080.0 495.6 L1085.4 494.6 L1090.8 493.6 L1096.2 492.5 L1101.6 491.5 L1107.0 490.4 L1112.4 489.3 L1117.8 488.1 L1123.2 487.0 L1128.6 485.8 L1134.0 484.6 L1139.4 483.4 L1144.8 482.2 L1150.2 480.9 L1155.6 479.6 L1161.0 478.3 L1166.4 477.0 L1171.8 475.6 L1177.2 474.2 L1182.6 472.8 L1188.0 471.4 L1193.4 470.0 L1198.8 468.5 L1204.2 467.0 L1209.6 465.5 L1215.0 464.0 L1220.4 462.4 L1225.8 460.8 L1231.2 459.2 L1236.6 457.6 L1242.0 455.9 L1247.4 454.2 L1252.8 452.5 L1258.2 450.8 L1263.6 449.0 L1269.0 447.2 L1274.4 445.4 L1279.8 443.5 L1285.2 441.7 L1290.6 439.8 L1296.0 437.9 L1301.4 435.9 L1306.8 433.9 L1312.2 431.9 L1317.6 429.9 L1323.0 427.8 L1328.4 425.8 L1333.8 423.6 L1339.2 421.5 L1344.6 419.3 L1350.0 417.1" class="curve2"/>
+  <line x1="810" y1="543" x2="860" y2="543" stroke="#6d4aff" stroke-width="4"/>
+  <text x="872" y="548" text-anchor="start" class="small">ψ(m)</text>
+  <line x1="810" y1="567" x2="860" y2="567" stroke="#36a269" stroke-width="4"/>
+  <text x="872" y="572" text-anchor="start" class="small">θ²·ψ(m)</text>
+  <line x1="810" y1="591" x2="860" y2="591" stroke="#e5484d" stroke-width="4"/>
+  <text x="872" y="596" text-anchor="start" class="small">ψ(θm) — toujours en dessous</text>
+
+</svg>

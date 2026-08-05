@@ -223,8 +223,13 @@ d\theta^2=1.
 > second moment exact du broadcast (Evans–Kenyon–Peres–Schulman) et la
 > borne supérieure vient de la percolation d'information $\chi^2$
 > (Abbe–Boix-Adserà) ; voir [REFERENCES](REFERENCES.md) pour les énoncés
-> précis. Cette étape est donc **littérature-dépendante**, seule la
-> calibration hiérarchique autour d'elle est propre au dossier.
+> précis. La non-reconstruction sur l'arbre ($\lambda\le1$, cas critique
+> compris) est due à Evans–Kenyon–Peres–Schulman ; la percolation
+> d'information la retrouve et l'étend aux graphes — la
+> [note 08](08_PREUVES_COMPLETES_SEUILS.md) démontre la version
+> $\lambda<1$ depuis zéro (théorème I.18). Cette étape est donc
+> **littérature-dépendante**, seule la calibration hiérarchique autour
+> d'elle est propre au dossier.
 
 ## 6. Couper à $\beta_c$ et voir exactement le seuil
 

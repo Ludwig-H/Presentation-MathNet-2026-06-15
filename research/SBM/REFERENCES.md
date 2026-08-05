@@ -45,6 +45,11 @@ Le présent dossier est donc une extension fidèle à la méthode du chapitre
 
 ## 4. Almost exact et exact recovery
 
+- Yury Polyanskiy et Yihong Wu,
+  [*Application of the Information-Percolation Method to Reconstruction Problems on Graphs*](https://arxiv.org/abs/1806.04195),
+  [DOI](https://doi.org/10.4171/MSL/10). La méthode d'information-percolation
+  en version KL, de la même famille que la borne $`\chi^2`$ d'Abbe--Boix ;
+  citée par la comparaison de la [note 08](08_PREUVES_COMPLETES_SEUILS.md).
 - Elchanan Mossel, Joe Neeman et Allan Sly,
   [*Consistency Thresholds for the Planted Bisection Model*](https://arxiv.org/abs/1407.1591),
   [DOI](https://doi.org/10.1214/16-EJP4185). Seuils d'almost exact

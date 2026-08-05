@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="465" viewBox="0 0 1440 465" role="img" aria-labelledby="title desc">
+  <title id="title">L'écrasement de la coupe géométrique et l'expérience par site</title>
+  <desc id="desc">À gauche, un axe beta où les coupes critiques pour lambda égal 2, 5, 20, 100 s'accumulent vers zéro ; à droite, l'expérience oracle d'un site : tous les voisins révélés, le log-rapport Delta et l'affinité exacte rho puissance n moins un.</desc>
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+    <marker id="arrl" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrsm" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="10" refX="12" refY="5" orient="auto">
+      <path d="M0,0 L12,5 L0,10 z" fill="#334155"/>
+    </marker>
+    <style>
+      .title { font: 700 26px Inter, Arial, sans-serif; fill: #172033; }
+      .subtitle { font: 500 16px Inter, Arial, sans-serif; fill: #475569; }
+      .panel-title { font: 700 19px Inter, Arial, sans-serif; fill: #172033; }
+      .label { font: 500 15px Inter, Arial, sans-serif; fill: #334155; }
+      .small { font: 500 13px Inter, Arial, sans-serif; fill: #475569; }
+      .tiny { font: 500 11px Inter, Arial, sans-serif; fill: #64748b; }
+      .formula { font: 700 17px Inter, Arial, sans-serif; fill: #172033; }
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; }
+      .boxdark { fill: #ede9fe; stroke: #8b5cf6; stroke-width: 2; }
+      .boxwarn { fill: #fff1f2; stroke: #f3a6aa; stroke-width: 2; }
+      .boxok { fill: #ecfdf3; stroke: #36a269; stroke-width: 2; }
+      .boxblue { fill: #e0f2fe; stroke: #7dd3fc; stroke-width: 2; }
+      .boxamber { fill: #fef3c7; stroke: #fcd34d; stroke-width: 2; }
+      .arrow { fill: none; stroke: #334155; stroke-width: 2.5; marker-end: url(#arr); }
+      .arrowsm { fill: none; stroke: #334155; stroke-width: 2.5; marker-end: url(#arrsm); }
+      .arrowlight { fill: none; stroke: #94a3b8; stroke-width: 2; marker-end: url(#arrl); stroke-dasharray: 6 5; }
+      .axis { stroke: #334155; stroke-width: 2; }
+      .curve { fill: none; stroke: #6d4aff; stroke-width: 3.5; stroke-linecap: round; }
+      .curve2 { fill: none; stroke: #e5484d; stroke-width: 3; stroke-linecap: round; }
+      .curve3 { fill: none; stroke: #36a269; stroke-width: 3; stroke-linecap: round; }
+      .guide { stroke: #e5484d; stroke-width: 2; stroke-dasharray: 8 6; }
+      .guide2 { stroke: #0284c7; stroke-width: 2; stroke-dasharray: 8 6; }
+      .spin { fill: #ffffff; stroke: #334155; stroke-width: 2.5; }
+      .posedge { stroke: #334155; stroke-width: 2.5; }
+      .negedge { stroke: #334155; stroke-width: 2.5; stroke-dasharray: 6 5; }
+      .frozen { stroke: #6d4aff; stroke-width: 4.5; }
+      .tree { fill: none; stroke: #334155; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+  <rect width="1440" height="465" fill="#f8fafc"/>
+  <text x="720" y="42" text-anchor="middle" class="title">Partie II : la coupe s'écrase sur Glauber, le site devient l'unité</text>
+  <text x="720" y="70" text-anchor="middle" class="subtitle">fait II.2 (β_c,n ≤ 2/λ_n → 0) et l'expérience oracle d'un site (définition II.4, θ = 1/2 pour l'axe)</text>
+  <rect x="40" y="100" width="660" height="330" rx="14" class="box"/>
+  <text x="370" y="132" text-anchor="middle" class="panel-title">l'écrasement de la coupe géométrique</text>
+  <path d="M110 250 L655 250" class="axis" marker-end="url(#arr)"/>
+  <text x="658" y="300" text-anchor="end" class="formula">β</text>
+  <text x="110" y="278" text-anchor="middle" class="small">0</text>
+  <line x1="110" y1="242" x2="110" y2="258" class="axis"/>
+  <text x="640.0" y="278" text-anchor="middle" class="small">1</text>
+  <line x1="640.0" y1="242" x2="640.0" y2="258" class="axis"/>
+  <line x1="198.0" y1="240" x2="198.0" y2="250" stroke="#e5484d" stroke-width="3"/>
+  <line x1="143.3" y1="240" x2="143.3" y2="250" stroke="#e5484d" stroke-width="3"/>
+  <line x1="118.1" y1="240" x2="118.1" y2="250" stroke="#e5484d" stroke-width="3"/>
+  <line x1="111.6" y1="240" x2="111.6" y2="250" stroke="#e5484d" stroke-width="3"/>
+  <text x="370" y="300" text-anchor="middle" class="small">β_c,n pour λ_n = 100, 20, 5, 2, de gauche à droite (θ = 1/2)</text>
+  <text x="370" y="330" text-anchor="middle" class="label">β_c,n ≤ 2/λ_n → 0 : le niveau de percolation</text>
+  <text x="370" y="352" text-anchor="middle" class="label">converge de lui-même vers l'extrémité Glauber</text>
+  <path d="M330 165 C260 165, 190 200, 132 232" class="arrowlight"/>
+  <text x="360" y="168" text-anchor="start" class="formula">λ_n → ∞</text>
+  <rect x="740" y="100" width="660" height="330" rx="14" class="box"/>
+  <text x="1070" y="132" text-anchor="middle" class="panel-title">l'expérience oracle d'un site (β = 0)</text>
+  <circle cx="1070" cy="240" r="20" class="spin" style="stroke:#6d4aff;stroke-width:4"/>
+  <text x="1070" y="246" text-anchor="middle" class="formula">?</text>
+  <line x1="1092.0" y1="240.0" x2="1190.0" y2="240.0" class="negedge" style="stroke:#94a3b8"/>
+  <circle cx="1190.0" cy="240.0" r="13" class="spin"/>
+  <text x="1190.0" y="245.0" text-anchor="middle" class="small">−</text>
+  <line x1="1085.6" y1="250.6" x2="1154.9" y2="295.2" class="posedge" style="stroke:#94a3b8"/>
+  <circle cx="1154.9" cy="295.2" r="13" class="spin"/>
+  <text x="1154.8528137423857" y="300.1543289325507" text-anchor="middle" class="small">+</text>
+  <line x1="1070.0" y1="255.0" x2="1070.0" y2="318.0" class="posedge" style="stroke:#94a3b8"/>
+  <circle cx="1070.0" cy="318.0" r="13" class="spin"/>
+  <text x="1070.0" y="323.0" text-anchor="middle" class="small">−</text>
+  <line x1="1054.4" y1="250.6" x2="985.1" y2="295.2" class="negedge" style="stroke:#94a3b8"/>
+  <circle cx="985.1" cy="295.2" r="13" class="spin"/>
+  <text x="985.1471862576143" y="300.1543289325507" text-anchor="middle" class="small">+</text>
+  <line x1="1048.0" y1="240.0" x2="950.0" y2="240.0" class="posedge" style="stroke:#94a3b8"/>
+  <circle cx="950.0" cy="240.0" r="13" class="spin"/>
+  <text x="950.0" y="245.0" text-anchor="middle" class="small">−</text>
+  <line x1="1054.4" y1="229.4" x2="985.1" y2="184.8" class="posedge" style="stroke:#94a3b8"/>
+  <circle cx="985.1" cy="184.8" r="13" class="spin"/>
+  <text x="985.1471862576143" y="189.8456710674493" text-anchor="middle" class="small">+</text>
+  <line x1="1070.0" y1="225.0" x2="1070.0" y2="162.0" class="negedge" style="stroke:#94a3b8"/>
+  <circle cx="1070.0" cy="162.0" r="13" class="spin"/>
+  <text x="1070.0" y="167.0" text-anchor="middle" class="small">−</text>
+  <line x1="1085.6" y1="229.4" x2="1154.9" y2="184.8" class="posedge" style="stroke:#94a3b8"/>
+  <circle cx="1154.9" cy="184.8" r="13" class="spin"/>
+  <text x="1154.8528137423857" y="189.84567106744927" text-anchor="middle" class="small">+</text>
+  <text x="1070" y="355" text-anchor="middle" class="small">tous les autres labels révélés : LLR Δ_v, flip avec ε_v = (1+e^{Δ_v})⁻¹</text>
+  <text x="1070" y="385" text-anchor="middle" class="formula">E[e^{−Δ_v/2}] = ρ_n^{n−1} = H_n  (prop. II.5, identité exacte)</text>
+  <text x="1070" y="412" text-anchor="middle" class="small">H_n → 0 ⟺ λ_n → ∞ : seuil d'almost exact (II.6–II.7)</text>
+
+</svg>
