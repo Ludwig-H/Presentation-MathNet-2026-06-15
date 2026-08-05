@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
   <title id="title">Deux dendrogrammes indépendants coupés au beta critique géométrique</title>
-  <desc id="desc">Une même observation alimente deux répliques postérieures. Chacune possède ses propres horloges et son propre dendrogramme, coupé au même temps beta critique géométrique. Les deux dendrogrammes sont marginalisés séparément avant de former l'overlap, ce qui donne theta carré. Le temps informationnel beta chi rencontre la coupe géométrique exactement au seuil d theta carré égal à un.</desc>
+  <desc id="desc">Une même observation alimente deux répliques postérieures sur les mêmes huit sommets. Chacune possède ses propres horloges et son propre dendrogramme, coupé au même temps beta critique géométrique : les blocs de la coupe partitionnent différemment le même ensemble de sommets. Les deux dendrogrammes sont marginalisés séparément avant de former l'overlap, ce qui donne theta carré. Le temps informationnel beta chi rencontre la coupe géométrique exactement au seuil d theta carré égal à un.</desc>
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
       <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
@@ -23,7 +23,7 @@
 
   <rect width="1440" height="900" fill="#f8fafc"/>
   <text x="720" y="44" text-anchor="middle" class="title">La bonne construction : deux dendrogrammes répliqués</text>
-  <text x="720" y="73" text-anchor="middle" class="subtitle">Même observation, même niveau βc géométrique — spins, horloges et marginalisations indépendants</text>
+  <text x="720" y="73" text-anchor="middle" class="subtitle">Mêmes sommets 1…8, même niveau βc — horloges indépendantes, donc blocs de coupe différents</text>
 
   <rect x="595" y="91" width="250" height="48" rx="24" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
   <text x="720" y="122" text-anchor="middle" class="formula">Observation commune A</text>
@@ -33,72 +33,85 @@
   <rect x="40" y="165" width="650" height="535" rx="24" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
   <rect x="750" y="165" width="650" height="535" rx="24" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
 
-  <text x="365" y="205" text-anchor="middle" class="panel-title">Réplique 1 : (σ¹, D¹)</text>
-  <text x="365" y="231" text-anchor="middle" class="small">D¹ ∼ R(dD | σ¹), avec ses propres horloges</text>
-  <text x="1075" y="205" text-anchor="middle" class="panel-title">Réplique 2 : (σ², D²)</text>
-  <text x="1075" y="231" text-anchor="middle" class="small">D² ∼ R(dD | σ²), indépendamment de D¹ sachant A</text>
+  <text x="365" y="205" text-anchor="middle" class="panel-title">Réplique 1 : (σ⁽¹⁾, D⁽¹⁾)</text>
+  <text x="365" y="231" text-anchor="middle" class="small">D⁽¹⁾ tiré des horloges de σ⁽¹⁾</text>
+  <text x="1075" y="205" text-anchor="middle" class="panel-title">Réplique 2 : (σ⁽²⁾, D⁽²⁾)</text>
+  <text x="1075" y="231" text-anchor="middle" class="small">D⁽²⁾ tiré des horloges de σ⁽²⁾, indépendant de D⁽¹⁾</text>
 
   <!-- Critical block backgrounds, left -->
-  <rect x="74" y="420" width="181" height="225" rx="18" fill="#e0f2fe" stroke="#7dd3fc" stroke-width="2"/>
-  <rect x="267" y="420" width="145" height="225" rx="18" fill="#dcfce7" stroke="#86efac" stroke-width="2"/>
-  <rect x="424" y="420" width="230" height="225" rx="18" fill="#fef3c7" stroke="#fcd34d" stroke-width="2"/>
+  <rect x="74" y="420" width="232" height="225" rx="18" fill="#e0f2fe" stroke="#7dd3fc" stroke-width="2"/>
+  <rect x="330" y="420" width="110" height="225" rx="18" fill="#dcfce7" stroke="#86efac" stroke-width="2"/>
+  <rect x="446" y="420" width="208" height="225" rx="18" fill="#fef3c7" stroke="#fcd34d" stroke-width="2"/>
 
   <!-- Left tree below cut -->
-  <path d="M105 620 L105 560 L160 560 M215 620 L215 560 L160 560 L160 500 L235 500 M310 620 L310 500 L235 500 L235 420" class="tree"/>
-  <path d="M330 620 L330 530 L375 530 M420 620 L420 530 L375 530 L375 420" class="tree"/>
-  <path d="M455 620 L455 565 L510 565 M565 620 L565 565 L510 565 L510 500 L565 500 M635 620 L635 500 L565 500 L565 420" class="tree"/>
+  <path d="M105 620 L105 560 L160 560 M215 620 L215 560 L160 560 L160 500 L235 500 M298 620 L298 500 L235 500 L235 420" class="tree"/>
+  <path d="M348 620 L348 530 L385 530 M420 620 L420 530 L385 530 L385 420" class="tree"/>
+  <path d="M455 620 L455 565 L510 565 M565 620 L565 565 L510 565 L510 500 L600 500 M635 620 L635 500 L600 500 L600 420" class="tree"/>
 
   <!-- Left post-critical tree -->
-  <path d="M235 420 L235 350 L375 350 M375 420 L375 350 L375 310 L490 310 M565 420 L565 310 L490 310 L490 270 L365 270 M365 270 L365 252" class="post"/>
+  <path d="M235 420 L235 350 L385 350 M385 420 L385 350 L385 310 L490 310 M600 420 L600 310 L490 310 L490 270 L365 270 M365 270 L365 252" class="post"/>
   <circle cx="365" cy="252" r="10" class="root"/>
 
   <!-- Left cut -->
   <line x1="62" y1="420" x2="668" y2="420" class="cut"/>
-  <rect x="70" y="383" width="196" height="29" rx="14" fill="#fff1f2"/>
-  <text x="168" y="403" text-anchor="middle" class="label" fill="#b4232a">D¹ coupé à βc</text>
-  <text x="365" y="670" text-anchor="middle" class="label">marginaliser D¹ dans son Gibbs complet</text>
+  <rect x="385" y="383" width="170" height="29" rx="14" fill="#fff1f2"/>
+  <text x="470" y="403" text-anchor="middle" class="label" fill="#b4232a">D¹ coupé à βc</text>
+  <text x="365" y="694" text-anchor="middle" class="label">marginaliser D¹ dans son Gibbs complet</text>
 
   <!-- Leaf nodes left -->
   <g>
     <circle cx="105" cy="620" r="8" class="node"/><circle cx="215" cy="620" r="8" class="node"/>
-    <circle cx="310" cy="620" r="8" class="node"/><circle cx="330" cy="620" r="8" class="node"/>
+    <circle cx="298" cy="620" r="8" class="node"/><circle cx="348" cy="620" r="8" class="node"/>
     <circle cx="420" cy="620" r="8" class="node"/><circle cx="455" cy="620" r="8" class="node"/>
     <circle cx="565" cy="620" r="8" class="node"/><circle cx="635" cy="620" r="8" class="node"/>
   </g>
 
-  <!-- Critical block backgrounds, right, deliberately different -->
+  <g>
+    <text x="105" y="650" text-anchor="middle" class="small">1</text><text x="215" y="650" text-anchor="middle" class="small">2</text>
+    <text x="298" y="650" text-anchor="middle" class="small">3</text><text x="348" y="650" text-anchor="middle" class="small">4</text>
+    <text x="420" y="650" text-anchor="middle" class="small">5</text><text x="455" y="650" text-anchor="middle" class="small">6</text>
+    <text x="565" y="650" text-anchor="middle" class="small">7</text><text x="635" y="650" text-anchor="middle" class="small">8</text>
+  </g>
+
+  <!-- Critical block backgrounds, right: same 8 vertices, different partition {1,2},{3,4,5,6},{7,8} -->
   <rect x="784" y="420" width="142" height="225" rx="18" fill="#fef3c7" stroke="#fcd34d" stroke-width="2"/>
-  <rect x="938" y="420" width="223" height="225" rx="18" fill="#e0f2fe" stroke="#7dd3fc" stroke-width="2"/>
-  <rect x="1173" y="420" width="191" height="225" rx="18" fill="#dcfce7" stroke="#86efac" stroke-width="2"/>
+  <rect x="938" y="420" width="266" height="225" rx="18" fill="#e0f2fe" stroke="#7dd3fc" stroke-width="2"/>
+  <rect x="1216" y="420" width="148" height="225" rx="18" fill="#dcfce7" stroke="#86efac" stroke-width="2"/>
 
   <!-- Right tree below cut -->
-  <path d="M815 620 L815 520 L870 520 M915 620 L915 520 L870 520 L870 420" class="tree"/>
-  <path d="M970 620 L970 565 L1015 565 M1060 620 L1060 565 L1015 565 L1015 490 L1080 490 M1140 620 L1140 490 L1080 490 L1080 420" class="tree"/>
-  <path d="M1205 620 L1205 550 L1260 550 M1315 620 L1315 550 L1260 550 L1260 420" class="tree"/>
+  <path d="M815 620 L815 545 L855 545 M895 620 L895 545 L855 545 L855 420" class="tree"/>
+  <path d="M965 620 L965 560 L1000 560 M1035 620 L1035 560 L1000 560 L1000 490 L1070 490 M1105 620 L1105 560 L1140 560 M1175 620 L1175 560 L1140 560 L1140 490 L1070 490 L1070 420" class="tree"/>
+  <path d="M1245 620 L1245 545 L1285 545 M1325 620 L1325 545 L1285 545 L1285 420" class="tree"/>
 
   <!-- Right post-critical tree -->
-  <path d="M870 420 L870 325 L1015 325 M1080 420 L1080 325 L1015 325 L1015 280 L1140 280 M1260 420 L1260 280 L1140 280 L1140 252" class="post"/>
-  <circle cx="1140" cy="252" r="10" class="root"/>
+  <path d="M855 420 L855 340 L1070 340 M1070 420 L1070 340 L1070 285 L1178 285 M1285 420 L1285 285 L1178 285 L1178 252" class="post"/>
+  <circle cx="1178" cy="252" r="10" class="root"/>
 
   <!-- Right cut -->
   <line x1="772" y1="420" x2="1378" y2="420" class="cut"/>
-  <rect x="780" y="383" width="196" height="29" rx="14" fill="#fff1f2"/>
-  <text x="878" y="403" text-anchor="middle" class="label" fill="#b4232a">D² coupé à βc</text>
-  <text x="1075" y="670" text-anchor="middle" class="label">marginaliser D² dans son Gibbs complet</text>
+  <rect x="1085" y="383" width="170" height="29" rx="14" fill="#fff1f2"/>
+  <text x="1170" y="403" text-anchor="middle" class="label" fill="#b4232a">D² coupé à βc</text>
+  <text x="1075" y="694" text-anchor="middle" class="label">marginaliser D² dans son Gibbs complet</text>
 
-  <!-- Leaf nodes right -->
+  <!-- Leaf nodes right: the same vertices 1..8 -->
   <g>
-    <circle cx="815" cy="620" r="8" class="node"/><circle cx="915" cy="620" r="8" class="node"/>
-    <circle cx="970" cy="620" r="8" class="node"/><circle cx="1060" cy="620" r="8" class="node"/>
-    <circle cx="1140" cy="620" r="8" class="node"/><circle cx="1205" cy="620" r="8" class="node"/>
-    <circle cx="1315" cy="620" r="8" class="node"/>
+    <circle cx="815" cy="620" r="8" class="node"/><circle cx="895" cy="620" r="8" class="node"/>
+    <circle cx="965" cy="620" r="8" class="node"/><circle cx="1035" cy="620" r="8" class="node"/>
+    <circle cx="1105" cy="620" r="8" class="node"/><circle cx="1175" cy="620" r="8" class="node"/>
+    <circle cx="1245" cy="620" r="8" class="node"/><circle cx="1325" cy="620" r="8" class="node"/>
+  </g>
+  <g>
+    <text x="815" y="650" text-anchor="middle" class="small">1</text><text x="895" y="650" text-anchor="middle" class="small">2</text>
+    <text x="965" y="650" text-anchor="middle" class="small">3</text><text x="1035" y="650" text-anchor="middle" class="small">4</text>
+    <text x="1105" y="650" text-anchor="middle" class="small">5</text><text x="1175" y="650" text-anchor="middle" class="small">6</text>
+    <text x="1245" y="650" text-anchor="middle" class="small">7</text><text x="1325" y="650" text-anchor="middle" class="small">8</text>
   </g>
 
   <!-- Combination pipeline -->
-  <path d="M365 700 C430 730, 520 738, 595 749" class="arrow"/>
-  <path d="M1075 700 C1010 730, 920 738, 845 749" class="arrow"/>
+  <path d="M365 700 C430 730, 500 738, 546 745" class="arrow"/>
+  <path d="M1075 700 C1010 730, 940 738, 894 745" class="arrow"/>
   <rect x="550" y="724" width="340" height="54" rx="16" fill="#ede9fe" stroke="#8b5cf6" stroke-width="2"/>
-  <text x="720" y="758" text-anchor="middle" class="formula">Yᵢ = σᵢ¹σᵢ²</text>
+  <text x="720" y="758" text-anchor="middle" class="formula">overlap mₙ(σ⁽¹⁾, σ⁽²⁾)</text>
 
   <path d="M890 751 L980 751" class="arrow"/>
   <rect x="995" y="716" width="385" height="70" rx="16" fill="#ecfdf3" stroke="#36a269" stroke-width="2"/>

@@ -45,6 +45,12 @@ Le présent dossier est donc une extension fidèle à la méthode du chapitre
 
 ## 4. Almost exact et exact recovery
 
+- Elchanan Mossel, Joe Neeman et Allan Sly,
+  [*Consistency Thresholds for the Planted Bisection Model*](https://arxiv.org/abs/1407.1591),
+  [DOI](https://doi.org/10.1214/16-EJP4185). Seuils d'almost exact
+  ($`\lambda_n\to\infty`$) et d'exact recovery pour la bisection
+  plantée — l'emprunt E3b de la partie II de la
+  [note 08](08_PREUVES_COMPLETES_SEUILS.md).
 - Anderson Y. Zhang et Harrison H. Zhou,
   [*Minimax Rates of Community Detection in Stochastic Block Models*](https://arxiv.org/abs/1507.05313),
   [DOI](https://doi.org/10.1214/15-AOS1428). Exposant minimax de la

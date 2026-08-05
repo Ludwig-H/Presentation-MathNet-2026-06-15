@@ -134,7 +134,15 @@ satisfaite au seuil de Kesten--Stigum non dégénéré.
    benchmark d'équilibre, et la stabilité de la vérité sous un sweep de
    Glauber exactement au seuil $(\sqrt A-\sqrt B)^2=2$. **C'est la porte
    à franchir avant tout retour au GSBM triangulaire.**
-8. [Références](REFERENCES.md) regroupe le manuscrit, les articles primaires
+8. [Démonstrations complètes depuis zéro](08_PREUVES_COMPLETES_SEUILS.md) :
+   la preuve exhaustive et self-contained, dans l'esprit du chapitre 11,
+   du seuil de weak recovery lu sur la coupe $\beta_c$ (Nishimori,
+   dynamique coupée invariante, carré $\theta^2$ par deux dendrogrammes,
+   fermeture complète sur l'arbre), puis du seuil d'almost exact recovery
+   obtenu en faisant tendre $\beta$ vers $0$ (Glauber, identité
+   d'affinité, Le Cam). Les trois emprunts à la littérature y sont
+   explicitement délimités.
+9. [Références](REFERENCES.md) regroupe le manuscrit, les articles primaires
    et les calculs reproductibles déjà présents dans le dépôt.
 
 ## Trois précisions indispensables

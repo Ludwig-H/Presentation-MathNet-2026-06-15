@@ -38,6 +38,7 @@ Les scripts n'ont pas de dépendance scientifique externe.
 | `cactus_collapsed_certificate.py` | contraction exacte sur le cactus | [21](../results/hierarchical/21_CACTUS_COLLAPSED_CERTIFICATE.md) |
 | `ancestral_lambda_chain.py` | quatre taux ancestraux sur un squelette fini | [08](../foundations/ancestral/08_ANCESTRAL_LAMBDA_CHAIN.md) |
 | `ancestral_walsh_identities.py` | sommes/produits appariés des quatre taux (arithmétique exacte), ancêtre terminal isolé muet, forme fermée de $`B_u`$ | [42](../foundations/ancestral/42_PROBLEME_CENTRAL_FUSION_CRITIQUE.md) |
+| `sbm_tree_threshold_proofs.py` | série et SDPI de $`\psi`$, bornes I.17/I.18 sur arbres énumérés, récursion poissonienne en rationnels exacts, identités I.9/I.12/I.13/II.5 | [SBM/08](../../SBM/08_PREUVES_COMPLETES_SEUILS.md) |
 | `sbm_glauber_stability_benchmark.py` | stabilité exacte de la vérité sous un sweep de Glauber ($`\beta=0`$) du SBM : identité d'affinité et croisement au seuil $`(\sqrt A-\sqrt B)^2=2`$ | [SBM/07](../../SBM/07_SEUILS_PAR_LA_DYNAMIQUE.md) |
 | `critical_component_boundary.py` | loi de frontière, charge et taux Palm | [14](../foundations/ancestral/14_CRITICAL_COMPONENT_BOUNDARY.md), [25](../foundations/25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md) |
 

@@ -41,6 +41,8 @@ le mélange d'un sweep hiérarchique.
 | remplacer le port par des racines indépendantes au seuil | **réfuté pour la route full-$D$ étudiée** | les deux grandes orientations sont asymptotiquement opposées ; le port doit rester |
 | un nombre explicite de sweeps hiérarchiques contracte si $\lambda\le1$ | **ouvert** | mélange/spectral gap non contrôlé |
 | $\mathbb E[e^{-\Delta_v/2}]=\rho_n^{n-1}$ pour le sweep à $\beta=0$ | **identité exacte** | [07, prop. 3.1](07_SEUILS_PAR_LA_DYNAMIQUE.md) |
+| seuil de l'arbre : reconstruction ssi $\lambda>1$ (hors cas critique) | **démontré depuis zéro** | [08, th. I.17–I.18](08_PREUVES_COMPLETES_SEUILS.md) ; cas $\lambda=1$ cité (E2) |
+| almost exact impossible si $\lambda_n\not\to\infty$ | **démontré depuis zéro** | [08, th. II.6](08_PREUVES_COMPLETES_SEUILS.md) (Le Cam + oracle par site) |
 | la vérité est stable sous un sweep de Glauber ssi $(\sqrt A-\sqrt B)^2>2$ | **établi** (stabilité) / **établi sous références** (instabilité) | [07, prop. 4.1 et 4.3](07_SEUILS_PAR_LA_DYNAMIQUE.md) |
 | la hiérarchie atteint l'exposant almost exact optimal | **programme de recherche** | lift Hellinger écrit, fermeture absente ; stabilité par sommet établie ([07 §5](07_SEUILS_PAR_LA_DYNAMIQUE.md)) |
 | la hiérarchie atteint le seuil exact recovery | **programme de recherche** | queue $o(1/n)$ non prouvée ; Glauber depuis un départ froid : ouvert ([07, SBM-DYN0](07_SEUILS_PAR_LA_DYNAMIQUE.md)) |
@@ -177,6 +179,7 @@ nouveau seuil hiérarchique.
 
 Les fichiers principaux sont :
 
+- [`sbm_tree_threshold_proofs.py`](../hierarchical-swendsen-wang/computations/sbm_tree_threshold_proofs.py) ;
 - [`sbm_broadcast_density_evolution.py`](../hierarchical-swendsen-wang/computations/sbm_broadcast_density_evolution.py) ;
 - [`sbm_critical_cut_replica_diagnostic.py`](../hierarchical-swendsen-wang/computations/sbm_critical_cut_replica_diagnostic.py) ;
 - [`sbm_global_port_convolution.py`](../hierarchical-swendsen-wang/computations/sbm_global_port_convolution.py) ;
