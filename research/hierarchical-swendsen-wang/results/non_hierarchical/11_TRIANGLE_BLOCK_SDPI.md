@@ -936,7 +936,7 @@ $`M_u>1/2`$.
 | Enveloppe $`a(q),s(q),e(q)`$ | Établie comme optimisation locale | candidat algébrique $`0.809909\ldots`$ |
 | Certificat rationnel P809439, tous a priori | Établi exactement | marge $`\mathrm{Var}/(5\times10^7)`$ |
 | Relèvement quotient, tensorisation et tore | Établi | comparaison globale facteur par facteur |
-| Nouvelle borne weak recovery | Établie | $`p_{\mathrm{WR}}\ge0.809439`$ |
+| Nouvelle borne weak recovery | Établie conditionnellement aux trois théorèmes cités (Makur–Polyanskiy, Polyanskiy–Wu, Chayes–Lei) | $`p_{\mathrm{WR}}\ge0.809439`$, voir [34](34_CERTIFICAT_RATIONNEL_P809439.md) |
 | Lemme tangent $`P_\star`$ | À prouver | ne pas citer $`0.809909\ldots`$ comme théorème |
 
 Ordre recommandé : conserver P809439 comme borne rigoureuse, puis n'attaquer le

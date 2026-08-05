@@ -22,3 +22,7 @@ corridor complet. Ces théorèmes ne se transfèrent pas automatiquement à la
 grille triangulaire complète.
 
 Voir l'[index raisonné](../INDEX.md#résultats-établis) pour leur portée exacte.
+
+Le certificat P809439 se compose d'un **théorème local** (rationnel,
+autonome, vérifiable par script) et d'un **théorème global** conditionnel
+à trois références citées (Makur–Polyanskiy, Polyanskiy–Wu, Chayes–Lei).

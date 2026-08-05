@@ -218,6 +218,14 @@ d\theta^2=1.
 \qquad\text{(5.3)}
 ```
 
+> [!NOTE]
+> Le sandwich (4.3) n'est pas redémontré ici : la borne inférieure est le
+> second moment exact du broadcast (Evans–Kenyon–Peres–Schulman) et la
+> borne supérieure vient de la percolation d'information $\chi^2$
+> (Abbe–Boix-Adserà) ; voir [REFERENCES](REFERENCES.md) pour les énoncés
+> précis. Cette étape est donc **littérature-dépendante**, seule la
+> calibration hiérarchique autour d'elle est propre au dossier.
+
 ## 6. Couper à $\beta_c$ et voir exactement le seuil
 
 Plaçons sur la même horloge la géométrie et l'information. La coupe

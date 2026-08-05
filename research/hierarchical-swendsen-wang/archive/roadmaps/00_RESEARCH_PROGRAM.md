@@ -29,7 +29,7 @@ les verrous qui doivent encore être fermés pour obtenir une nouvelle borne de
 weak recovery. Pour l'ordre actuel des travaux, partir de la
 [feuille corrigée](../../diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md), puis consulter la
 [sous-feuille historique](27_SUBROADMAP_CORRIDOR_P0805.md) et les
-[premiers résultats](../../diagnostics/finite_volume/28_FIRST_CORRIDOR_P0805_RESULTS.md).
+[premiers résultats](28_FIRST_CORRIDOR_P0805_RESULTS.md).
 
 ## 1. Question cible
 
@@ -217,7 +217,7 @@ réalisés du squelette observé.
 | L3 | conditionnellement à $`\Pi_\beta`$, les marques de frontière sont i.i.d. résiduelles | établi exactement | [14](../../foundations/ancestral/14_CRITICAL_COMPONENT_BOUNDARY.md), [25](../../foundations/25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md) |
 | L4 | la charge d'une coupe instantanée est gouvernée par $`m h_p(\beta)^2`$ | établi | [25](../../foundations/25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md) |
 | L5 | une coupe fusionnante possède une correction Palm par l'arête gagnante | établi exactement | [09](../../diagnostics/09_CRITICAL_MERGER_ORACLE.md), [25](../../foundations/25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md) |
-| L6 | l'intensité LCA pré-saut vaut $`mN_\rho`$ et un événement de fusion déjà réalisé se pondère par $`N_\rho`$ | établi en volume fini | [27](27_SUBROADMAP_CORRIDOR_P0805.md), [28](../../diagnostics/finite_volume/28_FIRST_CORRIDOR_P0805_RESULTS.md) |
+| L6 | l'intensité LCA pré-saut vaut $`mN_\rho`$ et un événement de fusion déjà réalisé se pondère par $`N_\rho`$ | établi en volume fini | [27](27_SUBROADMAP_CORRIDOR_P0805.md), [28](28_FIRST_CORRIDOR_P0805_RESULTS.md) |
 | L7 | à taille fixée, le canal critique mono-bit Blackwell-domine le canal tardif | établi | [19](../../foundations/19_FAVORABLE_SWEEP_PROJECTIONS.md) |
 | L8 | les dégradations se tensorisent dans le surrogate produit mono-bit, même sous un prior corrélé | établi abstraitement ; faux comme description générale du corridor réel | [20](../../foundations/20_COLLAPSED_CORRIDOR_BLACKWELL.md), [29](../../diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md) |
 | L9 | le corridor collapsed est au plus persistant qu'un sweep des mêmes nœuds | établi | [20](../../foundations/20_COLLAPSED_CORRIDOR_BLACKWELL.md), [22](../../results/hierarchical/22_LCA_VS_FULL_HIERARCHY.md) |
@@ -541,7 +541,7 @@ composition sur la grille.
 8. [05 — feuille de route](05_PROOF_ROADMAP.md) — dépendances techniques.
 9. [27 — sous-feuille P0805](27_SUBROADMAP_CORRIDOR_P0805.md) — ordre
    falsifiable et portes go/no-go.
-10. [28 — premiers résultats](../../diagnostics/finite_volume/28_FIRST_CORRIDOR_P0805_RESULTS.md) — audits
+10. [28 — premiers résultats](28_FIRST_CORRIDOR_P0805_RESULTS.md) — audits
     Palm, cellule E1+ et prochaine cellule T2-Kruskal.
 11. [29 — audit à froid](../../diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md) —
     contre-exemple multiport, T2 réel et feuille de route corrigée.

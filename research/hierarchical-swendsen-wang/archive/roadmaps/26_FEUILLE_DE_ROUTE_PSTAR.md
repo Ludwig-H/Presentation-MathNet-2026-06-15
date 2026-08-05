@@ -510,7 +510,7 @@ de Doob doivent alors être communes ou se composer en un cocycle dont les
 rapports de bord sont explicitement bornés ; normaliser séparément chaque
 matrice puis multiplier les rapports ne serait pas valide.
 
-Le [premier calcul E1+](../../diagnostics/finite_volume/28_FIRST_CORRIDOR_P0805_RESULTS.md) montre que (6.5)
+Le [premier calcul E1+](28_FIRST_CORRIDOR_P0805_RESULTS.md) montre que (6.5)
 ne peut pas être uniforme sur tous les potentiels extérieurs non bornés pour
 le second moment brut : sous un champ polarisant, celui-ci tend vers un. Il
 faut donc soit restreindre (6.5) à une classe tronquée et payer sa queue, soit

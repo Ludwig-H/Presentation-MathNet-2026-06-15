@@ -13,6 +13,18 @@ plus simple qui puisse encore conduire à une obstruction de weak recovery.
 > $`mN_\rho`$. Il constitue désormais la référence pour toute affirmation
 > selon laquelle une coupe « cesse d'être informative ».
 
+> **CAUTION — conclusion périmée.** La route « corridor de buckets
+> $`m=2`$ » des sections 9--11, encore présentée plus bas comme la plus
+> prometteuse, est fermée : le motif $`m=2`$ à message neutre est clos par
+> le [fichier 28](../archive/roadmaps/28_FIRST_CORRIDOR_P0805_RESULTS.md), le
+> no-go du potentiel extérieur non borné (28 §4) invalide l'hypothèse
+> $`|B_r|\le B_0`$ du théorème 10.1, et le no-go $`|U|=K`$ du
+> [fichier 29 §6.4](29_AUDIT_FROID_PIVOT_RANGS_REELS.md) interdit le
+> coefficient de bloc $`\kappa<1`$ sur un état fidèle. Ce qui survit de
+> cette note : la table des quatre catégories, $`\beta_{\mathrm{act}}`$,
+> $`p_{\partial,\mathrm{late}}`$, et le canal d'effacement exact
+> $`\Gamma_2=s_p(\beta)`$ (lemme 9.1).
+
 Le bilan exact donne une conclusion en deux parties.
 
 1. L'intuition qualitative est correcte : les clusters précoces sont formés
@@ -351,7 +363,7 @@ donne
 
 ```math
 \boxed{
-p_{\partial,\rm act}
+p_{\partial,\mathrm{late}}
 =
 \frac{2+q_c}{3}
 =
@@ -359,6 +371,9 @@ p_{\partial,\rm act}
 }
 \qquad\text{(5.6)}
 ```
+
+(Cette constante est notée uniformément $`p_{\partial,\mathrm{late}}`$
+dans le dépôt, comme dans les fichiers 13 et 14.)
 
 C'est aussi l'unique valeur telle que
 
@@ -369,7 +384,7 @@ C'est aussi l'unique valeur telle que
 Mais
 
 ```math
-p_{\partial,\rm act}
+p_{\partial,\mathrm{late}}
 <
 p_{\rm info}
 =
@@ -860,10 +875,14 @@ Deux mécanismes simples et rigoureux restent disponibles :
 2. l'accumulation de buckets bornés ambigus, spécialement $`m=2`$, le long du
    corridor descendant.
 
-Pour attaquer $`p=0.8`$, le second est le plus prometteur. Le scénario où
+Le second était présenté ici comme le plus prometteur pour attaquer
+$`p=0.8`$ ; cette conclusion est **périmée** (voir le bandeau CAUTION en
+tête : fermetures des fichiers 28 et 29). Le scénario où
 $`i,j`$ fusionnent dès $`\beta_c`$ reste un benchmark sévère, et un oracle
 favorable exact sur le cactus seulement. Sur la grille, il ne majore pas le
-corridor multiport réel. Le bucket du LCA y est fortement informatif, mais la
-distance peut encore être
-exploitée si le corridor contient un nombre divergent de motifs ambigus
-screenés.
+corridor multiport réel. Le bucket du LCA y est fortement informatif ; la
+question de savoir si la distance peut encore être exploitée passe
+désormais par la cible répliquée de la
+[note 41](../active/41_DESINTEGRATION_PALM_RESTE_SIGNE.md) et le problème
+central de la
+[note 42](../foundations/ancestral/42_PROBLEME_CENTRAL_FUSION_CRITIQUE.md).

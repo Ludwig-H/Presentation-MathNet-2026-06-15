@@ -18,9 +18,14 @@ fonctionnelle de troncature, est traitée dans le
 
 Le [cas d'une fusion au temps critique](../../diagnostics/09_CRITICAL_MERGER_ORACLE.md) donne une
 calibration locale supplémentaire : pour tout ancêtre strict,
-$`1/2\le s_p(\beta_v)<s_p(\beta_c)`$. Les comptes groupés admettent alors un
+$`1/2\le s_p(\beta_v)<s_p(\beta_u)`$. Lorsque $`\beta_u\ge\beta_c`$, on a de
+plus $`s_p(\beta_v)<s_p(\beta_c)`$ et les comptes groupés admettent un
 couplage sandwich explicite entre des binomiales de paramètres $`1/2`$ et
-$`s_p(\beta_c)`$. Ce contrôle n'induit toutefois aucun ordre direct sur les
+$`s_p(\beta_c)`$. Attention : sous la localisation par la gauche de la
+[proposition 5.1 du fichier 14](14_CRITICAL_COMPONENT_BOUNDARY.md)
+($`\beta_{ij}\le\beta_c`$), un ancêtre strict peut vivre dans la fenêtre
+$`(\beta_u,\beta_c]`$ avec $`s_p(\beta_v)\ge s_p(\beta_c)`$ ; le sandwich
+vaut alors avec le paramètre $`s_p(\beta_u)`$. Ce contrôle n'induit toutefois aucun ordre direct sur les
 quatre taux retournés ni sur $`\eta_u`$, car les compléments renversent les
 ordres et le message ancestral peut annuler le LLR local **ponctuellement**.
 Le [fichier 14](14_CRITICAL_COMPONENT_BOUNDARY.md) précise le contrôle

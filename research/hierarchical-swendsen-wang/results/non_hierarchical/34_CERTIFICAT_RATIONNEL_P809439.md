@@ -378,7 +378,9 @@ A_0-A_{\max}
 ```
 
 Cette incompatibilité persiste pour tout $`p\ge p^+`$. En effet, avec
-$`z=q^2`$, le numérateur primitif de $`A_0-A_{\max}`$ est
+$`z=q^2`$, le numérateur de $`A_0-A_{\max}`$ s'écrit, à un facteur
+$`(1+z)>0`$ près du polynôme primitif de degré 5, comme le polynôme de
+degré 6 suivant :
 
 ```math
 \begin{aligned}

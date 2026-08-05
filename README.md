@@ -21,9 +21,9 @@ Choisissez le parcours qui correspond à votre objectif.
 
 | Je veux… | Première lecture | Puis… |
 |---|---|---|
-| comprendre le seuil SBM sur deux dendrogrammes | [dossier pédagogique SBM](research/SBM/) | [statut scientifique et no-go](research/SBM/06_STATUT_SCIENTIFIQUE.md) |
+| comprendre le seuil SBM sur deux dendrogrammes | [dossier pédagogique SBM](research/SBM/) | [la dynamique retrouve-t-elle les seuils ?](research/SBM/07_SEUILS_PAR_LA_DYNAMIQUE.md) |
 | comprendre le résultat en cinq minutes | [statut scientifique actuel](research/hierarchical-swendsen-wang/CURRENT_STATUS.md) | [certificat à p = 0,809439](research/hierarchical-swendsen-wang/results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md) |
-| comprendre la dynamique hiérarchique | [cible prioritaire répliquée](research/hierarchical-swendsen-wang/active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) | [pilote SBM et port global fini](research/hierarchical-swendsen-wang/active/39_PORT_GLOBAL_SBM_RECOVERY.md) |
+| comprendre la dynamique hiérarchique | [problème central : fusion critique et chaîne des Λ_v](research/hierarchical-swendsen-wang/foundations/ancestral/42_PROBLEME_CENTRAL_FUSION_CRITIQUE.md) | [cible prioritaire répliquée](research/hierarchical-swendsen-wang/active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) |
 | retrouver une note précise | [index exhaustif des notes](research/hierarchical-swendsen-wang/INDEX.md) | dossier indiqué par son statut |
 | reproduire les preuves assistées par calcul | [guide des calculs](research/hierarchical-swendsen-wang/computations/README.md) | commandes de validation ci-dessous |
 | consulter les supports de séminaire | [table des présentations](#présentations) | source et PDF dans chaque dossier |
@@ -36,7 +36,7 @@ confondus.
 | voie | acquis | question ouverte |
 |---|---|---|
 | canal triangulaire multi-état | borne rigoureuse $`p_{\mathrm{WR}}\ge0.809439`$ | pousser le certificat vers le point tangent candidat |
-| dynamique hiérarchique | mesure jointe exacte, Gibbs d'arbre entier et calibration broadcast | annuler le reste signé inter-cellules de deux hiérarchies |
+| dynamique hiérarchique | mesure jointe exacte, calibration broadcast et réduction Palm positive du reste signé | contracter le transfert cross-block moyenné en dendrogramme |
 
 La cible triangulaire utilise chaque arbre associé à une composante géante,
 coupé au niveau $`\beta_c(p)=q_p^{-1}(q_c)`$, mais conserve le Gibbs exact
@@ -45,19 +45,24 @@ dendrogrammes indépendants conditionnellement à l'observation : partager un
 dendrogramme gonfle artificiellement l'overlap. Le pilote dérive le jacobien
 $`d\theta^2`$ et retrouve le seuil du broadcast après marginalisation
 exacte, pour toute coupe ; il ne prouve ni une contraction dynamique ni le
-transfert au SBM fini, où balance ou non-arêtes recouplent les racines. Sur
-le graphe fini, ce recouplage est désormais écrit exactement comme un port
-scalaire de magnétisation, sans que sa comparaison au broadcast soit encore
-prouvée. Sur la grille, les contributions hors double géante et la diagonale
-critique sont désormais éliminées. La cible exacte est le reste signé entre
-cellules distinctes de l'intersection des deux géantes. Son statut est
-**programme de preuve**, pas théorème. Ce programme ne répète pas la borne
-par recoloriage du chapitre 11 : il remplace son unique objet gelé par deux
-Gibbs conditionnels exacts sur deux dendrogrammes complets.
+transfert au SBM fini. Sur le graphe fini, balance ou non-arêtes forment un
+port scalaire exact. Ce port n'est pas une petite correction au seuil KS :
+les racines full-$D$ sont les composantes de deux graphes ER de degré limite
+$`d\theta`$ et, à KS, leurs deux géantes sont recouplées à ordre un. Sur la
+grille, les contributions hors double géante et la diagonale critique sont
+éliminées. Une nouvelle désintégration montre que le reste signé est, à
+$`o(1)`$ près, le carré positif du transfert cross-block **moyenné en
+dendrogramme avant le carré**. La construction d'un espace commun de ports
+et sa contraction restent un **programme de preuve**, pas un théorème de
+seuil. Ce programme ne répète pas la borne par recoloriage du chapitre 11 :
+il remplace son unique objet gelé par deux Gibbs conditionnels exacts sur
+deux dendrogrammes complets.
 
-Le premier audit à $`L=4,p=0.81`$ trouve l'enveloppe à un dendrogramme
-macroscopique ($`0.9507\ldots`$) et le reste signé à deux dendrogrammes encore
-positif en moyenne. Il valide la décomposition, pas une tendance en volume.
+Les audits à $`L=4,5,6`$ trouvent l'enveloppe à un dendrogramme toujours
+macroscopique, de $`0.9507\ldots`$ à $`0.9478\ldots`$. Le reste signé à deux
+dendrogrammes n'est encore calculé exactement qu'à $`L=4`$. Ces expériences
+valident la décomposition et écartent le raccourci single-$D$ ; elles
+n'établissent aucune tendance asymptotique.
 
 ## Carte du dépôt
 
@@ -87,7 +92,7 @@ hierarchical-swendsen-wang/
 └── references/         littérature et bibliographie
 ```
 
-Les numéros `00` à `40` gardent la chronologie du cahier. Ils ne définissent
+Les numéros `00` à `41` gardent la chronologie du cahier. Ils ne définissent
 plus l'ordre de lecture.
 
 ## Présentations

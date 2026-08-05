@@ -450,7 +450,13 @@ d_L(I_L,J_L)\ge\rho L,\
 ```
 
 Il impose simultanément une composante critique macroscopique et une
-séparation des deux branches au voisinage du seuil.
+séparation des deux branches au voisinage du seuil. La borne inférieure
+$`\beta_c-\varepsilon`$ est asymptotiquement redondante : par la
+proposition 5.1 ci-dessous, le conditionnement gauche
+$`\{d_L\ge\rho L,\ \beta_{ij}\le\beta_c\}`$ suffit et définit la même
+limite conditionnelle ; voir la
+[note 42 §4.3](42_PROBLEME_CENTRAL_FUSION_CRITIQUE.md) pour la version
+sans fenêtre et le tableau des conventions.
 
 ### Proposition 5.1 — localisation critique grossière, statut : établi sous RSW
 

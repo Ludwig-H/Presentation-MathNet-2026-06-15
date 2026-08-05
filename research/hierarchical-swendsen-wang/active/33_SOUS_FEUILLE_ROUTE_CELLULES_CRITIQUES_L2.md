@@ -180,16 +180,25 @@ sommable $`\eta_{k,L}`$ tels que
 \qquad\text{(5.3)}
 ```
 
-Ces deux énoncés donnent
+Ces deux énoncés donnent la récursion
+$`a_{k,L}\le(1-\delta\rho)\,a_{k-1,L}+(\delta\eta_{k,L}+\varepsilon_{k,L})`$,
+d'où
 
 ```math
 a_{K_L,L}
 \le
 \bigl(1-\delta(p)\rho(p)\bigr)^{K_L}a_{0,L}
-+o(1)
-\longrightarrow0.
++
+\sum_{r=1}^{K_L}
+\bigl(1-\delta(p)\rho(p)\bigr)^{K_L-r}
+\bigl(\delta(p)\eta_{r,L}+\varepsilon_{r,L}\bigr).
 \qquad\text{(5.4)}
 ```
+
+La conclusion $`a_{K_L,L}\to0`$ exige que la **somme amortie** des
+erreurs — le second terme de (5.4) — tende vers zéro en $L$ ; la seule
+sommabilité en $k$ à $L$ fixé ne suffit pas. C'est la formulation (3.3)
+du [fichier 30](30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md), qui prévaut.
 
 Après l'annulation exacte des paires appartenant à deux racines finales
 distinctes et la décroissance des connexions uniformément sous-critiques, le

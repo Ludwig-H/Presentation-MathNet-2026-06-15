@@ -49,7 +49,7 @@ variables non rééchantillonnées. Son opérateur de heat bath est
 ```math
 (P_ug)(\sigma)
 =
-\mathbb E_{\pi_D}[g(\widetilde\sigma)\mid\mathcal G_u](../\sigma).
+\mathbb E_{\pi_D}[g(\widetilde\sigma)\mid\mathcal G_u](\sigma).
 ```
 
 Dans $`L^2(\pi_D)`$,

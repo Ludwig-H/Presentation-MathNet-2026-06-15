@@ -6,7 +6,11 @@ reproductibles associés aux présentations.
 ## Benchmark spécial SBM
 
 Le dossier [SBM](SBM/) donne une présentation autonome et pédagogique du
-SBM symétrique binaire : deux répliques, deux dendrogrammes indépendants
+SBM symétrique binaire — et contient désormais la
+[porte de calibration](SBM/07_SEUILS_PAR_LA_DYNAMIQUE.md) à franchir avant
+tout retour au GSBM : la dynamique retrouve-t-elle les seuils du SBM
+classique (weak recovery à la coupe de percolation, exact recovery à
+$`\beta=0`$ où elle dégénère en Glauber) ? Le dossier couvre : deux répliques, deux dendrogrammes indépendants
 coupés au même $\beta_c$, calibration exacte
 $\beta_\chi=\beta_c\Longleftrightarrow d\theta^2=1$, puis extensions
 almost exact / exact recovery et limite $\beta\downarrow0$ vers Glauber.
@@ -43,9 +47,10 @@ Son statut tient en quatre lignes :
 | criticalisation uniforme des fusions multiports | **réfutée** par contre-exemple exact |
 | réduction au Gibbs inter-blocs d'un arbre géant fixé | **établie** en volume fini, diagnostic oracle |
 | dendrogramme commun aux deux répliques | **réfuté comme cible exacte** par le pilote SBM |
-| port global du SBM fini | **écrit et éliminé exactement** par convolution ; comparaison au broadcast ouverte |
+| port global du SBM fini | **écrit exactement** ; comparaison perturbative au broadcast réfutée à KS |
 | réduction à un reste signé inter-cellules sur la double géante | **établie** géométriquement |
-| annulation de ce reste à $`p=0.81`$ | **prioritaire**, sans nouveau seuil prouvé |
+| désintégration du reste signé | **établie** en un carré cross-block moyenné en dendrogramme |
+| contraction de ce carré à $`p=0.81`$ | **prioritaire**, sans nouveau seuil prouvé |
 
 ## Trois parcours de lecture
 
@@ -53,11 +58,13 @@ Son statut tient en quatre lignes :
 
 1. [Vue d'ensemble pédagogique](hierarchical-swendsen-wang/README.md)
 2. [Statut scientifique canonique](hierarchical-swendsen-wang/CURRENT_STATUS.md)
-3. [Cible exacte sur la double géante](hierarchical-swendsen-wang/active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md)
-4. [Calibration broadcast et verrou du SBM fini](hierarchical-swendsen-wang/active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md)
-5. [Port global fini et trois régimes SBM](hierarchical-swendsen-wang/active/39_PORT_GLOBAL_SBM_RECOVERY.md)
-6. [Premier test spectral et signé à p = 0,81](hierarchical-swendsen-wang/diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md)
-7. [Diagnostic à un dendrogramme géant](hierarchical-swendsen-wang/active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md)
+3. [Problème central en une note](hierarchical-swendsen-wang/foundations/ancestral/42_PROBLEME_CENTRAL_FUSION_CRITIQUE.md)
+4. [Cible exacte sur la double géante](hierarchical-swendsen-wang/active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md)
+5. [Calibration broadcast et verrou du SBM fini](hierarchical-swendsen-wang/active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md)
+6. [Port global fini et trois régimes SBM](hierarchical-swendsen-wang/active/39_PORT_GLOBAL_SBM_RECOVERY.md)
+7. [Désintégration Palm du reste signé](hierarchical-swendsen-wang/active/41_DESINTEGRATION_PALM_RESTE_SIGNE.md)
+8. [Tests spectraux et signés à p = 0,81](hierarchical-swendsen-wang/diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md)
+9. [Diagnostic à un dendrogramme géant](hierarchical-swendsen-wang/active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md)
 
 ### 2. Vérifier la borne rigoureuse
 
@@ -70,15 +77,18 @@ Son statut tient en quatre lignes :
 
 1. [Mesure jointe et dynamique exacte](hierarchical-swendsen-wang/foundations/01_MATHEMATICAL_FRAMEWORK.md)
 2. [Critère pairwise de weak recovery](hierarchical-swendsen-wang/foundations/03_HIERARCHICAL_WEAK_RECOVERY.md)
-3. [Information des coupes et biais de Palm](hierarchical-swendsen-wang/foundations/25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md)
-4. [Projections de heat bath](hierarchical-swendsen-wang/foundations/19_FAVORABLE_SWEEP_PROJECTIONS.md)
-5. [Projection collapsed du corridor](hierarchical-swendsen-wang/foundations/20_COLLAPSED_CORRIDOR_BLACKWELL.md)
-6. [Deux no-go qui imposent le pivot](hierarchical-swendsen-wang/diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md)
-7. [Pilote SBM](hierarchical-swendsen-wang/active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md)
-8. [Port global et régimes du SBM fini](hierarchical-swendsen-wang/active/39_PORT_GLOBAL_SBM_RECOVERY.md)
-9. [Double géante et Gibbs répliqué exact](hierarchical-swendsen-wang/active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md)
-10. [Diagnostic à un arbre fixé](hierarchical-swendsen-wang/active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md)
-11. [Moteur distance–entropie](hierarchical-swendsen-wang/active/35_DISTANCE_ENTROPIE_ERGODICITE.md)
+3. [Problème central : fusion critique d'une paire lointaine et chaîne des Λ_v](hierarchical-swendsen-wang/foundations/ancestral/42_PROBLEME_CENTRAL_FUSION_CRITIQUE.md)
+4. [Information des coupes et biais de Palm](hierarchical-swendsen-wang/foundations/25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md)
+5. [Projections de heat bath](hierarchical-swendsen-wang/foundations/19_FAVORABLE_SWEEP_PROJECTIONS.md)
+6. [Projection collapsed du corridor](hierarchical-swendsen-wang/foundations/20_COLLAPSED_CORRIDOR_BLACKWELL.md)
+7. [Deux no-go qui imposent le pivot](hierarchical-swendsen-wang/diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md)
+8. [Porte de calibration SBM : seuils par la dynamique](SBM/07_SEUILS_PAR_LA_DYNAMIQUE.md)
+9. [Pilote SBM](hierarchical-swendsen-wang/active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md)
+10. [Port global et régimes du SBM fini](hierarchical-swendsen-wang/active/39_PORT_GLOBAL_SBM_RECOVERY.md)
+11. [Double géante et Gibbs répliqué exact](hierarchical-swendsen-wang/active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md)
+12. [Palm cross-block et opérateur moyenné](hierarchical-swendsen-wang/active/41_DESINTEGRATION_PALM_RESTE_SIGNE.md)
+13. [Diagnostic à un arbre fixé](hierarchical-swendsen-wang/active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md)
+14. [Moteur distance–entropie](hierarchical-swendsen-wang/active/35_DISTANCE_ENTROPIE_ERGODICITE.md)
 
 L'[index exhaustif](hierarchical-swendsen-wang/INDEX.md) classe toutes les
 notes, y compris les diagnostics et les anciennes feuilles de route.

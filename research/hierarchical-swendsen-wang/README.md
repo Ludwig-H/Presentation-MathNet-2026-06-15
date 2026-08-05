@@ -13,11 +13,14 @@ obstruction rigoureuse de weak recovery.
 > **Ce qui reste ouvert.** La dynamique hiérarchique n'a pas encore produit
 > de seuil supplémentaire sur la grille triangulaire. Le broadcast SBM
 > calibre exactement le bookkeeping à deux répliques et le port global du
-> SBM fini est maintenant écrit exactement, mais ni leur comparaison
-> dynamique ni le transfert arbre--graphe ne sont fermés. La cible
-> prioritaire est le reste signé entre cellules critiques de la double géante
-> triangulaire, après deux Gibbs exacts et deux dendrogrammes entiers. À
-> $`L=4,p=0.81`$, ce reste est encore positif en moyenne.
+> SBM fini est maintenant écrit exactement. Une comparaison perturbative
+> uniforme au broadcast est même réfutée à KS par les deux racines ER
+> géantes. Sur la grille, le reste signé de la double géante est désormais
+> réduit à un carré cross-block positif, après moyenne signée en
+> dendrogramme. La cible prioritaire est de factoriser et contracter cet
+> opérateur dans un espace commun de ports. À $`L=4,p=0.81`$, le reste
+> signé brut est encore positif en moyenne ; aucune nouvelle borne n'est
+> prouvée.
 
 Pour une photographie exacte et datée, consulter
 [`CURRENT_STATUS.md`](CURRENT_STATUS.md). Pour retrouver une note précise,
@@ -90,7 +93,8 @@ flowchart LR
     G --> B["Deux coupes critiques beta_c"]
     B --> P["Tous les facteurs postcritiques conservés"]
     P --> E["Reste signé inter-cellules sur la double géante"]
-    E --> O["Seuil hiérarchique encore ouvert"]
+    E --> A["Moyenne signée en D avant le carré"]
+    A --> O["Contraction cross-block encore ouverte"]
 ```
 
 ### Résultat établi
@@ -113,8 +117,13 @@ marginalisée : elle ne vient pas de $`\beta_c`$. Ce benchmark ne prouve
 encore ni le mélange temporel du noyau ni le transfert au graphe SBM, où la
 balance ou les non-arêtes constituent un port global. La
 [note 39](active/39_PORT_GLOBAL_SBM_RECOVERY.md) écrit exactement ce port et
-son élimination par convolution ; sa comparaison quantitative avec le
-broadcast reste ouverte.
+son élimination par convolution. Elle montre en outre que la comparaison
+perturbative uniforme au broadcast est fausse à KS : les racines full-$D$
+sont les composantes de deux graphes d'Erdős--Rényi de degré limite
+$`d\theta`$, donc deux géantes opposées subsistent lorsque
+$`d\theta^2=1`$ et $`0<\theta<1`$. Une approximation locale du port reste
+seulement conjecturale dans le régime strictement subcritique
+$`d\theta<1`$.
 
 La [cible prioritaire](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) porte cette
 version sans perte sur deux arbres géants triangulaires. Chaque arbre est
@@ -122,8 +131,12 @@ coupé à $`\beta_c`$ comme ordre d'élimination, mais son Gibbs conserve tous
 les facteurs supérieurs. Les racines finales se factorisent à dendrogramme
 fixé ; les sous-arbres d'une même racine ne le font que conditionnellement à
 leurs ports. Les intersections hors double géante et les cellules diagonales
-ont une masse quadratique négligeable ; le seul verrou exact restant est
-l'énergie **signée** entre cellules distinctes de la double géante.
+ont une masse quadratique négligeable. La
+[note 41](active/41_DESINTEGRATION_PALM_RESTE_SIGNE.md) désintègre ensuite
+l'énergie **signée** entre cellules distinctes en un carré cross-block
+moyenné en dendrogramme. Le verrou restant est opératoriel : transporter les
+espaces de ports variables dans des coordonnées communes et prouver une
+contraction.
 
 ## 4. Du pilote SBM à la double géante
 
@@ -194,20 +207,22 @@ est l'unique terme Gibbs nouveau de cette enveloppe quenched. Partager ce
 dendrogramme entre les deux copies produit une borne de Jensen, pas le carré
 postérieur exact.
 
-1. **Comparer le SBM fini au broadcast.** Le port global de balance ou des
-   non-arêtes est maintenant exact ; il faut borner son effet sur l'overlap.
-2. **Prolonger l'enveloppe simple.** Le premier test à $`L=4,p=0.81`$ est
-   défavorable ; mesurer maintenant sa moyenne sur des volumes croissants.
-3. **Construire le raffinement critique exact.** Couper les deux arbres à
-   $`\beta_c`$, conserver les deux systèmes de ports, tous les rangs réels
-   et tous les buckets postcritiques.
-4. **Mesurer le reste signé.** Calculer directement le produit des deux
-   corrélations entre cellules distinctes ; les autres termes sont déjà
-   géométriquement négligeables.
-5. **Définir l'opérateur overlap.** Construire sa Palm jointe sans supposer
-   les deux corridors indépendants sous la loi annealed et sans prendre de
-   valeur absolue prématurée.
-6. **Fermer le régime non linéaire.** Construire alors une enveloppe de
+1. **Respecter le no-go SBM fini.** À KS, le port global couple à ordre un
+   les deux racines ER géantes ; seule la moyenne signée de deux
+   dendrogrammes indépendants peut retrouver le mode overlap.
+2. **Utiliser la désintégration exacte.** À observation et endpoints fixés,
+   moyenner le transfert cross-block en $D$, puis seulement prendre son
+   carré.
+3. **Construire l'embedding commun.** Conserver les endpoints physiques,
+   les deux systèmes de ports, les rangs réels, les buckets postcritiques et
+   les messages extérieurs.
+4. **Définir l'opérateur overlap.** Employer la Palm cross--cross positive
+   et garder les produits de Jacobiennes signés, sans valeur absolue
+   prématurée.
+5. **Certifier une contraction inhomogène.** Contrôler les produits
+   d'opérateurs sur une profondeur source-free divergente ; un rayon
+   spectral scalaire ne suffit pas sans opérateur limite uniforme.
+6. **Fermer le régime non linéaire.** Construire ensuite une enveloppe de
    percolation d'information ou une contraction par macroblocs ; employer
    distance–entropie seulement à cette étape.
 
@@ -231,24 +246,28 @@ reste un moteur possible après le test spectral, pas un substitut à celui-ci.
 | perte exponentielle sur un cactus triangulaire | établie dans ce modèle | [21](results/hierarchical/21_CACTUS_COLLAPSED_CERTIFICATE.md) |
 | identité pythagoricienne de dissipation | établie en volume fini | [30](active/30_PIVOT_DISSIPATION_L2_SECTEUR_IMPAIR.md) |
 | factorisation par racines et réduction inter-blocs d'un $D$ fixé | établie en volume fini, diagnostic oracle | [36](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) |
-| compression du SBM fini en un port global de magnétisation | établie exactement ; comparaison au broadcast ouverte | [39](active/39_PORT_GLOBAL_SBM_RECOVERY.md) |
+| compression du SBM fini en un port global de magnétisation | établie exactement ; approximation perturbative réfutée à KS | [39](active/39_PORT_GLOBAL_SBM_RECOVERY.md) |
 | identité à deux Gibbs entiers et réduction au reste inter-cellules signé | établie algébriquement et géométriquement ; contrôle du reste ouvert | [38](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) |
+| désintégration du reste signé et Palm cross--cross | établie en volume fini ; contraction de l'opérateur moyenné ouverte | [41](active/41_DESINTEGRATION_PALM_RESTE_SIGNE.md) |
 
 Ces briques ne composent pas encore une preuve sur la grille triangulaire.
 
-## 6. Deux no-go et quatre avertissements
+## 6. Trois no-go et quatre avertissements
 
 | raccourci | nature | verdict |
 |---|---|---|
 | remplacer toutes les fusions par leur version critique | no-go démontré | faux pour une fusion multiport sous bord polarisé |
 | garder un état local fini assez riche et obtenir un déficit Feynman--Kac | no-go démontré | l'état fidèle rend le twist mesurable et le déficit nul |
+| traiter le port SBM comme une petite correction à KS | no-go démontré | les deux racines ER géantes restent anticorrélées à ordre un |
 | accumuler une contraction uniforme sur tous les annuli | diagnostic fini | la dissipation observée se concentre dans une queue rare |
 | utiliser seulement le LCA critique | avertissement structurel | sa coupe peut rester grande et informative |
 | invoquer seulement Birkhoff | avertissement méthodologique | une fréquence asymptotique ne fournit pas la grande déviation nécessaire sous le tilt énergétique |
 | appliquer Kingman à un coût critique linéaire | avertissement d'échelle | l'analogie FPP suggère plutôt une échelle logarithmique ou multiscalaire |
 
-Seuls les deux premiers sont des réfutations exactes, démontrées dans
-[l'audit aux rangs réels](diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md).
+Les deux premiers sont des réfutations exactes démontrées dans
+[l'audit aux rangs réels](diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md) ;
+le troisième est démontré dans la
+[note SBM finie](active/39_PORT_GLOBAL_SBM_RECOVERY.md).
 Les quatre autres sont des diagnostics ou des portes de sécurité : ils
 n'interdisent pas à eux seuls une preuve en volume infini.
 
@@ -264,20 +283,24 @@ n'interdisent pas à eux seuls une preuve en volume infini.
 
 1. [Cadre mathématique](foundations/01_MATHEMATICAL_FRAMEWORK.md)
 2. [Critère pairwise](foundations/03_HIERARCHICAL_WEAK_RECOVERY.md)
-3. [Information des coupes](foundations/25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md)
-4. [Projections](foundations/19_FAVORABLE_SWEEP_PROJECTIONS.md)
-5. [Corridor collapsed](foundations/20_COLLAPSED_CORRIDOR_BLACKWELL.md)
-6. [Audit et no-go](diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md)
-7. [Pilote SBM à deux répliques](active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md)
-8. [Port global du SBM fini](active/39_PORT_GLOBAL_SBM_RECOVERY.md)
-9. [Double géante et Gibbs exact](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md)
-10. [Premier test spectral et signé](diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md)
-11. [Diagnostic à un arbre fixé](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md)
-12. [Moteur distance–entropie](active/35_DISTANCE_ENTROPIE_ERGODICITE.md)
+3. [**Problème central : fusion critique et chaîne des Λ_v**](foundations/ancestral/42_PROBLEME_CENTRAL_FUSION_CRITIQUE.md)
+4. [Information des coupes](foundations/25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md)
+5. [Projections](foundations/19_FAVORABLE_SWEEP_PROJECTIONS.md)
+6. [Corridor collapsed](foundations/20_COLLAPSED_CORRIDOR_BLACKWELL.md)
+7. [Audit et no-go](diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md)
+8. [Porte de calibration SBM : seuils par la dynamique](../SBM/07_SEUILS_PAR_LA_DYNAMIQUE.md)
+9. [Pilote SBM à deux répliques](active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md)
+10. [Port global du SBM fini](active/39_PORT_GLOBAL_SBM_RECOVERY.md)
+11. [Double géante et Gibbs exact](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md)
+12. [Désintégration Palm et carré cross-block](active/41_DESINTEGRATION_PALM_RESTE_SIGNE.md)
+13. [Tests spectraux et signés](diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md)
+14. [Diagnostic à un arbre fixé](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md)
+15. [Moteur distance–entropie](active/35_DISTANCE_ENTROPIE_ERGODICITE.md)
 
 ### Parcours C — détails avancés
 
-Lire la trilogie ancestrale
+Lire la trilogie ancestrale, précédée de sa préface
+[42](foundations/ancestral/42_PROBLEME_CENTRAL_FUSION_CRITIQUE.md) :
 [08](foundations/ancestral/08_ANCESTRAL_LAMBDA_CHAIN.md) →
 [10](foundations/ancestral/10_ANCESTRAL_LAMBDA_ESTIMATION.md) →
 [14](foundations/ancestral/14_CRITICAL_COMPONENT_BOUNDARY.md), puis les
@@ -295,8 +318,8 @@ et les résultats hiérarchiques [21](results/hierarchical/21_CACTUS_COLLAPSED_C
 - [`computations/`](computations/) : scripts, certificats et tests ;
 - [`references/`](references/) : bibliographie commentée et fichier BibTeX.
 
-L'[`INDEX.md`](INDEX.md) donne le rôle exact des 41 notes numérotées de `00`
-à `40`.
+L'[`INDEX.md`](INDEX.md) donne le rôle exact des notes numérotées de `00`
+à `42`.
 
 ## 9. Reproductibilité
 

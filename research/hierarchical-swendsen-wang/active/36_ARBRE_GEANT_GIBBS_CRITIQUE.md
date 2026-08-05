@@ -476,6 +476,15 @@ seul volume accessible par
 le passage au produit signé de deux dendrogrammes. Elle ne réfute pas la
 limite (4.13).
 
+> [!NOTE]
+> Le plafond structurel de la statistique (4.14) est
+> $`\mathbb E[|R_L^\star|]/n_L`$, qui vaut environ $`0.9967`$ sur le tore
+> $`4\times4`$ à $`q_1=0.62`$ (simulation directe, 20 000 tirages). La
+> valeur observée $`0.9507`$ est donc à plus de 95 % de son maximum
+> possible : à ce volume, le test est **saturé par construction** et n'a
+> presque aucun pouvoir discriminant. Il ne faut lire (4.14) ni comme un
+> verdict défavorable ni comme favorable.
+
 Un contre-test fini montre que le couplage peut être très fort. À
 $`L=5`$, $`p=0.809439`$ et pour une graine fixée, deux blocs critiques de
 taille huit dans la même racine ont un cross-ratio de poids
@@ -744,7 +753,7 @@ pas la recovery, car le dendrogramme est une variable auxiliaire révélée.
 
 Fixons deux blocs critiques distincts de $`R^\star`$ contenant $i$ et $j$.
 Dans $`L^2(\pi_{D,R^\star})`$, chaque $`P_{R^\star,A}`$ est une projection
-orthogonale. Pour tout programme Gibbs $K_{D,R^\star}^{(s)}` qui préserve
+orthogonale. Pour tout programme Gibbs $`K_{D,R^\star}^{(s)}`$ qui préserve
 la moyenne,
 
 ```math

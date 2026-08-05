@@ -158,6 +158,12 @@ Définissons la masse informative des fusions nées dans une bande :
 
 ### Proposition — statut : établi conditionnellement à A1
 
+*(A1 désigne la formalisation complète de la mesure jointe
+$`\nu_O(\sigma,D)`$ et de ses conventions de censure sur l'exhaustion
+finie, telle qu'énoncée dans
+[foundations/01](../foundations/01_MATHEMATICAL_FRAMEWORK.md) ; toutes les
+bornes LCA de ce fichier en héritent.)*
+
 Pour tout niveau déterministe $`0\le\beta\le1`$,
 
 ```math

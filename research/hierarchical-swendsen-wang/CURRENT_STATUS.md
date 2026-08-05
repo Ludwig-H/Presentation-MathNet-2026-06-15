@@ -1,7 +1,11 @@
 # Statut scientifique actuel
 
-**Dernière mise à jour : 26 juillet 2026.** Cette page est la source de
-vérité du projet. Les anciennes feuilles de route restent consultables dans
+**Dernière mise à jour : 5 août 2026.** Cette page est la source de
+vérité du projet. L'énoncé canonique du problème central (seuil de fusion
+d'une paire lointaine et chaîne ancestrale des $`\Lambda_v`$) est la
+[note 42](foundations/ancestral/42_PROBLEME_CENTRAL_FUSION_CRITIQUE.md) ;
+la porte de calibration sur le SBM classique est la
+[note SBM/07](../SBM/07_SEUILS_PAR_LA_DYNAMIQUE.md). Les anciennes feuilles de route restent consultables dans
 [`archive/roadmaps/`](archive/roadmaps/), mais ne fixent plus les priorités.
 
 ## 1. Résultat rigoureux et programme ouvert
@@ -216,8 +220,41 @@ orientations des racines finales. Avec des labels i.i.d., les non-arêtes
 créent un potentiel proportionnel à $`(\sum_iX_i)^2`$. La
 [note 39](active/39_PORT_GLOBAL_SBM_RECOVERY.md) compresse exactement ces
 deux couplages en un port de magnétisation et l'élimine par convolution.
-L'indépendance par arbres est fausse sur le graphe ; la comparaison
-asymptotique de ce port avec le broadcast reste à prouver.
+
+Le calcul full-$D$ donne maintenant un no-go plus fort. Conditionnellement
+aux labels plantés, les racines finales sont exactement les composantes de
+deux graphes d'Erdős--Rényi indépendants, un par classe, avec probabilité
+d'arête
+
+```math
+\frac{a-b}{n-b}
+\qquad\text{et degré limite}\qquad
+c
+=
+\frac{a-b}{2}
+=
+d\theta.
+\qquad\text{(3.9)}
+```
+
+Si $`c>1`$, les deux racines principales ont taille
+$`\rho(c)n/2+o_{\mathbb P}(n)`$ et leurs orientations sous le port deviennent
+opposées avec probabilité tendant vers un. Au seuil KS,
+
+```math
+d\theta^2=1
+\quad\Longrightarrow\quad
+c=\frac1\theta>1
+\qquad(0<\theta<1).
+\qquad\text{(3.10)}
+```
+
+Leur corrélation tend donc vers $`-1`$, contre zéro sous recoloriage
+indépendant edge-only. La comparaison perturbative uniforme du port au
+broadcast est ainsi **réfutée** à KS. Une approximation locale reste un
+lemme candidat uniquement dans le régime strictement subcritique
+$`d\theta<1`$, où les racines maximales sont logarithmiques ; elle demanderait
+encore un CLT et un local CLT uniformes.
 
 ## 4. Gibbs exact sur un arbre complet
 
@@ -345,9 +382,62 @@ o(1),
 ```
 
 où le reste est le produit **signé** des deux corrélations Gibbs entre
-cellules critiques distinctes de la double géante. Ainsi, améliorer la borne
-jusqu'à $`p=0.81`$ équivaut maintenant à montrer
-$`\mathcal E_{\mathrm{off},L}^{(2),\star}(0.81)\to0`$.
+cellules critiques distinctes de la double géante.
+
+La [note 41](active/41_DESINTEGRATION_PALM_RESTE_SIGNE.md) ferme ensuite la
+désintégration scalaire. Pour $`O,i,j`$ fixés, posons
+
+```math
+d_{O,ij}
+=
+\mathbb E_{D\mid O}
+\left[
+\mathbf1_{\{i,j\in R_\star(D)\}}
+\mathbf1_{\{A_D(i)\ne A_D(j)\}}
+\pi_{O,D}(\sigma_i\sigma_j)
+\right]
+\qquad\text{(5.8)}
+```
+
+et
+
+```math
+\mathcal D_L^\times(p)
+=
+\frac1{n_L^2}
+\mathbb E_O
+\sum_{i,j}d_{O,ij}^2.
+\qquad\text{(5.9)}
+```
+
+L'indépendance des deux dendrogrammes conditionnellement à $O$ transforme
+le reste signé en une différence de carrés. Si $`S_L^c(p)`$ désigne la masse
+quadratique des blocs critiques, alors exactement
+
+```math
+\left|
+\mathcal E_{\mathrm{off},L}^{(2),\star}(p)
+-
+\mathcal D_L^\times(p)
+\right|
+\le
+2\sqrt{S_L^c(p)}.
+\qquad\text{(5.10)}
+```
+
+Comme $`S_L^c(p)\to0`$ et que les contributions hors double géante sont
+négligeables,
+
+```math
+Q_L(p)\longrightarrow0
+\quad\Longleftrightarrow\quad
+\mathcal D_L^\times(p)\longrightarrow0.
+\qquad\text{(5.11)}
+```
+
+Ainsi, améliorer la borne jusqu'à $`p=0.81`$ équivaut maintenant à annuler
+un carré positif, mais seulement **après** la moyenne signée en $D$ à
+observation et endpoints fixés.
 
 La [note 36](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) reste un diagnostic
 exact à un dendrogramme fixé ; sa quantité quenched est une enveloppe de
@@ -355,78 +445,136 @@ Jensen plus forte, non la cible finale.
 
 ## 6. Stratégie analytique pour la géante
 
-Le programme ne cherche pas la loi globale de tout l'arbre géant. Il tire
-une paire dans $`G_{12}^\star`$ avec le biais quadratique exact et conserve
-seulement les deux corridors ancestraux complets entre ses endpoints.
+### 6.1 Palm cross--cross désormais explicite
 
-L'état local contient :
-
-- les deux partitions critiques ;
-- leurs cellules d'intersection ;
-- les deux systèmes de ports ;
-- les rangs réels et les buckets multiports ;
-- les messages extérieurs issus de tous les facteurs postcritiques.
-
-Les deux corridors ne sont pas indépendants sous la loi annealed : ils sont
-couplés par l'observation commune. L'opérateur linéarisé candidat est encore
-une notation schématique,
+Écrivons
 
 ```math
-(\mathcal L_p^{(2)}h)(s_1,s_2)
+\delta_{O,ij}
 =
-\mathbb E_{\mathrm{Palm}}^{(2),\star}
+\mathbb E_{D\mid O}
 \left[
-\sum_c
-J_c^{(1)}J_c^{(2)}
-h(s_{1,c},s_{2,c})
-\ \middle|\
-s_1,s_2
+\mathbf1_{\{i,j\in R_\star(D)\}}
+\mathbf1_{\{A_D(i)\ne A_D(j)\}}
 \right].
 \qquad\text{(6.1)}
 ```
 
-Il reste à définir sa Palm jointe sans supposer déjà l'overlap petit, son
-espace de messages extérieurs, sa normalisation et le produit **signé** des
-Jacobiennes. Une valeur absolue après révélation des corridors détruirait les
-cancellations qui réparent le no-go SBM.
-
-La première porte numérique est donc l'enveloppe single-$D$ plus forte mais
-déjà définie dans la note 36 :
+La Palm adaptée à (5.9) tire d'abord $`(O,i,j)`$ avec densité proportionnelle
+à $`\delta_{O,ij}^2`$, puis tire $`D^{(1)},D^{(2)}`$ indépendamment suivant
+la loi conditionnelle d'un dendrogramme où les deux endpoints appartiennent
+à la géante mais à deux blocs critiques distincts. Si
 
 ```math
-\mathbb E
-\left[
-\frac1{n_L}
-\lambda_{\max}
-\left(
-W_{R_L^\star}^{1/2}
-M_{R_L^\star}^c
-W_{R_L^\star}^{1/2}
-\right)
-\right]
-\longrightarrow0
-\quad\text{à }p=0.81.
+\alpha_L^\times
+=
+\frac1{n_L^2}
+\mathbb E_O\sum_{i,j}\delta_{O,ij}^2,
 \qquad\text{(6.2)}
 ```
 
-Si elle échoue, la route à deux dendrogrammes devient nécessaire. Après
-construction non circulaire de $`\mathcal L_p^{(2)}`$, la question suivante
-sera
+alors
 
 ```math
-\rho(\mathcal L_{0.81}^{(2)})<1.
+\mathcal D_L^\times
+=
+\alpha_L^\times
+\mathbb E_{\mathrm{Palm},\times}
+\left[
+m_{D^{(1)}}(i,j)m_{D^{(2)}}(i,j)
+\right].
 \qquad\text{(6.3)}
 ```
 
-Une réponse négative arrête cette famille de blocs. Une réponse positive
-avec marge demande encore une enveloppe non linéaire, puis la fermeture du
-reste signé (5.7).
+La mesure Palm est positive et non circulaire ; seul son observable est
+signé. Les deux corridors sont indépendants conditionnellement à la même
+observation et aux mêmes endpoints, mais ils ne sont pas indépendants sous
+la loi annealed.
 
-Le [premier diagnostic](diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md)
-donne $`0.9507359\pm0.0045624`$ à $`L=4,p=0.81`$ sur 256 environnements
-sans exclusion. L'enveloppe est donc très macroscopique à cette taille. Ce
-résultat rend la route à deux dendrogrammes nécessaire pour le diagnostic ;
-il ne détermine pas la limite de (6.2).
+### 6.2 Le bon ordre opératoriel
+
+Dans les coordonnées physiques des paires, si
+$`\mathsf K_{O,D}^{\times}`$ est le transfert Gibbs cross-block, il faut
+former
+
+```math
+\overline{\mathsf K}_O^\times
+=
+\mathbb E_{D\mid O}
+\left[
+\mathsf K_{O,D}^\times
+\right]
+\qquad\text{puis}\qquad
+\mathbb E_O
+\left\|
+\overline{\mathsf K}_O^\times F^{\mathrm{pair}}
+\right\|_2^2.
+\qquad\text{(6.4)}
+```
+
+Prendre le carré avant la moyenne en $D$ redonne l'enveloppe de Jensen
+single-$D$ ; moyenner aussi $O$ avant le carré supprime à tort
+l'environnement partagé. Le nouvel objectif TRI2 est donc de factoriser
+$`\overline{\mathsf K}_O^\times`$ à travers des espaces de ports dépendant de
+$D$ sans perdre leur embedding physique commun.
+
+Un état récursif fidèle doit conserver au minimum :
+
+- les endpoints physiques et le recouvrement réel des deux corridors ;
+- les rangs, buckets, incidences et ports complets des deux dendrogrammes ;
+- les lois de bord extérieures exactes sur ces ports ;
+- l'observation commune, ou une statistique prouvée suffisante de la partie
+  encore inexplorée.
+
+Les corridors nus ne forment pas un état de Markov. Les poids de choix des
+descendants doivent rester les probabilités Palm positives ; les produits
+de Jacobiennes restent signés et ne doivent être ni normalisés par leur
+somme ni remplacés par leur valeur absolue.
+
+### 6.3 Porte de contraction et diagnostics
+
+Le lemme candidat exige une profondeur source-free divergente et une borne
+uniforme sur les produits inhomogènes,
+
+```math
+\left\|
+\mathcal L_{L,0}^{(2)}
+\cdots
+\mathcal L_{L,k-1}^{(2)}
+\right\|
+\le
+C r^k,
+\qquad
+r<1,
+\qquad\text{(6.5)}
+```
+
+ainsi qu'un contrôle des restes non linéaires et de la source terminale au
+LCA. Un simple énoncé $`\rho(\mathcal L^{(2)})<1`$ ne suffit que si un
+opérateur limite homogène et une convergence uniforme sont d'abord établis.
+
+Le [diagnostic fini](diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md)
+donne, à $`p=0.81`$ et sur 256 environnements sans exclusion,
+
+| $`L`$ | enveloppe spectrale single-$D$ normalisée |
+|---:|---:|
+| 4 | $`0.9507359\pm0.0045624`$ |
+| 5 | $`0.9522259\pm0.0035203`$ |
+| 6 | $`0.9478031\pm0.0034790`$ |
+
+Elle reste macroscopique sur ces trois volumes : aucune extrapolation vers
+zéro n'est soutenue. Attention à l'interprétation : le plafond structurel
+de cette statistique est $`\mathbb E[|R^\star|]/n_L\approx0.997`$ à ces
+volumes (simulation directe), donc le test est **saturé par construction**
+et n'a presque aucun pouvoir discriminant à $`L\le6`$ ; il ne faut le lire
+ni comme un verdict défavorable ni comme favorable
+([note 36](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md)). L'élimination exacte min-fill des orientations du
+quotient critique atteint néanmoins $`L=6`$ avec largeur maximale observée
+sept ou huit sur les campagnes rapportées. Ce calcul conditionne une
+représentation interne all-plus ; ce n'est pas le Gibbs complet
+$`\pi_{O,D}`$. L'extension exacte pertinente est maintenant un junction tree
+sur les spins physiques et les facteurs hiérarchiques, avant tout recours à
+une MCMC.
 
 ## 7. Almost exact et exact recovery
 
@@ -488,35 +636,50 @@ benchmarks ultérieurs ; la contraction quadratique ne les démontre pas.
 | SBM1 | deux Gibbs entiers et deux coupes marginalisées séparément sur le broadcast | obtenir $`d\theta^2`$ pour toute coupe |
 | SBM2 | fermeture non linéaire sur le broadcast | retrouver (3.8) sans l'attribuer à la coupe physique |
 | SBM-F0 | écrire et éliminer exactement balance ou non-arêtes comme port global | fermé par la note 39 |
-| SBM-F1 | comparer l'overlap avec port au broadcast | encore ouvert |
+| SBM-F1 | comparer uniformément le port full-$D$ au recoloriage edge-only à KS | réfuté par les deux géantes ER anticorrélées |
+| SBM-F1s | comparer localement le port au broadcast lorsque $`d\theta<1`$ | candidat CLT/local-CLT encore ouvert |
+| SBM-AE | retrouver almost/exact par le lift Hellinger hiérarchique | seuils oracle calibrés, achievability non prouvée |
+| SBM-DYN0 | Glauber ($`\beta=0`$) depuis un départ aléatoire atteint almost/exact au seuil | ouvert ([SBM/07 §6](../SBM/07_SEUILS_PAR_LA_DYNAMIQUE.md)) |
+| SBM-DYN1 | un nombre fini de sweeps à $`\beta_c^{\mathrm{geom}}`$ voit le seuil KS | ouvert ; équilibre calibré, stabilité $`\beta=0`$ établie ([SBM/07](../SBM/07_SEUILS_PAR_LA_DYNAMIQUE.md)) |
 | TRI0 | réduire à l'énergie inter-cellules signée | établi par (5.5)–(5.7) |
-| TRI0b | tester l'enveloppe single-$D$ (6.2) | $`L=4`$ défavorable ; route double nécessaire pour ce diagnostic fini |
-| TRI1 | construire la Palm jointe de deux corridors | conserver tous les ports, facteurs postcritiques et cancellations signées |
-| TRI2 | certifier (6.3) | abandonner cette famille si le rayon dépasse un |
+| TRI0b | tester l'enveloppe single-$D$ | $`L=4,5,6`$ macroscopiques ; route double nécessaire |
+| TRI1-s | désintégrer le reste et construire la Palm cross--cross | fermé par (5.8)–(6.3) et la note 41 |
+| TRI1-o | plonger les espaces de ports variables dans un état commun suffisant | ouvert |
+| TRI2 | certifier la contraction inhomogène (6.5) | abandonner cette famille sans marge uniforme |
 | TRI3 | fermer le régime non linéaire et la moyenne pairwise | n'annoncer un seuil qu'après cette étape |
 
 ## 9. Priorités immédiates
 
-1. comparer au broadcast le
-   [port global exact](active/39_PORT_GLOBAL_SBM_RECOVERY.md) du SBM fini ;
-2. prolonger en volume le test spectral single-$D$ : à $`L=4,p=0.81`$, sa
-   valeur normalisée $`0.9507\ldots`$ est défavorable ;
-3. prolonger au-delà de $`L=4`$ la décomposition signée exacte : sur ce
-   volume, le reste moyen est encore positif et macroscopique ;
-4. mesurer conjointement le reste signé (5.7), sa fréquence de changement
-   de signe et la masse diagonale du raffinement commun ;
-5. définir la Palm jointe des deux corridors sans hypothèse produit ni
-   circularité ;
-6. estimer les produits signés de Jacobiennes sous le bon biais de paire ;
-7. ne lancer la fermeture multiscalaire que si le test spectral **répliqué**
-   possède une marge robuste et une enveloppe non linéaire compatible.
+0. **porte SBM d'abord** : avant tout retour au GSBM triangulaire,
+   franchir les portes dynamiques du SBM classique
+   ([SBM/07](../SBM/07_SEUILS_PAR_LA_DYNAMIQUE.md)) — la stabilité de la
+   vérité sous un sweep de Glauber à $`\beta=0`$ est établie exactement au
+   seuil $`(\sqrt A-\sqrt B)^2=2`$ ; restent SBM-DYN0 (départ froid) et
+   SBM-DYN1 (sweeps finis à $`\beta_c^{\mathrm{geom}}`$ contre KS) ;
+1. construire un junction tree exact sur les spins physiques pour calculer
+   le Gibbs complet à $`L=5,6`$, au lieu du seul quotient all-plus ;
+2. estimer directement $`\mathcal D_L^\times(0.81)`$ en moyennant les
+   dendrogrammes à observation et endpoints fixés avant le carré ;
+3. construire un embedding commun des espaces de ports, avec messages
+   extérieurs et observation partagée dans l'état ;
+4. mesurer les produits **signés** de Jacobiennes sous la Palm cross--cross
+   de (6.1)–(6.3) ;
+5. vérifier que la profondeur source-free diverge sous cette Palm et que la
+   source LCA reste terminale ;
+6. chercher la borne de produits inhomogènes (6.5), pas le rayon spectral
+   d'une compression scalaire prématurée ;
+7. ne lancer la fermeture multiscalaire que si ce test répliqué possède une
+   marge robuste et une enveloppe non linéaire compatible.
 
 ## 10. Références de navigation
 
+- [problème central : fusion critique et chaîne des Λ_v](foundations/ancestral/42_PROBLEME_CENTRAL_FUSION_CRITIQUE.md) ;
+- [porte de calibration SBM : seuils par la dynamique](../SBM/07_SEUILS_PAR_LA_DYNAMIQUE.md) ;
 - [cible prioritaire à deux Gibbs entiers](active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) ;
 - [pilote SBM et contre-test de coupe partagée](active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md) ;
 - [port global exact et régimes de recovery du SBM fini](active/39_PORT_GLOBAL_SBM_RECOVERY.md) ;
-- [premier test spectral et signé à p = 0,81](diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md) ;
+- [désintégration Palm et opérateur moyenné](active/41_DESINTEGRATION_PALM_RESTE_SIGNE.md) ;
+- [tests spectraux et signés à p = 0,81](diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md) ;
 - [diagnostic à un dendrogramme géant fixé](active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) ;
 - [cadre mathématique de la mesure jointe](foundations/01_MATHEMATICAL_FRAMEWORK.md) ;
 - [critère pairwise](foundations/03_HIERARCHICAL_WEAK_RECOVERY.md) ;

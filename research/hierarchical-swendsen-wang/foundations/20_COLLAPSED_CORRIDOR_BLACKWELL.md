@@ -572,7 +572,7 @@ Par conséquent,
 ```math
 \mathscr R\longrightarrow0
 \quad\Longleftrightarrow\quad
-\sum_{r=1}^h-log\Gamma_{m_r}(t_r;p)
+\sum_{r=1}^h-\log\Gamma_{m_r}(t_r;p)
 \longrightarrow+\infty.
 \qquad\text{(5.2)}
 ```

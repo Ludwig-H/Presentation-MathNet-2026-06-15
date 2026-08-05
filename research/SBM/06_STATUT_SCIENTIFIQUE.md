@@ -40,8 +40,10 @@ le mélange d'un sweep hiérarchique.
 | le port global fini s'élimine par convolution | **identité exacte en volume fini** | messages de magnétisation |
 | remplacer le port par des racines indépendantes au seuil | **réfuté pour la route full-$D$ étudiée** | les deux grandes orientations sont asymptotiquement opposées ; le port doit rester |
 | un nombre explicite de sweeps hiérarchiques contracte si $\lambda\le1$ | **ouvert** | mélange/spectral gap non contrôlé |
-| la hiérarchie atteint l'exposant almost exact optimal | **programme de recherche** | lift Hellinger écrit, fermeture absente |
-| la hiérarchie atteint le seuil exact recovery | **programme de recherche** | queue $o(1/n)$ non prouvée |
+| $\mathbb E[e^{-\Delta_v/2}]=\rho_n^{n-1}$ pour le sweep à $\beta=0$ | **identité exacte** | [07, prop. 3.1](07_SEUILS_PAR_LA_DYNAMIQUE.md) |
+| la vérité est stable sous un sweep de Glauber ssi $(\sqrt A-\sqrt B)^2>2$ | **établi** (stabilité) / **établi sous références** (instabilité) | [07, prop. 4.1 et 4.3](07_SEUILS_PAR_LA_DYNAMIQUE.md) |
+| la hiérarchie atteint l'exposant almost exact optimal | **programme de recherche** | lift Hellinger écrit, fermeture absente ; stabilité par sommet établie ([07 §5](07_SEUILS_PAR_LA_DYNAMIQUE.md)) |
+| la hiérarchie atteint le seuil exact recovery | **programme de recherche** | queue $o(1/n)$ non prouvée ; Glauber depuis un départ froid : ouvert ([07, SBM-DYN0](07_SEUILS_PAR_LA_DYNAMIQUE.md)) |
 
 ## 3. Trois réplications à ne pas confondre
 
@@ -70,7 +72,11 @@ Deux hypothèses $X_v=+1$ et $X_v=-1$ possèdent deux fonctions de partition
 hiérarchiques. Chacune est marginalisée séparément avant de prendre la
 moyenne géométrique. Ce ne sont pas deux répliques de la même postérieure.
 
-## 4. No-go démontrés ou immédiats
+## 4. No-go démontrés ou esquissés
+
+(A est démontré par calcul exact ; B est un mécanisme correct mais
+esquissé, non rédigé en détail ; C–F sont des garde-fous immédiats au
+niveau des définitions.)
 
 ### No-go A — dendrogramme partagé
 

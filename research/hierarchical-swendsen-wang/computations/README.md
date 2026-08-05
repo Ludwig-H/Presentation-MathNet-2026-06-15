@@ -37,6 +37,8 @@ Les scripts n'ont pas de dépendance scientifique externe.
 | `rational_a0_less_noisy_certificate.py` | Sturm, dominance diagonale et marge exacte jusqu'à $`p=0.809439`$ | [34](../results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md) |
 | `cactus_collapsed_certificate.py` | contraction exacte sur le cactus | [21](../results/hierarchical/21_CACTUS_COLLAPSED_CERTIFICATE.md) |
 | `ancestral_lambda_chain.py` | quatre taux ancestraux sur un squelette fini | [08](../foundations/ancestral/08_ANCESTRAL_LAMBDA_CHAIN.md) |
+| `ancestral_walsh_identities.py` | sommes/produits appariés des quatre taux (arithmétique exacte), ancêtre terminal isolé muet, forme fermée de $`B_u`$ | [42](../foundations/ancestral/42_PROBLEME_CENTRAL_FUSION_CRITIQUE.md) |
+| `sbm_glauber_stability_benchmark.py` | stabilité exacte de la vérité sous un sweep de Glauber ($`\beta=0`$) du SBM : identité d'affinité et croisement au seuil $`(\sqrt A-\sqrt B)^2=2`$ | [SBM/07](../../SBM/07_SEUILS_PAR_LA_DYNAMIQUE.md) |
 | `critical_component_boundary.py` | loi de frontière, charge et taux Palm | [14](../foundations/ancestral/14_CRITICAL_COMPONENT_BOUNDARY.md), [25](../foundations/25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md) |
 
 ### Calculs directement utiles au programme actif
@@ -51,6 +53,7 @@ Les scripts n'ont pas de dépendance scientifique externe.
 | `double_giant_replicated_gibbs_diagnostic.py` | la décomposition exacte par intersections et cellules ferme-t-elle sur $`L=4`$ ? | le reste hors-diagonale est conservé signé et les Gibbs sont exacts ; observations et hiérarchies restent Monte-Carlo, sans tendance asymptotique |
 | `giant_component_quotient_diagnostic.py` | quelle géométrie voit une paire lointaine dans l'arbre de la géante finale, après contraction des blocs critiques ? | diagnostic conditionnel aux environnements ayant une paire admissible, dont le nombre est exposé ; PATH-FAC reste un oracle local factorisé non probant |
 | `critical_cut_collective_gibbs_diagnostic.py` | quelle persistance collective et quelle enveloppe spectrale single-$D$ subsistent entre blocs critiques ? | énumération exponentielle sur petits tores ; tout cutoff de blocs est signalé comme biais de sélection |
+| `critical_cut_quotient_elimination.py` | peut-on calculer exactement la même loi single-$D$ sans énumérer les $`2^k`$ orientations ? | élimination min-fill exacte sur le quotient critique, conditionnellement à la représentation interne all-plus fixée ; ce n'est pas la Gibbs complète sur les spins |
 | `nested_projection_l2_diagnostic.py` | où les projections collapsed dissipent-elles l'énergie ? | énumération exacte à $`L=4`$ |
 | `two_step_l2_population_diagnostic.py` | les cellules à deux updates sont-elles enrichies près du critique ? | population finie, cellules recouvrantes |
 | `two_step_projective_l2_cell.py` | une cellule possède-t-elle une marge sur les potentiels atteints ? | witness exact, marge uniforme nulle au bord |
@@ -96,6 +99,9 @@ python3 \
   --side 4 --repetitions 256 --p 0.81 \
   --maximum-block-count 16 --seed 20260726
 python3 \
+  research/hierarchical-swendsen-wang/computations/critical_cut_quotient_elimination.py \
+  --side 6 --repetitions 64 --p 0.81 --seed 20260726
+python3 \
   research/hierarchical-swendsen-wang/computations/double_giant_replicated_gibbs_diagnostic.py \
   --side 4 --p 0.81 --observations 4 --replica-pairs 8 --seed 3801
 ```
@@ -114,21 +120,45 @@ qu'elle implique. Le sixième conserve les rangs postcritiques réels, compte
 les environnements sans paire admissible et étiquette explicitement PATH-FAC
 comme non-preuve. Le septième énumère les orientations collectives exactes,
 leur matrice spectrale pondérée et tous les audits de trace ; si le cutoff
-exclut une réalisation, ses moyennes sont conditionnelles. Le huitième mesure
-le reste signé à deux dendrogrammes et clusterise les erreurs standards du
+exclut une réalisation, ses moyennes sont conditionnelles. Le huitième
+calcule exactement la même loi de quotient par élimination min-fill, sans
+cutoff, mais toujours à forme interne all-plus fixée. Le neuvième mesure le
+reste signé à deux dendrogrammes et clusterise les erreurs standards du
 résumé par observation.
 
 Le [premier protocole à p = 0,81](../diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md)
-donne, à $`L=4`$,
+donne le tableau single-$D$ suivant, avec 256 environnements par taille et
+aucune exclusion au cutoff de 16 blocs :
 
-```text
-single-D lambda_max / n       = 0.9507358532 +/- 0.0045624262
-two-D signed off-diagonal     = 0.1998059185 +/- 0.0116327206
-```
+| $`L`$ | $`\lambda_{\max}(A_{R_\star})/n`$ | persistance collective | masse diagonale critique | persistance hors diagonale |
+|---:|---:|---:|---:|---:|
+| 4 | 0.9507358532 ± 0.0045624262 | 0.9139725034 ± 0.0070179255 | 0.7516784668 ± 0.0134804604 | 0.1622940366 ± 0.0102785579 |
+| 5 | 0.9522258609 ± 0.0035202553 | 0.9124653803 ± 0.0059886145 | 0.7164750000 ± 0.0129157594 | 0.1959903803 ± 0.0103643093 |
+| 6 | 0.9478030939 ± 0.0034789971 | 0.9038329299 ± 0.0057577803 | 0.6839976370 ± 0.0122504530 | 0.2198352930 ± 0.0107005609 |
 
-La première quantité est défavorable et la seconde reste positive en
-moyenne. Trois des 32 restes signés sont néanmoins négatifs. Ces nombres
-valident les objets calculés, pas leur limite.
+L'enveloppe spectrale reste proche de $`0.95`$ aux trois tailles : elle est
+défavorable et ne montre pas de contraction. À $`L=4`$, le reste
+hors-diagonale double-$D$ vaut
+$`0.1998059185\pm0.0116327206`$ ; trois des 32 restes signés sont néanmoins
+négatifs. Ces nombres valident les objets calculés, pas leur limite.
+
+L'élimination exacte sur quotient remplace l'énumération $`2^k`$ par des
+tables dont le coût dépend de la largeur min-fill observée. Sur 64
+environnements pour chacune des graines $`41`$, $`3801`$ et $`20260726`$ :
+
+| $`L`$ | blocs max. par racine | portée initiale max. | largeur min-fill max. | exclusions |
+|---:|---:|---:|---:|---:|
+| 5 | 14 | 9 | 8 | 0 / 192 |
+| 6 | 12 | 8 | 7 | 0 / 192 |
+
+Ces largeurs sont des observations de volume fini, pas des bornes
+asymptotiques. L'exactitude concerne seulement les orientations collectives
+$`z_a`$ avec la représentation interne all-plus $`y`$ fixée. Elle
+n'intègre pas les degrés de liberté internes et ne calcule donc pas la Gibbs
+conditionnelle complète $`\pi_{O,D}`$. Le log-partition marqué `scaled`
+omet en outre les constantes invariantes d'orientation et les constantes
+retirées lors de la normalisation des tables ; seules les corrélations et les
+rapports de fonctions de partition sont à lire comme des quantités exactes.
 
 ### Diagnostics et no-go
 
@@ -247,7 +277,7 @@ $`m h_p(q_v^{\mathrm{fav}})^2\le1`$. Il ne calcule ni le screening, ni les
 ports latéraux, ni le potentiel extérieur. Les erreurs sont des jackknives
 par environnement de rang, jamais des erreurs i.i.d. par nœud. Le tableau
 d'échelle complet et ses limites sont dans le
-[fichier 28](../diagnostics/finite_volume/28_FIRST_CORRIDOR_P0805_RESULTS.md).
+[fichier 28](../archive/roadmaps/28_FIRST_CORRIDOR_P0805_RESULTS.md).
 
 ## Contre-exemples multiports à $`p=0.805`$
 
@@ -712,6 +742,14 @@ $`d\theta^2`$. Le
 sur la double géante et conserve tous les facteurs postcritiques. Le
 [fichier 36](../active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md) reste un diagnostic
 à un dendrogramme fixé.
+
+Le prochain saut de volume pour le double-$D$ n'est pas fourni par le
+quotient all-plus : il exige un **junction tree sur les spins physiques**
+qui élimine exactement la postérieure et les facteurs complets de
+$`\pi_{O,D}`$. L'algèbre min-fill nouvellement auditée est réutilisable,
+mais il faut encore construire et calibrer cet arbre de jonction, conserver
+les formes internes et signaler toute exclusion imposée par une limite de
+largeur ou de portée.
 
 Dans ce transfert, le [programme distance–entropie](../active/35_DISTANCE_ENTROPIE_ERGODICITE.md)
 reste un moteur analytique conditionnel : il ne sera assemblé qu'après une

@@ -1,8 +1,9 @@
 # Pont de volume fini : port global du SBM et trois régimes de recovery
 
-**Statut : identités finies exactes pour le posterior et sa décomposition par
-racines ; seuils classiques retrouvés comme benchmarks informationnels ;
-aucune preuve de mélange hiérarchique ni nouvelle preuve arbre--graphe.**
+**Statut : identités finies exactes pour le posterior, son port et la
+géométrie full-$D$ ; no-go d'ordre un du port à Kesten--Stigum ; candidat
+subcritique explicitement non prouvé ; aucune preuve de mélange hiérarchique
+ni nouvelle preuve arbre--graphe.**
 
 Cette note complète le
 [pilote broadcast](37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md). Elle répond à la
@@ -217,7 +218,7 @@ c_{D,R}
 +
 \mathbf1_{\{m=-|R|\}}
 \right).
-\qquad\text{(2.3a)}
+\qquad\text{(2.4)}
 ```
 
 Le port est alors un weighted subset-sum sur les tailles $`|R|`$, et non un
@@ -237,7 +238,7 @@ m_1+\cdots+m_k=s
 }}
 \prod_{\ell=1}^k
 W_{D,R_\ell}(m_\ell).
-\qquad\text{(2.4)}
+\qquad\text{(2.5)}
 ```
 
 La récursion
@@ -247,7 +248,7 @@ F_{k+1}(s)
 =
 \sum_m
 F_k(s-m)W_{D,R_{k+1}}(m)
-\qquad\text{(2.5)}
+\qquad\text{(2.6)}
 ```
 
 permet de contracter exactement le port. Le poids terminal est
@@ -255,7 +256,7 @@ $`\exp(h_{0,n}s^2/2)`$ dans le modèle i.i.d. et
 $`\mathbf1_{\{s=0\}}`$ dans la bisection. Un passage arrière donne ensuite
 un tirage exact des magnétisations de racines.
 
-Dans le SBM full-$D$, les messages (2.3a) sont explicites et (2.5) est une
+Dans le SBM full-$D$, les messages (2.4) sont explicites et (2.6) est une
 convolution unidimensionnelle, polynomiale en $n$ avec l'implémentation
 naïve. Une difficulté exponentielle de calcul des messages internes peut
 réapparaître dans le GSBM signé ou après marginalisation partielle de $D$ ;
@@ -275,38 +276,396 @@ python3 \
 Dans cet audit, les huit orientations donnent
 $`N(0)=2`$, $`Z_D^{\mathrm{iid}}=2.851724288`$ après retrait des facteurs
 internes communs, et une erreur nulle entre convolution et énumération
-directe. Le script ne tire pas $D$ : il certifie l'étape algébrique (2.5),
+directe. Le script ne tire pas $D$ : il certifie l'étape algébrique (2.6),
 pas la loi des tailles de racines ni un seuil de recovery.
 
-### 2.2 Pourquoi le port n'est pas une petite correction à Kesten--Stigum
+### 2.2 Conditionnement gaussien positif et identités de paire
 
-Sur le broadcast, la forêt auxiliaire finale a pour nombre moyen de
-descendants ouverts
-
-```math
-d\theta.
-\qquad\text{(2.6)}
-```
-
-À Kesten--Stigum, $`d\theta^2=1`$, donc
+Écrivons $`s_k=|R_k|`$, $`z_k\in\{-1,+1\}`$ pour l'orientation de la
+racine $`R_k`$ et
 
 ```math
-d\theta
+M_D(z)
 =
-\frac1\theta
->1
+\sum_{k=1}^r s_kz_k,
 \qquad
-\text{pour }0<\theta<1.
+\gamma_n=-h_{0,n}>0.
 \qquad\text{(2.7)}
 ```
 
-La coupe critique est ainsi strictement incluse dans une forêt finale
-supercritique. Des racines macroscopiques sont précisément le régime où une
-contrainte sur $`\sum_Rm_R`$ peut produire une dépendance d'ordre un entre
-orientations. On ne peut donc pas supprimer le port en invoquant seulement
-la convergence locale vers un arbre.
+Après retrait des facteurs internes communs, la loi edge-only des
+orientations est la loi uniforme produit $`\nu_D^0`$ et le port i.i.d. vaut
 
-### 2.3 Deux répliques : ne pas créer de port croisé
+```math
+\nu_D^{\mathrm{iid}}(z)
+=
+\frac{
+\exp\left[-\gamma_nM_D(z)^2/2\right]
+}{
+\mathbb E_{\nu_D^0}
+\left[
+\exp\left(-\gamma_nM_D^2/2\right)
+\right]
+}
+\nu_D^0(z).
+\qquad\text{(2.8)}
+```
+
+Soit $`G_n\sim\mathcal N(0,\gamma_n^{-1})`$, indépendant des orientations
+sous $`\nu_D^0`$. La densité en zéro de $`M_D(z)+G_n`$, conditionnellement à
+$`z`$, est proportionnelle à $`\exp[-\gamma_nM_D(z)^2/2]`$. Par conséquent,
+au sens de la densité conditionnelle régulière,
+
+```math
+\boxed{
+\nu_D^{\mathrm{iid}}
+=
+\mathrm{Law}_{\nu_D^0}
+\left(
+z
+\ \middle|\
+M_D(z)+G_n=0
+\right).
+}
+\qquad\text{(2.9)}
+```
+
+Cette représentation est un conditionnement gaussien **positif**. Elle évite
+de traiter comme une mesure de probabilité la transformée de
+Hubbard--Stratonovich oscillatoire imposée par le signe antiferromagnétique.
+Elle montre aussi l'identité exacte des lois dans chaque tranche :
+
+```math
+\nu_D^{\mathrm{iid}}
+\left(
+\cdot\mid M_D=m
+\right)
+=
+\nu_D^0
+\left(
+\cdot\mid M_D=m
+\right),
+\qquad
+\nu_D^{\mathrm{bal}}
+=
+\nu_D^0
+\left(
+\cdot\mid M_D=0
+\right).
+\qquad\text{(2.10)}
+```
+
+Au niveau des spins et à graphe $A$ fixé, si $`\mu_A^{\mathrm{edge}}`$
+désigne le Gibbs ne gardant que le second facteur de (1.5), alors
+
+```math
+\mu_A
+\left(
+\cdot\mid M=m
+\right)
+=
+\mu_A^{\mathrm{edge}}
+\left(
+\cdot\mid M=m
+\right).
+\qquad\text{(2.11)}
+```
+
+Le port ne modifie donc pas une tranche de magnétisation : il en modifie les
+poids. Pour rendre l'effet sur une paire exact, retirons deux racines
+$`i\ne j`$ et notons $`g_{ij,D}`$ la densité de
+
+```math
+\sum_{k\ne i,j}s_k\varepsilon_k+G_n,
+\qquad
+\varepsilon_k
+\mathrel{\mathop{\sim}^{\mathrm{i.i.d.}}}
+\mathrm{Unif}\{-1,+1\}.
+```
+
+La symétrie de cette densité donne
+
+```math
+\mathbb E_{\nu_D^{\mathrm{iid}}}[z_iz_j]
+=
+\frac{
+g_{ij,D}(s_i+s_j)
+-
+g_{ij,D}(|s_i-s_j|)
+}{
+g_{ij,D}(s_i+s_j)
++
+g_{ij,D}(|s_i-s_j|)
+}.
+\qquad\text{(2.12)}
+```
+
+Dans le modèle équilibré, la même formule vaut en remplaçant la densité par
+les probabilités ponctuelles de la somme sans $`G_n`$. Son signe n'est pas
+universel : avec des tailles $`(2L,L,L)`$, la balance impose aux deux petites
+racines la même orientation, donc leur corrélation vaut $`+1`$. Le port n'est
+pas une mesure de dépendance négative paire par paire.
+
+Si la forêt ne comporte que deux racines de tailles $`s`$ et $`t`$,
+(2.12) se réduit à
+
+```math
+\mathbb E_D^{\mathrm{iid}}[z_1z_2]
+=
+\frac{
+e^{h_{0,n}(s+t)^2/2}
+-
+e^{h_{0,n}(s-t)^2/2}
+}{
+e^{h_{0,n}(s+t)^2/2}
++
+e^{h_{0,n}(s-t)^2/2}
+}
+=
+\tanh(h_{0,n}st).
+\qquad\text{(2.13)}
+```
+
+Or, pour $`a_n,b_n=o(n)`$,
+
+```math
+h_{0,n}
+=
+-\frac{a_n-b_n}{2n}
++
+O\left(\frac{a_n^2+b_n^2}{n^2}\right).
+\qquad\text{(2.14)}
+```
+
+Le port est perturbatif pour cette paire seulement si
+$`|h_{0,n}|st=o(1)`$. Pour deux racines de tailles proportionnelles à $n$,
+(2.13) tend au contraire vers $`-1`$ dès que $`a_n-b_n`$ reste positif :
+les orientations sont presque parfaitement anti-alignées. La fonction
+fermée est auditée dans le module de convolution.
+
+### 2.3 Géométrie full-$D$ exacte et no-go des deux géantes
+
+Le calcul précédent devient typique, et non seulement possible, dans une
+partie du régime de non-reconstruction. Le lien Edwards--Sokal d'une arête
+présente et satisfaite est ouvert avec probabilité exacte
+
+```math
+q_n^{\mathrm{ES}}
+=
+1-e^{-u_n^{\mathrm{fin}}}
+=
+\frac{
+n(a_n-b_n)
+}{
+a_n(n-b_n)
+}.
+\qquad\text{(2.15)}
+```
+
+Sous la loi plantée, conditionnellement à deux labels égaux, l'arête est
+présente avec probabilité $`a_n/n`$. Elle appartient donc au full-$D$ avec
+probabilité
+
+```math
+\frac{a_n}{n}q_n^{\mathrm{ES}}
+=
+\frac{a_n-b_n}{n-b_n}.
+\qquad\text{(2.16)}
+```
+
+Un lien entre labels opposés est impossible. Conditionnellement aux labels,
+les racines finales sont ainsi **exactement** les composantes de deux graphes
+d'Erdős--Rényi indépendants,
+
+```math
+G\left(
+n_+,\frac{a_n-b_n}{n-b_n}
+\right)
+\mathbin{\dot\cup}
+G\left(
+n_-,\frac{a_n-b_n}{n-b_n}
+\right),
+\qquad
+n_\pm
+=
+\#\{i:x_i=\pm1\}.
+\qquad\text{(2.17)}
+```
+
+Pour des paramètres constants, posons
+
+```math
+d=\frac{a+b}{2},
+\qquad
+\theta=\frac{a-b}{a+b},
+\qquad
+c=d\theta=\frac{a-b}{2}.
+\qquad\text{(2.18)}
+```
+
+Le degré limite de chacun des deux graphes de (2.17) est $`c`$. Si $`c>1`$
+et $`\rho(c)`$ est la solution positive de
+$`\rho=1-e^{-c\rho}`$, leurs deux composantes géantes ont tailles
+
+```math
+|R_{(1)}|
+=
+\frac{\rho(c)}2n
++
+O_{\mathbb P}(\sqrt n),
+\qquad
+|R_{(2)}|
+=
+\frac{\rho(c)}2n
++
+O_{\mathbb P}(\sqrt n).
+\qquad\text{(2.19)}
+```
+
+Avec probabilité tendant vers un, elles proviennent des deux classes
+opposées. Dans le couplage posterior--dendrogramme exact, les vrais labels
+forment eux-mêmes un tirage de la loi conditionnelle des orientations.
+Notons $`\nu_{A,D}`$ cette loi conditionnelle. L'identité de la tour donne
+donc
+
+```math
+\mathbb E_{A,D}
+\left[
+\nu_{A,D}
+\left(
+z_{R_{(1)}}z_{R_{(2)}}=-1
+\right)
+\right]
+\longrightarrow
+1.
+\qquad\text{(2.20)}
+```
+
+Comme le terme entre crochets appartient à $`[0,1]`$, cette probabilité
+conditionnelle tend aussi vers un en probabilité sur $`(A,D)`$. Ainsi,
+
+```math
+\mathbb E_{\nu_{A,D}}
+\left[
+z_{R_{(1)}}z_{R_{(2)}}
+\right]
+\xrightarrow{\mathbb P}
+-1,
+\qquad
+c>1.
+\qquad\text{(2.21)}
+```
+
+Le recoloriage edge-only indépendant donne zéro pour la même corrélation.
+L'écart n'est donc pas uniforme en $`D`$ et n'est pas $`o(1)`$ sur tout le
+régime $`d\theta^2\le1`$. En effet, à Kesten--Stigum,
+
+```math
+d\theta^2=1
+\quad\Longrightarrow\quad
+c=d\theta=\frac1\theta>1,
+\qquad
+0<\theta<1.
+\qquad\text{(2.22)}
+```
+
+La moyenne absolue de l'écart pairwise, pondérée par les sommets des deux
+géantes, possède même la borne inférieure asymptotique
+
+```math
+\frac{
+2|R_{(1)}||R_{(2)}|
+}{
+n^2
+}
+\left|
+\mathbb E_{\nu_{A,D}}
+\left[
+z_{R_{(1)}}z_{R_{(2)}}
+\right]
+\right|
+\xrightarrow{\mathbb P}
+\frac{\rho(c)^2}{2}.
+\qquad\text{(2.23)}
+```
+
+Ce no-go porte sur le Gibbs **conditionnel à un dendrogramme**. Il ne
+contredit pas la non-reconstruction : celle-ci exige de marginaliser le
+dendrogramme avant de prendre le carré, ou de travailler avec deux
+dendrogrammes indépendants.
+
+### 2.4 Candidat subcritique, non prouvé dans ce dossier
+
+Le régime $`c<1`$ est différent. D'après (2.17), les racines sont alors
+subcritiques et leur géométrie devrait vérifier
+
+```math
+\max_R|R|
+=
+O_{\mathbb P}(\log n),
+\qquad
+\frac1n
+\sum_R|R|^2
+\xrightarrow{\mathbb P}
+\chi_c
+=
+\frac1{1-c}.
+\qquad\text{(2.24)}
+```
+
+Sous les orientations edge-only indépendantes, un théorème central limite
+quenched pour la somme pondérée, suivi du tilt de (2.8), suggère
+
+```math
+\frac{M_D}{\sqrt n}
+\xrightarrow{\nu_D^{\mathrm{iid}}}
+\mathcal N
+\left(
+0,
+\frac{\chi_c}{1+c\chi_c}
+\right)
+=
+\mathcal N(0,1).
+\qquad\text{(2.25)}
+```
+
+Le **lemme candidat SBM-F1**, qui n'est pas démontré ici, est le suivant :
+conditionnellement à des racines distinctes de tailles bornées et pour
+$`c<1`$, les orientations d'un nombre fixé de racines sous le port convergent
+en variation totale vers les orientations edge-only indépendantes. Un local
+CLT leave-two-out devrait en outre donner
+
+```math
+\mathbb E_{\nu_D^{\mathrm{iid}}}[z_iz_j]
+=
+-\frac{
+c(1-c)s_is_j
+}{
+n
+}
++
+o\left(\frac1n\right),
+\qquad
+\mathbb E_{\nu_D^{\mathrm{bal}}}[z_iz_j]
+=
+-\frac{
+(1-c)s_is_j
+}{
+n
+}
++
+o\left(\frac1n\right).
+\qquad\text{(2.26)}
+```
+
+Les obligations manquantes sont une version quenched uniforme du CLT, le
+local CLT sur le bon réseau de parité, puis le passage de racines fixées à
+des sommets ou paires de sommets. Même prouvé, SBM-F1 ne couvrirait ni
+$`c=1`$, ni la bande $`1<c\le1/\theta`$, donc notamment pas
+Kesten--Stigum. Il ne contrôlerait pas davantage le carré postérieur sans
+deux dendrogrammes indépendants.
+
+### 2.5 Deux répliques : ne pas créer de port croisé
 
 Pour la weak recovery, les deux postérieures sont indépendantes
 conditionnellement à $A$. Chacune possède son propre port :
@@ -325,7 +684,7 @@ M(x^{(1)})^2+M(x^{(2)})^2
 J_n\sum_{\{i,j\}\in E(A)}
 x_i^{(r)}x_j^{(r)}
 \right].
-\qquad\text{(2.8)}
+\qquad\text{(2.27)}
 ```
 
 Il n'y a aucun terme $`M(x^{(1)})M(x^{(2)})`$. Dans la bisection, chaque
@@ -383,11 +742,14 @@ d_n\theta_n
 \qquad\text{(3.4)}
 ```
 
-Sur le SBM fini, remplacer simplement $`u_n^{\mathrm{br}}`$ par
-$`u_n^{\mathrm{fin}}`$ ne rend pas (3.2) exacte : le port global corrèle les
-satisfactions des arêtes. La quantité (3.3) est la coupe du modèle local de
-broadcast et la limite asymptotique naturelle, pas un seuil de percolation
-i.i.d. exact du posterior fini.
+Les identités (2.16)--(2.17) sont plantées--annealed, conditionnellement aux
+vrais labels et après marginalisation de $`A`$. Elles ne disent pas qu'à
+observation $`A`$ fixée la postérieure augmentée est une percolation i.i.d. :
+le port global corrèle ses satisfactions d'arêtes. Remplacer simplement
+$`u_n^{\mathrm{br}}`$ par $`u_n^{\mathrm{fin}}`$ ne rend donc pas (3.2)
+exacte dans la loi quenched pertinente pour la dynamique. La quantité (3.3)
+est la coupe du modèle local de broadcast et la limite asymptotique
+naturelle, pas un seuil de percolation i.i.d. quenched du posterior fini.
 
 Lorsque $`a_n,b_n\to\infty`$ avec un rapport borné loin de zéro et un,
 $`\beta_{c,n}^{\mathrm{br}}`$ est d'ordre $`1/a_n`$. Les blocs restent
@@ -651,7 +1013,7 @@ il ne permet pas de réutiliser la même inégalité probabiliste.
 
 ### 7.1 Ordre de travail falsifiable
 
-1. Coupler l'implémentation vérifiée de (2.4)--(2.5) à des dendrogrammes
+1. Coupler l'implémentation vérifiée de (2.5)--(2.6) à des dendrogrammes
    SBM échantillonnés, en conservant le port dans chaque observable.
 2. Comparer une coupe critique, une coupe légèrement sous-critique et une
    élimination sans coupe à coût interne fixé.

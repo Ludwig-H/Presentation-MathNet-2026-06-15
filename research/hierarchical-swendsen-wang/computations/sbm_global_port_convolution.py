@@ -209,6 +209,30 @@ def balanced_partition_function(
     return multiplicities.get(0, 0)
 
 
+def two_root_iid_orientation_correlation(
+    first_root_size: int,
+    second_root_size: int,
+    h0: float,
+) -> float:
+    """Return the exact i.i.d.-port correlation for exactly two roots.
+
+    If the two orientations are ``z_1,z_2``, their four weights are
+
+        exp(h0 (z_1 s_1 + z_2 s_2)^2 / 2).
+
+    Pairing the two aligned and the two anti-aligned states gives
+    ``E[z_1 z_2] = tanh(h0 s_1 s_2)``.  Thus a field of order ``1/n`` is
+    not perturbative when both root sizes are of order ``n``.
+    """
+
+    first, second = _validated_root_sizes(
+        (first_root_size, second_root_size)
+    )
+    if not math.isfinite(h0) or h0 > 0.0:
+        raise ValueError("the non-edge field h0 must be finite and non-positive")
+    return math.tanh(h0 * first * second)
+
+
 def port_partition_functions(
     root_sizes: Sequence[int],
     h0: float,

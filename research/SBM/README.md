@@ -127,7 +127,14 @@ satisfaite au seuil de Kesten--Stigum non dégénéré.
 6. [Statut scientifique et tests de réfutation](06_STATUT_SCIENTIFIQUE.md)
    sépare les identités établies de la nouvelle preuve dynamique qui reste
    à construire.
-7. [Références](REFERENCES.md) regroupe le manuscrit, les articles primaires
+7. [La dynamique retrouve-t-elle les seuils ?](07_SEUILS_PAR_LA_DYNAMIQUE.md)
+   vérifie régime par régime — weak recovery à $\beta_c^{\mathrm{geom}}$,
+   almost exact, exact recovery à $\beta=0$ (Glauber) — ce que « retrouver
+   le seuil » signifie et ce qui est démontré : calibration exacte,
+   benchmark d'équilibre, et la stabilité de la vérité sous un sweep de
+   Glauber exactement au seuil $(\sqrt A-\sqrt B)^2=2$. **C'est la porte
+   à franchir avant tout retour au GSBM triangulaire.**
+8. [Références](REFERENCES.md) regroupe le manuscrit, les articles primaires
    et les calculs reproductibles déjà présents dans le dépôt.
 
 ## Trois précisions indispensables

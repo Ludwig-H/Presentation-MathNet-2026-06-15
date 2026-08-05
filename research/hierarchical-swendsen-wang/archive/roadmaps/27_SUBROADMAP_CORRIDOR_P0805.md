@@ -58,7 +58,7 @@ la [feuille de route quantitative](26_FEUILLE_DE_ROUTE_PSTAR.md).
 
 > [!NOTE]
 > **Mise à jour après les deux contre-audits.** Le
-> [fichier 28](../../diagnostics/finite_volume/28_FIRST_CORRIDOR_P0805_RESULTS.md) certifie le secteur neutre
+> [fichier 28](28_FIRST_CORRIDOR_P0805_RESULTS.md) certifie le secteur neutre
 > E1+ mais montre aussi qu'un potentiel extérieur non borné fait tendre le
 > second moment brut vers un. La forme uniforme (5.5) ne peut donc pas être
 > exigée sur tout le simplexe projectif. Le fichier 29 montre ensuite que

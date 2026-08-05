@@ -90,21 +90,37 @@ l'un des objets finis suivants, à annoncer explicitement :
   fenêtre critique.
 
 Comme les temps sont continus,
-$`\mathbb P(\beta_{ij}=\beta_c)=0`$ à volume fini. Une affirmation « au
-temps critique » signifie une désintégration régulière au temps
-$`\beta_c`$, une mesure de Palm du flux de fusions, ou la limite d'une
-fenêtre, par exemple
+$`\mathbb P(\beta_{ij}=\beta_c)=0`$ à volume fini. La convention canonique
+de cette note est le **conditionnement gauche**
 
 ```math
-\mathcal F_{L,\rho,\varepsilon}
+\mathcal F_{L,\rho}
 =
 \left\{
 d_L(I_L,J_L)\ge\rho L,
-\ \beta_c-\varepsilon\le\beta_{I_LJ_L}\le\beta_c
+\ \beta_{I_LJ_L}\le\beta_c
 \right\},
 ```
 
-avec l'ordre $`L\to\infty`$, puis $`\varepsilon\downarrow0`$.
+événement de probabilité strictement positive à tout volume fini. Une
+fenêtre inférieure $`\beta_{ij}\ge\beta_c-\varepsilon`$ est inutile :
+conditionnellement à $`\mathcal F_{L,\rho}`$, la
+[localisation par la gauche](../foundations/ancestral/14_CRITICAL_COMPONENT_BOUNDARY.md)
+rend $`\beta_{ij}\ge\beta_c-\varepsilon`$ asymptotiquement automatique
+(décroissance exponentielle sous-critique contre minoration polynomiale
+critique), de sorte que la fenêtre
+$`[\beta_c-\varepsilon,\beta_c]`$ avec l'ordre $`L\to\infty`$ puis
+$`\varepsilon\downarrow0`$ définit la même limite conditionnelle. Les
+alternatives licites sont la désintégration régulière au temps
+$`\beta_c`$ et la mesure de Palm du flux de fusions pondérée par les
+paires lointaines ([fichier 10 §1](../foundations/ancestral/10_ANCESTRAL_LAMBDA_ESTIMATION.md)) ;
+la bande **surcritique** $`(\beta_c,\beta_c+\delta]`$ du
+[fichier 09 §2](09_CRITICAL_MERGER_ORACLE.md) sert un autre objet, le
+bilan de masse des fusions postcritiques, et ne doit pas être confondue
+avec l'expérience présente. Voir la
+[note 42 §4.3](../foundations/ancestral/42_PROBLEME_CENTRAL_FUSION_CRITIQUE.md)
+pour le tableau des conventions (conditionnement gauche, Palm de flux,
+bande surcritique, désintégration par niveau).
 
 ## 2. Arêtes internes d'un cluster à temps fixé
 

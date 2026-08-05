@@ -21,6 +21,7 @@ from sbm_global_port_convolution import (
     magnetization_multiplicities,
     port_partition_functions,
     run_diagnostic,
+    two_root_iid_orientation_correlation,
 )
 
 
@@ -103,6 +104,45 @@ class PartitionFunctionTests(unittest.TestCase):
         partitions = port_partition_functions((4, 2), -0.1)
         self.assertFalse(partitions.balanced_model_feasible)
         self.assertEqual(partitions.balanced_partition_function, 0)
+
+    def test_two_root_orientation_correlation_has_closed_form(self) -> None:
+        first_size = 3
+        second_size = 2
+        h0 = -0.17
+        aligned_weight = math.exp(
+            0.5 * h0 * (first_size + second_size) ** 2
+        )
+        anti_aligned_weight = math.exp(
+            0.5 * h0 * (first_size - second_size) ** 2
+        )
+        expected = (
+            aligned_weight - anti_aligned_weight
+        ) / (
+            aligned_weight + anti_aligned_weight
+        )
+        self.assertAlmostEqual(
+            two_root_iid_orientation_correlation(
+                first_size,
+                second_size,
+                h0,
+            ),
+            expected,
+        )
+        self.assertAlmostEqual(
+            expected,
+            math.tanh(h0 * first_size * second_size),
+        )
+        self.assertLess(expected, 0.0)
+
+    def test_macroscopic_two_root_port_is_not_perturbative(self) -> None:
+        n = 10_000
+        h0 = finite_nonedge_field(n, 5.0, 1.0)
+        correlation = two_root_iid_orientation_correlation(
+            n // 3,
+            n // 4,
+            h0,
+        )
+        self.assertLess(correlation, -0.999999)
 
 
 class EnumerationAuditTests(unittest.TestCase):
@@ -215,6 +255,8 @@ class ValidationTests(unittest.TestCase):
             iid_partition_function(multiplicities, 0.1)
         with self.assertRaises(ValueError):
             direct_orientation_enumeration((1, 1), 0.1)
+        with self.assertRaises(ValueError):
+            two_root_iid_orientation_correlation(1, 1, 0.1)
 
 
 if __name__ == "__main__":

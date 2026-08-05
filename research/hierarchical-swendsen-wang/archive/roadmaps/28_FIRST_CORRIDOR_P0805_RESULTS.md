@@ -21,7 +21,7 @@ $`p_{\mathrm{WR}}\ge161/200`$.
 > cette note est réfutée sur une cellule multiport exacte. Les quantités
 > $`q_v^{\mathrm{fav}}`$ ci-dessous sont des proxies algébriques, pas des
 > majorations informationnelles. Voir
-> [l'audit à froid](../29_AUDIT_FROID_PIVOT_RANGS_REELS.md).
+> [l'audit à froid](../../diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md).
 
 ## 1. Ce qui est désormais fixé exactement
 
