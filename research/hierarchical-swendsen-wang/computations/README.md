@@ -52,6 +52,7 @@ Les scripts n'ont pas de dépendance scientifique externe.
 | `sbm_recovery_regimes_diagnostic.py` | quels sont les benchmarks weak, almost exact et exact du SBM classique ? | affinité binomiale finie exacte et constantes de seuil ; oracle seulement, aucune achievability hiérarchique |
 | `triangular_recovery_regimes_diagnostic.py` | almost exact ou exact recovery sont-ils possibles à degré six fixé ? | erreur oracle exacte ; nécessités $`p_n\to1`$ et $`n\varepsilon_6(p_n)\to0`$, sans suffisance |
 | `double_giant_replicated_gibbs_diagnostic.py` | la décomposition exacte par intersections et cellules ferme-t-elle sur $`L=4`$ ? | le reste hors-diagonale est conservé signé et les Gibbs sont exacts ; observations et hiérarchies restent Monte-Carlo, sans tendance asymptotique |
+| `gsbm_replicated_target_exact.py` | que vaut la cible répliquée $`\mathcal D_L^\times`$ (moyenne en $D$ **avant** le carré, U-statistique sans biais) contre son enveloppe de Jensen ? | intérieur exact $`2^{16}`$ à $`L=4`$, extérieur Monte-Carlo ; cancellation mesurée de $`81`$ à $`94\,\%`$ ([GSBM/03](../../GSBM/03_EXPERIENCE_CIBLE_REPLIQUEE.md)) ; aucun signal asymptotique à un seul volume |
 | `giant_component_quotient_diagnostic.py` | quelle géométrie voit une paire lointaine dans l'arbre de la géante finale, après contraction des blocs critiques ? | diagnostic conditionnel aux environnements ayant une paire admissible, dont le nombre est exposé ; PATH-FAC reste un oracle local factorisé non probant |
 | `critical_cut_collective_gibbs_diagnostic.py` | quelle persistance collective et quelle enveloppe spectrale single-$D$ subsistent entre blocs critiques ? | énumération exponentielle sur petits tores ; tout cutoff de blocs est signalé comme biais de sélection |
 | `critical_cut_quotient_elimination.py` | peut-on calculer exactement la même loi single-$D$ sans énumérer les $`2^k`$ orientations ? | élimination min-fill exacte sur le quotient critique, conditionnellement à la représentation interne all-plus fixée ; ce n'est pas la Gibbs complète sur les spins |
@@ -105,6 +106,8 @@ python3 \
 python3 \
   research/hierarchical-swendsen-wang/computations/double_giant_replicated_gibbs_diagnostic.py \
   --side 4 --p 0.81 --observations 4 --replica-pairs 8 --seed 3801
+python3 \
+  research/hierarchical-swendsen-wang/computations/gsbm_replicated_target_exact.py
 ```
 
 Le premier JSON affiche $`\widehat q_t`$, l'écart de Nishimori, les bornes

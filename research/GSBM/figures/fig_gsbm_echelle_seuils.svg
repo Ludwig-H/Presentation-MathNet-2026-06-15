@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="600" viewBox="0 0 1440 600" role="img" aria-labelledby="title desc">
+  <title id="title">L'échelle des seuils du GSBM triangulaire</title>
+  <desc id="desc">Axe des fiabilités p de 0,65 à 0,87 avec les seuils : gel Swendsen-Wang 0,6736, triangles Chayes-Lei 0,7192, diagnostics écartés 0,7824 et 0,7887, information-percolation 0,7947, record rigoureux 0,809439, candidat tangent 0,80991, point de Nishimori conjecturé 0,8358, bande pure écartée 0,8473. Zone violette : impossibilité rigoureuse ; zone claire : extension conjecturée ; zone verte : weak recovery conjecturée possible.</desc>
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+    <style>
+      .title { font: 700 26px Inter, Arial, sans-serif; fill: #172033; }
+      .subtitle { font: 500 16px Inter, Arial, sans-serif; fill: #475569; }
+      .label { font: 500 15px Inter, Arial, sans-serif; fill: #334155; }
+      .strong { font: 700 16px Inter, Arial, sans-serif; fill: #172033; }
+      .small { font: 500 13px Inter, Arial, sans-serif; fill: #475569; }
+      .tiny { font: 500 12px Inter, Arial, sans-serif; fill: #64748b; }
+      .axis { stroke: #334155; stroke-width: 2; }
+      .tickline { stroke: #334155; stroke-width: 2; }
+      .mark { stroke: #334155; stroke-width: 2; }
+      .markrec { stroke: #6d4aff; stroke-width: 3.5; }
+      .marktan { stroke: #94a3b8; stroke-width: 2; }
+      .markgray { stroke: #cbd5e1; stroke-width: 2; }
+      .connect { stroke: #94a3b8; stroke-width: 1.5; stroke-dasharray: 4 4; }
+    </style>
+  </defs>
+  <rect width="1440" height="600" fill="#f8fafc"/>
+  <text x="720" y="42" text-anchor="middle" class="title">L'échelle des seuils du GSBM triangulaire</text>
+  <text x="720" y="70" text-anchor="middle" class="subtitle">modèle binaire homogène sur le tore, fiabilité p par arête ; q_c = 2 sin(π/18) = 0,3473 ; encadrement actuel : p_WR ∈ [0,809439 ; 1]</text>
+
+  <!-- zones -->
+  <rect x="120" y="340" width="884.2" height="60" fill="#ede9fe"/>
+  <rect x="1004.2" y="340" width="146.2" height="60" fill="#f4f1ff"/>
+  <rect x="1150.4" y="340" width="189.6" height="60" fill="#ecfdf3"/>
+  <text x="679" y="376" text-anchor="middle" class="label">pas de weak recovery — rigoureux</text>
+  <text x="1077" y="376" text-anchor="middle" class="tiny">conjecturé</text>
+  <text x="1277" y="370" text-anchor="middle" class="tiny">weak recovery</text>
+  <text x="1277" y="388" text-anchor="middle" class="tiny">(conjecture)</text>
+
+  <!-- axis -->
+  <path d="M110 400 L1360 400" class="axis" marker-end="url(#arr)"/>
+  <text x="1378" y="406" text-anchor="start" class="strong">p</text>
+  <line x1="120" y1="400" x2="120" y2="408" class="tickline"/>
+  <text x="120" y="428" text-anchor="middle" class="small">0,65</text>
+  <line x1="397.3" y1="400" x2="397.3" y2="408" class="tickline"/>
+  <text x="397.3" y="428" text-anchor="middle" class="small">0,70</text>
+  <line x1="674.5" y1="400" x2="674.5" y2="408" class="tickline"/>
+  <text x="674.5" y="428" text-anchor="middle" class="small">0,75</text>
+  <line x1="951.8" y1="400" x2="951.8" y2="408" class="tickline"/>
+  <text x="951.8" y="428" text-anchor="middle" class="small">0,80</text>
+  <line x1="1229.1" y1="400" x2="1229.1" y2="408" class="tickline"/>
+  <text x="1229.1" y="428" text-anchor="middle" class="small">0,85</text>
+
+  <!-- threshold marks -->
+  <line x1="251.1" y1="340" x2="251.1" y2="408" class="mark"/>
+  <line x1="503.9" y1="340" x2="503.9" y2="408" class="mark"/>
+  <line x1="854.4" y1="340" x2="854.4" y2="408" class="markgray"/>
+  <line x1="889.0" y1="340" x2="889.0" y2="408" class="markgray"/>
+  <line x1="922.2" y1="340" x2="922.2" y2="408" class="mark"/>
+  <line x1="1004.2" y1="340" x2="1004.2" y2="408" class="markrec"/>
+  <line x1="1006.8" y1="340" x2="1006.8" y2="408" class="marktan"/>
+  <line x1="1150.4" y1="340" x2="1150.4" y2="408" class="mark"/>
+  <line x1="1214.1" y1="340" x2="1214.1" y2="408" class="markgray"/>
+
+  <!-- labels below -->
+  <line x1="251.1" y1="408" x2="251.1" y2="444" class="connect"/>
+  <text x="251.1" y="462" text-anchor="middle" class="label">0,6736 · gel Swendsen–Wang (ch. 11)</text>
+  <line x1="854.4" y1="408" x2="864" y2="444" class="connect"/>
+  <line x1="889.0" y1="408" x2="879" y2="444" class="connect"/>
+  <text x="871" y="462" text-anchor="middle" class="tiny">0,7824 · 0,7887 (écartés)</text>
+  <line x1="1214.1" y1="408" x2="1195" y2="444" class="connect"/>
+  <text x="1195" y="462" text-anchor="middle" class="tiny">0,8473 · bande pure (écartée)</text>
+
+  <!-- labels above, first row -->
+  <line x1="503.9" y1="316" x2="503.9" y2="340" class="connect"/>
+  <text x="503.9" y="306" text-anchor="middle" class="label">0,7192 · triangles Chayes–Lei</text>
+  <line x1="922.2" y1="316" x2="922.2" y2="340" class="connect"/>
+  <text x="990" y="306" text-anchor="end" class="label">0,7947 · info-percolation</text>
+  <line x1="1150.4" y1="316" x2="1150.4" y2="340" class="connect"/>
+  <text x="1150.4" y="306" text-anchor="middle" class="label">0,8358 · point de Nishimori (conj.)</text>
+
+  <!-- record block -->
+  <line x1="1004.2" y1="316" x2="1004.2" y2="340" class="connect"/>
+  <text x="1004.2" y="228" text-anchor="middle" class="strong">0,809439 · record rigoureux (note 34)</text>
+  <text x="1004.2" y="252" text-anchor="middle" class="small">0,80991 · candidat tangent, conditionnel</text>
+
+  <!-- caption -->
+  <text x="720" y="540" text-anchor="middle" class="small">Zones : violet = impossibilité rigoureuse ; violet clair = extension conjecturée jusqu'au point multicritique ; vert = weak recovery conjecturée possible.</text>
+  <text x="720" y="564" text-anchor="middle" class="small">Cibles du programme : O1 = dépasser 0,809439 (routes A et B) ; O3 = première borne d'achievability (route D) ; O4 = fermer au point de Nishimori (route E).</text>
+</svg>

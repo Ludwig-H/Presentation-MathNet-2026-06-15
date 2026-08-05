@@ -650,16 +650,20 @@ benchmarks ultérieurs ; la contraction quadratique ne les démontre pas.
 
 ## 9. Priorités immédiates
 
-0. **porte SBM d'abord** : avant tout retour au GSBM triangulaire,
-   franchir les portes dynamiques du SBM classique
-   ([SBM/07](../SBM/07_SEUILS_PAR_LA_DYNAMIQUE.md)) — la stabilité de la
-   vérité sous un sweep de Glauber à $`\beta=0`$ est établie exactement au
-   seuil $`(\sqrt A-\sqrt B)^2=2`$ ; restent SBM-DYN0 (départ froid) et
-   SBM-DYN1 (sweeps finis à $`\beta_c^{\mathrm{geom}}`$ contre KS) ;
+0. **porte SBM** : la calibration d'équilibre est franchie
+   ([SBM/07](../SBM/07_SEUILS_PAR_LA_DYNAMIQUE.md),
+   [SBM/08](../SBM/08_PREUVES_COMPLETES_SEUILS.md)) ; restent ouvertes
+   SBM-DYN0 (départ froid) et SBM-DYN1 (sweeps finis à
+   $`\beta_c^{\mathrm{geom}}`$ contre KS). Le front GSBM est désormais
+   ouvert dans [`research/GSBM/`](../GSBM/README.md), avec son
+   [programme de recherche](../GSBM/01_PROGRAMME_DE_RECHERCHE.md) ;
 1. construire un junction tree exact sur les spins physiques pour calculer
    le Gibbs complet à $`L=5,6`$, au lieu du seul quotient all-plus ;
 2. estimer directement $`\mathcal D_L^\times(0.81)`$ en moyennant les
-   dendrogrammes à observation et endpoints fixés avant le carré ;
+   dendrogrammes à observation et endpoints fixés avant le carré —
+   **fait à $`L=4`$** ([GSBM/03](../GSBM/03_EXPERIENCE_CIBLE_REPLIQUEE.md) :
+   cancellation signée de $`81`$ à $`94\,\%`$ de l'enveloppe de Jensen) ;
+   suivant : $`L=5,6`$ via le junction tree du point 1 ;
 3. construire un embedding commun des espaces de ports, avec messages
    extérieurs et observation partagée dans l'état ;
 4. mesurer les produits **signés** de Jacobiennes sous la Palm cross--cross

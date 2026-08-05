@@ -17,6 +17,21 @@ almost exact / exact recovery et limite $\beta\downarrow0$ vers Glauber.
 Il suit pas à pas l'architecture bayésienne du chapitre 11 et sépare les
 identités prouvées des étapes dynamiques encore ouvertes.
 
+## Front ouvert : le GSBM triangulaire
+
+Le dossier [GSBM](GSBM/) porte le programme de recherche sur le geometric
+SBM (tore triangulaire, régime difficile $`p>0{,}8`$) : peut-on dépasser
+la borne rigoureuse $`0{,}809439`$ — voire atteindre le point multicritique
+conjecturé $`0{,}8358`$ — grâce à la dynamique hiérarchique coupée à
+$`\beta_c(p)`$ ? Il contient le
+[plan de recherche](GSBM/01_PROGRAMME_DE_RECHERCHE.md) (cinq routes avec
+portes falsifiables), le
+[dictionnaire de transport](GSBM/02_DICTIONNAIRE_SBM_GSBM.md) de la preuve
+SBM/08 vers la grille, et la
+[première mesure directe](GSBM/03_EXPERIENCE_CIBLE_REPLIQUEE.md) de la
+cible répliquée $`\mathcal D_L^\times`$ (priorité n°2 du statut
+canonique).
+
 ## Le résultat à retenir
 
 Pour le GSBM binaire homogène sur le tore triangulaire, le résultat rigoureux

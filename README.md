@@ -22,6 +22,7 @@ Choisissez le parcours qui correspond à votre objectif.
 | Je veux… | Première lecture | Puis… |
 |---|---|---|
 | comprendre le seuil SBM sur deux dendrogrammes | [dossier pédagogique SBM](research/SBM/) | [la dynamique retrouve-t-elle les seuils ?](research/SBM/07_SEUILS_PAR_LA_DYNAMIQUE.md) |
+| suivre le front GSBM (p > 0,8 sur la grille triangulaire) | [dossier GSBM](research/GSBM/) | [programme de recherche](research/GSBM/01_PROGRAMME_DE_RECHERCHE.md) |
 | comprendre le résultat en cinq minutes | [statut scientifique actuel](research/hierarchical-swendsen-wang/CURRENT_STATUS.md) | [certificat à p = 0,809439](research/hierarchical-swendsen-wang/results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md) |
 | comprendre la dynamique hiérarchique | [problème central : fusion critique et chaîne des Λ_v](research/hierarchical-swendsen-wang/foundations/ancestral/42_PROBLEME_CENTRAL_FUSION_CRITIQUE.md) | [cible prioritaire répliquée](research/hierarchical-swendsen-wang/active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) |
 | retrouver une note précise | [index exhaustif des notes](research/hierarchical-swendsen-wang/INDEX.md) | dossier indiqué par son statut |
@@ -70,6 +71,7 @@ n'établissent aucune tendance asymptotique.
 |---|---|
 | [`research/`](research/) | porte d'entrée de la recherche |
 | [`research/SBM/`](research/SBM/) | benchmark pédagogique : seuil KS, deux dendrogrammes et trois régimes de recovery |
+| [`research/GSBM/`](research/GSBM/) | front geometric SBM : programme de recherche, dictionnaire de transport et mesure de la cible répliquée |
 | [`research/hierarchical-swendsen-wang/`](research/hierarchical-swendsen-wang/) | projet principal, organisé par statut scientifique |
 | [`beamer-presentation/`](beamer-presentation/) | séminaire MathNet du 15 juin 2026 |
 | [`beamer-presentation-neo/`](beamer-presentation-neo/) | séminaire NEO du 25 juin 2026 |
