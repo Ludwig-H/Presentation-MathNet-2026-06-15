@@ -13,11 +13,12 @@ La construction retenue conserve exactement la postérieure du chapitre 11 :
 | intermédiaire | retournements d'amas avec interactions résiduelles |
 | un : racines Swendsen–Wang | retournements indépendants et uniformes |
 
-Trois notes, dans l'ordre :
+Quatre notes, dans l'ordre :
 
 1. [La hiérarchie et ses lois](01_HIERARCHIE.md) : construction, probabilités, preuve d'invariance.
 2. [L'audit](02_AUDIT.md) : ce qui tient et ce qui doit être corrigé.
 3. [La coupe critique et la recovery](03_RECOVERY.md) : la quantité précise qu'il reste à contrôler.
+4. [Couper la géante au niveau critique](04_GEANTE_CRITIQUE.md) : loi corrigée, réduction exacte et deux raccourcis réfutés.
 
 **Acquis :** une interpolation exacte en volume fini.
 **Ouvert :** une meilleure borne de weak recovery grâce à cette dynamique.
@@ -28,7 +29,8 @@ Vérification sur de petits graphes, depuis la racine du dépôt :
 
 ```bash
 python3 research/check_hierarchy.py
+python3 research/check_giant_cut.py
 ```
 
-Le script énumère les états et les transitions ; ses contrôles numériques
+Les scripts énumèrent les états et les transitions ; leurs contrôles numériques
 complètent les preuves, sans établir de seuil asymptotique.

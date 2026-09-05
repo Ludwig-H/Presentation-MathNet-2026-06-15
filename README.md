@@ -5,10 +5,11 @@ associé et un dossier de recherche sur les dynamiques de clusters.
 
 ## Recherche
 
-Le [dossier research/](research/README.md) a été refondé autour de trois
+Le [dossier research/](research/README.md) contient quatre
 notes courtes : [hiérarchie et lois exactes](research/01_HIERARCHIE.md),
 [audit mathématique](research/02_AUDIT.md) et
-[coupe critique pour la weak recovery](research/03_RECOVERY.md).
+[coupe critique pour la weak recovery](research/03_RECOVERY.md), puis
+[audit de la coupe dans la géante](research/04_GEANTE_CRITIQUE.md).
 
 La construction retrouve exactement Glauber à la coupe zéro et
 Swendsen–Wang à la coupe un. Une amélioration des bornes de recovery
@@ -37,6 +38,7 @@ make
 python3 .agents/check_math.py
 python3 .agents/check_markdown_links.py
 python3 research/check_hierarchy.py
+python3 research/check_giant_cut.py
 ```
 
-Le script utilise uniquement la bibliothèque standard Python.
+Les scripts utilisent uniquement la bibliothèque standard Python.

@@ -40,5 +40,8 @@ jobs:
       - name: Check finite cluster kernels
         run: python3 research/check_hierarchy.py
 
-      - name: Compile Python module
-        run: python3 -m py_compile research/check_hierarchy.py
+      - name: Check critical cut inside the giant
+        run: python3 research/check_giant_cut.py
+
+      - name: Compile Python modules
+        run: python3 -m py_compile research/check_hierarchy.py research/check_giant_cut.py

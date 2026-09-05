@@ -93,3 +93,7 @@ $`p<(1+\sqrt{q_c})/2\simeq0{,}794659`$
 ([Abbe–Boix, théorème 3.6](https://arxiv.org/abs/1806.03227)).
 Le certificat historique à 0,809439 fixe un objectif plus exigeant.
 **Aucune amélioration de ce seuil n'est démontrée ici.**
+
+L'[audit de la coupe dans la géante](04_GEANTE_CRITIQUE.md) précise comment
+conserver la géante finale sans fausser cette conditionnelle, et démontre
+l'échec de la majoration arête par arête après gel critique.
