@@ -31,7 +31,7 @@ majoration par convexité, pas le carré postérieur exact.
 Pour les petits clusters de taille inférieure à $`\delta n`$,
 
 ```math
-\sum_{C:\,|C|<\delta n}\frac{|C|^2}{n^2}\le\delta.
+\sum_{C:\,|C|\lt\delta n}\frac{|C|^2}{n^2}\le\delta.
 ```
 
 La fluctuation est donc $`O_{\mathbb P}(\sqrt\delta)`$, pas automatiquement

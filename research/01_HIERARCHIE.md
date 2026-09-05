@@ -53,7 +53,7 @@ s'écrit $`\sigma_i=g_i z_C`$, avec $`z_C\in\{-1,1\}`$.
 La loi des orientations est un Ising sur les amas :
 
 ```math
-\pi_O(z\mid A_t)\propto\exp\left(\sum_{C<D}J_{CD}z_Cz_D\right),
+\pi_O(z\mid A_t)\propto\exp\left(\sum_{C\lt D}J_{CD}z_Cz_D\right),
 \qquad
 J_{CD}=\frac{1-t}{2}\sum_{\substack{e=\{i,j\}\\i\in C,\ j\in D}}W_e g_i g_j.
 ```
