@@ -37,11 +37,8 @@ jobs:
       - name: Validate relative Markdown links
         run: python3 .agents/check_markdown_links.py
 
-      - name: Run research tests
-        run: >-
-          python3 -m unittest discover
-          -s research/hierarchical-swendsen-wang/computations
-          -p 'test_*.py'
+      - name: Check finite cluster kernels
+        run: python3 research/check_hierarchy.py
 
-      - name: Compile Python modules
-        run: python3 -m compileall -q research/hierarchical-swendsen-wang/computations
+      - name: Compile Python module
+        run: python3 -m py_compile research/check_hierarchy.py

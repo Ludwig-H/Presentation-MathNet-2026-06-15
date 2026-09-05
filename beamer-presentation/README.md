@@ -29,4 +29,4 @@ Le thème Beamer Inria utilisé par la présentation est inclus dans
 
 La continuation consacrée à la dynamique hiérarchique de Swendsen--Wang est
 documentée dans le
-[dossier de recherche](../research/hierarchical-swendsen-wang/).
+[dossier de recherche](../research/).

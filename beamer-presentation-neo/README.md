@@ -29,4 +29,4 @@ Le thème Beamer Inria est inclus dans [`theme/`](theme/).
 
 La voie actuelle sur le couplage hiérarchique et la weak recovery est
 présentée dans le
-[dossier de recherche](../research/hierarchical-swendsen-wang/).
+[dossier de recherche](../research/).

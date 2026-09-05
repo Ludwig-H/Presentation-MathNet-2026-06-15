@@ -1,101 +1,19 @@
-# Community detection on signed graphs
+# Détection de communautés sur graphes signés
 
-[![Research checks](https://github.com/Ludwig-H/Presentation-MathNet-2026-06-15/actions/workflows/research-checks.yml/badge.svg)](https://github.com/Ludwig-H/Presentation-MathNet-2026-06-15/actions/workflows/research-checks.yml)
+Ce dépôt réunit les présentations de Louis Hauseux, le chapitre de thèse
+associé et un dossier de recherche sur les dynamiques de clusters.
 
-Ce dépôt réunit trois présentations, le chapitre de thèse qui les motive et
-un cahier de recherche reproductible sur la weak recovery dans les graphes
-signés.
+## Recherche
 
-> [!IMPORTANT]
-> **Résultat rigoureux actuel.** Sur le tore triangulaire, le dépôt établit
-> l'absence de weak recovery pour tout
-> $`p\in[1/2,0.809439]`$, soit
-> $`p_{\mathrm{WR}}\ge0.809439`$. La
-> [preuve canonique](research/hierarchical-swendsen-wang/results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md)
-> utilise un canal triangulaire multi-état. Elle est rigoureuse, mais elle
-> **ne provient pas** encore de la dynamique hiérarchique.
+Le [dossier research/](research/README.md) a été refondé autour de trois
+notes courtes : [hiérarchie et lois exactes](research/01_HIERARCHIE.md),
+[audit mathématique](research/02_AUDIT.md) et
+[coupe critique pour la weak recovery](research/03_RECOVERY.md).
 
-## Par où commencer ?
-
-Choisissez le parcours qui correspond à votre objectif.
-
-| Je veux… | Première lecture | Puis… |
-|---|---|---|
-| comprendre le seuil SBM sur deux dendrogrammes | [dossier pédagogique SBM](research/SBM/) | [la dynamique retrouve-t-elle les seuils ?](research/SBM/07_SEUILS_PAR_LA_DYNAMIQUE.md) |
-| suivre le front GSBM (p > 0,8 sur la grille triangulaire) | [dossier GSBM](research/GSBM/) | [programme de recherche](research/GSBM/01_PROGRAMME_DE_RECHERCHE.md) |
-| comprendre le résultat en cinq minutes | [statut scientifique actuel](research/hierarchical-swendsen-wang/CURRENT_STATUS.md) | [certificat à p = 0,809439](research/hierarchical-swendsen-wang/results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md) |
-| comprendre la dynamique hiérarchique | [problème central : fusion critique et chaîne des Λ_v](research/hierarchical-swendsen-wang/foundations/ancestral/42_PROBLEME_CENTRAL_FUSION_CRITIQUE.md) | [cible prioritaire répliquée](research/hierarchical-swendsen-wang/active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md) |
-| retrouver une note précise | [index exhaustif des notes](research/hierarchical-swendsen-wang/INDEX.md) | dossier indiqué par son statut |
-| reproduire les preuves assistées par calcul | [guide des calculs](research/hierarchical-swendsen-wang/computations/README.md) | commandes de validation ci-dessous |
-| consulter les supports de séminaire | [table des présentations](#présentations) | source et PDF dans chaque dossier |
-
-## Les deux voies scientifiques
-
-Le dépôt sépare désormais explicitement deux axes qui ne doivent pas être
-confondus.
-
-| voie | acquis | question ouverte |
-|---|---|---|
-| canal triangulaire multi-état | borne rigoureuse $`p_{\mathrm{WR}}\ge0.809439`$ | pousser le certificat vers le point tangent candidat |
-| dynamique hiérarchique | mesure jointe exacte, calibration broadcast et réduction Palm positive du reste signé | contracter le transfert cross-block moyenné en dendrogramme |
-
-La cible triangulaire utilise chaque arbre associé à une composante géante,
-coupé au niveau $`\beta_c(p)=q_p^{-1}(q_c)`$, mais conserve le Gibbs exact
-de l'arbre entier. Pour calculer le carré postérieur, il faut deux
-dendrogrammes indépendants conditionnellement à l'observation : partager un
-dendrogramme gonfle artificiellement l'overlap. Le pilote dérive le jacobien
-$`d\theta^2`$ et retrouve le seuil du broadcast après marginalisation
-exacte, pour toute coupe ; il ne prouve ni une contraction dynamique ni le
-transfert au SBM fini. Sur le graphe fini, balance ou non-arêtes forment un
-port scalaire exact. Ce port n'est pas une petite correction au seuil KS :
-les racines full-$D$ sont les composantes de deux graphes ER de degré limite
-$`d\theta`$ et, à KS, leurs deux géantes sont recouplées à ordre un. Sur la
-grille, les contributions hors double géante et la diagonale critique sont
-éliminées. Une nouvelle désintégration montre que le reste signé est, à
-$`o(1)`$ près, le carré positif du transfert cross-block **moyenné en
-dendrogramme avant le carré**. La construction d'un espace commun de ports
-et sa contraction restent un **programme de preuve**, pas un théorème de
-seuil. Ce programme ne répète pas la borne par recoloriage du chapitre 11 :
-il remplace son unique objet gelé par deux Gibbs conditionnels exacts sur
-deux dendrogrammes complets.
-
-Les audits à $`L=4,5,6`$ trouvent l'enveloppe à un dendrogramme toujours
-macroscopique, de $`0.9507\ldots`$ à $`0.9478\ldots`$. Le reste signé à deux
-dendrogrammes n'est encore calculé exactement qu'à $`L=4`$. Ces expériences
-valident la décomposition et écartent le raccourci single-$D$ ; elles
-n'établissent aucune tendance asymptotique.
-
-## Carte du dépôt
-
-| chemin | rôle |
-|---|---|
-| [`research/`](research/) | porte d'entrée de la recherche |
-| [`research/SBM/`](research/SBM/) | benchmark pédagogique : seuil KS, deux dendrogrammes et trois régimes de recovery |
-| [`research/GSBM/`](research/GSBM/) | front geometric SBM : programme de recherche, dictionnaire de transport et mesure de la cible répliquée |
-| [`research/hierarchical-swendsen-wang/`](research/hierarchical-swendsen-wang/) | projet principal, organisé par statut scientifique |
-| [`beamer-presentation/`](beamer-presentation/) | séminaire MathNet du 15 juin 2026 |
-| [`beamer-presentation-neo/`](beamer-presentation-neo/) | séminaire NEO du 25 juin 2026 |
-| [`beamer-presentation-reunion-2026-07-16/`](beamer-presentation-reunion-2026-07-16/) | réunion de recherche du 16 juillet 2026 |
-| [`ChapII.tex`](ChapII.tex) | source du chapitre 11 utilisé comme point de départ |
-| [`Manuscrit_de_these.pdf`](Manuscrit_de_thèse.pdf) | manuscrit de thèse complet |
-
-Dans le projet de recherche, les dossiers ont un sens précis :
-
-```text
-hierarchical-swendsen-wang/
-├── CURRENT_STATUS.md   état de l'art interne et prochaine étape
-├── INDEX.md            catalogue complet des notes
-├── foundations/        identités et cadres réutilisables
-├── results/            théorèmes et certificats établis
-├── active/             programme hiérarchique prioritaire et outils associés
-├── diagnostics/        expériences finies, benchmarks et no-go
-├── archive/            anciennes feuilles de route et jalons subsumés
-├── computations/       scripts et tests reproductibles
-└── references/         littérature et bibliographie
-```
-
-Les numéros `00` à `41` gardent la chronologie du cahier. Ils ne définissent
-plus l'ordre de lecture.
+La construction retrouve exactement Glauber à la coupe zéro et
+Swendsen–Wang à la coupe un. Une amélioration des bornes de recovery
+par cette dynamique reste à démontrer. Les résultats antérieurs sont
+référencés dans le dossier.
 
 ## Présentations
 
@@ -113,35 +31,12 @@ cd beamer-presentation
 make
 ```
 
-## Reproduire et valider
-
-Depuis la racine du dépôt :
+## Vérifier le dossier
 
 ```bash
 python3 .agents/check_math.py
 python3 .agents/check_markdown_links.py
-python3 -m unittest discover \
-  -s research/hierarchical-swendsen-wang/computations \
-  -p 'test_*.py'
-python3 -m compileall -q \
-  research/hierarchical-swendsen-wang/computations
+python3 research/check_hierarchy.py
 ```
 
-Les calculs n'ont pas de dépendance scientifique externe. Une valeur
-flottante n'est traitée comme une preuve que lorsqu'elle est accompagnée
-d'un certificat exact, rationnel ou par intervalles.
-
-## Lire les statuts sans ambiguïté
-
-- **établi** : preuve complète dans les hypothèses annoncées ;
-- **conditionnel** : implication prouvée sous un lemme explicitement nommé ;
-- **diagnostic** : calcul fini ou simulation, sans extrapolation en volume ;
-- **no-go** : raccourci réfuté ou fermeture démontrée inadéquate ;
-- **actif** : objectif de recherche non encore démontré ;
-- **archivé** : document conservé pour l'historique, mais non directeur.
-
-Quelques fichiers historiques restent volontairement à la racine afin de
-préserver les liens existants : les figures `LargestComp*` et `Overlap_*`, le
-gabarit Beamer Inria, le PDF Sankararaman–Baccelli, la bibliographie de thèse
-et les sources du chapitre. Les présentations n'en dépendent pas : elles
-contiennent leurs propres copies compilables.
+Le script utilise uniquement la bibliothèque standard Python.

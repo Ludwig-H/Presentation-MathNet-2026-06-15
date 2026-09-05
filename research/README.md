@@ -1,116 +1,34 @@
-# Recherche
+# Une dynamique de clusters vraiment hiérarchique
 
-Ce dossier est la porte d'entrée des notes mathématiques et des calculs
-reproductibles associés aux présentations.
+**L'idée des horloges est bonne. Le point à corriger est le conditionnement.**
+Couper un dendrogramme complet tout en conservant ses fusions supérieures ne
+redonne pas Glauber aux feuilles. Il faut intégrer les informations situées
+au-dessus de la coupe et garder les interactions restantes entre amas.
 
-## Benchmark spécial SBM
+La construction retenue conserve exactement la postérieure du chapitre 11 :
 
-Le dossier [SBM](SBM/) donne une présentation autonome et pédagogique du
-SBM symétrique binaire — et contient désormais la
-[porte de calibration](SBM/07_SEUILS_PAR_LA_DYNAMIQUE.md) à franchir avant
-tout retour au GSBM : la dynamique retrouve-t-elle les seuils du SBM
-classique (weak recovery à la coupe de percolation, exact recovery à
-$`\beta=0`$ où elle dégénère en Glauber) ? Le dossier couvre : deux répliques, deux dendrogrammes indépendants
-coupés au même $\beta_c$, calibration exacte
-$\beta_\chi=\beta_c\Longleftrightarrow d\theta^2=1$, puis extensions
-almost exact / exact recovery et limite $\beta\downarrow0$ vers Glauber.
-Il suit pas à pas l'architecture bayésienne du chapitre 11 et sépare les
-identités prouvées des étapes dynamiques encore ouvertes.
+| Coupe | Mise à jour |
+|---|---|
+| zéro : sommets isolés | balayage de Glauber |
+| intermédiaire | retournements d'amas avec interactions résiduelles |
+| un : racines Swendsen–Wang | retournements indépendants et uniformes |
 
-## Front ouvert : le GSBM triangulaire
+Trois notes, dans l'ordre :
 
-Le dossier [GSBM](GSBM/) porte le programme de recherche sur le geometric
-SBM (tore triangulaire, régime difficile $`p>0{,}8`$) : peut-on dépasser
-la borne rigoureuse $`0{,}809439`$ — voire atteindre le point multicritique
-conjecturé $`0{,}8358`$ — grâce à la dynamique hiérarchique coupée à
-$`\beta_c(p)`$ ? Il contient le
-[plan de recherche](GSBM/01_PROGRAMME_DE_RECHERCHE.md) (cinq routes avec
-portes falsifiables), le
-[dictionnaire de transport](GSBM/02_DICTIONNAIRE_SBM_GSBM.md) de la preuve
-SBM/08 vers la grille, et la
-[première mesure directe](GSBM/03_EXPERIENCE_CIBLE_REPLIQUEE.md) de la
-cible répliquée $`\mathcal D_L^\times`$ (priorité n°2 du statut
-canonique).
+1. [La hiérarchie et ses lois](01_HIERARCHIE.md) : construction, probabilités, preuve d'invariance.
+2. [L'audit](02_AUDIT.md) : ce qui tient et ce qui doit être corrigé.
+3. [La coupe critique et la recovery](03_RECOVERY.md) : la quantité précise qu'il reste à contrôler.
 
-## Le résultat à retenir
+**Acquis :** une interpolation exacte en volume fini.
+**Ouvert :** une meilleure borne de weak recovery grâce à cette dynamique.
+La borne antérieure à 0,809439 reste accessible par son
+[certificat historique](https://github.com/Ludwig-H/Presentation-MathNet-2026-06-15/blob/b89adcc07bce6b13d7732233c183a0eb63654d99/research/hierarchical-swendsen-wang/results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md) ; elle ne vient pas de la dynamique.
 
-Pour le GSBM binaire homogène sur le tore triangulaire, le résultat rigoureux
-actuel est
+Vérification sur de petits graphes, depuis la racine du dépôt :
 
-```math
-p_{\mathrm{WR}}\ge 0.809439.
+```bash
+python3 research/check_hierarchy.py
 ```
 
-La preuve complète se trouve dans le
-[certificat rationnel P809439](hierarchical-swendsen-wang/results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md).
-Elle passe par un canal triangulaire multi-état et non par la dynamique
-hiérarchique.
-
-## Le projet actif
-
-Le dossier
-[`hierarchical-swendsen-wang/`](hierarchical-swendsen-wang/)
-cherche à expliquer et renforcer l'obstruction de weak recovery grâce à une
-dynamique qui généralise Glauber aux feuilles et Swendsen--Wang aux racines.
-
-Son statut tient en quatre lignes :
-
-| objet | statut actuel |
-|---|---|
-| borne $`p_{\mathrm{WR}}\ge0.809439`$ | **établie**, voie non hiérarchique |
-| mesure jointe et heat baths hiérarchiques | **établis** en volume fini |
-| criticalisation uniforme des fusions multiports | **réfutée** par contre-exemple exact |
-| réduction au Gibbs inter-blocs d'un arbre géant fixé | **établie** en volume fini, diagnostic oracle |
-| dendrogramme commun aux deux répliques | **réfuté comme cible exacte** par le pilote SBM |
-| port global du SBM fini | **écrit exactement** ; comparaison perturbative au broadcast réfutée à KS |
-| réduction à un reste signé inter-cellules sur la double géante | **établie** géométriquement |
-| désintégration du reste signé | **établie** en un carré cross-block moyenné en dendrogramme |
-| contraction de ce carré à $`p=0.81`$ | **prioritaire**, sans nouveau seuil prouvé |
-
-## Trois parcours de lecture
-
-### 1. Comprendre rapidement où en est la recherche
-
-1. [Vue d'ensemble pédagogique](hierarchical-swendsen-wang/README.md)
-2. [Statut scientifique canonique](hierarchical-swendsen-wang/CURRENT_STATUS.md)
-3. [Problème central en une note](hierarchical-swendsen-wang/foundations/ancestral/42_PROBLEME_CENTRAL_FUSION_CRITIQUE.md)
-4. [Cible exacte sur la double géante](hierarchical-swendsen-wang/active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md)
-5. [Calibration broadcast et verrou du SBM fini](hierarchical-swendsen-wang/active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md)
-6. [Port global fini et trois régimes SBM](hierarchical-swendsen-wang/active/39_PORT_GLOBAL_SBM_RECOVERY.md)
-7. [Désintégration Palm du reste signé](hierarchical-swendsen-wang/active/41_DESINTEGRATION_PALM_RESTE_SIGNE.md)
-8. [Tests spectraux et signés à p = 0,81](hierarchical-swendsen-wang/diagnostics/finite_volume/40_GIBBS_CRITIQUE_RESTE_SIGNE_P081.md)
-9. [Diagnostic à un dendrogramme géant](hierarchical-swendsen-wang/active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md)
-
-### 2. Vérifier la borne rigoureuse
-
-1. [Baseline du chapitre 11](hierarchical-swendsen-wang/foundations/02_CHAPTER_11_BASELINE.md)
-2. [Dérivation du canal triangulaire](hierarchical-swendsen-wang/results/non_hierarchical/11_TRIANGLE_BLOCK_SDPI.md)
-3. [Certificat canonique à p = 0,809439](hierarchical-swendsen-wang/results/non_hierarchical/34_CERTIFICAT_RATIONNEL_P809439.md)
-4. [Scripts et tests](hierarchical-swendsen-wang/computations/README.md)
-
-### 3. Étudier la dynamique hiérarchique
-
-1. [Mesure jointe et dynamique exacte](hierarchical-swendsen-wang/foundations/01_MATHEMATICAL_FRAMEWORK.md)
-2. [Critère pairwise de weak recovery](hierarchical-swendsen-wang/foundations/03_HIERARCHICAL_WEAK_RECOVERY.md)
-3. [Problème central : fusion critique d'une paire lointaine et chaîne des Λ_v](hierarchical-swendsen-wang/foundations/ancestral/42_PROBLEME_CENTRAL_FUSION_CRITIQUE.md)
-4. [Information des coupes et biais de Palm](hierarchical-swendsen-wang/foundations/25_GEOMETRY_CONDITIONED_CUT_INFORMATION.md)
-5. [Projections de heat bath](hierarchical-swendsen-wang/foundations/19_FAVORABLE_SWEEP_PROJECTIONS.md)
-6. [Projection collapsed du corridor](hierarchical-swendsen-wang/foundations/20_COLLAPSED_CORRIDOR_BLACKWELL.md)
-7. [Deux no-go qui imposent le pivot](hierarchical-swendsen-wang/diagnostics/29_AUDIT_FROID_PIVOT_RANGS_REELS.md)
-8. [Porte de calibration SBM : seuils par la dynamique](SBM/07_SEUILS_PAR_LA_DYNAMIQUE.md)
-9. [Pilote SBM](hierarchical-swendsen-wang/active/37_PILOTE_SBM_GIBBS_HIERARCHIQUE.md)
-10. [Port global et régimes du SBM fini](hierarchical-swendsen-wang/active/39_PORT_GLOBAL_SBM_RECOVERY.md)
-11. [Double géante et Gibbs répliqué exact](hierarchical-swendsen-wang/active/38_DOUBLE_GEANTE_GIBBS_REPLIQUE.md)
-12. [Palm cross-block et opérateur moyenné](hierarchical-swendsen-wang/active/41_DESINTEGRATION_PALM_RESTE_SIGNE.md)
-13. [Diagnostic à un arbre fixé](hierarchical-swendsen-wang/active/36_ARBRE_GEANT_GIBBS_CRITIQUE.md)
-14. [Moteur distance–entropie](hierarchical-swendsen-wang/active/35_DISTANCE_ENTROPIE_ERGODICITE.md)
-
-L'[index exhaustif](hierarchical-swendsen-wang/INDEX.md) classe toutes les
-notes, y compris les diagnostics et les anciennes feuilles de route.
-
-## Règle de lecture
-
-Les numéros des fichiers indiquent l'ordre historique de création. Le dossier
-qui contient le fichier indique son statut scientifique actuel. En cas de
-contradiction entre deux anciennes feuilles de route, le
-[statut canonique](hierarchical-swendsen-wang/CURRENT_STATUS.md) prévaut.
+Le script énumère les états et les transitions ; ses contrôles numériques
+complètent les preuves, sans établir de seuil asymptotique.

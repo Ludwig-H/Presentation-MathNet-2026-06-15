@@ -8,7 +8,7 @@ Avrachenkov consacrée à la dynamique hiérarchique de Swendsen--Wang.
 > $`\Lambda_v`$ sont regroupées dans
 > [`hierarchical_sw_frames.tex`](hierarchical_sw_frames.tex). Leur programme
 > mathématique actualisé se trouve dans le
-> [dossier de recherche](../research/hierarchical-swendsen-wang/).
+> [dossier de recherche](../research/).
 
 - [PDF compilé](Presentation_2026-07-16_LouisHauseux_ReunionLouisNahuelKonstantin.pdf)
 - [Source principale](main.tex)
@@ -31,11 +31,7 @@ Le thème Beamer Inria est inclus dans [`theme/`](theme/).
 
 ## Parcours conseillé
 
-1. lire les slides 31--33 dans le PDF ;
-2. consulter la
-   [présentation pédagogique](../research/hierarchical-swendsen-wang/README.md) ;
-3. poursuivre avec le
-   [statut scientifique actuel](../research/hierarchical-swendsen-wang/CURRENT_STATUS.md) ;
-4. utiliser la
-[chaîne ancestrale des taux Lambda](../research/hierarchical-swendsen-wang/foundations/ancestral/08_ANCESTRAL_LAMBDA_CHAIN.md)
-   pour la formalisation complète.
+1. lire les slides 31–33 dans le PDF ;
+2. consulter l'[audit des affirmations](../research/02_AUDIT.md) ;
+3. poursuivre avec la [construction corrigée](../research/01_HIERARCHIE.md)
+   et la [question de recovery](../research/03_RECOVERY.md).
