@@ -56,6 +56,10 @@ C'est la somme sur toutes les façons de connecter les amas précoces pour
 obtenir exactement les racines finales. Elle remplace le simple Gibbs
 résiduel lorsque la géante finale est connue.
 
+Ce conditionnement sert ici à la preuve. Une MCMC qui conserve aussi
+$`\mathcal R`$ doit employer cette loi ; ses mises à jour à $`c=0`$ ne sont
+plus celles de Glauber décrites dans la [note 1](01_HIERARCHIE.md).
+
 **Preuve.** Multiplier les probabilités des trois états d'une arête par
 son poids postérieur donne respectivement $`(e^{u_p}-e^h)s_e`$ pour une
 arête précoce, $`(e^h-1)s_e`$ pour une arête tardive, et $`1`$ pour une
